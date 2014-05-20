@@ -72,8 +72,8 @@ class CatalogController < ApplicationController
     #config.add_index_field 'name_display', :label => 'Name', :helper_method => :render_name_display
     config.add_index_field 'mostSpecificTypeURIs', :label => 'Type', :link_to_search => true, :helper_method => :render_type_display
     config.add_index_field 'URI', :label => '', :helper_method => :render_linkeddata_display
-   config.add_index_field 'subjectarea_display', :label => 'Subject Area'
-   config.add_index_field 'keyword_display', :label => 'Keyword'
+    config.add_index_field 'subjectarea_display', :label => 'Subject Area'
+    config.add_index_field 'keyword_display', :label => 'Keyword'
     config.add_index_field 'author_display', :label => 'Author'
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
