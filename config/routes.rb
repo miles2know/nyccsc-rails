@@ -1,6 +1,21 @@
-Rails.application.routes.draw do
+ALLOW_SOLR_DOCIDS ||= /[a-zA-Z0-9_.:%\/\/*]*/
+#ALLOW_SOLR_DOCIDS ||= /[*]*/
+TeealBlacklight::Application.routes.draw do
+  get "test_proxy_controller/hello"
   root :to => "catalog#index"
-  blacklight_for :catalog
+  #get 'catalog/:id' => 'catalog#show',  :constraints => { :id => ALLOW_SOLR_DOCIDS, :format => false }
+  #Allow everything including empty string for id
+  get "catalog/:id" => "catalog#show",  :constraints => {:id => /.*/}
+  #get "catalog/:id" => "catalog#show",  :constraints => {:id => /|[a-zA-Z0-9_.:\/\/*]*/}
+  #get "catalog/:id/DocId" => 'catalog#specialId'
+  
+  blacklight_for:catalog
+  
+  #blacklight_for :catalog
+
+  #Get an error when we try to get constraints below with regular search
+  #blacklight_for :catalog, :constraints => { :id => ALLOW_SOLR_DOCIDS, :format => false }
+  #, :constraints => { :id => ALLOW_SOLR_DOCIDS, :format => false }
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
