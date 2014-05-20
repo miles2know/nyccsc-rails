@@ -1,15 +1,15 @@
 ALLOW_SOLR_DOCIDS ||= /[a-zA-Z0-9_.:%\/\/*]*/
 #ALLOW_SOLR_DOCIDS ||= /[*]*/
-TeealBlacklight::Application.routes.draw do
+Rails.application.routes.draw do
   get "test_proxy_controller/hello"
   root :to => "catalog#index"
   #get 'catalog/:id' => 'catalog#show',  :constraints => { :id => ALLOW_SOLR_DOCIDS, :format => false }
   #Allow everything including empty string for id
-  get "catalog/:id" => "catalog#show",  :constraints => {:id => /.*/}
+  #get "catalog/:id" => "catalog#show",  :constraints => {:id => /.*/}
   #get "catalog/:id" => "catalog#show",  :constraints => {:id => /|[a-zA-Z0-9_.:\/\/*]*/}
   #get "catalog/:id/DocId" => 'catalog#specialId'
   
-  blacklight_for:catalog
+  blacklight_for:catalog, :constraints => {:id => /|.*/}
   
   #blacklight_for :catalog
 
