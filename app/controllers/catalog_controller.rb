@@ -3,6 +3,7 @@
 class CatalogController < ApplicationController
 
   include Blacklight::Catalog
+  # include Nyccsc::Darcy
 
   configure_blacklight do |config|
     ## Default parameters to send to solr for all search-like requests. See also SolrHelper#solr_search_params
@@ -25,6 +26,7 @@ class CatalogController < ApplicationController
     # solr field configuration for search results/index views
     config.index.title_field = 'name_display'
     config.index.display_type_field = 'type'
+    #config.index.docid_field = 'DocId'
 
     # solr field configuration for document/show views
     config.show.title_field = 'name_display'
@@ -71,7 +73,7 @@ class CatalogController < ApplicationController
     #   The ordering of the field names is the order of the display
     #config.add_index_field 'name_display', :label => 'Name', :helper_method => :render_name_display
     config.add_index_field 'mostSpecificTypeURIs', :label => 'Type', :link_to_search => true, :helper_method => :render_type_display
-    config.add_index_field 'URI', :label => '', :helper_method => :render_linkeddata_display
+    #config.add_index_field 'URI', :label => 'URI', :helper_method => :render_linkeddata_display
     config.add_index_field 'subjectarea_display', :label => 'Subject Area'
     config.add_index_field 'keyword_display', :label => 'Keyword'
     config.add_index_field 'author_display', :label => 'Author'
@@ -122,48 +124,67 @@ class CatalogController < ApplicationController
     #config.add_sort_field 'score desc, pub_date_sort desc, title_sort asc', :label => 'relevance'
     #config.add_sort_field 'pubDate_sort desc, title_sort asc', :label => 'year'
     #config.add_sort_field 'author_sort asc, title_sort asc', :label => 'author'
-    #config.add_sort_field 'title_sort asc, pub_date_sort desc', :label => 'title'
-    #config.add_sort_field 'name_sort asc', :label => 'name'
+    #config.add_sort_field 'name_display_sort asc, type_sort asc', :label => 'title'
+    #config.add_sort_field 'type_sort asc, name_display_sort', :label => 'type'
 
     # If there are more than this many search results, no spelling ("did you
     # mean") suggestion is offered.
     config.spell_max = 5
   end
   #Overriding
-    
-     # get single document from the solr index
-    def show
-    Rails.logger.debug("Trying to override show for the heck of it, inspect params #{params.inspect}")
-      @response, @document = get_solr_response_for_doc_id    
 
-      respond_to do |format|
-        format.html {setup_next_and_previous_documents}
-
-        format.json { render json: {response: {document: @document}}}
-
-        # Add all dynamically added (such as by document extensions)
-        # export formats.
-        @document.export_formats.each_key do | format_name |
-          # It's important that the argument to send be a symbol;
-          # if it's a string, it makes Rails unhappy for unclear reasons. 
-          format.send(format_name.to_sym) { render :text => @document.export_as(format_name), :layout => false }
-        end
-        
-      end
-    end
-
-    # updates the search counter (allows the show view to paginate)
-    #OVerriding to enable parameters to pass through
-    def update
-        Rails.logger.debug("Routing through update")
-      search_session[:counter] = params[:counter]
-      #Check if there is a DocId parameter and pass that along, this is for passing a URL
-      if params["DocId"]
-         redirect_to :action => "show", :status => 303, :DocId => params["DocId"]
-      else 
-           redirect_to :action => "show", :status => 303
-      end
+  # # get search results from the solr index
+  #   def index
+  #     Rails.logger.debug("///////Params: #{params.inspect}////////")
+  #     (@response, @document_list) = get_search_results
       
-    end
+  #     respond_to do |format|
+  #       format.html { }
+  #       format.rss  { render :layout => false }
+  #       format.atom { render :layout => false }
+  #       format.json do
+  #         render json: render_search_results_as_json
+  #       end
+
+  #       additional_response_formats(format)
+  #       document_export_formats(format)
+  #     end
+  #   end
+    
+  #    # get single document from the solr index
+  #   def show
+  #   Rails.logger.debug("///////Params: #{params.inspect}////////")
+
+  #     @response, @document = get_solr_response_for_doc_id    
+      
+  #     respond_to do |format|
+
+  #       format.html {setup_next_and_previous_documents}
+  #       format.json { render json: {response: {document: @document}}}
+
+  #       # Add all dynamically added (such as by document extensions)
+  #       # export formats.
+  #       @document.export_formats.each_key do | format_name |
+  #         # It's important that the argument to send be a symbol;
+  #         # if it's a string, it makes Rails unhappy for unclear reasons. 
+  #         format.send(format_name.to_sym) { render :text => @document.export_as(format_name), :layout => false }
+  #       end
+        
+  #     end
+  #   end
+
+  #   #updates the search counter (allows the show view to paginate)
+  #   #OVerriding to enable parameters to pass through
+  #   def update
+  #       Rails.logger.debug("Routing through update")
+  #     search_session[:counter] = params[:counter]
+  #     #Check if there is a DocId parameter and pass that along, this is for passing a URL
+  #     if params["DocId"]
+  #        redirect_to :action => "show", :status => 303, :DocId => params["DocId"]
+  #     else 
+  #          redirect_to :action => "show", :status => 303
+  #     end
+      
+  #   end
 
 end
