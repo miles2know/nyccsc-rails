@@ -1,15 +1,20 @@
-ALLOW_SOLR_DOCIDS ||= /[a-zA-Z0-9_.:%\/\/*]*/
-#ALLOW_SOLR_DOCIDS ||= /[*]*/
+
 Rails.application.routes.draw do
-  get "test_proxy_controller/hello"
-  root :to => "catalog#index"
-  #get 'catalog/:id' => 'catalog#show',  :constraints => { :id => ALLOW_SOLR_DOCIDS, :format => false }
-  #Allow everything including empty string for id
-  #get "catalog/:id" => "catalog#show",  :constraints => {:id => /.*/}
-  #get "catalog/:id" => "catalog#show",  :constraints => {:id => /|[a-zA-Z0-9_.:\/\/*]*/}
-  #get "catalog/:id/DocId" => 'catalog#specialId'
   
+
+  # get "test_proxy_controller/hello"
+  #root :to => "catalog#index"
+
+  # get '/data', to: 'catalog#index'
+
+  #allow any characters for id (since SOLR IDs are URIs)
   blacklight_for:catalog, :constraints => {:id => /|.*/}
+
+  comfy_route :cms_admin, :path => '/admin'
+
+  # Make sure this routeset is defined last
+  comfy_route :cms, :path => '/', :sitemap => false
+  # comfy_route :cms, :path => '/', :sitemap => false
   
   #blacklight_for :catalog
 
@@ -20,7 +25,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+   root 'welcome#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
