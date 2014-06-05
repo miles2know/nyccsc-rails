@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   # get '/data', to: 'catalog#index'
 
   #allow any characters for id (since SOLR IDs are URIs)
-  blacklight_for:catalog, :constraints => {:id => /|.*/}
+  blacklight_for:search, :constraints => {:id => /|.*/}
 
   comfy_route :cms_admin, :path => '/admin'
 
