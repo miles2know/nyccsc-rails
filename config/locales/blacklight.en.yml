@@ -1,3 +1,6 @@
 en:
   blacklight:
     application_name: 'NYCCSC'
+
+    header_links: 
+      search_history: 'Search History'

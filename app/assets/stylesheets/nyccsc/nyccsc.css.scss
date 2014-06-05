@@ -1,5 +1,10 @@
+//**********************************
+// NYCCSC Specific Styles
+//
+// v1.0 2014
+//**********************************
 
-#header-navbar .navbar-brand {width:185px;}
-body {font-family: 'Open Sans', sans-serif}
-
-h1, h2 {font-family: 'Montserrat', sans-serif;font-weight:400}
+// Load partials
+@import 'base';
+@import 'header';
+@import 'browse';

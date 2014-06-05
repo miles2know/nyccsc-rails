@@ -1,0 +1,53 @@
+
+
+#header-navbar .navbar-brand {
+  height: 125px;
+  width: 170px;
+  margin-right: 0;
+}
+
+#header-navbar h3 {
+  color: #acb74e;
+}
+
+.navbar-static-top {
+   border-bottom: 5px solid #BBC178;
+}
+
+#header-search{
+  font-size: .8em;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+#header-search a:hover {
+  background: #fff;
+}
+
+.primary-navbar {
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #ddd;
+  -webkit-border-top-left-radius: 3px;
+  -webkit-border-top-right-radius: 3px;
+  -moz-border-radius-topleft: 3px;
+  -moz-border-radius-topright: 3px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+.navbar-form .input-group {
+  vertical-align: top;
+}
+
+.navbar-form .input-group-addon {
+  padding: 4px 12px 3px;
+}
+
+.icon-home {
+  background: url('nyccsc/icons/home-white.png');
+}
+
+.icon-bar {
+ background-color: #fff;
+}

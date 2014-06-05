@@ -1,0 +1,32 @@
+.panel-success > .panel-heading, .facet_limit-active {
+  border-color: #DDDDDD;
+}
+
+.panel-success > .panel-heading, .facet_limit-active > .panel-heading {
+  background-color: #fff;
+  color: #A3A856;
+}
+
+.panel-success > .panel-heading + .panel-collapse > .panel-body, .facet_limit-active > .panel-heading + .panel-collapse > .panel-body {
+    border-top-color: #DDDDDD;
+}
+
+.text-success, .facet-values li .selected {
+  color: #A3A856;
+}
+
+.document h5 {
+  font-size: 1.3em;
+}
+
+.document-metadata {
+  font-size: .8em;
+}
+
+.document dl.document-metadata dt {
+  width: 70px; 
+}
+
+.document dl.document-metadata dd {
+  margin-left: 80px;
+}
