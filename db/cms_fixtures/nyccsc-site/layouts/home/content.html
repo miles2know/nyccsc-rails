@@ -1,0 +1,13 @@
+<html>
+  <body>
+    {{cms:snippet:header}}
+    {{cms:snippet:main-menu}}
+    <h1>{{ cms:page:header:string }}</h1>
+    {{ cms:page:content:rich_text}}
+
+    <!-- You can add as many blocks as you want -->
+    {{ cms:page:another_block:rich_text }}
+    
+    {{cms:snippet:footer}}
+  </body>
+</html>
