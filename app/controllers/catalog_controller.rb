@@ -71,9 +71,10 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
-    #config.add_index_field 'name_display', :label => 'Name', :helper_method => :render_name_display
     config.add_index_field 'mostSpecificTypeURIs', :label => 'Type', :link_to_search => true, :helper_method => :render_type_display
-    #config.add_index_field 'URI', :label => 'URI', :helper_method => :render_linkeddata_display
+    ## URI is not displayed but this enables making a call to the linked data for the URI
+    ## and we can then display what is relevant for that URI
+    config.add_index_field 'URI', :label => 'URI', :helper_method => :render_linkeddata_display
     config.add_index_field 'subjectarea_display', :label => 'Subject Area'
     config.add_index_field 'keyword_display', :label => 'Keyword'
     config.add_index_field 'author_display', :label => 'Author'
@@ -173,18 +174,31 @@ class CatalogController < ApplicationController
   #     end
   #   end
 
-  #   #updates the search counter (allows the show view to paginate)
-  #   #OVerriding to enable parameters to pass through
-  #   def update
-  #       Rails.logger.debug("Routing through update")
-  #     search_session[:counter] = params[:counter]
-  #     #Check if there is a DocId parameter and pass that along, this is for passing a URL
-  #     if params["DocId"]
-  #        redirect_to :action => "show", :status => 303, :DocId => params["DocId"]
-  #     else 
-  #          redirect_to :action => "show", :status => 303
-  #     end
-      
-  #   end
+  # This method from lib/blacklight/catalog.rb needs to be overridden in order
+  # to allow the DocId to be passed through as a parameter when a user clicks on the
+  # link for an individual result.  Currently, clicking the link actually sets up a form
+  # which is then submitted using the 'track' action, and then the page is redirected
+  # to the actual individual.  This update below enables the DocId parameter to be passed along
+  # from the link to the redirected page. 
+  # updates the search counter (allows the show view to paginate)
+      def track
+        search_session['counter'] = params[:counter]
+        search_session['per_page'] = params[:per_page]
+  
+        path = if params[:redirect] and (params[:redirect].starts_with?("/") or params[:redirect] =~ URI::regexp)
+          URI.parse(params[:redirect]).path
+        else
+          { action: 'show' }
+        end
+        
+        ##There is a more elegant way to do the same thing, please find it, thanks.
+        if params["DocId"]
+          redirect_to path, :status => 303, :DocId => params["DocId"]
+        else
+          redirect_to path, :status => 303
+        end
+        
+        
+      end
 
 end
