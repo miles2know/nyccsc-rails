@@ -1,6 +1,6 @@
 
 Rails.application.routes.draw do
-  
+  get "sparql_query_controller/getHighlightedContent"
 
   # get "test_proxy_controller/hello"
   #root :to => "catalog#index"

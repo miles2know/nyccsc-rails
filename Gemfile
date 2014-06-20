@@ -12,7 +12,7 @@ gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer',  platforms: :ruby
+ gem 'therubyracer',  platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -25,6 +25,11 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring',        group: :development
+
+#these were in the other gemfile with the older blacklight but can be removed
+#if not necessary
+gem 'execjs'
+
 
 #blacklight 
 gem 'blacklight'
@@ -41,4 +46,27 @@ gem 'comfortable_mexican_sofa', '~> 1.12.0'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+
+######### Leaflet and mapping
+gem 'font-awesome-sass'
+##Some of these are from geoblacklight to make things work
+gem 'leaflet-rails'
+gem 'leaflet-locatecontrol-rails', :git => 'https://github.com/zentrification/leaflet-locatecontrol-rails.git'
+gem 'leaflet-sidebar-rails', '~> 0.0.3'
+gem 'leaflet-minimap-rails', :git => 'https://github.com/zentrification/leaflet-minimap-rails.git'
+gem 'leaflet-markercluster-rails', '~> 0.7.0'
+
+## d3
+gem 'd3_rails'
+# twitter typeahead js
+gem 'typeahead-rails', '~> 0.10.1'
+
+
+
+# Used in download controller and wms controller, will probably use neither so comment out if that is the case
+gem 'httparty'
+#Geoblacklight also uses devise, but appears for users, etc. so we won't include it for now, uncomment if need be
+#gem 'devise'
+#gem 'devise-guests', '~> 0.3'
 
