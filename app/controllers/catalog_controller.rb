@@ -9,8 +9,13 @@ class CatalogController < ApplicationController
     ## Default parameters to send to solr for all search-like requests. See also SolrHelper#solr_search_params
     config.default_solr_params = {
       :qt => 'search',
-      :rows => 10
+      :rows => 10,
+      facet.mincount => 1 
     }
+    #adding facet mincount to the general search area because the facet request is always made
+    # and the default is 0, the other place to set this is solrconfig.xml under the 
+    # request handler specification - since we have our own override mechanism we can do that
+    
 
     ## Default parameters to send on single-document requests to Solr. These settings are the Blackligt defaults (see SolrHelper#solr_doc_params) or
     ## parameters included in the Blacklight-jetty document requestHandler.
