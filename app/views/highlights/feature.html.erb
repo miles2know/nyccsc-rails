@@ -1,0 +1,16 @@
+<h1>Features - Content from VIVO using a SPARQL query</h1>
+<p></p>
+
+<ul>
+
+<% @data['results']['bindings'].each do |item| %>
+    <li><strong>Label: </strong>
+    <p><%= item['label']['value'] %></p>
+    </li>
+    
+    <li><strong>Abstract: </strong>
+    <%= item['abstract']['value'].html_safe %>
+    </li>
+<% end %>
+
+</ul>

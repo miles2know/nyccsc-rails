@@ -12,7 +12,8 @@
 
 development:
 #  url: <%= ENV['SOLR_URL'] || "http://127.0.0.1:8983/solr" %>
-  url: <%= ENV['SOLR_URL'] || "http://localhost:8080/vivosolr" %>
+#  url: <%= ENV['SOLR_URL'] || "http://localhost:8080/vivosolr" %>
+  url: <%= ENV['SOLR_URL'] || "http://climate-dev.library.cornell.edu:8080/vivosolr" %>
 test: &test
   url: <%= "http://127.0.0.1:#{ENV['TEST_JETTY_PORT'] || 8888}/solr" %>
 production:

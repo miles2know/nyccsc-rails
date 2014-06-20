@@ -3,19 +3,24 @@ Rails.application.routes.draw do
   get "proxy_controller/hello"
   get "sparql_query_controller/getHighlightedContent"
   #TODO: Check whether not including the below route affects some other functionality
-  #root :to => "catalog#index"
+  root :to => "catalog#index"
 
   # get '/data', to: 'catalog#index'
 
   #allow any characters for id (since SOLR IDs are URIs)
   blacklight_for:catalog, :constraints => {:id => /|.*/}
 
-  comfy_route :cms_admin, :path => '/admin'
+  #root 'welcome#index'
 
-  # Make sure this routeset is defined last
-  comfy_route :cms, :path => '/', :sitemap => false
-  # comfy_route :cms, :path => '/', :sitemap => false
+  #darcy's playground 
+  get 'pages/calendar(/:year(/:month))', to: 'pages#calendar', as: 'calendar'
+  get 'pages/test2'
+  get 'highlights/feature'
+
+
+  # resources :highlights
   
+
   #blacklight_for :catalog
 
   #Get an error when we try to get constraints below with regular search
@@ -24,8 +29,12 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
-  # You can have the root of your site routed with "root"
-   root 'welcome#index'
+  
+
+   #comfy_route :cms_admin, :path => '/admin'
+
+  # Make sure this routeset is defined last
+   #comfy_route :cms, :path => '/', :sitemap => false
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

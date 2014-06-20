@@ -10,7 +10,7 @@ class CatalogController < ApplicationController
     config.default_solr_params = {
       :qt => 'search',
       :rows => 10,
-      facet.mincount => 1 
+     # facet.mincount => 1 
     }
     #adding facet mincount to the general search area because the facet request is always made
     # and the default is 0, the other place to set this is solrconfig.xml under the 
