@@ -1,0 +1,55 @@
+.leantoCluster {
+    color: white;
+    font-weight: bold;
+    width: 45px;
+    height: 45px;
+    line-height: 25px;
+    background: transparent url(../../img/adkwebmap/leantoCluster.png) 0 0 no-repeat scroll;
+    text-align: left;
+    text-indent: 8px;
+    font-size: 11px;
+}
+
+.campsiteCluster {
+    color: white;
+    font-weight: bold;
+    width: 45px;
+    height: 45px;
+    line-height: 25px;
+    background: transparent url(../../img/adkwebmap/campsiteCluster.png) 0 0 no-repeat scroll;
+    text-align: left;
+    text-indent: 6px;
+    font-size: 11px;
+}
+
+.parkingCluster {
+    color: white;
+    font-weight: bold;
+    width: 45px;
+    height: 45px;
+    line-height: 25px;
+    background: transparent url(../../img/adkwebmap/parkingCluster.png) 0 0 no-repeat scroll;
+    text-align: left;
+    text-indent: 6px;
+    font-size: 11px;
+}
+
+.longlakeCluster {
+    color: white;
+    font-weight: bold;
+    width: 45px;
+    height: 45px;
+    line-height: 25px;
+    background: transparent url(../../img/longlake/LongLakeBearLogo.png) 0 0 no-repeat scroll;
+    text-align: left;
+    text-indent: 6px;
+    font-size: 11px;
+}
+
+.carousel-caption {
+      font-style: bold;
+      text-shadow: 2px 2px #ffffff;
+      top:0;
+      bottom: auto;
+}
+

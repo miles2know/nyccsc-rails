@@ -62,12 +62,19 @@ module DisplayHelper
       require "net/http"
       result = []
      $URI = document["URI"] unless document["URI"].blank?
+     
+     Rails.logger.debug("$URI is here  #{$URI}")
+     #Check whether we have vitroIndividual in front of URI
+     #Also see how we can forward climate-dev etc. to the correct URI on this machine
      if $URI.present?
      	$URISplit = $URI.split("/")
      	$localName = $URISplit.last
      	#This is a hack because the URI is currently NOT the URL for the individual
      	#TODO: change this so this works more consistently with the URI later
-     	url = URI.parse("http://climate-dev.library.cornell.edu:8080/vivo/individual/" + $localName  + "?format=jsonld")
+      
+     	url = URI.parse("http://climate-dev.library.cornell.edu:8080/vivo/individual?uri=" + $URI  + "&format=jsonld")
+      #Need to include a way to check whether or not this URL exists so we can catch the error
+      
      	resp = Net::HTTP.get_response(url)
      	data = resp.body
      	result = JSON.parse(data)

@@ -1,8 +1,8 @@
 
 Rails.application.routes.draw do
+  get "proxy_controller/hello"
   get "sparql_query_controller/getHighlightedContent"
-
-  # get "test_proxy_controller/hello"
+  #TODO: Check whether not including the below route affects some other functionality
   #root :to => "catalog#index"
 
   # get '/data', to: 'catalog#index'
