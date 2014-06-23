@@ -7,9 +7,9 @@ class ProxyControllerController < ApplicationController
       require "net/http"
   	  @query = params[:q]
       @base_solr_url = 'http://localhost:8080/vivosolr/select/?wt=json&q='
-      @base_forestservices = 'http://forestecoservices.net/nyclimate/data/'
+      @base_forestservices = 'http://frontierspatial.com/nyccsc/data/'
       @base_url = request.env['HTTP_HOST']
-      @base_current_url = 'http://' + @base_url + '/test_proxy_controller/hello'
+      @base_current_url = 'http://' + @base_url + '/proxy_controller/hello'
       ##Check whether this is solr or for something else
       @querytype = params["querytype"]
       if (@querytype) 

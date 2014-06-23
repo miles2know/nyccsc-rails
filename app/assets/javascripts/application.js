@@ -26,12 +26,12 @@
 // require offcanvas
 
 // Other leaflet and related scripts
-// require L.Control.Locate
-// require L.Control.Sidebar
-// require d3
-// require typeahead
-// require Control.MiniMap
-// require leaflet.markercluster
+//= require L.Control.Locate
+//= require L.Control.Sidebar
+//= require d3
+//= require typeahead
+//= require Control.MiniMap
+//= require leaflet.markercluster
 //
 // Required by Blacklight
 //= require blacklight/blacklight

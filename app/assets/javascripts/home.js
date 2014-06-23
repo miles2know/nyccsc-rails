@@ -313,7 +313,7 @@ function getWstations(e){
 function getGages(e){
     var bounds = map.getBounds();
     map.removeLayer(gage)
-    var url = "test_proxy_controller/hello?q=data&querytype=streamGage2geojson&lat1=" + bounds.getSouthWest().lat + "&lon1=" + bounds.getSouthWest().lng + "&lat2=" + bounds.getNorthEast().lat + "&lon2=" + bounds.getNorthEast().lng;
+    var url = "proxy_controller/hello?q=data&querytype=streamGage2geojson&lat1=" + bounds.getSouthWest().lat + "&lon1=" + bounds.getSouthWest().lng + "&lat2=" + bounds.getNorthEast().lat + "&lon2=" + bounds.getNorthEast().lng;
 
     $.getJSON(url, function (data) {
         //console.log("gagedata",data)
@@ -332,7 +332,7 @@ function getCounties(e){
     var bounds = map.getBounds();
     var center = map.getCenter();
     //map.removeLayer(gage)
-    var url = "test_proxy_controller/hello?q=data&querytype=countyREST2json&lat1=" + bounds.getSouthWest().lat + "&lon1=" + bounds.getSouthWest().lng + "&lat2=" + bounds.getNorthEast().lat + "&lon2=" + bounds.getNorthEast().lng + "&midlon=" + center.lng + "&midlat=" + center.lat;
+    var url = "proxy_controller/hello?q=data&querytype=countyREST2json&lat1=" + bounds.getSouthWest().lat + "&lon1=" + bounds.getSouthWest().lng + "&lat2=" + bounds.getNorthEast().lat + "&lon2=" + bounds.getNorthEast().lng + "&midlon=" + center.lng + "&midlat=" + center.lat;
 
     $.getJSON(url, function (data) {
     //console.log('counties in boundingbox',data)
@@ -353,7 +353,7 @@ function getClickList(e){
     
     var point = e.latlng;
     //map.removeLayer(gage)
-    var url = "test_proxy_controller/hello?q=data&querytype=clickList2json&lon=" + point.lng + "&lat=" + point.lat;
+    var url = "proxy_controller/hello?q=data&querytype=clickList2json&lon=" + point.lng + "&lat=" + point.lat;
 
     //Updating the look and feel here so that it is more in line with what we want the user to see
     //The end user probably won't care about 'polygons'

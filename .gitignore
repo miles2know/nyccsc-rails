@@ -17,3 +17,5 @@
 
 .DS_Store
 /db/cms_fixtures/sample-site
+
+config/solr.yml
