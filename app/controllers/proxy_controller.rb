@@ -6,7 +6,7 @@ class ProxyController < ApplicationController
   def data
       require "net/http"
   	  @query = params[:q]
-      @base_solr_url = 'http://climate-dev.library.cornell.edu:8080/vivo/select/?wt=json&q='
+      @base_solr_url = 'http://climate-dev.library.cornell.edu:8080/vivosolr/select/?wt=json&q='
       @base_forestservices = 'http://forestecoservices.net/nyclimate/data/'
       @base_url = request.env['HTTP_HOST']
       @base_current_url = 'http://' + @base_url + '/proxy/data'
