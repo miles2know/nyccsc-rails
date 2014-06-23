@@ -1,7 +1,6 @@
 
 Rails.application.routes.draw do
-  get "proxy_controller/hello"
-  get "sparql_query_controller/getHighlightedContent"
+  
   #TODO: Check whether not including the below route affects some other functionality
   root :to => "catalog#index"
 
@@ -10,16 +9,14 @@ Rails.application.routes.draw do
   #allow any characters for id (since SOLR IDs are URIs)
   blacklight_for:catalog, :constraints => {:id => /|.*/}
 
+  #home page - different from primary catalog interface
   #root 'welcome#index'
 
-  #darcy's playground 
+  #experimenting with views and controllers within application for static html pages, SPARQL queries, and CMS integration
   get 'pages/calendar(/:year(/:month))', to: 'pages#calendar', as: 'calendar'
   get 'pages/test2'
   get 'highlights/feature'
-
-
-  # resources :highlights
-  
+  get 'proxy/data'
 
   #blacklight_for :catalog
 
