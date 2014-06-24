@@ -2,23 +2,28 @@
 Rails.application.routes.draw do
   
   #TODO: Check whether not including the below route affects some other functionality
-  #root :to => "catalog#index"
+  root :to => "catalog#index"
 
   # get '/data', to: 'catalog#index'
 
+  #maps and data
   #allow any characters for id (since SOLR IDs are URIs)
   blacklight_for:catalog, :constraints => {:id => /|.*/}
 
-  #home page - different from primary catalog interface
-  root 'pages#home'
+  #home page - differentiate from primary catalog interface
+  #root 'pages#home'
+
+  get 'pages/understand'
+  get 'pages/vulnerabilities'
+  get 'pages/strategies'
+  get 'pages/news'
+
+  get 'highlights/feature'
+  get 'proxy/data'
 
   #experimenting with views and controllers within application for static html pages, SPARQL queries, and CMS integration
   get 'pages/calendar(/:year(/:month))', to: 'pages#calendar', as: 'calendar'
   get 'pages/test2'
-
-
-  get 'highlights/feature'
-  get 'proxy/data'
 
   #blacklight_for :catalog
 
