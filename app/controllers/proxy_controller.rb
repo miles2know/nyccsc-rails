@@ -7,6 +7,7 @@ class ProxyController < ApplicationController
       require "net/http"
   	  @query = params[:q]
 
+
       @base_solr_url = Blacklight.solr_config[:url] + '/select/?wt=json&q='
       @base_forestservices = 'http://frontierspatial.com/nyccsc/data/'
       @base_url = request.env['HTTP_HOST']
