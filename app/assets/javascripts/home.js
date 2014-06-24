@@ -371,7 +371,8 @@ function getClickList(e){
     	if(countyInfo != null) {
     		//Need bounding box in order to create the URL
     		var params = "spatialrange=[" + countyInfo.minY + "," + countyInfo.minX + " TO " + countyInfo.maxY + "," + countyInfo.maxX + "]";
-    		clickUrl = "/?q=*&search_fields=all_fields&" + params;
+    		//To do, find way to get base url for index automatically
+    		clickUrl = "/catalog?q=*&search_fields=all_fields&" + params;
     	}
     	
     	
