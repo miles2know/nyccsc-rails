@@ -10,7 +10,7 @@ class CatalogController < ApplicationController
     config.default_solr_params = {
       :qt => 'search',
       :rows => 10,
-     # facet.mincount => 1 
+      'facet.mincount' => 1 
     }
     #adding facet mincount to the general search area because the facet request is always made
     # and the default is 0, the other place to set this is solrconfig.xml under the 
@@ -187,23 +187,38 @@ class CatalogController < ApplicationController
   # from the link to the redirected page. 
   # updates the search counter (allows the show view to paginate)
       def track
+        require 'cgi'
         search_session['counter'] = params[:counter]
         search_session['per_page'] = params[:per_page]
+          
   
         path = if params[:redirect] and (params[:redirect].starts_with?("/") or params[:redirect] =~ URI::regexp)
-          URI.parse(params[:redirect]).path
+         # if redirect path has DocId parameter, save that
+         if(params[:redirect].include?("?DocId=")) 
+          
+           #OR use CGI parse?
+           urlhash=  CGI::parse("DocId=" + params[:redirect].partition("?DocId=").last)
+           #Rails.logger.debug("test hash #{urlhash.inspect}")
+           #URI.parse(params[:redirect])
+            if(urlhash["DocId"].length > 0)
+                URI.parse(params[:redirect]).path + "?DocId=" + urlhash["DocId"].first
+            else 
+              URI.parse(params[:redirect]).path
+            end
+           
+          else
+            URI.parse(params[:redirect]).path
+          end
+          
+          
         else
+          Rails.logger.debug("Using show action")
           { action: 'show' }
         end
-        
-        ##There is a more elegant way to do the same thing, please find it, thanks.
-        if params["DocId"]
-          redirect_to path, :status => 303, :DocId => params["DocId"]
-        else
+       
+       
           redirect_to path, :status => 303
-        end
-        
-        
+       
       end
 
 end
