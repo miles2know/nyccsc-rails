@@ -13,17 +13,15 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-// require jquery.turbolinks
-// require jquery-visible/jquery.visible.min
-// require jquery.truncator
-//
-// Including leaflet
+
+// Required by leaflet
 //= require leaflet
-//
-// Saw this was included in geoblacklight so including here
-// require bootstrap/tooltip
-//
-// require offcanvas
+
+// Required by Blacklight
+//= require blacklight/blacklight
+
+// Required by GeoBlacklight
+//= require bootstrap/tooltip
 
 // Other leaflet and related scripts
 //= require L.Control.Locate
@@ -32,8 +30,6 @@
 //= require typeahead
 //= require Control.MiniMap
 //= require leaflet.markercluster
-//
-// Required by Blacklight
-//= require blacklight/blacklight
-//= require_tree .
 
+
+//= require_tree .

@@ -1,15 +1,16 @@
 #Right now using this so we can call the solr index directly as it sits on a different port
 # Also  utilizing this to make calls to the forestecoservices site but that will eventually get routed differently
 # when code is moved
-class ProxyControllerController < ApplicationController
+class ProxyController < ApplicationController
   require 'net/http'
-  def hello
+  def data
       require "net/http"
   	  @query = params[:q]
-      @base_solr_url = 'http://localhost:8080/vivosolr/select/?wt=json&q='
+
+      @base_solr_url = Blacklight.solr_config[:url] + '/select/?wt=json&q='
       @base_forestservices = 'http://frontierspatial.com/nyccsc/data/'
       @base_url = request.env['HTTP_HOST']
-      @base_current_url = 'http://' + @base_url + '/proxy_controller/hello'
+      @base_current_url = 'http://' + @base_url + '/proxy/data'
       ##Check whether this is solr or for something else
       @querytype = params["querytype"]
       if (@querytype) 
