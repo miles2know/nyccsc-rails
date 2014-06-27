@@ -1,0 +1,9 @@
+<% # container for all documents in index view -%>
+<%= javascript_tag "var docs = #{documents.to_json};" 
+%>
+
+
+<div id="documents" class="docView col-md-6">
+  <%= render documents, :as => :document %>
+</div>
+<div id="map" class="listview-map col-md-6 mapResults"></div>
