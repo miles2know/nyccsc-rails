@@ -14,16 +14,13 @@
 //= require jquery_ujs
 //= require turbolinks
 
+//= require jquery-ui-v1.9.2.js
+//= require jquery.layout-v1.3.0.js
+
 // Required by leaflet
 //= require leaflet
 
-// Required by Blacklight
-//= require blacklight/blacklight
-
-// Required by GeoBlacklight
-//= require bootstrap/tooltip
-
-// Other leaflet and related scripts
+// Other leaflet related scripts
 //= require L.Control.Locate
 //= require L.Control.Sidebar
 //= require d3
@@ -31,5 +28,10 @@
 //= require Control.MiniMap
 //= require leaflet.markercluster
 
+// Required by Blacklight
+//= require blacklight/blacklight
+
+// Required by GeoBlacklight
+//= require bootstrap/tooltip
 
 //= require_tree .

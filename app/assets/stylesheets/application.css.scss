@@ -16,13 +16,17 @@
  * Leaflet
  *= require leaflet
 
-* Other leaflet css files used 
-*= require L.Control.Locate
-*= require L.Control.Sidebar
-*= require Control.MiniMap
-*= require leaflet.markercluster
-*= require leaflet.markercluster.default
- */
+ * Other leaflet css files used 
+ *= require L.Control.Locate
+ *= require L.Control.Sidebar
+ *= require Control.MiniMap
+ *= require leaflet.markercluster
+ *= require leaflet.markercluster.default
+
+ * Panels - Resize and Toggle Open/Close (jquery.layout)
+ *= require layout-default.css
+*/
+
 
 // NYCCSC variables & overrides
 @import 'nyccsc/variables';
