@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get 'pages/vulnerabilities'
   get 'pages/strategies'
   get 'pages/news'
+  get 'pages/panels'
 
   get 'highlights/feature'
   get 'proxy/data'

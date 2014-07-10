@@ -17,6 +17,10 @@ class PagesController < ApplicationController
     #placeholder
   end
 
+  def panels
+    #placeholder
+  end
+
   # playing with variables and testing the concepts of controllers, helpers and views
   def test1
     @year = params[:year]
