@@ -1,14 +1,17 @@
 
 <div id="panels-wrapper">
 
-  <div id="sidebar" class="col-md-2 pane ui-layout-west">
+  <!--<div id="sidebar" class="col-md-2 pane ui-layout-west">-->
+  <div id="sidebar" class="col-md-2">
    <%= render 'search_sidebar' %>
   </div>
 
-  <div id="content" class="col-md-5 pane ui-layout-center">
+  <!--<div id="content" class="col-md-5 pane ui-layout-center">-->
+  <div id="content" class="col-md-5">
 
       <% unless has_search_parameters? %>
   	    <%# if there are no input/search related params, display the "home" partial -%>
+        
   	    <%= render 'home' %>
       <% else %>
 
@@ -45,21 +48,24 @@
 
   </div>
 
-  <div id="map-region" class="col-md-5 pane ui-layout-east">
+  <!--<div id="map-region" class="col-md-5 pane ui-layout-east">-->
+  <div id="map-region" class="col-md-5">
    <%= render 'map' %>
   </div>
 
 </div>
 
 <script>
-$(document).ready(function () {
-    var options = { //resizable: true 
-      west: {minSize: 200}
-    , west__togglerContent_open:   "&#8249;" // "‹"
-    , west__togglerContent_closed: "&#8250;" // "›"
-    , east__togglerContent_open:   "&#8250;" // "›"
-    , east__togglerContent_closed: "&#8249;" // "‹"
-    }
-    $('#panels-wrapper').layout(options);
+// $(document).ready(function () {
+//     var options = { //resizable: true 
+//       west: {minSize: 200}
+//     , west: {size:200}
+//     , east: {size:500}
+//     , west__togglerContent_open:   "&#8249;" // "‹"
+//     , west__togglerContent_closed: "&#8250;" // "›"
+//     , east__togglerContent_open:   "&#8250;" // "›"
+//     , east__togglerContent_closed: "&#8249;" // "‹"
+//     }
+//     $('#panels-wrapper').layout(options);
 });
 </script>

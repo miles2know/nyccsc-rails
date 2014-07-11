@@ -401,8 +401,8 @@ map.on('moveend', getWstations);
 map.whenReady(getWstations);
 
 // update the county stats whenever the map is redrawn:
-map.on('moveend', getCounties);
-map.whenReady(getCounties);
+//map.on('moveend', getCounties);
+//map.whenReady(getCounties);
 
 // find polygons whenever the map is clicked.
 map.on('click', getClickList);
@@ -854,18 +854,5 @@ function processBoundingBox(boundingBoxString) {
 	return bboxCoords;
 }
 
-//Setup map on doc ready
-$(document).ready(function(){
-//Set up MAP if a particular element is on the page
-//Since everything in the assets folder appears to be loaded, even if not explicitly included
-//this code should prevent home.js from being loaded when it is not needed
-       if (doSetupMap()) 
-       {
-        setupMap();
-  //setupGeoJSONOverlays();
-  //Including this leads to an error about the map
-  //Try putting the entire thing into the method and see what happens
-  //putLayersOnMap();
-      }
-});
+
 
