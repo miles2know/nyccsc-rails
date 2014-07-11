@@ -106,8 +106,8 @@ html, body {height:100%;}
 	}
 	/* NOTE: Add a 'dragging-limit' color to provide visual feedback when resizer hits min/max size limits */
 	.ui-layout-resizer-dragging-limit {	/* CLONED resizer at min or max size-limit */
-		background: #9e0b0f; /* red */
-		border: 1px solid #9e0b0f ;
+		background: #c9302c; /* red */
+		border: 1px solid #ac2925 ;
 	}
 
 	.ui-layout-resizer-closed-hover	{ /* hover-color to 'slide open' */
@@ -153,6 +153,31 @@ html, body {height:100%;}
 	.ui-layout-toggler-east {
 		border-width: 1px 0; /* top/bottom borders */
 	}
+
+	.ui-layout-toggler-west {
+		border-radius: 50px/10px;
+		border-top-right-radius: 0;
+		border-bottom-right-radius:0;
+	}
+	.ui-layout-toggler-east-closed {
+		width:30px;
+		border-radius: 50px/10px !important;
+		border-top-right-radius: 0 !important;
+		border-bottom-right-radius:0 !important;
+	}
+
+	.ui-layout-toggler-east {
+		border-radius: 50px/10px;
+		border-top-left-radius: 0;
+		border-bottom-left-radius:0;
+	}
+
+	, .ui-layout-toggler-west-closed {
+		border-radius: 50px/10px !important;
+		border-top-left-radius: 0 !important;
+		border-bottom-left-radius:0 !important;
+	}
+
 	/* hide the toggler-button when the pane is 'slid open' */
 	.ui-layout-resizer-sliding  .ui-layout-toggler {
 		display: none;
@@ -161,7 +186,7 @@ html, body {height:100%;}
 	 *	style the text we put INSIDE the togglers
 	 */
 	.ui-layout-toggler .content {
-		color:			#666;
+		color:			#fff;
 		font-size:		12px;
 		font-weight:	bold;
 		width:			100%;
