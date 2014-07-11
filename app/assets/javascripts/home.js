@@ -252,8 +252,9 @@ var gage = new L.GeoJSON(null, {
 });
 
 map = L.map("map", {
-    zoom: 8,
-    center: [43.92, -74.],minZoom: 6,
+    zoom: 7,
+    //NY,42.1497,-74.9384 
+    center: [43.1393, -76],minZoom: 6,
     maxZoom: 17,
     layers: [mapquestOSM ]
 
