@@ -9,6 +9,8 @@
   <!--<div id="content" class="col-md-5 pane ui-layout-center">-->
   <div id="content" class="col-md-5">
 
+      <%= render 'search_and_constraints' %>
+
       <% unless has_search_parameters? %>
   	    <%# if there are no input/search related params, display the "home" partial -%>
         
@@ -67,5 +69,5 @@
 //     , east__togglerContent_closed: "&#8249;" // "‹"
 //     }
 //     $('#panels-wrapper').layout(options);
-});
+//});
 </script>
