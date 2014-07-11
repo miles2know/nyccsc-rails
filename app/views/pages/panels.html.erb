@@ -24,6 +24,10 @@
 $(document).ready(function () {
     var options = { //resizable: true 
       west: {minSize: 200}
+    , west__togglerContent_open:   "&#8249;" // "‹"
+    , west__togglerContent_closed: "&#8250;" // "›"
+    , east__togglerContent_open:   "&#8250;" // "›"
+    , east__togglerContent_closed: "&#8249;" // "‹"
     }
     $('#panels-wrapper').layout(options);
 });
