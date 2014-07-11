@@ -13,7 +13,7 @@ var mapResults = {
        
     },
     initObjects:function() {
-    	//this variable is setup in _document_list.html
+    	//this variable is setup in _map.html.erb
     	if(docs) {
     		this.docs = docs;
     	} else {

@@ -20,17 +20,17 @@
 }
 
 #map.mapview-map {
-  height: 440px;
+  min-height: 600px;
   cursor: crosshair;
 }
 
 #map.listview-map {
-  height: 485px;
+  min-height: 600px;
 }
 
 #table-container{
   overflow:scroll;
-  max-height: 450px;
+  max-height: inherit;
 }
 
 #control {

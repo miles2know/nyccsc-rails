@@ -160,18 +160,15 @@ html, body {height:100%;}
 		border-bottom-right-radius:0;
 	}
 	.ui-layout-toggler-east-closed {
-		width:30px;
 		border-radius: 50px/10px !important;
 		border-top-right-radius: 0 !important;
 		border-bottom-right-radius:0 !important;
 	}
-
 	.ui-layout-toggler-east {
 		border-radius: 50px/10px;
 		border-top-left-radius: 0;
 		border-bottom-left-radius:0;
 	}
-
 	, .ui-layout-toggler-west-closed {
 		border-radius: 50px/10px !important;
 		border-top-left-radius: 0 !important;
