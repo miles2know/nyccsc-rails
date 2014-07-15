@@ -39,14 +39,14 @@ class CatalogController < ApplicationController
 
     #config.add_facet_field 'type_facet', :label => 'Type', :single => true, :limit => 10
     #config.add_facet_field 'type', :label => 'Type',  :limit => 10
-    config.add_facet_field 'subjectarea_facet', :label => 'Subject Area', :limit => 10
-    config.add_facet_field 'keyword_facet', :label => 'Keyword', :limit => 10
-    config.add_facet_field 'sector_facet', :label => 'Sector', :limit => 10
-    config.add_facet_field 'hazard_facet', :label => 'Hazard', :limit => 10
-    config.add_facet_field 'strategy_facet', :label => 'Strategy', :limit => 10
-    config.add_facet_field 'risk_facet', :label => 'Risk', :limit => 10
-    config.add_facet_field 'vulnerability_facet', :label => 'Vulnerability', :limit => 10
-    config.add_facet_field 'author_facet', :label => 'Author', :limit => 10
+    config.add_facet_field 'subjectarea_facet', :label => 'Subject Area', :limit => 9
+    #config.add_facet_field 'keyword_facet', :label => 'Keyword', :limit => 10
+    config.add_facet_field 'sector_facet', :label => 'Sector', :limit => 9
+    config.add_facet_field 'hazard_facet', :label => 'Hazard', :limit => 9
+    config.add_facet_field 'strategy_facet', :label => 'Strategy', :limit => 9
+    config.add_facet_field 'risk_facet', :label => 'Risk', :limit => 9
+    config.add_facet_field 'vulnerability_facet', :label => 'Vulnerability', :limit => 9
+    config.add_facet_field 'author_facet', :label => 'Author', :limit => 9
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
@@ -76,10 +76,11 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
-    config.add_index_field 'mostSpecificTypeURIs', :label => 'Type', :link_to_search => true, :helper_method => :render_type_display
+    # config.add_index_field 'mostSpecificTypeURIs', :label => 'Type', :link_to_search => true, :helper_method => :render_type_display
+    config.add_index_field 'mostSpecificTypeURIs', :label => 'Type', :helper_method => :render_type_display
     ## URI is not displayed but this enables making a call to the linked data for the URI
     ## and we can then display what is relevant for that URI
-    config.add_index_field 'URI', :label => 'URI', :helper_method => :render_linkeddata_display
+    #config.add_index_field 'URI', :label => 'URI', :helper_method => :render_linkeddata_display
     config.add_index_field 'subjectarea_display', :label => 'Subject Area'
     config.add_index_field 'keyword_display', :label => 'Keyword'
     config.add_index_field 'author_display', :label => 'Author'
@@ -108,19 +109,53 @@ class CatalogController < ApplicationController
     # case for a BL "search field", which is really a dismax aggregate
     # of Solr search fields.
 
-    config.add_search_field('name') do |field|
+    config.add_search_field('title') do |field|
       # solr_parameters hash are sent to Solr as ordinary url query params.
-      field.solr_parameters = { :'spellcheck.dictionary' => 'name' }
+      field.solr_parameters = { :'spellcheck.dictionary' => 'title' }
 
       # :solr_local_parameters will be sent using Solr LocalParams
       # syntax, as eg {! qf=$title_qf }. This is neccesary to use
       # Solr parameter de-referencing like $title_qf.
       # See: http://wiki.apache.org/solr/LocalParams
       field.solr_local_parameters = {
-        :qf => '$name_qf',
-        :pf => '$name_pf'
+        :qf => '$title_qf',
+        :pf => '$title_pf'
       }
     end
+
+    config.add_search_field('author') do |field|
+      field.solr_parameters = { :'spellcheck.dictionary' => 'author' }
+      field.solr_local_parameters = {
+        :qf => '$author_qf',
+        :pf => '$author_pf'
+      }
+    end
+
+    # # Specifying a :qt only to show it's possible, and so our internal automated
+    # # tests can test it. In this case it's the same as
+    # # config[:default_solr_parameters][:qt], so isn't actually neccesary.
+    # config.add_search_field('subject') do |field|
+    #   field.solr_parameters = { :'spellcheck.dictionary' => 'subject' }
+    #   field.qt = 'search'
+    #   field.solr_local_parameters = {
+    #     :qf => '$subject_qf',
+    #     :pf => '$subject_pf'
+    #   }
+    # end
+
+    # config.add_search_field('name') do |field|
+    #   # solr_parameters hash are sent to Solr as ordinary url query params.
+    #   field.solr_parameters = { :'spellcheck.dictionary' => 'name' }
+
+    #   # :solr_local_parameters will be sent using Solr LocalParams
+    #   # syntax, as eg {! qf=$title_qf }. This is neccesary to use
+    #   # Solr parameter de-referencing like $title_qf.
+    #   # See: http://wiki.apache.org/solr/LocalParams
+    #   field.solr_local_parameters = {
+    #     :qf => '$name_qf',
+    #     :pf => '$name_pf'
+    #   }
+    # end
 
  
     # "sort results by" select (pulldown)

@@ -44,7 +44,8 @@ module DisplayHelper
               typeList << ", "
            end
            typeList << link_to($typeName, path)
-           
+           #without link
+           #typeList << $typeName
          end
      
      #Get the label for the most specific type
