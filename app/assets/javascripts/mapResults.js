@@ -83,10 +83,10 @@ var mapResults = {
         mapResults.map.addLayer(mapquestOSM);
 
         // setting up initial map controls 
-        L.control.layers(baseLayers, regionLayers).addTo(mapResults.map);
+        //L.control.layers(baseLayers, regionLayers).addTo(mapResults.map);
         
         // setting up initial map controls using Leaflet Plugin L.groupedlayercontrol
-        //L.control.groupedLayers(baseLayers, groupedOverlays).addTo(mapResults.map);
+        L.control.groupedLayers(baseLayers, groupedOverlays).addTo(mapResults.map);
 
     },
     bindEventListeners:function() {

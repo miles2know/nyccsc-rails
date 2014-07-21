@@ -1,3 +1,5 @@
+ 
+  
 <div class="row" data-layer="<%= document['DocId'] %>">
   <div class="col-md-12">
     <div class="" data-layer="<%= document['DocId'] %>-accordion">
@@ -18,52 +20,52 @@
   </div>
 </div>
 <script>
-  $(document).ready(function(){
-    var doc = docs[<%= document_counter %>];
-    //Calculates map bounding box and creates layer bbox
-    if (doc.solr_bbox){
-      bBoxs[<%= document_counter %>] = L.polygon([[doc.solr_sw_pt_0_d, doc.solr_sw_pt_1_d], [doc.solr_ne_pt_0_d, doc.solr_sw_pt_1_d], [doc.solr_ne_pt_0_d, doc.solr_ne_pt_1_d], [doc.solr_sw_pt_0_d, doc.solr_ne_pt_1_d]]);
-      console.log(bBoxs)
-      if (mapBbox.length == 0){
-        mapBbox = [[doc.solr_sw_pt_0_d, doc.solr_sw_pt_1_d], [doc.solr_ne_pt_0_d, doc.solr_ne_pt_1_d]];
-      }else{
-        if (doc.solr_sw_pt_0_d < mapBbox[0][0]){
-          mapBbox[0][0] = doc.solr_sw_pt_0_d;
-        }
-        if (doc.solr_sw_pt_1_d < mapBbox[0][1]){
-          mapBbox[0][1] = doc.solr_sw_pt_1_d;
-        }
-        if (doc.solr_ne_pt_0_d > mapBbox[1][0]){
-          mapBbox[1][0] = doc.solr_ne_pt_0_d;
-        }
-        if (doc.solr_ne_pt_1_d > mapBbox[1][1]){
-          mapBbox[1][1] = doc.solr_ne_pt_1_d;
-        }
-      }
-    }
-});
+//   $(document).ready(function(){
+//     var doc = docs[<%= document_counter %>];
+//     //Calculates map bounding box and creates layer bbox
+//     if (doc.solr_bbox){
+//       bBoxs[<%= document_counter %>] = L.polygon([[doc.solr_sw_pt_0_d, doc.solr_sw_pt_1_d], [doc.solr_ne_pt_0_d, doc.solr_sw_pt_1_d], [doc.solr_ne_pt_0_d, doc.solr_ne_pt_1_d], [doc.solr_sw_pt_0_d, doc.solr_ne_pt_1_d]]);
+//       console.log(bBoxs)
+//       if (mapBbox.length == 0){
+//         mapBbox = [[doc.solr_sw_pt_0_d, doc.solr_sw_pt_1_d], [doc.solr_ne_pt_0_d, doc.solr_ne_pt_1_d]];
+//       }else{
+//         if (doc.solr_sw_pt_0_d < mapBbox[0][0]){
+//           mapBbox[0][0] = doc.solr_sw_pt_0_d;
+//         }
+//         if (doc.solr_sw_pt_1_d < mapBbox[0][1]){
+//           mapBbox[0][1] = doc.solr_sw_pt_1_d;
+//         }
+//         if (doc.solr_ne_pt_0_d > mapBbox[1][0]){
+//           mapBbox[1][0] = doc.solr_ne_pt_0_d;
+//         }
+//         if (doc.solr_ne_pt_1_d > mapBbox[1][1]){
+//           mapBbox[1][1] = doc.solr_ne_pt_1_d;
+//         }
+//       }
+//     }
+// });
 
 
-$("*[data-layer=\"<%= document['uuid']%>\"]").click(function(){
-  $("*[data-layer=\"<%= document['uuid']%>-collapse\"]").collapse("toggle")
-})
+// $("*[data-layer=\"<%= document['uuid']%>\"]").click(function(){
+//   $("*[data-layer=\"<%= document['uuid']%>-collapse\"]").collapse("toggle")
+// })
 
-$("*[data-layer=\"<%= document['uuid']%>\"]").mouseover(function(){
-  if (bBoxs[<%= document_counter %>]){
-    bBoxs[<%= document_counter %>].addTo(map);
-  }
-});
-$("*[data-layer=\"<%= document['uuid']%>\"]").mouseout(function(){
-  for(i in map._layers) {
-        if(map._layers[i]._path !== undefined && i !== 0) {
-            try {
-                map.removeLayer(map._layers[i]);
-            }
-            catch(e) {
-                console.log("problem with " + e + map._layers[i]);
-            }
-        }
-    }
-});
+// $("*[data-layer=\"<%= document['uuid']%>\"]").mouseover(function(){
+//   if (bBoxs[<%= document_counter %>]){
+//     bBoxs[<%= document_counter %>].addTo(map);
+//   }
+// });
+// $("*[data-layer=\"<%= document['uuid']%>\"]").mouseout(function(){
+//   for(i in map._layers) {
+//         if(map._layers[i]._path !== undefined && i !== 0) {
+//             try {
+//                 map.removeLayer(map._layers[i]);
+//             }
+//             catch(e) {
+//                 console.log("problem with " + e + map._layers[i]);
+//             }
+//         }
+//     }
+// });
 
 </script>
