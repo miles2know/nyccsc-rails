@@ -1,6 +1,7 @@
 
+
   <!-- default map / should default to NYS -->
-  <div class="mapview-map" id="map" page="default-view">
+  <div class="mapResults" id="map" page="default-view" style="width:100%; height:600px;">
       <div id="loading" style="display: block;">
           <div class="loading-indicator">
               <div class="progress progress-striped active">
@@ -9,22 +10,21 @@
           </div>
       </div>
   </div>
-  <!-- the following map renders search results, not working right now  -->
-  <!--<div id="map" class="listview-map mapResults"></div>-->
+
+
+<% # for mapping application %>
+<%= javascript_include_tag 'mapData' %>
+<%= javascript_include_tag 'mapResults' %>
+<% #javascript_include_tag 'mapInitialize' %>
+
 <script>
- //Setup map on DOM ready, but this needs to be at (or toward) the bottom of the page in order for it to load correctly
-$(document).ready(function(){
-//Set up MAP if a particular element is on the page
-//Since everything in the assets folder appears to be loaded, even if not explicitly included
-//this code should prevent home.js from being loaded when it is not needed
-       if (doSetupMap()) 
-       {
-        setupMap();
-  //setupGeoJSONOverlays();
-  //Including this leads to an error about the map
-  //Try putting the entire thing into the method and see what happens
-  //putLayersOnMap();
-      }
+
+$(document).ready(function() {
+
+  if(mapResults.verifyReady()) {
+    mapResults.onLoad();
+  }
 });
+ 
 
 </script>

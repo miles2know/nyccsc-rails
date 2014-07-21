@@ -14,19 +14,23 @@
 //= require jquery_ujs
 //= require turbolinks
 
-//= require jquery-ui-v1.9.2.js
+// Required by Panels (jquery.layout.js)
+//= require jquery-ui-v1.9.2.js  
 //= require jquery.layout-v1.3.0.js
 
 // Required by leaflet
 //= require leaflet
 
-// Other leaflet related scripts
-//= require L.Control.Locate
-//= require L.Control.Sidebar
-//= require d3
-//= require typeahead
-//= require Control.MiniMap
-//= require leaflet.markercluster
+// Other leaflet related scripts 
+//= require L.groupedlayercontrol
+
+// Other leaflet related scripts - NOT used right now
+// require L.Control.Locate
+// require L.Control.Sidebar
+// require d3
+// require typeahead // needed for searching/typing in map regions and zooming into this region //
+// require Control.MiniMap
+// require leaflet.markercluster
 
 // Required by Blacklight
 //= require blacklight/blacklight
@@ -34,4 +38,7 @@
 // Required by GeoBlacklight
 //= require bootstrap/tooltip
 
-//= require_tree .
+// Required by NYCCSC application - NOT used right now
+// mapping loaded by page - see /config/initializers/assets.rb and /views/catalog/_map.html.erb
+// require_tree nyccsc
+

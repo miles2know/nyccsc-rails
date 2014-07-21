@@ -17,14 +17,16 @@
  *= require leaflet
 
  * Other leaflet css files used 
- *= require L.Control.Locate
- *= require L.Control.Sidebar
- *= require Control.MiniMap
- *= require leaflet.markercluster
- *= require leaflet.markercluster.default
+ *= require L.groupedlayercontrol
+ * require L.Control.Locate
+ * require L.Control.Sidebar
+ * require Control.MiniMap
+ * require leaflet.markercluster
+ * require leaflet.markercluster.default
 
  * Panels - Resize and Toggle Open/Close (jquery.layout)
  *= require jquery.layout-default.css
+
 */
 
 

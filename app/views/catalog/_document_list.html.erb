@@ -1,8 +1,16 @@
-<% # for mapping application %>
-<%= javascript_tag "var docs = #{documents.to_json};" %>
 
 <% # container for all documents in index view -%>
 <div id="documents" class="docView">
   <%= render documents, :as => :document %>
 </div>
+
+<!-- passing json data - just proof of concept, needs to be integrated into a solr search results above -->
+<div id="documents" class="mapDocView">
+  <ul>
+
+  </ul>
+</div>
+
+<% # for mapping application %>
+<%= javascript_tag "var docs = #{documents.to_json};" %>
 
