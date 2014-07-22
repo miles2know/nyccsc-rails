@@ -11,20 +11,22 @@
       </div>
   </div>
 
+  <a class="btn-default" id="new-overlay" href="#">Add new overlay</a>
 
-<% # for mapping application %>
-<%= javascript_include_tag 'mapData' %>
-<%= javascript_include_tag 'mapResults' %>
-<% #javascript_include_tag 'mapInitialize' %>
+  <% # for mapping application %>
+  <%= javascript_include_tag 'mapData' %>
+  <%= javascript_include_tag 'mapResults' %>
+  <!-- line below should include script below -->
+  <% #javascript_include_tag 'mapInitialize' %>
 
-<script>
+  <script>
 
-$(document).ready(function() {
+  $(document).ready(function() {
 
-  if(mapResults.verifyReady()) {
-    mapResults.onLoad();
-  }
-});
- 
+    if(mapResults.verifyReady()) {
+      mapResults.onLoad();
+    }
+    
+  });
 
-</script>
+  </script>

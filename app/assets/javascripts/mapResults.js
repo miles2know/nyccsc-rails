@@ -68,14 +68,14 @@ var mapResults = {
         // also decide what layers for context to display
         // also change data sources to solr documents
         var groupedOverlays = {
-            "Regional Context": {
+            "Reference": {
                 "Counties": addGeoJsonArea("data/ny_counties_tiger.geojson", "County"),
                 "Watersheds": addGeoJsonArea("data/basin.geojson", "Watershed"),
                 "DEC Regions": addGeoJsonArea("data/decregions.geojson", "DEC Region"),
                 "Climate Regions": addGeoJsonArea("data/clim_div.geojson", "Climate")//,
             },
             "Points of Interest": {
-                "USGS Streamflow Gauges": addGeoJsonMarker("data/streamGage.geojson", "Streamflow Gauge")//,
+                //"USGS Streamflow Gauges": addGeoJsonMarker("data/streamGage.geojson", "Streamflow Gauge")//,
             }
         }
     	
@@ -86,12 +86,13 @@ var mapResults = {
         //L.control.layers(baseLayers, regionLayers).addTo(mapResults.map);
         
         // setting up initial map controls using Leaflet Plugin L.groupedlayercontrol
-        L.control.groupedLayers(baseLayers, groupedOverlays).addTo(mapResults.map);
+        mapResults.LayersControl = L.control.groupedLayers(baseLayers, groupedOverlays).addTo(mapResults.map);
 
     },
     bindEventListeners:function() {
 
         mapResults.map.on('moveend dragend zoomend', function (e) { 
+
             var bounds = mapResults.map.getBounds();
             //NOT DONE:  change map data points based on change in map bounding box 
             //also need to pass this information to solr (along with other parameters to change search results)
@@ -107,6 +108,17 @@ var mapResults = {
                 mapResults.map.removeLayer(layer)
             }    
             mapResults.map.addLayer(addGeoJsonMarker( url, 'Streamflow Gauge' ) );
+        });
+
+        //add new overlays to map - "map it!" functionality
+        $('#new-overlay').on('click', function (e) {
+            e.preventDefault();
+            
+            //mapResults.map.addLayer(addGeoJsonMarker( url, 'Streamflow Gauge' ) );
+            var newLayer = addGeoJsonMarker('data/streamGage.geojson', 'Streamflow Gauge');
+            mapResults.LayersControl.addOverlay(newLayer, 'Streamflow Gauges', 'Points of Interest');
+            mapResults.map.addLayer(newLayer);
+
         });
     	
     },
