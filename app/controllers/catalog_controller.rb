@@ -37,17 +37,6 @@ class CatalogController < ApplicationController
     config.show.title_field = 'name_display'
     config.show.display_type_field = 'type'
 
-    #config.add_facet_field 'type_facet', :label => 'Type', :single => true, :limit => 10
-    #config.add_facet_field 'type', :label => 'Type',  :limit => 10
-    config.add_facet_field 'subjectarea_facet', :label => 'Subject Area', :limit => 9
-    #config.add_facet_field 'keyword_facet', :label => 'Keyword', :limit => 10
-    config.add_facet_field 'sector_facet', :label => 'Sector', :limit => 9
-    config.add_facet_field 'hazard_facet', :label => 'Hazard', :limit => 9
-    config.add_facet_field 'strategy_facet', :label => 'Strategy', :limit => 9
-    config.add_facet_field 'risk_facet', :label => 'Risk', :limit => 9
-    config.add_facet_field 'vulnerability_facet', :label => 'Vulnerability', :limit => 9
-    config.add_facet_field 'author_facet', :label => 'Author', :limit => 9
-
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
     #
@@ -67,8 +56,20 @@ class CatalogController < ApplicationController
     #
     # :show may be set to false if you don't want the facet to be drawn in the
     # facet bar
-  
 
+    #facets for filtering
+    config.add_facet_field 'sector_facet', :label => 'Sector', :limit => 9
+    #verify this is the correct field, then add display helper (existing display helper is a list)
+    config.add_facet_field 'mostSpecificTypeURIs', :label => 'Type', :limit => 9
+    config.add_facet_field 'author_facet', :label => 'Author', :limit => 9
+    config.add_facet_field 'hazard_facet', :label => 'Hazard', :limit => 9
+    config.add_facet_field 'risk_facet', :label => 'Risk', :limit => 9
+    config.add_facet_field 'strategy_facet', :label => 'Strategy', :limit => 9
+    config.add_facet_field 'subjectarea_facet', :label => 'Subject Area', :limit => 9
+    #config.add_facet_field 'keyword_facet', :label => 'Keyword', :limit => 10
+    #config.add_facet_field 'vulnerability_facet', :label => 'Vulnerability', :limit => 10
+
+    
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
     # handler defaults, or have no facets.
