@@ -1,6 +1,4 @@
-#Right now using this so we can call the solr index directly as it sits on a different port
-# Also  utilizing this to make calls to the forestecoservices site but that will eventually get routed differently
-# when code is moved
+# Execute sparql queries to get elements that are highlighted
 class HighlightsController < ApplicationController
 
   require 'net/http'
@@ -23,7 +21,10 @@ class HighlightsController < ApplicationController
       Rails.logger.debug("Query is #{@query}")
       @encoded_query = URI::encode(@query)
       Rails.logger.debug("URL encoded query is #{@encoded_query}")
-      @base_sparql_url = 'http://climate-dev.library.cornell.edu:8080/vivo/ajax/sparqlQuery'
+      @base_url = request.protocol + request.host
+      #TODO: Need a way to store the path to VIVO somewhere in some kind of configuration file which can then be different based on where this is being tested
+      @base_sparql_url =  @base_url + ':8080/vivo/ajax/sparqlQuery'
+      Rails.logger.debug("sparql url is " + @base_sparql_url)
       url = URI.parse(@base_sparql_url + "?query=" + @encoded_query)
       # url = URI.parse("http://www.reddit.com/user/brain_poop/comments/.json")
       response = Net::HTTP.get_response(url)
