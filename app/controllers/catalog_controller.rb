@@ -36,6 +36,21 @@ class CatalogController < ApplicationController
     # solr field configuration for document/show views
     config.show.title_field = 'name_display'
     config.show.display_type_field = 'type'
+   
+
+    #config.add_facet_field 'type_facet', :label => 'Type', :single => true, :limit => 10
+    #config.add_facet_field 'type', :label => 'Type',  :limit => 10
+    ## Reordered per GitHub issue 20
+    config.add_facet_field 'sector_facet', :label => 'Sector', :limit => 9
+    config.add_facet_field 'type', :label => 'Type',  :limit => 9
+    config.add_facet_field 'author_facet', :label => 'Author', :limit => 9
+    config.add_facet_field 'hazard_facet', :label => 'Hazard', :limit => 9
+    config.add_facet_field 'risk_facet', :label => 'Risk', :limit => 9
+    config.add_facet_field 'strategy_facet', :label => 'Strategy', :limit => 9
+    config.add_facet_field 'subjectarea_facet', :label => 'Subject Area', :limit => 9
+    #config.add_facet_field 'keyword_facet', :label => 'Keyword', :limit => 10
+    #config.add_facet_field 'vulnerability_facet', :label => 'Vulnerability', :limit => 9
+    
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
@@ -56,20 +71,8 @@ class CatalogController < ApplicationController
     #
     # :show may be set to false if you don't want the facet to be drawn in the
     # facet bar
+  
 
-    #facets for filtering
-    config.add_facet_field 'sector_facet', :label => 'Sector', :limit => 9
-    #verify this is the correct field, then add display helper (existing display helper is a list)
-    config.add_facet_field 'mostSpecificTypeURIs', :label => 'Type', :limit => 9
-    config.add_facet_field 'author_facet', :label => 'Author', :limit => 9
-    config.add_facet_field 'hazard_facet', :label => 'Hazard', :limit => 9
-    config.add_facet_field 'risk_facet', :label => 'Risk', :limit => 9
-    config.add_facet_field 'strategy_facet', :label => 'Strategy', :limit => 9
-    config.add_facet_field 'subjectarea_facet', :label => 'Subject Area', :limit => 9
-    #config.add_facet_field 'keyword_facet', :label => 'Keyword', :limit => 10
-    #config.add_facet_field 'vulnerability_facet', :label => 'Vulnerability', :limit => 10
-
-    
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
     # handler defaults, or have no facets.
@@ -78,13 +81,32 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
     # config.add_index_field 'mostSpecificTypeURIs', :label => 'Type', :link_to_search => true, :helper_method => :render_type_display
-    config.add_index_field 'mostSpecificTypeURIs', :label => 'Type', :helper_method => :render_type_display
+    config.add_index_field 'mostSpecificTypeURIs', :label => 'Type', :link_to_search => true, :helper_method => :render_type_display
+    # Can we add a facet value as display? Is that allowed?
+    config.add_index_field 'sector_facet', :label => 'Sector', :link_to_search => true
+    config.add_index_field 'author_display', :label => 'Author', :link_to_search => true
+    # Publication date
+    config.add_index_field 'subjectarea_display', :label => 'Subject Area', :link_to_search => true
+    config.add_index_field 'strategy_facet', :label => 'Strategy', :link_to_search => true
+    config.add_index_field 'risk_facet', :label => 'Risk', :link_to_search => true
     ## URI is not displayed but this enables making a call to the linked data for the URI
     ## and we can then display what is relevant for that URI
-    #config.add_index_field 'URI', :label => 'URI', :helper_method => :render_linkeddata_display
-    config.add_index_field 'subjectarea_display', :label => 'Subject Area'
-    config.add_index_field 'keyword_display', :label => 'Keyword'
-    config.add_index_field 'author_display', :label => 'Author'
+    # config.add_index_field 'URI', :label => 'URI', :helper_method => :render_linkeddata_display
+    
+    #config.add_index_field 'keyword_display', :label => 'Keyword'
+    
+    ##Adding show fields
+    config.add_show_field 'mostSpecificTypeURIs', :label => 'Type', :link_to_search => true, :helper_method => :render_type_display
+    # Can we add a facet value as display? Is that allowed?
+    config.add_show_field 'sector_facet', :label => 'Sector', :link_to_search => true
+    config.add_show_field 'author_display', :label => 'Author', :link_to_search => true
+    # Publication date
+    config.add_show_field 'subjectarea_display', :label => 'Subject Area', :link_to_search => true
+    config.add_show_field 'strategy_facet', :label => 'Strategy', :link_to_search => true
+    config.add_show_field 'risk_facet', :label => 'Risk', :link_to_search => true
+
+    
+    #Can we use facet to display
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
     #

@@ -1,6 +1,6 @@
 <% # container for a single doc -%>
-<% # Adding the doc Id here %>
-<% Rails.logger.debug("document counter is #{document_counter.inspect}") %>
+<% # Adding the doc Id here -%>
+<% # This is for the search results or index view of each document -%>
 <div class="document <%= render_document_class document %>" itemscope itemtype="<%= document.itemtype %>" docid="<%=document.id%>" docCounter="<%=document_counter%>">
   <%= render_document_partials document, blacklight_config.view_config(document_index_view_type).partials, :document_counter => document_counter %>
 </div>
