@@ -1,6 +1,86 @@
 
+  <style>
+    svg {
+      position: relative;
+    }
 
+    path {
+      fill: #000;
+      fill-opacity: .2;
+      stroke: #fff;
+      stroke-width: 1.5px;
+    }
+
+    path:hover, path.active {
+      fill: #333;
+      fill-opacity: .6;
+    }
+
+    circle {
+      fill: #600;
+      fill-opacity: .6;
+      stroke: #fff;
+      stroke-width: 1.5px;
+    }
+    circle:hover, circle.active {
+      fill: #f00;
+      fill-opacity: 1;
+    }
+
+    div.tooltip {   
+      position: absolute;           
+      text-align: center;           
+      padding: 5px;             
+      font: 12px;        
+      background: #fff;   
+      border: 0px;      
+      border-radius: 3px;           
+      pointer-events: none;         
+    }
+
+    .toggle-overlays {
+      width:100%;
+      background:#666;
+    }
+    .toggle-overlays ul {
+      list-style: none outside none;
+      padding-left:0;
+      margin-bottom: 8px;
+    }
+    .toggle-overlays ul li {
+      display:inline;
+    }
+    a.btn-overlay {
+      padding:5px;
+      background:#666;
+      color:#f2f2f2;
+      border-right: 1px solid #f2f2f2;
+    }
+    a.btn-overlay.active {
+      background:#333;
+      color:#fff;
+    }
+
+    table td {
+      vertical-align: top;
+      padding:3px;
+    }
+    table td.right {
+      text-align: right;
+    }
+    table td.left {
+      text-align: left;
+    }
+
+
+  </style>
   <!-- default map / should default to NYS -->
+
+  <div class="toggle-overlays">
+
+    <ul></ul>
+
+  </div>
   <div class="mapResults" id="map" page="default-view" style="width:100%; height:600px;">
       <div id="loading" style="display: block;">
           <div class="loading-indicator">
@@ -11,22 +91,53 @@
       </div>
   </div>
 
-  <a class="btn-default" id="new-overlay" href="#">Add new overlay</a>
+  <div>&nbsp;</div>
+
+  <div class="mapit">
+    <a class="btn-default" id="new-overlay" href="#">Stream Gauges - Map It!</a>
+  </div>
+
+
+  
 
   <% # for mapping application %>
   <%= javascript_include_tag 'mapData' %>
   <%= javascript_include_tag 'mapResults' %>
+  <%= javascript_include_tag 'mapSearch' %>
+
   <!-- line below should include script below -->
   <% #javascript_include_tag 'mapInitialize' %>
 
   <script>
 
   $(document).ready(function() {
-
-    if(mapResults.verifyReady()) {
-      mapResults.onLoad();
-    }
     
+    var searchTerms = getUrlParameters("q", "", true);    
+    //load map
+    if(mapResults.verifyReady()) {
+
+      // map is finished loading
+      $.when(mapResults.onLoad()).done(function() {
+        
+        //jquery on ready doesn't work with SVG DOM layers created using D3 -- javascript version below, not fully tested
+        window.addEventListener("load", function() {
+
+          //if search terms are found on map, highlight it
+          if(searchTerms) {
+      
+            searchTerms.split("+").forEach(function(s) {
+                // do stuff with myString;
+                d3.selectAll(".area[title='"+s.toLowerCase()+"']").style("fill-opacity", ".6");
+            });
+
+          }//end if  
+         
+        });
+        
+      });
+
+    }//end if
+
   });
 
   </script>

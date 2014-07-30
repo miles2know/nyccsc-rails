@@ -22,13 +22,17 @@
 //= require leaflet
 
 // Other leaflet related scripts 
-//= require L.groupedlayercontrol
+//= require vue.min.js
+//= require d3.min.js
+//= require lunar.min.js
+
+// require L.groupedlayercontrol
+// require typeahead 
 
 // Other leaflet related scripts - NOT used right now
 // require L.Control.Locate
 // require L.Control.Sidebar
 // require d3
-// require typeahead // needed for searching/typing in map regions and zooming into this region //
 // require Control.MiniMap
 // require leaflet.markercluster
 
