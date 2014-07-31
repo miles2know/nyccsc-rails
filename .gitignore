@@ -19,3 +19,6 @@
 /db/cms_fixtures/sample-site
 
 /config/solr.yml
+/config/initializers/app_constants.rb
+rails.log
+*.log

@@ -22,9 +22,9 @@
 //= require leaflet
 
 // Other leaflet related scripts 
-//= require vue.min.js
+// require vue.min.js
 //= require d3.min.js
-//= require lunar.min.js
+// require lunar.min.js
 
 // require L.groupedlayercontrol
 // require typeahead 

@@ -51,17 +51,22 @@ module DisplayHelper
   def get_linkeddata_result document
     require "net/http"
     result = []
-    $URI = document["URI"] unless document["URI"].blank?
+    thisURI = document["URI"] unless document["URI"].blank?
 
-    Rails.logger.debug("$URI is here  #{$URI}")
+    Rails.logger.debug("thisURI is here  #{thisURI}")
     #Check whether we have vitroIndividual in front of URI
     #Also see how we can forward climate-dev etc. to the correct URI on this machine
-    if $URI.present?
-      $URISplit = $URI.split("/")
-      $localName = $URISplit.last
-      @base_url = request.protocol + request.host
-      @vivoappName = "nyccscvivo"
-      url = URI.parse(@base_url + ":8080/" + @vivoappName + "/individual?uri=" + $URI  + "&format=jsonld")
+    if thisURI.present?
+      thisURISplit = thisURI.split("/")
+      localName = thisURISplit.last
+      #This is a hack - we will need to find a way to also get the VIVO application name into the configuraiton
+      #where we can access it, but we can currently depend on the fact that VIVO solr is vivo app name + "solr"
+      vivo_app = Rails.application.config.vivo_app_url
+      Rails.logger.debug("Vivo app is " + vivo_app)
+      #base_url = request.protocol + request.host
+      #vivoappName = "nyccscvivo"
+      
+      url = URI.parse(vivo_app + "/individual?uri=" + thisURI  + "&format=jsonld")
       #Need to include a way to check whether or not this URL exists so we can catch the error
 
       resp = Net::HTTP.get_response(url)

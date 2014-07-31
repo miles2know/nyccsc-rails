@@ -81,14 +81,18 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
     # config.add_index_field 'mostSpecificTypeURIs', :label => 'Type', :link_to_search => true, :helper_method => :render_type_display
-    config.add_index_field 'mostSpecificTypeURIs', :label => 'Type', :link_to_search => true, :helper_method => :render_type_display
+    
     # Can we add a facet value as display? Is that allowed?
     config.add_index_field 'sector_facet', :label => 'Sector', :link_to_search => true
+    config.add_index_field 'mostSpecificTypeURIs', :label => 'Type', :link_to_search => true, :helper_method => :render_type_display
     config.add_index_field 'author_display', :label => 'Author', :link_to_search => true
+    config.add_index_field 'hazard_facet', :label => 'Hazard', :link_to_search => true
+    config.add_index_field 'risk_facet', :label => 'Risk', :link_to_search => true
+    config.add_index_field 'strategy_facet', :label => 'Strategy', :link_to_search => true
     # Publication date
     config.add_index_field 'subjectarea_display', :label => 'Subject Area', :link_to_search => true
-    config.add_index_field 'strategy_facet', :label => 'Strategy', :link_to_search => true
-    config.add_index_field 'risk_facet', :label => 'Risk', :link_to_search => true
+    
+    
     ## URI is not displayed but this enables making a call to the linked data for the URI
     ## and we can then display what is relevant for that URI
     # config.add_index_field 'URI', :label => 'URI', :helper_method => :render_linkeddata_display
@@ -96,14 +100,18 @@ class CatalogController < ApplicationController
     #config.add_index_field 'keyword_display', :label => 'Keyword'
     
     ##Adding show fields
-    config.add_show_field 'mostSpecificTypeURIs', :label => 'Type', :link_to_search => true, :helper_method => :render_type_display
+    
     # Can we add a facet value as display? Is that allowed?
     config.add_show_field 'sector_facet', :label => 'Sector', :link_to_search => true
+    config.add_show_field 'mostSpecificTypeURIs', :label => 'Type', :link_to_search => true, :helper_method => :render_type_display
     config.add_show_field 'author_display', :label => 'Author', :link_to_search => true
+    config.add_show_field 'hazard_facet', :label => 'Hazard', :link_to_search => true
+    config.add_show_field 'risk_facet', :label => 'Risk', :link_to_search => true
+    config.add_show_field 'strategy_facet', :label => 'Strategy', :link_to_search => true
     # Publication date
     config.add_show_field 'subjectarea_display', :label => 'Subject Area', :link_to_search => true
-    config.add_show_field 'strategy_facet', :label => 'Strategy', :link_to_search => true
-    config.add_show_field 'risk_facet', :label => 'Risk', :link_to_search => true
+    
+    
 
     
     #Can we use facet to display
