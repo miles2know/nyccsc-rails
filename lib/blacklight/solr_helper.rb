@@ -2,7 +2,6 @@ require "#{Blacklight.root}/lib/blacklight/solr_helper.rb"
 require 'cgi'
 module Blacklight::SolrHelper
   extend ActiveSupport::Concern
-  Rails.logger.debug(">>>>>>>>>>>>>>>SOLR HELPER Including this overriding")
   # returns a params hash for finding a single solr document (CatalogController #show action)
   # If the id arg is nil, then the value is fetched from params[:id]
   # This method is primary called by the get_solr_response_for_doc_id method.

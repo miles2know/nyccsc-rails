@@ -24,27 +24,28 @@ module DisplayHelper
     types = args[:document][args[:field]] unless args[:document][args[:field]].blank?
     if types.present?
       jsonResult = get_linkeddata_result args[:document]
-      types.each do |type|
-        typeName = ""
-        thisTypeLabels = get_element_label(jsonResult, type)
-        if thisTypeLabels != nil
-          typeName = thisTypeLabels[0]["@value"]
-        end
-       
+      if jsonResult != nil
+        types.each do |type|
+          typeName = ""
+          thisTypeLabels = get_element_label(jsonResult, type)
+          if thisTypeLabels != nil
+            typeName = thisTypeLabels[0]["@value"]
+          end
 
-        path=type.html_safe
-        if typeList != "" and typeName != ""
-          typeList << ", "
-        end
-        typeList << link_to(typeName, path)
-        #without link
-        #typeList << $typeName
-      end
+          path=type.html_safe
+          if typeList != "" and typeName != ""
+            typeList << ", "
+          end
+          typeList << link_to(typeName, path)
+          #without link
+          #typeList << $typeName
+        end # end of do
 
-      #Get the label for the most specific type
-      #JSON Result is an array
-      typeList.html_safe
-    end
+        #Get the label for the most specific type
+        #JSON Result is an array
+        typeList.html_safe
+      end # end of if json result ! = nil
+    end # end of if types present
 
   end
 
@@ -57,23 +58,40 @@ module DisplayHelper
     #Check whether we have vitroIndividual in front of URI
     #Also see how we can forward climate-dev etc. to the correct URI on this machine
     if thisURI.present?
-      thisURISplit = thisURI.split("/")
-      localName = thisURISplit.last
-      #This is a hack - we will need to find a way to also get the VIVO application name into the configuraiton
-      #where we can access it, but we can currently depend on the fact that VIVO solr is vivo app name + "solr"
-      vivo_app = Rails.application.config.vivo_app_url
-      Rails.logger.debug("Vivo app is " + vivo_app)
-      #base_url = request.protocol + request.host
-      #vivoappName = "nyccscvivo"
-      
-      url = URI.parse(vivo_app + "/individual?uri=" + thisURI  + "&format=jsonld")
-      #Need to include a way to check whether or not this URL exists so we can catch the error
-
-      resp = Net::HTTP.get_response(url)
-      data = resp.body
-      result = JSON.parse(data)
+      result = get_linkeddata_result_for_url(thisURI)
       #Find the element which has the same id
     end
+    return result
+  end
+
+  def get_linkeddata_result_for_url thisURI
+    require 'cgi'
+    
+    thisURISplit = thisURI.split("/")
+    localName = thisURISplit.last
+    #This is a hack - we will need to find a way to also get the VIVO application name into the configuraiton
+    #where we can access it, but we can currently depend on the fact that VIVO solr is vivo app name + "solr"
+    vivo_app = Rails.application.config.vivo_app_url
+    Rails.logger.debug("Vivo app is " + vivo_app)
+    #base_url = request.protocol + request.host
+    #vivoappName = "nyccscvivo"
+    thisURI = CGI::escape(thisURI)
+    url = URI.parse(vivo_app + "/individual?uri=" + thisURI  + "&format=jsonld")
+    Rails.logger.debug("URL is #{url.inspect} " + url.to_s)
+    #Need to include a way to check whether or not this URL exists so we can catch the error
+begin
+    resp = Net::HTTP.get_response(url)
+  rescue 
+    Rails.logger.debug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!linked data response encountered error " + e.to_s)
+    result = nil
+  else
+    Rails.logger.debug("No error, do what you would normally do ")
+    
+      data = resp.body
+      result = JSON.parse(data)
+   
+  end
+    #Find the element which has the same id
     return result
   end
 
@@ -84,7 +102,7 @@ module DisplayHelper
 
     jsonResult.each do |element|
       elementId = element["@id"]
-        #Rails.logger.debug("element id is " + elementId)
+      #Rails.logger.debug("element id is " + elementId)
       if elementId == id
         return element
       end
@@ -104,12 +122,12 @@ module DisplayHelper
   # Get values from the linked data result, focusing on literal values here
   # Primarily for display under search results
   def get_display_hash(jsonResult, document)
-    #get the labels for properties 
+    #get the labels for properties
     displayProperties = get_linkeddata_property_labels()
     displayResult = []
     # Get the element we want which is the one for this document
     element = get_element_by_uri_from_linkeddata_result(jsonResult, document["URI"])
-   
+
     if element != nil
       #this is the element that contains information on the individual itself
       # loop through the element, the properties of the element will be represented either as string or array
@@ -122,13 +140,13 @@ module DisplayHelper
           # put the display name and value in the result hash
           if displayName != nil
             displayValue = get_element_literal_value(value)
-           
+
             if displayValue != nil and displayValue != ""
               Rails.logger.debug("Display value is " + displayValue)
               displayResult.push({
                 "name" => name,
-              "displayName" => displayName, 
-              "displayValue" => displayValue})
+                "displayName" => displayName,
+                "displayValue" => displayValue})
             end
           else
             Rails.logger.debug("No label returned for " + name)
@@ -189,18 +207,35 @@ module DisplayHelper
   #Instead, for now, just hardcoding the labels we do know we want to see
   def get_linkeddata_property_labels
     propertyLabelsHash = {
-    "http://vivoweb.org/ontology/core#overview" => "Overview",
-     "http://www.w3.org/2000/01/rdf-schema#label" => "Label",
-     "http://purl.org/ontology/bibo/abstract" => "Abstract",
-     "http://vivoweb.org/ontology/core#freetextKeyword " => "Keywords"
+      "http://vivoweb.org/ontology/core#overview" => "Overview",
+      "http://www.w3.org/2000/01/rdf-schema#label" => "Label",
+      "http://purl.org/ontology/bibo/abstract" => "Abstract",
+      "http://vivoweb.org/ontology/core#freetextKeyword " => "Keywords"
     }
   end
-  
+
   def get_single_property_label(property_labels_hash, property)
     property_label = nil
     if property_labels_hash.has_key?(property)
       return property_labels_hash[property]
     end
     return property_label
+  end
+
+  # This is a uri
+  def render_type_facet_display args
+    displayLabel = args
+
+    Rails.logger.debug("Args are #{args.inspect}")
+    jsonresult = get_linkeddata_result_for_url(args)
+    if jsonresult !=  nil
+      #hopefully this exists and we can the label
+      label = get_element_label(jsonresult, args)
+      Rails.logger.debug("label element is #{label.inspect}")
+      if label != nil
+        displayLabel = label[0]["@value"]
+      end
+    end
+    displayLabel
   end
 end

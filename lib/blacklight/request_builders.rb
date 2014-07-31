@@ -32,6 +32,8 @@ module Blacklight::RequestBuilders
        #so the url should look like spatialrange=[lat,long TO lat,long] and will become fq=solr_bbox:[lat_long TO lat,long]
        solr_parameters.append_filter_query "solr_bbox:" + spatialrange
      end
+     
+  
   end
 
 end

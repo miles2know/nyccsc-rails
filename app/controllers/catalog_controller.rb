@@ -42,7 +42,7 @@ class CatalogController < ApplicationController
     #config.add_facet_field 'type', :label => 'Type',  :limit => 10
     ## Reordered per GitHub issue 20
     config.add_facet_field 'sector_facet', :label => 'Sector', :limit => 9
-    config.add_facet_field 'type', :label => 'Type',  :limit => 9
+    config.add_facet_field 'type', :label => 'Type',  :limit => 9, :helper_method => :render_type_facet_display
     config.add_facet_field 'author_facet', :label => 'Author', :limit => 9
     config.add_facet_field 'hazard_facet', :label => 'Hazard', :limit => 9
     config.add_facet_field 'risk_facet', :label => 'Risk', :limit => 9
@@ -259,6 +259,7 @@ class CatalogController < ApplicationController
           
   
         path = if params[:redirect] and (params[:redirect].starts_with?("/") or params[:redirect] =~ URI::regexp)
+          Rails.logger.debug("TRACK method being used and redirect exists")
          # if redirect path has DocId parameter, save that
          if(params[:redirect].include?("?DocId=")) 
           
@@ -286,5 +287,7 @@ class CatalogController < ApplicationController
           redirect_to path, :status => 303
        
       end
+      
+
 
 end

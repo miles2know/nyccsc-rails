@@ -7,6 +7,10 @@ Rails.application.routes.draw do
   # get '/data', to: 'catalog#index'
 
   #maps and data
+  # Moving this before the catalog to enable this path to be matched, appears now that we have removed
+  # all constraints, specific paths like this one were being mapped to catalog/id instead and trying to get 
+  # a specific solr document
+  get 'catalog/facet/:id', to: 'catalog#facet'
   #allow any characters for id (since SOLR IDs are URIs)
   blacklight_for:catalog, :constraints => {:id => /|.*/}
 
