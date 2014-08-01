@@ -1,4 +1,8 @@
 
+#header-navbar{
+  background-color: $brand-primary;
+  border:0;
+}
 
 #header-navbar .navbar-brand {
   height: 128px;
@@ -6,48 +10,62 @@
   margin-right: 0;
 }
 
-#header-navbar h3 {
-  color: #acb74e;
+.branding h3 {
+  color: #fff;
 }
 
-.navbar-static-top {
-   border-bottom: 5px solid #BBC178;
-}
+.primary-nav li {
+  text-align: center;
 
+}
+/* search form in header/banner region */
 #header-search{
-  font-size: .8em;
   margin-top: 20px;
-  margin-bottom: 10px;
 }
-
+#header-search .input-group-addon {
+  display:none;
+}
+#header-search input {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+#header-search .btn-primary {
+  background-color: $gray-lighter;
+  color: $gray;
+  border: $gray-dark;
+}
+#header-search .btn-primary:hover {
+  background-color: $btn-secondary-bg;
+  color: $btn-secondary-color;
+  border: $btn-secondary-border;
+}
+#header-search a {
+  font-size: .8em;
+  color: #fff;
+  background-color: inherit;
+  padding: 3px 8px;
+}
 #header-search a:hover {
-  background: #fff;
+  background-color: $green-dark;
+  border-radius: 4px;
 }
-
-.primary-navbar {
-  margin-left: auto;
-  margin-right: auto;
-  background-color: #ddd;
-  -webkit-border-top-left-radius: 3px;
-  -webkit-border-top-right-radius: 3px;
-  -moz-border-radius-topleft: 3px;
-  -moz-border-radius-topright: 3px;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
+.navbar-form {
+  padding:0;
 }
-
 .navbar-form .input-group {
   vertical-align: top;
 }
-
 .navbar-form .input-group-addon {
   padding: 4px 12px 3px;
 }
 
-.icon-home {
-  background: url('nyccsc/icons/home-white.png');
+/* secondary navigation in header/banner */
+.secondary-navbar {
+  vertical-align: bottom;
 }
-
-.icon-bar {
- background-color: #fff;
+.secondary-navbar ul {
+  list-style: none outside none;
+}
+.secondary-navbar ul li {
+  display:inline-block;
 }

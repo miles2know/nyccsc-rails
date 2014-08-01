@@ -135,7 +135,7 @@
 
 
 //using D3 for mapping overlays
-function addPolygonLayerToMap (data_source, data_name, active) {
+function addPolygonLayerToMap (map, data_source, data_name, active) {
         
   //tooltip for mouseover effect
   var tooltip = d3.select("body").append("div")   
@@ -186,16 +186,16 @@ function addPolygonLayerToMap (data_source, data_name, active) {
 
           });
 
-    mapResults.map.on("viewreset", reset);
+    map.on("viewreset", reset);
     reset();
 
 
     // Reposition the SVG to cover the features.
     function reset() {
 
-      var bounds = mapResults.map.getBounds(),
-        topLeft = mapResults.map.latLngToLayerPoint(bounds.getNorthWest()),
-        bottomRight = mapResults.map.latLngToLayerPoint(bounds.getSouthEast());
+      var bounds = map.getBounds(),
+        topLeft = map.latLngToLayerPoint(bounds.getNorthWest()),
+        bottomRight = map.latLngToLayerPoint(bounds.getSouthEast());
 
       svg .attr("width", bottomRight.x - topLeft.x)
           .attr("height", bottomRight.y - topLeft.y)
@@ -211,7 +211,7 @@ function addPolygonLayerToMap (data_source, data_name, active) {
 
     // Use Leaflet to implement a D3 geometric transformation.
     function projectPoint(x, y) {
-      var point = mapResults.map.latLngToLayerPoint(new L.LatLng(y, x));
+      var point = map.latLngToLayerPoint(new L.LatLng(y, x));
       this.stream.point(point.x, point.y);
     }
 

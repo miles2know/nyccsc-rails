@@ -5,7 +5,7 @@ class PagesController < ApplicationController
     #placeholder
   end
 
-  def vulnerabilities
+  def risks
     #placeholder
   end
 

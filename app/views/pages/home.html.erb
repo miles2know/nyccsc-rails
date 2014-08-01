@@ -3,8 +3,204 @@
   NY Climate Change Science Clearinghouse
 <% end %>
 
-<h1>Home</h1>
+<div class="row vertical-offset-md">
 
-<p>Placeholder</p>
+  <div class="col-lg-12">
+  <!-- Photo/Story Carousel
+      ================================================== -->
+      <div id="photoCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+          <li data-target="#photoCarousel" data-slide-to="0" class="active"></li>
+          <li data-target="#photoCarousel" data-slide-to="1"></li>
+          <li data-target="#photoCarousel" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="item active">
+            <%= image_tag "nyccsc/carousel/cabin-snow.jpg" %>
+            <div class="container">
+              <div class="carousel-caption bl">
+                <p class="text-left">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                <p class="text-right"><a class="btn btn-md btn-primary" href="#" role="button">Learn more</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <%= image_tag "nyccsc/carousel/apples.jpg" %>
+            <div class="container">
+              <div class="carousel-caption br">
+                <p class="text-left">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                <p class="text-right"><a class="btn btn-md btn-primary" href="#" role="button">Learn more</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <%= image_tag "nyccsc/carousel/statue-of-liberty.jpg" %>
+            <div class="container">
+              <div class="carousel-caption tr">
+                <p class="text-left">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                <p class="text-right"><a class="btn btn-md btn-primary" href="#" role="button">Learn more</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a class="left carousel-control" href="#photoCarousel" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+        <a class="right carousel-control" href="#photoCarousel" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+      </div><!-- /.carousel -->
+  </div>
 
-<p>The blacklight/GIS application is under <a href="/catalog">Maps &amp; Data</a>.</p>
+</div>
+
+
+<div class="row vertical-offset-md">  
+  <div class="col-lg-8">
+    <h3>Impact by Region</h3>
+    <%= render "map_simplified" %> 
+  </div>
+
+  <div class="col-lg-4">
+    <h3>Impact by Sector</h3>
+    <ul class="with-icons">
+      <li id="ag"><a href="#"><i class="fa fa-leaf"></i>Agriculture</a></li>
+      <li id="water" ><a href="#"><i class="fa fa-tint"></i>Water Resources</a></li>
+      <li id="coast" ><a href="#"><i class="fa fa-umbrella"></i>Coastal Zones</a></li>
+      <li id="eco" ><a href="#"><i class="fa fa-tree"></i>Ecosystems</a></li>
+      <li id="trans" ><a href="#"><i class="fa fa-truck"></i>Transportation</a></li>
+      <li id="comm" ><a href="#"><i class="fa fa-mobile-phone"></i>Telecommunications</a></li>
+      <li id="energy" ><a href="#"><i class="fa fa-lightbulb-o"></i>Energy</a></li>
+      <li id="health" ><a href="#"><i class="fa fa-medkit"></i>Public Health</a></li>
+    </ul>
+  
+  <hr/>
+
+  <h3>Response Strategies</h3>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum feugiat aliquet eros, in elementum lacus congue nec. Interdum et malesuada fames ac ante ipsum primis in faucibus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sagittis id leo ut cursus. Etiam urna nulla, rhoncus eu tellus vitae, blandit consequat leo. Sed nunc nisi, malesuada quis porttitor sit amet, pretium sit amet erat. 
+    <h5>Mitigation</h5>
+    Interdum et malesuada fames ac ante ipsum primis in faucibus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sagittis id leo ut cursus. 
+    <h5>Adaptation</h5>
+    Etiam urna nulla, rhoncus eu tellus vitae, blandit consequat leo. Sed nunc nisi, malesuada quis porttitor sit amet, pretium sit amet erat. 
+  </div><!-- end col-lg-4 -->
+
+</div><!-- end row -->
+
+<div class="row vertical-offset-md">
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <div class="btn-group pull-right">
+          <a class="btn btn-primary" href="#newsCarousel" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+          <a class="btn btn-primary" href="#newsCarousel" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+        </div><!-- end btn-group -->
+        <h3>News &amp; Events</h3>
+      </div><!-- end panel-heading -->
+      <div class="panel-body">
+        <div id="newsCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+      
+        <div class="carousel-inner">
+          <div class="item active">
+            <div class="container">
+                <div class="col-md-3">
+
+                    <!--<div class="circle-info">
+                      <span class="xl">29</span>
+                      <span class="lg">Jan 2014</span>
+                      <span class="md">6 pm</span>
+                    </div>-->
+                    <time datetime="" class="icon">
+                      <em>2014</em>
+                      <strong>JUL</strong>
+                      <span>30</span>
+                    </time>
+                    <h5>Brian Swett discusses Boston’s climate future</h5>
+                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla congue orci eu elit accumsan eleifend. Maecenas sed eleifend leo. Suspendisse euismod est sit amet ultricies scelerisque.</p>
+                </div>
+                <div class="col-md-3">
+                    <time datetime="" class="icon">
+                      <em>2014</em>
+                      <strong>JUL</strong>
+                      <span>28</span>
+                    </time>
+                    <h5>Eastern Pacific temperatures say yes to El Niño, western Pacific undecided</h5>
+                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla congue orci eu elit accumsan eleifend. Maecenas sed eleifend leo. Suspendisse euismod est sit amet ultricies scelerisque.</p>
+                </div>
+                <div class="col-md-3">
+                    <time datetime="" class="icon">
+                      <em>2014</em>
+                      <strong>JUL</strong>
+                      <span>28</span>
+                    </time>
+                    <h5>Sea Level Rise and Nuisance Flood Frequency Changes around the United States</h5>
+                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla congue orci eu elit accumsan eleifend. Maecenas sed eleifend leo. Suspendisse euismod est sit amet ultricies scelerisque.</p>
+                </div>
+                <div class="col-md-3">
+                    <time datetime="" class="icon">
+                      <em>2014</em>
+                      <strong>JUL</strong>
+                      <span>12</span>
+                    </time>
+                    <h5>2013 State of the Climate: Snow in the Northern Hemisphere</h5>
+                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla congue orci eu elit accumsan eleifend. Maecenas sed eleifend leo. Suspendisse euismod est sit amet ultricies scelerisque.</p>
+                </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="container">
+                <div class="col-md-3">
+
+                    <!--<div class="circle-info">
+                      <span class="xl">29</span>
+                      <span class="lg">Jan 2014</span>
+                      <span class="md">6 pm</span>
+                    </div>-->
+                    <time datetime="" class="icon">
+                      <em>2014</em>
+                      <strong>JUL</strong>
+                      <span>30</span>
+                    </time>
+                    <h5>Brian Swett discusses Boston’s climate future</h5>
+                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla congue orci eu elit accumsan eleifend. Maecenas sed eleifend leo. Suspendisse euismod est sit amet ultricies scelerisque.</p>
+                </div>
+                <div class="col-md-3">
+                    <time datetime="" class="icon">
+                      <em>2014</em>
+                      <strong>JUL</strong>
+                      <span>28</span>
+                    </time>
+                    <h5>Eastern Pacific temperatures say yes to El Niño, western Pacific undecided</h5>
+                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla congue orci eu elit accumsan eleifend. Maecenas sed eleifend leo. Suspendisse euismod est sit amet ultricies scelerisque.</p>
+                </div>
+                <div class="col-md-3">
+                    <time datetime="" class="icon">
+                      <em>2014</em>
+                      <strong>JUL</strong>
+                      <span>28</span>
+                    </time>
+                    <h5>Sea Level Rise and Nuisance Flood Frequency Changes around the United States</h5>
+                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla congue orci eu elit accumsan eleifend. Maecenas sed eleifend leo. Suspendisse euismod est sit amet ultricies scelerisque.</p>
+                </div>
+                <div class="col-md-3">
+                    <time datetime="" class="icon">
+                      <em>2014</em>
+                      <strong>JUL</strong>
+                      <span>12</span>
+                    </time>
+                    <h5>2013 State of the Climate: Snow in the Northern Hemisphere</h5>
+                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla congue orci eu elit accumsan eleifend. Maecenas sed eleifend leo. Suspendisse euismod est sit amet ultricies scelerisque.</p>
+                </div>
+            </div>
+          </div>
+        </div><!-- end carousel-inner -->
+      </div><!-- end #newsCarousel --> 
+    </div><!-- end panel-body -->
+  </div><!-- end panel -->
+</div><!-- end row -->
+
+
+
+
+
+
+
+
+
+

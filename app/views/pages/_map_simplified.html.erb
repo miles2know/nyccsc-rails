@@ -1,0 +1,82 @@
+
+
+  <div class="mapResults" id="map" page="default-view" style="width:100%; height:600px;">
+      <div id="loading" style="display: block;">
+          <div class="loading-indicator">
+              <div class="progress progress-striped active">
+                  <div class="progress-bar progress-bar-info" style="width: 100%"></div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <%= javascript_include_tag 'mapData' %>
+
+
+  <script>
+
+  $(document).ready(function() {
+
+      var contextOverlays =  
+      [
+          {
+              data_name : "counties",
+              data_source : "data/ny_counties_tiger.geojson",
+              active : true
+          },
+          {
+              data_name : "watersheds",
+              data_source : "data/basin.geojson",
+              active : false
+          },
+          {
+              data_name : "dec-regions",
+              data_source : "data/decregions.geojson",
+              active : false
+          },
+          {
+              data_name : "climate-divisions",
+              data_source : "data/clim_div.geojson",
+              active : false
+          }
+      ];
+
+
+      var map = L.map('map').setView([43.1393, -76], 7);
+
+
+      var OpenStreetMap_DE = L.tileLayer('http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+      });
+
+      var OpenStreetMap_Mapnik = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+      });
+
+      var OpenStreetMap_BlackAndWhite = L.tileLayer('http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+      });
+
+      var OpenStreetMap_HOT = L.tileLayer('http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
+      });
+    
+      // add initial layer to map  
+      map.addLayer(OpenStreetMap_BlackAndWhite);
+      
+      var svg = d3.select(map.getPanes().overlayPane).append("svg");
+
+      //loop through possible overlays and add active layer
+      for (var i = 0; i < contextOverlays.length; i++) {
+        //console.log(contextOverlays[i].data_source);
+        if (contextOverlays[i].active) {
+          addPolygonLayerToMap(map,contextOverlays[i].data_source, 
+             contextOverlays[i].data_name, 
+             contextOverlays[i].active);
+        }
+        // addOverlayButton(contextOverlays[i].data_name, contextOverlays[i].active);
+      }
+    
+  });
+
+  </script>

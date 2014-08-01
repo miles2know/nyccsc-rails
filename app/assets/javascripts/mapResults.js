@@ -86,7 +86,7 @@ var mapResults = {
         for (var i = 0; i < contextOverlays.length; i++) {
           //console.log(contextOverlays[i].data_source);
           if (contextOverlays[i].active) {
-            addPolygonLayerToMap(contextOverlays[i].data_source, 
+            addPolygonLayerToMap(mapResults.map,contextOverlays[i].data_source, 
                contextOverlays[i].data_name, 
                contextOverlays[i].active);
           }
@@ -186,7 +186,7 @@ var mapResults = {
               for (var i = 0; i < contextOverlays.length; i++) {
                 //console.log(contextOverlays[i].data_source);
                 if ($(this).attr("id") == contextOverlays[i].data_name) {
-                  addPolygonLayerToMap(contextOverlays[i].data_source, 
+                  addPolygonLayerToMap(mapResults.map,contextOverlays[i].data_source, 
                      contextOverlays[i].data_name, 
                      true);
                 }

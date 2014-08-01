@@ -1,0 +1,65 @@
+/* CUSTOMIZE THE CAROUSEL
+-------------------------------------------------- */
+
+#photoCarousel.carousel {
+  margin-top: -2px;
+  border-top: 10px solid #333;
+  border-bottom: 10px solid #333;
+}
+
+/* Declare heights because of positioning of img element */
+#photoCarousel.carousel .item {
+  height: 500px;
+  background-color: #777;
+}
+#photoCarousel .carousel-inner > .item > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+}
+
+/* Since positioning the image, we need to help out the caption */
+#photoCarousel .carousel-caption {
+  z-index: 10;
+  background: url('nyccsc/bg-grey.png') repeat;
+  padding:10px;
+}
+
+/* top left position */
+#photoCarousel .carousel-caption.tl {
+  left:5%;
+  right:60%;
+  top:5%;
+  bottom:70%;
+}
+/* top right position */
+#photoCarousel .carousel-caption.tr {
+  left:60%;
+  right:5%;
+  top:5%;
+  bottom:70%;
+}
+/* bottom right position */
+#photoCarousel .carousel-caption.br {
+  left:60%;
+  right:5%;
+  top:70%;
+  bottom:5%;
+}
+/* bottom left position */
+#photoCarousel .carousel-caption.bl {
+  left:5%;
+  right:60%;
+  top:70%;
+  bottom:5%;
+}
+
+/* used on news carousel */
+
+.panel-heading .btn-group {
+  margin-top: 20px;
+}
+
+
+

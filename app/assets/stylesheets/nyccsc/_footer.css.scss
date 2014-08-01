@@ -1,0 +1,20 @@
+/* CUSTOMIZE THE FOOTER
+-------------------------------------------------- */
+
+footer {
+  background-color: #333;
+  color: #f2f2f2;
+}
+
+footer h5{
+  color: #fff;
+  font-size: 1.1em;
+}
+
+footer p {
+  font-size: .8em;
+}
+
+footer a:hover {
+  color:$green-light;
+}

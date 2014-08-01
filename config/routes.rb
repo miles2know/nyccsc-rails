@@ -2,7 +2,8 @@
 Rails.application.routes.draw do
   
   #TODO: Check whether not including the below route affects some other functionality
-  root :to => "catalog#index"
+  #root :to => "catalog#index"
+  root :to => "pages#home"
 
   # get '/data', to: 'catalog#index'
 
@@ -14,11 +15,9 @@ Rails.application.routes.draw do
   #allow any characters for id (since SOLR IDs are URIs)
   blacklight_for:catalog, :constraints => {:id => /|.*/}
 
-  #home page - differentiate from primary catalog interface
-  #root 'pages#home'
 
   get 'pages/understand'
-  get 'pages/vulnerabilities'
+  get 'pages/risks'
   get 'pages/strategies'
   get 'pages/news'
   get 'pages/panels'

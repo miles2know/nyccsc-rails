@@ -1,37 +1,49 @@
-<div id="header-navbar" class="branding">
+
+<div id="header-navbar">
+
   <div class="container">
-    <div class="col-md-6">
-      <%= link_to application_name, root_path, class: "navbar-brand" %>
-      <h3>NYCCSC | New York Climate Change Science Clearinghouse</h3>
+
+    <div class="row">
+
+    <div class="branding">
+      <div class="col-md-6">
+        <%= link_to application_name, root_path, class: "navbar-brand" %>
+        <h3>NYCCSC | New York Climate Change Science Clearinghouse</h3>
+      </div>
+      <div id="header-search" class="col-md-4 col-md-offset-2 text-right" role="navigation">
+        <%= render_search_bar %>
+        <% # render :partial=>'/user_util_links' %>
+      </div>
+    </div><!-- end branding -->
+
     </div>
-    <div id="header-search" class="col-md-4 col-md-offset-2" role="navigation">
-      <%= render_search_bar %>
-      <%= render :partial=>'/user_util_links' %>
-    </div>
+
+    <div class="row">
+
+    <nav class="navbar navbar-default" role="navigation">
+    
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#user-util-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+
+      <div class="collapse navbar-collapse" id="user-util-collapse">
+        <ul class="nav navbar-nav primary-nav">
+          <li><a href="/"><span class="glyphicon glyphicon-home"></span><br/>Home</a></li>
+          <li><a href="/pages/understand">UNDERSTAND<br/>Climate Change</a></li>
+          <li><a href="/pages/risks">Impacts<br/>&amp; Risks</a></li>
+          <li><a href="/pages/strategies">Response<br/>Strategies</a></li>
+          <li><a href="/catalog">BROWSE Maps <br/>&amp; FIND Data</a></li>
+          <li><a href="/highlights/feature">News &amp;<br/>Events</a></li>
+        </ul>
+      </div>
+
+    </nav><!-- end nav -->
   </div>
-</div>
-
-<div id="header-navbar" class="navbar navbar-static-top" role="navigation">
-  <div class="container primary-navbar">
-    <div class="navbar-header">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#user-util-collapse">
-      <span class="sr-only">Toggle navigation</span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
-    </div>
-
-    <div class="collapse navbar-collapse" id="user-util-collapse">
-      <ul class="nav navbar-nav">
-        <li><a href="/">Home</a></li>
-        <li><a href="/pages/understand">Understand Climate Change</a></li>
-        <li><a href="/pages/vulnerabilities">Vulnerabilities</a></li>
-        <li><a href="/pages/strategies">Response Strategies</a></li>
-        <li><a href="/catalog">Maps &amp; Data</a></li>
-        <li><a href="/highlights/feature">News &amp; Events</a></li>
-      </ul>
-    </div>
-
   </div>
-</div>
+
+</div><!-- end #header-navbar -->

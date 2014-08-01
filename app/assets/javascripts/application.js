@@ -18,6 +18,10 @@
 //= require jquery-ui-v1.9.2.js  
 //= require jquery.layout-v1.3.0.js
 
+// Required for carousel 
+//= require bootstrap.transition
+//= require bootstrap.carousel
+
 // Required by leaflet
 //= require leaflet
 

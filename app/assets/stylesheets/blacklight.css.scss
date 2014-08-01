@@ -1,2 +1,32 @@
+
+
+// Colors
+$green:         #acb74e;
+$green-light:   lighten($green, 15%);
+$green-dark:    darken($green, 10%);
+$blue:          #007d99;
+
+// Secondary Colors
+$brand-secondary:       $blue;
+$btn-secondary-color:   #fff;
+$btn-secondary-bg:      $brand-secondary;
+$btn-secondary-border:  darken($btn-secondary-bg, 5%);
+
+
+// Bootstrap Redefined
+$body-bg:         #f5f5f5;
+$headings-color:  #007d99;
+$brand-primary:   $green;
+
+$navbar-border-radius: 0px;
+$navbar-margin-bottom: 0px;
+$navbar-default-bg: $blue;
+$navbar-default-border: $blue;
+$navbar-default-link-color: #e2e2e2;
+$navbar-default-link-hover-bg: lighten($blue, 10%);
+$navbar-default-link-hover-color: #fff;
+
+$panel-default-heading-bg: #fff;
+
 @import 'bootstrap';
 @import 'blacklight/blacklight';
