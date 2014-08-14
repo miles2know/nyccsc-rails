@@ -5,15 +5,19 @@ class ProxyController < ApplicationController
   require 'net/http'
   def data
       require "net/http"
+      ## Solr query parameter
   	  @query = params[:q]
-
-
+  	  # GeoJSON parameter
+      @querytype = params["querytype"]
+      # VIVO profile as JSON parameter
+      #@vivo_json = params["vivoprofile"]  
       @base_solr_url = Blacklight.solr_config[:url] + '/select/?wt=json&q='
       @base_forestservices = 'http://frontierspatial.com/nyccsc/data/'
       @base_url = request.env['HTTP_HOST']
       @base_current_url = 'http://' + @base_url + '/proxy/data'
+        #@base_vivo_url = 
       ##Check whether this is solr or for something else
-      @querytype = params["querytype"]
+     
       if (@querytype) 
          current_url = request.original_url
          
@@ -29,6 +33,8 @@ class ProxyController < ApplicationController
           data = resp.body
           result = JSON.parse(data)
           render :json => result
+      #elsif(@vivo_json)
+          
       else
       
   	      url = URI.parse(@base_solr_url + @query)

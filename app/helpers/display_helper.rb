@@ -66,7 +66,7 @@ module DisplayHelper
 
   def get_linkeddata_result_for_url thisURI
     require 'cgi'
-    
+
     thisURISplit = thisURI.split("/")
     localName = thisURISplit.last
     #This is a hack - we will need to find a way to also get the VIVO application name into the configuraiton
@@ -79,18 +79,18 @@ module DisplayHelper
     url = URI.parse(vivo_app + "/individual?uri=" + thisURI  + "&format=jsonld")
     Rails.logger.debug("URL is #{url.inspect} " + url.to_s)
     #Need to include a way to check whether or not this URL exists so we can catch the error
-begin
-    resp = Net::HTTP.get_response(url)
-  rescue 
-    Rails.logger.debug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!linked data response encountered error " + e.to_s)
-    result = nil
-  else
-    Rails.logger.debug("No error, do what you would normally do ")
-    
+    begin
+      resp = Net::HTTP.get_response(url)
+    rescue
+      Rails.logger.debug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!linked data response encountered error " + e.to_s)
+      result = nil
+    else
+      Rails.logger.debug("No error, do what you would normally do ")
+
       data = resp.body
       result = JSON.parse(data)
-   
-  end
+
+    end
     #Find the element which has the same id
     return result
   end
@@ -237,5 +237,93 @@ begin
       end
     end
     displayLabel
+  end
+
+  ## CAll the VIVO profile and get information back as JSON
+  ## Args include the doc id which can be converted into the URI
+  def get_individual_profile_json thisURI
+    require 'cgi'
+
+    #This is a hack - we will need to find a way to also get the VIVO application name into the configuraiton
+    #where we can access it, but we can currently depend on the fact that VIVO solr is vivo app name + "solr"
+    vivo_app = Rails.application.config.vivo_app_url
+    Rails.logger.debug("Vivo app is " + vivo_app)
+    result= {}
+    thisURI = CGI::escape(thisURI)
+    url = URI.parse(vivo_app + "/individual?uri=" + thisURI  + "&action=defaultJSON")
+    Rails.logger.debug("URL is #{url.inspect} " + url.to_s)
+    begin
+      resp = Net::HTTP.get_response(url)
+    rescue
+      Rails.logger.debug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!linked data response encountered error " + e.to_s)
+      result = nil
+    else
+      Rails.logger.debug("No error, do what you would normally do ")
+
+      data = resp.body
+
+      result = JSON.parse(data)
+
+    end
+    return result
+  end
+
+  #Called from _show_default.html
+  def retrieve_individual_profile_properties_for_show document
+    all_properties = []
+    thisURI = document["URI"] unless document["URI"].blank?
+
+    if thisURI.present?
+      result = get_individual_profile_json(thisURI)
+      #Find the element which has the same id
+      if result.has_key?("individual")
+        individual = result["individual"]
+        if individual.has_key?("wrappedObject") and
+        individual["wrappedObject"].has_key?("propertyList") and
+        individual["wrappedObject"]["propertyList"].has_key?("all")
+
+          all_properties = individual["wrappedObject"]["propertyList"]["all"]
+
+        end
+      end
+    end
+
+    return all_properties
+  end
+
+  def display_individual_profile args
+    document = args[:document]
+    thisURI = document["URI"] unless document["URI"].blank?
+    if thisURI.present?
+      result = get_individual_profile_json(thisURI)
+      #Find the element which has the same id
+      if result.has_key?("individual")
+        individual = result["individual"]
+        if individual.has_key?("wrappedObject") and
+        individual["wrappedObject"].has_key?("propertyList") and
+        individual["wrappedObject"]["propertyList"].has_key?("all")
+
+          all_properties = individual["wrappedObject"]["propertyList"]["all"]
+          # This is an array where each element is the property grou
+          # and each property group is a hash which can have a list of properties
+          # where each property is a hash which can have a statements array
+          all_properties.each do|property_group|
+            if property_group.has_key?("properties")
+              properties = property_group["properties"]
+              properties.each do |property|
+                property_name = property["name"]
+                statements = property["statements"]
+                if (statements.length > 0)
+
+                end
+
+              end
+            end
+          end
+
+        end
+      end
+    end
+
   end
 end

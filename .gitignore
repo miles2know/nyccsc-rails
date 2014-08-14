@@ -22,3 +22,4 @@
 /config/initializers/app_constants.rb
 rails.log
 *.log
+solr.yml

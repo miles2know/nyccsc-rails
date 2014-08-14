@@ -3,6 +3,8 @@
   
   <% index_fields(document).each do |solr_fname, field| -%>
     <% if should_render_index_field? document, field %>
+    	<% Rails.logger.debug(" ####  Index fields loop, field name #{solr_fname.inspect} #####") %>
+    	<% Rails.logger.debug(" ####  Index fields loop, Document  #{document.inspect} #####") %>
 	    <dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_index_field_label document, :field => solr_fname %></dt>
 	    <dd class="blacklight-<%= solr_fname.parameterize %>"><%= render_index_field_value document, :field => solr_fname %></dd>
     <% end -%>
@@ -10,6 +12,7 @@
   
   <%# Including a linked data request here to retrieve RDF values OR get values from a sparql query -%>
 <%
+
 jsonResult = get_linkeddata_result(document)
 displayResult = get_display_hash(jsonResult, document)
 Rails.logger.debug("Display result is #{displayResult.inspect}")
