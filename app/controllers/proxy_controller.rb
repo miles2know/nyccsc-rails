@@ -10,7 +10,9 @@ class ProxyController < ApplicationController
   	  # GeoJSON parameter
       @querytype = params["querytype"]
       # VIVO profile as JSON parameter
-      #@vivo_json = params["vivoprofile"]  
+      #@vivo_json = params["vivoprofile"] 
+        # VIVO linked data request
+      @vivo_linked_data = params["linkeddata"] 
       @base_solr_url = Blacklight.solr_config[:url] + '/select/?wt=json&q='
       @base_forestservices = 'http://frontierspatial.com/nyccsc/data/'
       @base_url = request.env['HTTP_HOST']
@@ -33,8 +35,14 @@ class ProxyController < ApplicationController
           data = resp.body
           result = JSON.parse(data)
           render :json => result
-      #elsif(@vivo_json)
-          
+      elsif(@vivo_linked_data)
+          vivo_app = Rails.application.config.vivo_app_url
+          #The parameter value should be the URI we want
+          url = URI.parse(vivo_app + "/individual?uri=" + @vivo_linked_data  + "&format=jsonld")
+        resp = Net::HTTP.get_response(url)
+                  data = resp.body
+                  result = JSON.parse(data)
+                  render :json => result
       else
       
   	      url = URI.parse(@base_solr_url + @query)

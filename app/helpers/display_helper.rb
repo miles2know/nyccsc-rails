@@ -226,16 +226,17 @@ module DisplayHelper
   def render_type_facet_display args
     displayLabel = args
 
-    Rails.logger.debug("Args are #{args.inspect}")
-    jsonresult = get_linkeddata_result_for_url(args)
-    if jsonresult !=  nil
+    #Rails.logger.debug("Args are #{args.inspect}")
+    #jsonresult = get_linkeddata_result_for_url(args)
+    #if jsonresult !=  nil
       #hopefully this exists and we can the label
-      label = get_element_label(jsonresult, args)
-      Rails.logger.debug("label element is #{label.inspect}")
-      if label != nil
-        displayLabel = label[0]["@value"]
-      end
-    end
+      #label = get_element_label(jsonresult, args)
+      #Rails.logger.debug("label element is #{label.inspect}")
+      #if label != nil
+      #  displayLabel = label[0]["@value"]
+      #end
+      
+    #end
     displayLabel
   end
 
