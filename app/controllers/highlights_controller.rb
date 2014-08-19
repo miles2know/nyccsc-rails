@@ -21,12 +21,12 @@ class HighlightsController < ApplicationController
       Rails.logger.debug("Query is #{@query}")
       @encoded_query = URI::encode(@query)
       Rails.logger.debug("URL encoded query is #{@encoded_query}")
-      @base_url = request.protocol + request.host
-      #TODO: Need a way to store the path to VIVO somewhere in some kind of configuration file which can then be different based on where this is being tested
-      @base_sparql_url =  @base_url + ':8080/vivo/ajax/sparqlQuery'
+      #@base_url = request.protocol + request.host
+      @base_sparql_url = Rails.application.config.vivo_app_url + '/ajax/sparqlQuery'
       Rails.logger.debug("sparql url is " + @base_sparql_url)
       url = URI.parse(@base_sparql_url + "?query=" + @encoded_query)
       # url = URI.parse("http://www.reddit.com/user/brain_poop/comments/.json")
+      Rails.logger.debug("sparql url with query " + url.to_s)
       response = Net::HTTP.get_response(url)
       
       @data = JSON.parse(response.body)

@@ -1,19 +1,23 @@
 /* CUSTOMIZE THE MAP
 -------------------------------------------------- */
 
+.leaflet-container {
+  background: inherit; 
+}
+
 svg {
   position: relative;
 }
 
 path {
-  fill: #000;
+  fill: $green;
   fill-opacity: .2;
   stroke: #fff;
   stroke-width: 1.5px;
 }
 
 path:hover, path.active {
-  fill: #333;
+  fill: $green-dark;
   fill-opacity: .6;
 }
 
@@ -39,7 +43,7 @@ div.tooltip {
   pointer-events: none;         
 }
 
-.toggle-overlays {
+/*.toggle-overlays {
   width:100%;
   background:#666;
 }
@@ -47,11 +51,12 @@ div.tooltip {
   list-style: none outside none;
   padding-left:0;
   margin-bottom: 8px;
-}
+}*/
 .toggle-overlays ul li {
   display:inline;
+  font-size: .8em;
 }
-a.btn-overlay {
+/*a.btn-overlay {
   padding:5px;
   background:#666;
   color:#f2f2f2;
@@ -60,7 +65,7 @@ a.btn-overlay {
 a.btn-overlay.active {
   background:#333;
   color:#fff;
-}
+}*/
 
 table td {
   vertical-align: top;

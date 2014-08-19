@@ -5,6 +5,8 @@
   margin-top: -2px;
   border-top: 10px solid #333;
   border-bottom: 10px solid #333;
+  margin-left:-15px;
+  margin-right:-15px;
 }
 
 /* Declare heights because of positioning of img element */
@@ -13,10 +15,14 @@
   background-color: #777;
 }
 #photoCarousel .carousel-inner > .item > img {
-  position: absolute;
-  top: 0;
+  position: relative;
+  /*top: 0;
   left: 0;
-  min-width: 100%;
+  min-width: 100%;*/
+}
+
+.carousel-indicators {
+  bottom:10px; 
 }
 
 /* Since positioning the image, we need to help out the caption */
@@ -29,30 +35,30 @@
 /* top left position */
 #photoCarousel .carousel-caption.tl {
   left:5%;
-  right:60%;
   top:5%;
-  bottom:70%;
+  max-width:400px;
+  max-height:300px;
 }
 /* top right position */
 #photoCarousel .carousel-caption.tr {
-  left:60%;
   right:5%;
   top:5%;
-  bottom:70%;
+  max-width:400px;
+  max-height:300px;
 }
 /* bottom right position */
 #photoCarousel .carousel-caption.br {
-  left:60%;
   right:5%;
-  top:70%;
-  bottom:5%;
+  bottom:10%;
+  max-width:400px;
+  height:auto;
 }
 /* bottom left position */
 #photoCarousel .carousel-caption.bl {
   left:5%;
-  right:60%;
-  top:70%;
-  bottom:5%;
+  bottom:10%;
+  max-width:400px;
+  height:auto;
 }
 
 /* used on news carousel */
