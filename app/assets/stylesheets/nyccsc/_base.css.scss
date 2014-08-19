@@ -29,7 +29,9 @@ ul.with-icons li i.fa{
   text-align: center;
 }
 
-.full-width {width:100%;}
+.full-width-container {width:100%;margin:20px auto;}
+.full-width-container:after {clear:both;}
+
 .vertical-offset-md {margin-bottom:40px;}
 
 .panel-default h3{ color:$green;}
