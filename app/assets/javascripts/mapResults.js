@@ -5,38 +5,6 @@
 //that fit within the bounding box provided
 
 
-// got errors with this, but this might be obsolete if everything is based on collapsible panels instead
-// Larger screens get expanded layer control
-// if (document.body.clientWidth <= 768) {
-//     var isCollapsed = true
-// } else {
-//     var isCollapsed = false
-// };
-//var counties = addGeoJsonPolygon("data/ny_counties_tiger.geojson", "County");
-var contextOverlays =  
-    [
-        {
-            data_name : "counties",
-            data_source : "data/ny_counties_tiger.geojson",
-            active : true
-        },
-        {
-            data_name : "watersheds",
-            data_source : "data/basin.geojson",
-            active : false
-        },
-        {
-            data_name : "dec-regions",
-            data_source : "data/decregions.geojson",
-            active : false
-        },
-        {
-            data_name : "climate-divisions",
-            data_source : "data/clim_div.geojson",
-            active : false
-        }
-    ];
-
 var mapResults = {
     // Initial page setup
     onLoad: function() {
@@ -48,38 +16,20 @@ var mapResults = {
     initializeMap:function() {
     	
     	this.map = L.map('map').setView([43.1393, -76], 7);
-    
-      //mapResults.map.on('click', function(e) {e.preventDefault(); });        
-        //base Layers
-        //mapquest topagraphical
-        var mapquestOSM = L.tileLayer("http://{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png", {
-            maxZoom: 19,
-            subdomains: ["otile1", "otile2", "otile3", "otile4"],
-            attribution: 'Tiles courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">. Map data (c) <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> contributors, CC-BY-SA.'
-        });
-
-        //mapquest sattelite or imagery with labels
-        var mapquestHYB = L.layerGroup([L.tileLayer("http://{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg", {
-            maxZoom: 19,
-            subdomains: ["oatile1", "oatile2", "oatile3", "oatile4"]
-
-        }), L.tileLayer("http://{s}.mqcdn.com/tiles/1.0.0/hyb/{z}/{x}/{y}.png", {
-            maxZoom: 19,
-            subdomains: ["oatile1", "oatile2", "oatile3", "oatile4"],
-            attribution: 'Tiles and labels courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">. Map data (c) <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> contributors. '
-        })]);
-
 
         //TODO: verify that these are the best layers to use... I've seen modern looking maps that contains less detail, but are easier to read data
         var baseLayers = {
-            "Terrain": mapquestOSM,
-            "Satellite": mapquestHYB
+            "Grayscale" : OpenStreetMap_BlackAndWhite,
+            "Street Map" : Esri_WorldStreetMap,
+            "Topography": Esri_WorldTopoMap,
+            "Satellite": Esri_WorldImagery
         };
 
         // add initial layer to map  
-        mapResults.map.addLayer(mapquestOSM);
+        mapResults.map.addLayer(OpenStreetMap_BlackAndWhite);
         L.control.layers(baseLayers).addTo(mapResults.map);
 
+        // load svg canvas for d3 layers
         var svg = d3.select(mapResults.map.getPanes().overlayPane).append("svg");
 
         //loop through possible overlays and add active layer
@@ -93,39 +43,7 @@ var mapResults = {
           addOverlayButton(contextOverlays[i].data_name, contextOverlays[i].active);
         }
         
-        // region layers for context
-        // var regionLayers = {
-        //     "Counties":addGeoJsonLayer("polygon", "data/ny_counties_tiger.geojson", "County"),
-        //     "Watersheds": addGeoJsonLayer("polygon", "data/basin.geojson", "Watershed"),
-        //     "DEC Regions": addGeoJsonLayer("polygon", "data/decregions.geojson", " DEC"),
-        //     "Climate Regions": addGeoJsonLayer("polygon", "data/clim_div.geojson", "Climate")//,
-        //     //"USGS Stream Gauges": gauge
-        // };
-
-        // using Leaflet Plugin L.groupedlayercontrol to allow subgroups of controls 
-        // TODO: need to make these radio button options instead of checkboxes'
-        // also decide what layers for context to display
-        // also change data sources to solr documents
-
-      
-        // var groupedOverlays = {
-        //     "Reference": {
-        //         "Counties": counties,
-        //         "Watersheds": addGeoJsonPolygon("data/basin.geojson", "Watershed"),
-        //         "DEC Regions": addGeoJsonPolygon("data/decregions.geojson", "DECRegion"),
-        //         "Climate Regions": addGeoJsonPolygon("data/clim_div.geojson", "Climate")//,
-        //     },
-        //     "Points of Interest": {
-        //         //"USGS Streamflow Gauges": addGeoJsonPoint("data/streamGage.geojson", "Streamflow Gauge")//,
-        //     }
-        // }
-    
-        // setting up initial map controls 
-        //L.control.layers(baseLayers, regionLayers).addTo(mapResults.map);
         
-        // setting up initial map controls using Leaflet Plugin L.groupedlayercontrol
-        //mapResults.LayersControl = L.control.groupedLayers(baseLayers, groupedOverlays).addTo(mapResults.map);
-        //mapResults.map.addLayer(counties);
     },
     bindEventListeners:function() {
 
@@ -148,56 +66,45 @@ var mapResults = {
         //     }    
         //     mapResults.map.addLayer(addGeoJsonPoint( url, 'Streamflow Gauge' ) );
         // });
+        
+        //eventually this will come from vivo 
+      $("#add-overlay").click(function(e) {
+        e.preventDefault();
 
-        //add new overlays to map - "map it!" functionality
-        // $('#new-overlay').on('click', function (e) {
-        //     e.preventDefault();
-            
-        //     //hardcoded overlay at this point... will be integrated from search results
-        //     //mapResults.map.addLayer(addGeoJsonPoint( url, 'Streamflow Gauge' ) );
-        //     var newLayer = addGeoJsonPoint('data/streamGage.geojson', 'Streamflow Gauge');
-        //     mapResults.LayersControl.addOverlay(newLayer, 'Streamflow Gauges', 'Points of Interest');
-        //     mapResults.map.addLayer(newLayer);
+        addPointsLayerToMap(mapResults.map, "data/streamGage.geojson", "Streamflow Gauge", true);
 
-        // });\
+      }); //end add-overlay listener
 
-        $("#new-overlay").click(function(e) {
-          e.preventDefault();
+      $(".overlay-tabs li a").click(function(e) {
+        e.preventDefault();
+        
+        //capture which button was clicked
+        var activeLayer = $(this);
+        
+        //remove active class on all 
+        $(".overlay-tabs li").removeClass("active");
+        d3.selectAll("g").remove();
 
-          addPointsLayerToMap("data/streamGage.geojson", "Streamflow Gauge", true);
+        //loop through possible overlays 
+        $( ".overlay-tabs li a" ).each(function( i ) {
 
-        }); //end new-overlay map it function
+          if ($(this).attr("id") == activeLayer.attr("id")) {
+            $(this).parent().addClass("active");
 
-        $(".btn-overlay").click(function(e) {
-          e.preventDefault();
-          //capture which button was clicked
-          var activeLayer = $(this);
-          
-          //remove active class on all 
-          $(".btn-overlay").removeClass("active");
-          d3.selectAll("g").remove();
-
-          //loop through possible overlays 
-          $( ".btn-overlay" ).each(function( i ) {
-
-            if ($(this).attr("id") == activeLayer.attr("id")) {
-              $(this).addClass("active");
-
-              for (var i = 0; i < contextOverlays.length; i++) {
-                //console.log(contextOverlays[i].data_source);
-                if ($(this).attr("id") == contextOverlays[i].data_name) {
-                  addPolygonLayerToMap(mapResults.map,contextOverlays[i].data_source, 
-                     contextOverlays[i].data_name, 
-                     true);
-                }
+            for (var i = 0; i < contextOverlays.length; i++) {
+              //console.log(contextOverlays[i].data_source);
+              if ($(this).attr("id") == contextOverlays[i].data_name.replace(/\s+/g, '')) {
+                addPolygonLayerToMap(mapResults.map,contextOverlays[i].data_source, 
+                   contextOverlays[i].data_name, 
+                   true);
               }
             }
+          }
 
-          }); //loop overlays
+        }); //loop overlays
 
-        }); //end btn-overlay toggle listener
+      }); //end .overlay-tabs listener
 
-    	
     },
     verifyReady: function() {
         var mapDiv = $("#map");
@@ -205,6 +112,7 @@ var mapResults = {
             return true;
         }
         return false;
+        console.log('dom not ready');
         //error condition 
     }
         

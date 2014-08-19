@@ -1,5 +1,5 @@
-
-Rails.application.config.assets.precompile += %w( mapData.js )
+Rails.application.config.assets.precompile += %w( mapDataOverlays.js )
+Rails.application.config.assets.precompile += %w( mapAddD3Layer.js )
 Rails.application.config.assets.precompile += %w( mapResults.js )
 Rails.application.config.assets.precompile += %w( mapSearch.js )
 Rails.application.config.assets.precompile += %w( linkedDataRequests.js )
