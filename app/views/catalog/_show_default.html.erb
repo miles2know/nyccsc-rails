@@ -14,7 +14,7 @@
       
       <%# Is this a Data Product or GIS Layer? -%>
       <%  
-          if field_value.include? "Observational Station Data Product" 
+          if field_value.include? "Data Product" 
             @special_type = "data_product"
           elsif field_value.include? "GIS Mapping Layer" 
             @special_type = "gis_layer"
@@ -73,7 +73,7 @@ all_properties = retrieve_individual_profile_properties_for_show(document)
 
 <hr>
 
-<% if @special_type.empty? -%>
+<% if @special_type != nil and @special_type.empty? -%>
   <%# nothing extra to show -%>
 <% else -%>
   <%= render 'data_product' %>

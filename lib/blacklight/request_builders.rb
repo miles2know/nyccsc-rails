@@ -33,7 +33,13 @@ module Blacklight::RequestBuilders
        solr_parameters.append_filter_query "solr_bbox:" + spatialrange
      end
      
-  
+  ##Handling spatial search sort by distnace here
+  if (user_params["spatialsort"])
+        spatialsort = user_params["spatialsort"]
+        #Need to pass this along as fq=solr_bbox:the value that got passed
+        #so the url should look like spatialrange=[lat,long TO lat,long] and will become fq=solr_bbox:[lat_long TO lat,long]
+        solr_parameters.append_filter_query "solr_bbox:" + spatialrange
+      end
   end
 
 end
