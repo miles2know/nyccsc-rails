@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   get 'pages/panels'
 
   get 'highlights/feature'
+  get 'highlights/gis'
   get 'proxy/data'
 
   #experimenting with views and controllers within application for static html pages, SPARQL queries, and CMS integration
