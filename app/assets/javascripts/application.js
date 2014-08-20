@@ -25,6 +25,8 @@
 // Required by leaflet
 //= require leaflet
 
+// require mapInitialize
+
 // Other leaflet related scripts 
 //= require d3.min.js
 
@@ -46,5 +48,5 @@
 
 // Required by NYCCSC application - NOT used right now
 // mapping loaded by page - see /config/initializers/assets.rb and /views/catalog/_map.html.erb
-// require_tree nyccsc
+// require_tree ./map
 

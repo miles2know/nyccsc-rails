@@ -1,5 +1,5 @@
 
-  
+  <!--<button href="javascript:void(0);" class="btn btn-default map-toggle hide-map">Hide Map &raquo;</button>-->
   <!-- default map / should default to NYS -->
   <ul class="nav nav-tabs overlay-tabs"></ul>
 
@@ -20,15 +20,118 @@
   </div>
 
   <!-- for mapping application -->
-  <%= javascript_include_tag 'mapDataOverlays' %>
-  <%= javascript_include_tag 'mapAddD3Layer' %>
-  <%= javascript_include_tag 'mapResults' %>
-  <%= javascript_include_tag 'mapSearch' %>
-
-  <!-- line below should include script below -->
-  <% #javascript_include_tag 'mapInitialize' %>
+  <%= javascript_include_tag 'map/mapDataOverlays' %>
+  <%= javascript_include_tag 'map/mapAddD3Layer' %>
+  <%= javascript_include_tag 'map/mapResults' %>
+  <%#= javascript_include_tag 'map/mapSearch' %>
 
   <script>
+
+  function getUrlParameters(parameter, staticURL, decode){
+    /*
+    Function: getUrlParameters
+    Description: Get the value of URL parameters either from 
+                 current URL or static URL
+    Author: Tirumal
+    URL: www.code-tricks.com
+    */
+   
+    var currLocation = (staticURL.length)? staticURL : window.location.search,
+        returnBool = true;
+      
+
+    if (currLocation.indexOf("?") > -1) {
+
+       parArr = currLocation.split("?")[1].split("&");
+       
+
+        for(var i = 0; i < parArr.length; i++){
+            parr = parArr[i].split("=");
+            if(parr[0] == parameter){
+                return (decode) ? decodeURIComponent(parr[1]) : parr[1];
+                returnBool = true;
+            }else{
+                returnBool = false;            
+            }
+        }
+    }   
+   
+    if(!returnBool) return false;  
+ }
+
+
+
+  $(document).ready(function() {
+    //if ($('#map').length) {
+      
+      $('.map-toggle').click(function(e){
+        e.preventDefault();
+
+        console.log('map show hide clicked');
+
+        //show
+        if ($(this).hasClass('show-map')) {
+          $("#map-region").removeClass('hide');
+          $("#map-region").addClass('col-md-4');
+          $("#content").removeClass("col-md-9 col-lg-10");
+          $("#content").addClass("col-md-5 col-lg-6");
+        //$( ".collapsible-panel").show();
+        // $( ".slider-arrow, .collapsible-panel" ).animate({
+        //     right: "+=500"
+        // }, 700, function() {
+        //       // Animation complete.
+        //     });
+          $(this).html('Hide Map &raquo;').removeClass('show-map').addClass('hide-map');
+        //hide
+        } else {    
+          $("#map-region").removeClass('col-md-4');
+          $("#map-region").addClass('hide');
+          $("#content").removeClass("col-md-5 col-lg-6");
+          $("#content").addClass("col-md-9 col-lg-10");
+        //    $(".collapsible-panel").hide();
+        // $( ".slider-arrow, .collapsible-panel" ).animate({
+        //     right: "-=500"
+        // }, 700, function() {
+        //       // Animation complete.
+        //     });
+          $(this).html('Show Map &laquo;').removeClass('hide-map').addClass('show-map');    
+        }
+      }); //end .map-toggle
+
+      var searchTerms = getUrlParameters("q", "", true);
+
+      //window finished loading (js)
+      //window.addEventListener("DOMContentLoaded", function() {
+
+      //load map
+      //if (mapResults.map) {
+
+      //} else {
+      //mapResults.onLoad();
+      // map is finished loading
+      $.when(mapResults.onLoad()).done(function() {  
+        //if search terms are found on map, highlight it
+        if(searchTerms) {
+          searchTerms.split("+").forEach(function(s) {
+            // do stuff with myString;
+
+            d3.select(".area[title='"+s.toLowerCase()+"']").style("fill-opacity", ".6");
+          
+          });//end searchTerms loop
+        }//end if
+
+      });//end mapResults.onLoad() jquery?? 
+
+      //}//end if
+
+      //});//end window load function 
+
+    //} //end #map exists
+  });
+
+  //$(document).ready(do_on_load)
+  //$(window).bind('page:change', do_on_load)
+
 
   //$(document).ready(function() {
     
@@ -61,30 +164,7 @@
     //   });
 
 
-    var searchTerms = getUrlParameters("q", "", true);
-
-    //window finished loading (js)
-    window.addEventListener("load", function() {
-
-      //load map
-      if(mapResults.verifyReady()) {
-
-        // map is finished loading
-        $.when(mapResults.onLoad()).done(function() {  
-          //if search terms are found on map, highlight it
-          if(searchTerms) {
-            searchTerms.split("+").forEach(function(s) {
-              // do stuff with myString;
-              d3.selectAll(".area[title='"+s.toLowerCase()+"']").style("fill-opacity", ".6");
-            
-            });//end searchTerms loop
-          }//end if
-
-        });//end mapResults.onLoad() leaflet?? 
-
-      }//end if
-
-    });//end window load function 
+    
 
   //});
 

@@ -14,19 +14,26 @@ var mapResults = {
         
     },
     initializeMap:function() {
-    	
-    	this.map = L.map('map').setView([43.1393, -76], 7);
 
-        //TODO: verify that these are the best layers to use... I've seen modern looking maps that contains less detail, but are easier to read data
+        //establish base layers
         var baseLayers = {
             "Grayscale" : OpenStreetMap_BlackAndWhite,
-            "Street Map" : Esri_WorldStreetMap,
+            /*"Street Map" : Esri_WorldStreetMap,*/
             "Topography": Esri_WorldTopoMap,
             "Satellite": Esri_WorldImagery
         };
+    	
+        //create map
+    	this.map = L.map('map', {
+            center:[43.1393, -76],
+            zoom: 7,
+            layers: [OpenStreetMap_BlackAndWhite]
+        });
+
+        
 
         // add initial layer to map  
-        mapResults.map.addLayer(OpenStreetMap_BlackAndWhite);
+        //mapResults.map.addBaseLayer(OpenStreetMap_BlackAndWhite);
         L.control.layers(baseLayers).addTo(mapResults.map);
 
         // load svg canvas for d3 layers
