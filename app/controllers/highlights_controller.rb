@@ -76,4 +76,39 @@ class HighlightsController < ApplicationController
           @data = JSON.parse(response.body)
     end
   end
+  
+  def getDataProductInfo
+     require "net/http"
+    if params.has_key?("uri") and params["uri"] != nil and params["uri"] != ""
+          thisURI = params["uri"]
+      query = "PREFIX rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " + 
+      "PREFIX rdfs:     <http://www.w3.org/2000/01/rdf-schema#> " + 
+      "PREFIX xsd:      <http://www.w3.org/2001/XMLSchema#> " + 
+      "PREFIX owl:      <http://www.w3.org/2002/07/owl#> " + 
+      "PREFIX ccsc:      <http://nyclimateclearinghouse.org/ontology/> " + 
+      "Select ?dataVariable ?submissionValue ?label ?variableType ?typeLabel WHERE " +
+      "{ " +
+      "?dataVariable <http://nyclimateclearinghouse.org/ontology/dataVariableIn> <" + thisURI + "> ." +
+      "?dataVariable <http://nyclimateclearinghouse.org/ontology/valueForSubmission> ?submissionValue ." +
+      "?dataVariable rdfs:label ?label ." +
+      "?dataVariable <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType> ?variableType." +
+      "?variableType rdfs:label ?typeLabel ." +
+      "}"
+
+       
+            
+              Rails.logger.debug("Query is #{query}")
+              encoded_query = URI::encode(query)
+              Rails.logger.debug("URL encoded query is #{encoded_query}")
+              #base_url = request.protocol + request.host
+              base_sparql_url = Rails.application.config.vivo_app_url + '/ajax/sparqlQuery'
+              Rails.logger.debug("sparql url is " + base_sparql_url)
+              url = URI.parse(base_sparql_url + "?query=" + encoded_query)
+              response = Net::HTTP.get_response(url)
+              
+              @data = JSON.parse(response.body)
+        end
+     
+  end 
+  
 end

@@ -42,7 +42,9 @@ class CatalogController < ApplicationController
     #config.add_facet_field 'type', :label => 'Type',  :limit => 10
     ## Reordered per GitHub issue 20
     config.add_facet_field 'sector_facet', :label => 'Sector', :limit => 9
-    config.add_facet_field 'type', :label => 'Type',  :limit => 9, :helper_method => :render_type_facet_display
+    #config.add_facet_field 'type', :label => 'Type',  :limit => 9, :helper_method => :render_type_facet_display
+    config.add_facet_field 'classgroup_label_facet', :label => 'Type',  :limit => 9
+        
     config.add_facet_field 'author_facet', :label => 'Author', :limit => 9
     config.add_facet_field 'hazard_facet', :label => 'Hazard', :limit => 9
     config.add_facet_field 'risk_facet', :label => 'Risk', :limit => 9
@@ -84,7 +86,8 @@ class CatalogController < ApplicationController
     
     # Can we add a facet value as display? Is that allowed?
     config.add_index_field 'sector_facet', :label => 'Sector', :link_to_search => true
-    config.add_index_field 'mostSpecificTypeURIs', :label => 'Type', :link_to_search => true, :helper_method => :render_type_display
+    config.add_index_field 'classgroup_label_facet', :label => 'Type', :link_to_search => true
+    #config.add_index_field 'most_specific_type_label_facet', :label => 'Specific Type', :link_to_search => true
     config.add_index_field 'author_display', :label => 'Author', :link_to_search => true
     config.add_index_field 'hazard_facet', :label => 'Hazard', :link_to_search => true
     config.add_index_field 'risk_facet', :label => 'Risk', :link_to_search => true

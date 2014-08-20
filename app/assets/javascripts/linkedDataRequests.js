@@ -17,6 +17,7 @@ var linkedDataRequests = {
 		},
 		loadRequests:function() {
 			//Get linked data for each of the facet types
+			/*
 			this.facettype_label.each(function(){
 				//Call linked data and get label
 				//$(this)
@@ -29,7 +30,7 @@ var linkedDataRequests = {
 				var thisURI = $(this).text();
 				//alert(thisURI);
 				linkedDataRequests.makeLinkedDataRequest(thisURI, $(this));
-			});
+			});*/
 		},
 		makeLinkedDataRequest:function(thisURI, element) {
 			//How to make this a local request
@@ -58,25 +59,6 @@ var linkedDataRequests = {
 				
 				
 			});
-			/*
-			  $.ajax({
-		            url: thisURL,
-		            type: 'GET', 
-		            dataType: 'json',
-		            context: $(this), // context for callback
-		            complete: function(request, status) {
-		               
-		            
-		                if (status === 'success') {
-		                    //element.html("blah");
-		                	//Array, with each hash with @id
-		                	var arrayLen = 
-		                 
-		                } else {
-		                    //alert(addConceptForm.errorTernNotRemoved);
-		                }
-		            }
-		        });      */
 		
 		}
 };
