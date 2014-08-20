@@ -6,8 +6,28 @@
     <% if should_render_index_field? document, field %>
     	<% Rails.logger.debug(" ####  Index fields loop, field name #{solr_fname.inspect} #####") %>
     	<% Rails.logger.debug(" ####  Index fields loop, Document  #{document.inspect} #####") %>
+
+
 	    <dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_index_field_label document, :field => solr_fname %></dt>
 	    <dd class="blacklight-<%= solr_fname.parameterize %>"><%= render_index_field_value document, :field => solr_fname %></dd>
+
+      <%
+        field_label = render_index_field_label document, :field => solr_fname
+        field_value = render_index_field_value document, :field => solr_fname
+      %>
+      
+      
+      <%# Is this a Data Product or GIS Layer? -%>
+      <%  
+          if field_label.eql? "Type:" 
+            if field_value.include? "data" 
+              @special_type = "data_product"
+            elsif field_value.include? "GIS" 
+              @special_type = "gis_layer"
+            end 
+          end 
+      -%>  
+
     <% end -%>
   <% end -%>
   
@@ -29,5 +49,28 @@ Rails.logger.debug("Display result is #{displayResult.inspect}")
 end		                               		
 %>
 
+<% if @special_type.nil? or @special_type.empty? -%>
+  <%# nothing extra to show -%>
+<% elsif @special_type == "data_product" -%>
+  
+<% elsif @special_type == "gis_layer" -%>
+  <div class="text-right">
+    <button class="btn btn-info btn-xs" id="add-overlay" href="#">Map it!</button><br/>
+    <!--<button class="btn btn-default" id="add-overlay" href="#">Stream Gauges - Map It!</button>-->
+    <form class="form-inline" method="post" data-doc-id="" action="/mapit/#" accept-charset="UTF-8">
+      <label class="toggle_list checkbox checked" for="toggle_list" title="">
+        <input id="toggle_list" class="toggle_list" type="checkbox">
+        <span>Map it! Select</span>
+      </label>
+    </form>
+  </div>
+
+  <br class="clearfix"> 
+  <br>
+<% end -%>
+
 </dl>
+
+
+
 

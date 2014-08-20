@@ -21,4 +21,8 @@ class PagesController < ApplicationController
     #placeholder
   end
 
+  def data
+
+  end
+
 end

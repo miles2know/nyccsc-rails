@@ -73,10 +73,12 @@ all_properties = retrieve_individual_profile_properties_for_show(document)
 
 <hr>
 
-<% if @special_type != nil and @special_type.empty? -%>
+<% if @special_type.nil? or @special_type.empty? -%>
   <%# nothing extra to show -%>
-<% else -%>
+<% elsif @special_type == "data_product" -%>
   <%= render 'data_product' %>
+<% elsif @special_type == "gis_layer" -%>
+  <% #= render 'map' %>
 <% end -%>
 
 </dl>

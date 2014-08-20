@@ -12,7 +12,6 @@ function addOverlayButton(data_name, active) {
 }
 
 
-
 //using D3 for mapping overlays
 function addPolygonLayerToMap (map, data_source, data_name, active) {
         
@@ -24,7 +23,7 @@ function addPolygonLayerToMap (map, data_source, data_name, active) {
   //leaflet-zoom-hide works during transitions
 
   var svg = d3.select("svg"),
-      g = svg.append("g").attr("class", "leaflet-zoom-hide " + data_name)
+      g = svg.append("g").attr("class", "leaflet-zoom-hide context-overlay " + data_name)
                          .style("opacity", 0); 
 
   //get data and map points/regions    
@@ -62,37 +61,38 @@ function addPolygonLayerToMap (map, data_source, data_name, active) {
             //document.getElementById("q").value = document.getElementById("q").value + " " + d.properties.name;
             document.getElementById("q").value = d.properties.name;
             document.getElementsByTagName('form')[0].submit();
-
           });
 
-    map.on("viewreset", reset);
-    reset();
 
+    map.on("moveend", reset);
+    reset();
 
     // Reposition the SVG to cover the features.
     function reset() {
 
-      var bounds = path.bounds(collection),
-        topLeft = bounds[0],
-        bottomRight = bounds[1];
+      //console.log('reset called')
 
-      svg .attr("width", bottomRight[0] - topLeft[0])
-          .attr("height", bottomRight[1] - topLeft[1])
-          .style("left", topLeft[0] + "px")
-          .style("top", topLeft[1] + "px");
+      // var bounds = path.bounds(collection),
+      //   topLeft = bounds[0],
+      //   bottomRight = bounds[1];
 
-      g   .attr("transform", "translate(" + -topLeft[0] + "," + -topLeft[1] + ")");  
-      // var bounds = map.getBounds(),
-      //   topLeft = map.latLngToLayerPoint(bounds.getNorthWest()),
-      //   bottomRight = map.latLngToLayerPoint(bounds.getSouthEast());
+      // svg .attr("width", bottomRight[0] - topLeft[0])
+      //     .attr("height", bottomRight[1] - topLeft[1])
+      //     .style("left", topLeft[0] + "px")
+      //     .style("top", topLeft[1] + "px");
 
-      // svg .attr("width", bottomRight.x - topLeft.x)
-      //     .attr("height", bottomRight.y - topLeft.y)
-      //     .style("left", topLeft.x + "px")
-      //     .style("top", topLeft.y + "px");
+      // g   .attr("transform", "translate(" + -topLeft[0] + "," + -topLeft[1] + ")");  
+      var bounds = map.getBounds(),
+        topLeft = map.latLngToLayerPoint(bounds.getNorthWest()),
+        bottomRight = map.latLngToLayerPoint(bounds.getSouthEast());
+
+      svg .attr("width", bottomRight.x - topLeft.x)
+          .attr("height", bottomRight.y - topLeft.y)
+          .style("left", topLeft.x + "px")
+          .style("top", topLeft.y + "px");
       
 
-      // g .attr("transform", "translate(" + -topLeft.x + "," + -topLeft.y + ")");
+      g .attr("transform", "translate(" + -topLeft.x + "," + -topLeft.y + ")");
 
       //plot path on map
       feature.attr("d", path);
@@ -109,7 +109,6 @@ function addPolygonLayerToMap (map, data_source, data_name, active) {
   }); //end d3.json 
 
 }
-
 
 
 //map it - points layer!
@@ -163,33 +162,33 @@ function addPointsLayerToMap (map, data_source, data_name, active) {
           .style("opacity", 0);   
       });
     
-    map.on("viewreset", reset);
+    map.on("moveend", reset);
     reset();
 
     function reset() {
 
-      var bounds = path.bounds(collection),
-        topLeft = bounds[0],
-        bottomRight = bounds[1];
+      // var bounds = path.bounds(collection),
+      //   topLeft = bounds[0],
+      //   bottomRight = bounds[1];
 
-      svg .attr("width", bottomRight[0] - topLeft[0])
-          .attr("height", bottomRight[1] - topLeft[1])
-          .style("left", topLeft[0] + "px")
-          .style("top", topLeft[1] + "px");
+      // svg .attr("width", bottomRight[0] - topLeft[0])
+      //     .attr("height", bottomRight[1] - topLeft[1])
+      //     .style("left", topLeft[0] + "px")
+      //     .style("top", topLeft[1] + "px");
 
-      g   .attr("transform", "translate(" + -topLeft[0] + "," + -topLeft[1] + ")");  
+      // g   .attr("transform", "translate(" + -topLeft[0] + "," + -topLeft[1] + ")");  
 
-      // var bounds = mapResults.map.getBounds(),
-      //   topLeft = mapResults.map.latLngToLayerPoint(bounds.getNorthWest()),
-      //   bottomRight = mapResults.map.latLngToLayerPoint(bounds.getSouthEast());
+      var bounds = map.getBounds(),
+        topLeft = map.latLngToLayerPoint(bounds.getNorthWest()),
+        bottomRight = map.latLngToLayerPoint(bounds.getSouthEast());
 
-      // svg .attr("width", bottomRight.x - topLeft.x)
-      //     .attr("height", bottomRight.y - topLeft.y)
-      //     .style("left", topLeft.x + "px")
-      //     .style("top", topLeft.y + "px");
+      svg .attr("width", bottomRight.x - topLeft.x)
+          .attr("height", bottomRight.y - topLeft.y)
+          .style("left", topLeft.x + "px")
+          .style("top", topLeft.y + "px");
       
 
-      // g .attr("transform", "translate(" + -topLeft.x + "," + -topLeft.y + ")");
+      g .attr("transform", "translate(" + -topLeft.x + "," + -topLeft.y + ")");
 
       //plot points on map
       feature.attr("transform", 
