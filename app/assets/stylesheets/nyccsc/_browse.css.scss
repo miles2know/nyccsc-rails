@@ -8,7 +8,7 @@
 }
 
 .panel-success > .panel-heading + .panel-collapse > .panel-body, .facet_limit-active > .panel-heading + .panel-collapse > .panel-body {
-    border-top-color: #DDDDDD;
+  border-top-color: #DDDDDD;
 }
 
 .text-success, .facet-values li .selected {
@@ -29,4 +29,14 @@
 
 .document dl.document-metadata dd {
   margin-left: 80px;
+}
+
+.panel-heading {
+  padding-left:10px;
+}
+
+.facet-values .facet-label {
+  word-wrap:break-word;
+  padding-left:10px;
+  padding-right:.5em;
 }

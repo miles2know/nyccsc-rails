@@ -1,16 +1,20 @@
-<h1>Features - Content from VIVO using a SPARQL query</h1>
-<p></p>
+<div id="main-container" class="container">
 
-<ul>
+  <div class="row vertical-offset-md">&nbsp;</div>
+     
+  <div class="row vertical-offset-md">
 
-<% @data['results']['bindings'].each do |item| %>
-    <li><strong>Label: </strong>
-    <p><%= item['label']['value'] %></p>
-    </li>
-    
-    <li><strong>Abstract: </strong>
-    <%= item['abstract']['value'].html_safe %>
-    </li>
-<% end %>
+    <div class="col-lg-12">
 
-</ul>
+      <h1>News &amp; Events</h1>
+
+      <% @data['results']['bindings'].each do |item| %>
+        <h3><%= item['label']['value'].html_safe %></h3>
+        <p><%= item['abstract']['value'].html_safe %></p>
+      <% end %>
+
+    </div>
+  
+  </div>
+
+</div>

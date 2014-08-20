@@ -25,10 +25,10 @@
 // Required by leaflet
 //= require leaflet
 
+// require mapInitialize
+
 // Other leaflet related scripts 
-// require vue.min.js
 //= require d3.min.js
-// require lunar.min.js
 
 // require L.groupedlayercontrol
 // require typeahead 
@@ -48,5 +48,5 @@
 
 // Required by NYCCSC application - NOT used right now
 // mapping loaded by page - see /config/initializers/assets.rb and /views/catalog/_map.html.erb
-// require_tree nyccsc
+// require_tree ./map
 
