@@ -11,6 +11,9 @@ var linkedDataRequests = {
 	    	this.facettype_selected_label = $("#facet-type span.facet-label span.selected");
 	    	//Get all the index type fields if they exist
 	    	this.index_types = $("div.document dd.blacklight-mostspecifictypeuris");
+	    	//Index results
+	    	this.indexresults = $("div.document-metadata");
+	    	
 	    },
 		bindEventListeners:function() {
 			//There isn't really a binding here for specific events
@@ -31,6 +34,12 @@ var linkedDataRequests = {
 				//alert(thisURI);
 				linkedDataRequests.makeLinkedDataRequest(thisURI, $(this));
 			});*/
+			this.indexresults.each(
+					function(){
+						var thisURI = $(this).attr();
+						//alert(thisURI);
+						linkedDataRequests.makeLinkedDataRequest(thisURI, $(this));
+					});
 		},
 		makeLinkedDataRequest:function(thisURI, element) {
 			//How to make this a local request

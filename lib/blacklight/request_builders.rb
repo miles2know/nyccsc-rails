@@ -34,12 +34,20 @@ module Blacklight::RequestBuilders
      end
      
   ##Handling spatial search sort by distnace here
-  if (user_params["spatialsort"])
-        spatialsort = user_params["spatialsort"]
-        #Need to pass this along as fq=solr_bbox:the value that got passed
-        #so the url should look like spatialrange=[lat,long TO lat,long] and will become fq=solr_bbox:[lat_long TO lat,long]
-        solr_parameters.append_filter_query "solr_bbox:" + spatialrange
-      end
+     ## Commenting out for now but will put back in when handling sorting
+#  if (user_params["spatialsort"])
+#        spatialsort = user_params["spatialsort"]
+#        #Need to pass this along as select?q=*%3A*&fq={!geofilt}&sfield=solr_pt&pt=42,-75&sort=geodist%28%29%20asc&d=1000&filter=false
+#        solr_parameters.append_filter_query "{!geofilt}"
+#        #This field should contain the point latitude longitude for the indexed item
+#        solr_parameters["sfield"] = "solr_pt"
+#        #The parameter passed should be the point we want to sort by
+#        solr_parameters["pt"] = spatialsort
+#        solr_parameters["sort"]= "geodist() asc"
+#        solr_parameters["d"] = "10"
+#        #we want to sort but not filter by distance
+#        solr_parameters["filter"] = false
+#      end
   end
 
 end
