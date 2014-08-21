@@ -3,6 +3,7 @@ Rails.application.config.assets.precompile += %w( map/mapAddD3Layer.js )
 Rails.application.config.assets.precompile += %w( map/mapResults.js )
 Rails.application.config.assets.precompile += %w( map/mapSearch.js )
 Rails.application.config.assets.precompile += %w( linkedDataRequests.js )
+Rails.application.config.assets.precompile += %w( sparqlQueryResults.js )
 
 # if Bill Noon's vue/superagent (require.js variation) is utilized
 # Rails.application.config.assets.precompile += %w( map.js )

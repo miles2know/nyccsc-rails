@@ -13,6 +13,7 @@ class ProxyController < ApplicationController
       #@vivo_json = params["vivoprofile"] 
         # VIVO linked data request
       @vivo_linked_data = params["linkeddata"] 
+      @vivo_sparql_query = params["sparqlquery"]
       @base_solr_url = Blacklight.solr_config[:url] + '/select/?wt=json&q='
       @base_forestservices = 'http://frontierspatial.com/nyccsc/data/'
       @base_url = request.env['HTTP_HOST']
@@ -43,6 +44,32 @@ class ProxyController < ApplicationController
                   data = resp.body
                   result = JSON.parse(data)
                   render :json => result
+                  
+      ## Deal with sparql queries
+      elsif(@vivo_sparql_query) 
+        ## This parameter should include the URI we want to execute this query for below
+        ## Right now just doing one but can get more
+        query = "PREFIX rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " + 
+        "PREFIX rdfs:     <http://www.w3.org/2000/01/rdf-schema#> " + 
+        "PREFIX xsd:      <http://www.w3.org/2001/XMLSchema#> " + 
+        "PREFIX owl:      <http://www.w3.org/2002/07/owl#> " + 
+        "PREFIX ccsc:      <http://nyclimateclearinghouse.org/ontology/> " + 
+        "SELECT ?url ?linkLabel WHERE {" + 
+        "<" + @vivo_sparql_query + "> <http://purl.obolibrary.org/obo/ARG_2000028> ?vcard ." + 
+        "?vcard a <http://www.w3.org/2006/vcard/ns#Kind> ." + 
+        "?vcard <http://www.w3.org/2006/vcard/ns#hasURL> ?link ." + 
+        "?link a <http://www.w3.org/2006/vcard/ns#URL> ." + 
+        "?link <http://www.w3.org/2006/vcard/ns#url> ?url ." + 
+        "?link rdfs:label ?linkLabel ." +
+        "}"         
+        base_sparql_url = Rails.application.config.vivo_app_url + '/ajax/sparqlQuery'
+        encoded_query = URI::encode(query)
+        url = URI.parse(base_sparql_url + "?query=" + encoded_query)
+        Rails.logger.debug("url for sparql query is " + url.to_s)
+        resp = Net::HTTP.get_response(url)
+        data = resp.body
+        result = JSON.parse(data)
+        render :json => result
       else
       
   	      url = URI.parse(@base_solr_url + @query)

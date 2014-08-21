@@ -37,3 +37,9 @@
   </div>
 
 </div>
+
+<% # for ajax sparql query requests %>
+<script type="text/javascript">
+var sparqlQueryURI = "<%=@document["URI"]%>";
+</script>
+<%= javascript_include_tag 'sparqlQueryResults' %>
