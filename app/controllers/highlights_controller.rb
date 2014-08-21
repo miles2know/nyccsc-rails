@@ -77,7 +77,7 @@ class HighlightsController < ApplicationController
     end
   end
   
-  def getDataProductInfo
+  def gis
      require "net/http"
     if params.has_key?("uri") and params["uri"] != nil and params["uri"] != ""
           thisURI = params["uri"]

@@ -1,9 +1,10 @@
-
-<%# partial for data product type -%>
+<% content_for :title do %>
+  Data Product | NY Climate Change Science Clearinghouse
+<% end %>
 
 <style>
     
-    /*.axis path,
+    .axis path,
     .axis line {
       fill: none;
       stroke: #000;
@@ -20,29 +21,42 @@
     .overlay {
       fill: none;
       pointer-events: all;
-    }*/
+    }
 
 </style>
 
+<div id="main-container" class="container">
 
-<h2>Data Product</h2>
+  <div class="row vertical-offset-md">&nbsp;</div>
+     
+  <div class="row vertical-offset-md">
 
-<p>Initial View of Charts and Variables </p>
+    <div class="col-lg-12">
 
-<!-- <div class="row" id="options">
+      <h1>Data Product Example</h1>
 
-    <select name="county"> 
-      <option value="Tompkins">Tompkins</option>
-      <option value="Erie">Erie</option>
-      <option value="Genessee">Genessee</option>
-    </select>
+      <div class="row" id="options">
 
-    <select id="products" name="products">
-    </select>
+          <select name="county"> 
+            <option value="Tompkins">Tompkins</option>
+            <option value="Erie">Erie</option>
+            <option value="Genessee">Genessee</option>
+          </select>
+
+          <select id="products" name="products">
+          </select>
+
+      </div>
+
+      <div class="row" id="results"> </div>
+
+      
+
+    </div>
+
+  </div>
 
 </div>
-
-<div class="row" id="results"> </div>
 
 <script type="text/javascript">
   
@@ -107,6 +121,4 @@
 
       });
 
-        
-  
-  </script> -->
+  </script>

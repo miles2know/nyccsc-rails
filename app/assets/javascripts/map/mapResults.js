@@ -26,11 +26,9 @@ var mapResults = {
         //create map
     	this.map = L.map('map', {
             center:[43.1393, -76],
-            zoom: 7,
+            zoom: 6,
             layers: [OpenStreetMap_BlackAndWhite]
         });
-
-        
 
         // add initial layer to map  
         //mapResults.map.addBaseLayer(OpenStreetMap_BlackAndWhite);
@@ -78,7 +76,16 @@ var mapResults = {
       $("#add-overlay").click(function(e) {
         e.preventDefault();
 
-        addPointsLayerToMap(mapResults.map, "data/streamGage.geojson", "Streamflow Gauge", true);
+        $(this).toggleClass('active');
+
+        if ($(this).hasClass('active')) {
+            addPointsLayerToMap(mapResults.map, "data/streamGage.geojson", "Streamflow Gauge", true);
+            $(this).html("Remove It!");
+            
+        } else {
+            d3.selectAll("g.Streamflow").remove();
+            $(this).html("Map It!");
+        }
 
       }); //end add-overlay listener
 
@@ -90,7 +97,7 @@ var mapResults = {
         
         //remove active class on all 
         $(".overlay-tabs li").removeClass("active");
-        d3.selectAll("g").remove();
+        d3.selectAll("g.context-overlay").remove();
 
         //loop through possible overlays 
         $( ".overlay-tabs li a" ).each(function( i ) {

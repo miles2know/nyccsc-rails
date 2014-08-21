@@ -1,19 +1,14 @@
-<style>
-.slider-arrow {
-  padding:5px;
-  width:30px;
-  background:#fff;
-  color:#000;
-  text-decoration:none;
-}
-</style>
 <div id="main-container" class="container full-width-container">
 
-    <div class="row">
-
-      <div class="pull-right"><button href="javascript:void(0);" class="btn btn-default map-toggle hide-map">Hide Map &raquo;</button></div>
+    <div class="col-md-12">
+      <div class="pull-right">
+        <a href="#">Selected <strong>Map it!</strong> Items (<span id="map-count">0</span>)</a>&nbsp;&nbsp;
+        <button href="#" class="btn btn-default btn-xs map-toggle hide-map">Hide Map &raquo;</button>
+      </div>
     </div>
 
+    <div class="row vertical-offset-md">&nbsp;</div>
+    
     <!--<div id="sidebar" class="col-md-2 pane ui-layout-west">-->
     <div id="sidebar" class="col-md-3 col-lg-2">
      <%= render 'search_sidebar' %>
@@ -74,55 +69,42 @@
 </div>
 
 
-<% # for linked data requests %>
-  <%= javascript_include_tag 'linkedDataRequests' %>
-<script>
+<script type="text/javascript">
 
-$(function(){
-  $('.map-toggle').click(function(e){
-      e.preventDefault();
+  $(document).ready(function() {
 
-      //show
-      if($(this).hasClass('show-map')){
-        $("#map-region").removeClass('hide');
-        $("#map-region").addClass('col-md-4');
-        $("#content").removeClass("col-md-9 col-lg-10");
-        $("#content").addClass("col-md-5 col-lg-6");
-      //$( ".collapsible-panel").show();
-      // $( ".slider-arrow, .collapsible-panel" ).animate({
-      //     right: "+=500"
-      // }, 700, function() {
-      //       // Animation complete.
-      //     });
-      $(this).html('Hide Map &raquo;').removeClass('show-map').addClass('hide-map');
-      //hide
-      } else {    
-        $("#map-region").removeClass('col-md-4');
-        $("#map-region").addClass('hide');
-        $("#content").removeClass("col-md-5 col-lg-6");
-        $("#content").addClass("col-md-9 col-lg-10");
-      //    $(".collapsible-panel").hide();
-      // $( ".slider-arrow, .collapsible-panel" ).animate({
-      //     right: "-=500"
-      // }, 700, function() {
-      //       // Animation complete.
-      //     });
-      $(this).html('Show Map &laquo;').removeClass('hide-map').addClass('show-map');    
-        }
+    //reset all 
+    $("input.toggle_list").removeAttr("checked");
+    var count = 0;
+
+    //setup session variable to hold map it IDs and count?
+    //for now it's a hack for count and there isn't a holding tank for IDs
+    $(".toggle_list").each(function() {
+      $(this).attr("id",($(this).parents('div.document').attr("docid")));
     });
 
-});
+    $("input.toggle_list").on("change", function() {
+    
+      //console.log($(this).attr("id"));
+      if ($(this).is(':checked')) {
+          count ++;
+          $(this).next().html("Map it! Selected");
+          $("#map-count").html(count.toString());
+          
+      } else {
+          count --;
+          $(this).next().html("Map it! Select");
+          $("#map-count").html(count.toString());
+      }
+      
+    });
 
-// $(document).ready(function () {
-//     var options = { //resizable: true 
-//       west: {minSize: 200}
-//     , west: {size:200}
-//     , east: {size:500}
-//     , west__togglerContent_open:   "&#8249;" // "‹"
-//     , west__togglerContent_closed: "&#8250;" // "›"
-//     , east__togglerContent_open:   "&#8250;" // "›"
-//     , east__togglerContent_closed: "&#8249;" // "‹"
-//     }
-//     $('#panels-wrapper').layout(options);
-//});
+   
+
+  });
+
 </script>
+
+
+<% # for linked data requests %>
+<%= javascript_include_tag 'linkedDataRequests' %>
