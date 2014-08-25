@@ -54,7 +54,7 @@ module DisplayHelper
     result = []
     thisURI = document["URI"] unless document["URI"].blank?
 
-    Rails.logger.debug("thisURI is here  #{thisURI}")
+    #Rails.logger.debug("thisURI is here  #{thisURI}")
     #Check whether we have vitroIndividual in front of URI
     #Also see how we can forward climate-dev etc. to the correct URI on this machine
     if thisURI.present?
@@ -72,12 +72,12 @@ module DisplayHelper
     #This is a hack - we will need to find a way to also get the VIVO application name into the configuraiton
     #where we can access it, but we can currently depend on the fact that VIVO solr is vivo app name + "solr"
     vivo_app = Rails.application.config.vivo_app_url
-    Rails.logger.debug("Vivo app is " + vivo_app)
+    #Rails.logger.debug("Vivo app is " + vivo_app)
     #base_url = request.protocol + request.host
     #vivoappName = "nyccscvivo"
     thisURI = CGI::escape(thisURI)
     url = URI.parse(vivo_app + "/individual?uri=" + thisURI  + "&format=jsonld")
-    Rails.logger.debug("URL is #{url.inspect} " + url.to_s)
+    #Rails.logger.debug("URL is #{url.inspect} " + url.to_s)
     #Need to include a way to check whether or not this URL exists so we can catch the error
     begin
       resp = Net::HTTP.get_response(url)
@@ -85,7 +85,7 @@ module DisplayHelper
       Rails.logger.debug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!linked data response encountered error " + e.to_s)
       result = nil
     else
-      Rails.logger.debug("No error, do what you would normally do ")
+      #Rails.logger.debug("No error, do what you would normally do ")
 
       data = resp.body
       result = JSON.parse(data)
@@ -154,7 +154,7 @@ module DisplayHelper
         end
       end # end of loop through the element itself
     else
-      Rails.logger.debug("Element not returned for id " + document["URI"])
+     # Rails.logger.debug("Element not returned for id " + document["URI"])
     end
 
     return displayResult
@@ -166,7 +166,7 @@ module DisplayHelper
     if value.is_a?(Array)
       #if this is array, need to loop through
       value.each do |arrayValue|
-        Rails.logger.debug("Array, looping through elements "  + arrayValue.to_s)
+     #   Rails.logger.debug("Array, looping through elements "  + arrayValue.to_s)
         # Check if the arrayValue is a hash or a string
         if arrayValue.is_a?(Hash)
           if arrayValue.has_key?("@value")
@@ -248,18 +248,18 @@ module DisplayHelper
     #This is a hack - we will need to find a way to also get the VIVO application name into the configuraiton
     #where we can access it, but we can currently depend on the fact that VIVO solr is vivo app name + "solr"
     vivo_app = Rails.application.config.vivo_app_url
-    Rails.logger.debug("Vivo app is " + vivo_app)
+    #Rails.logger.debug("Vivo app is " + vivo_app)
     result= {}
     thisURI = CGI::escape(thisURI)
     url = URI.parse(vivo_app + "/individual?uri=" + thisURI  + "&action=defaultJSON")
-    Rails.logger.debug("URL is #{url.inspect} " + url.to_s)
+    #Rails.logger.debug("URL is #{url.inspect} " + url.to_s)
     begin
       resp = Net::HTTP.get_response(url)
     rescue
       Rails.logger.debug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!linked data response encountered error " + e.to_s)
       result = nil
     else
-      Rails.logger.debug("No error, do what you would normally do ")
+      #Rails.logger.debug("No error, do what you would normally do ")
 
       data = resp.body
 

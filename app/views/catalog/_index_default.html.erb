@@ -4,8 +4,8 @@
   
   <% index_fields(document).each do |solr_fname, field| -%>
     <% if should_render_index_field? document, field %>
-    	<% Rails.logger.debug(" ####  Index fields loop, field name #{solr_fname.inspect} #####") %>
-    	<% Rails.logger.debug(" ####  Index fields loop, Document  #{document.inspect} #####") %>
+    	<% #Rails.logger.debug(" ####  Index fields loop, field name #{solr_fname.inspect} #####") %>
+    	<% #Rails.logger.debug(" ####  Index fields loop, Document  #{document.inspect} #####") %>
 
 
 	    <dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_index_field_label document, :field => solr_fname %></dt>

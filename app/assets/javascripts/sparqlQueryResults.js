@@ -1,22 +1,52 @@
 var sparqlQueryResults = {
 	 onLoad: function() {
+		 	this.initData();
 	        this.initObjects();
 	        this.bindEventListeners();
 	        this.loadRequests();
 	    },
+	    initData:function() {
+	    	//little klunky but we will make sparqlQueryURI a global javascript variable ont he page
+			//declared within the html itself
+	    	this.sparqlQueryURI = sparqlQueryURI;
+	    	//whether or not this is a special page
+	    	this.isSpecialTypePage = false;
+	    	if(typeof(page_special_type) != "undefined") {
+	    		this.isSpecialTypePage = true;
+	    		this.special_type = page_special_type;
+	    	}
+	    },
 	    initObjects:function() {
+	    	
 	    	this.includeURLInfo = $("#includeURLInfo");
 	    },
 		bindEventListeners:function() {
 			//There isn't really a binding here for specific events
 		},
 		loadRequests:function() {
+			//Multiple types of query request might be possible
 			this.makeQueryRequest();
 		},
 		makeQueryRequest:function() {
-			//little klunky but we will make sparqlQueryURI a global javascript variable ont he page
-			//declared within the html itself
-			var thisURL = "/proxy/data?sparqlquery=" + sparqlQueryURI;
+			//If this is the details page, multiple sparql query results might be possible
+			//Will need way to distinguish between them
+			this.makeLinkQueryRequest();
+			if(this.isSpecialTypePage) {
+				if(this.special_type == "data_product") {
+					//If data product, then need to make a data product query
+					//To get variables and other information
+					this.makeDataProductQueryRequest();
+				}
+				if(this.special_type =="data_product" || this.special_type =="gis_layer") {
+					this.makeAccessURLQuery();
+				}
+				//for both data product and gis layer need access URL
+			}
+			
+		},
+		makeLinkQueryRequest:function() {
+			
+			var thisURL = "/proxy/data?sparqlquerytype=link&sparqlquery=" + sparqlQueryResults.sparqlQueryURI;
 			
 			
 			$.getJSON(thisURL, function(results) {
@@ -27,6 +57,26 @@ var sparqlQueryResults = {
 					
 				});
 		
+		},
+		makeDataProductQueryRequest:function() {
+			var thisURL = "/proxy/data?sparqlquerytype=dataproduct&sparqlquery=" + sparqlQueryResults.sparqlQueryURI;
+			$.getJSON(thisURL, function(results) {
+				
+						var displayHtml = sparqlQueryResults.generateDataProductDisplay(results);
+						//sparqlQueryResults.includeURLInfo.append(displayHtml);
+						
+					
+				});
+		},
+		makeAccessURLQuery:function() {
+			var thisURL = "/proxy/data?sparqlquerytype=accessurl&sparqlquery=" + sparqlQueryResults.sparqlQueryURI;
+			$.getJSON(thisURL, function(results) {
+				
+						//var displayHtml = sparqlQueryResults.generateDataProductDisplay(results);
+						//sparqlQueryResults.includeURLInfo.append(displayHtml);
+						
+					
+				});
 		},
 		//return html stringn to add
 		generateDisplay:function(jsonResult) {
@@ -64,6 +114,9 @@ var sparqlQueryResults = {
 				}
 			}
 			return htmlDisplay;
+		},
+		generateDataProductDisplay:function(jsonResult) {
+			return "data product";
 		}
 };
 

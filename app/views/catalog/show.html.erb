@@ -41,5 +41,17 @@
 <% # for ajax sparql query requests %>
 <script type="text/javascript">
 var sparqlQueryURI = "<%=@document["URI"]%>";
+
+<%
+## Pass special type to the javascript so we can do type specific queries if need be
+if !@special_type.nil? and !@special_type.empty?
+	%>
+	
+	var page_special_type = "<%=@special_type%>";
+	
+	<%
+end
+%>
+
 </script>
 <%= javascript_include_tag 'sparqlQueryResults' %>
