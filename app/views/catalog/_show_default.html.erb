@@ -38,40 +38,30 @@
   
 #end		                               		
 %>
+<span id="includeURLInfo"></span>
+<% 
+## Here we will try a sparql query request - for now until we get all properties back as we wish - to get the URL
+
+%>
 
 <%#  Trying out a full profile dump here as well, will comment out linked data request in favor of profile info instead -%>
 
 <%
 all_properties = retrieve_individual_profile_properties_for_show(document)
-          # This is an array where each element is the property grou
-          # and each property group is a hash which can have a list of properties
-          # where each property is a hash which can have a statements array
-          all_properties.each do|property_group|
-            if property_group.has_key?("properties")
-              properties = property_group["properties"]
-              properties.each do |property|
-                property_name = property["name"]
-                statements = property["statements"]
-                if (statements != nil and statements.length > 0)
-                	statements.each do|statement|
-                  	Rails.logger.debug("Statement is #{statement.inspect}")
-                  	if(statement.has_key?("value") and statement["value"] != nil and statement["value"].gsub(/\s+/, "") != "")
+display_hash = display_all_properties(all_properties)
+display_hash.each do|statement_hash|        
 %>
 
-                      <dt class="blacklight-<%= property_name %>"><%=property_name.titleize%></dt>
-  		                <dd class="blacklight-<%= property_name %>"><%=statement["value"]%></dd>
+                      <dt class="blacklight-<%= statement_hash["property_name"] %>"><%=statement_hash["property_name"]%></dt>
+  		                <dd class="blacklight-<%= statement_hash["property_name"] %>"><%=statement_hash["property_display_values"].html_safe%></dd>
 
 <%
-     					      end #if statement.has_key
-   					      end #do statements
-                end #if statements
-
-              end #do properties
-            end #if property_group.has_key
-          end #do all_properties
+     					      
+   					      
+end             
 %>
-
 <hr>
+
 
 <% if @special_type.nil? or @special_type.empty? -%>
   <%# nothing extra to show -%>

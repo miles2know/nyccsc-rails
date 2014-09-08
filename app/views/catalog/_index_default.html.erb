@@ -1,11 +1,11 @@
 <%# default partial to display solr document fields in catalog index view -%>
 
-<dl class="document-metadata dl-horizontal dl-invert">
+<dl class="document-metadata dl-horizontal dl-invert" uri="<%= document["URI"]%>">
   
   <% index_fields(document).each do |solr_fname, field| -%>
     <% if should_render_index_field? document, field %>
-    	<% Rails.logger.debug(" ####  Index fields loop, field name #{solr_fname.inspect} #####") %>
-    	<% Rails.logger.debug(" ####  Index fields loop, Document  #{document.inspect} #####") %>
+    	<% #Rails.logger.debug(" ####  Index fields loop, field name #{solr_fname.inspect} #####") %>
+    	<% #Rails.logger.debug(" ####  Index fields loop, Document  #{document.inspect} #####") %>
 
 
 	    <dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_index_field_label document, :field => solr_fname %></dt>
@@ -33,20 +33,20 @@
   
   <%# Including a linked data request here to retrieve RDF values OR get values from a sparql query -%>
 <%
-
-jsonResult = get_linkeddata_result(document)
-displayResult = get_display_hash(jsonResult, document)
-Rails.logger.debug("Display result is #{displayResult.inspect}")
- displayResult.each do |result|
- 	displayValue = result["displayValue"]
- 	if displayValue.length > 300 
- 		displayValue = displayValue[0..299] + " ..."
- 	end
-   %>
-      <dt class="blacklight-<%= result["name"] %>"><%= result["displayName"] %></dt>
-		  <dd class="blacklight-<%= result["name"] %>"><%=displayValue %></dd>
-   <%
-end		                               		
+###Commenting out for now
+#jsonResult = get_linkeddata_result(document)
+#displayResult = get_display_hash(jsonResult, document)
+#Rails.logger.debug("Display result is #{displayResult.inspect}")
+# displayResult.each do |result|
+# 	displayValue = result["displayValue"]
+# 	if displayValue.length > 300 
+# 		displayValue = displayValue[0..299] + " ..."
+# 	end
+  
+   #   <dt class="blacklight-<= result["name"] >"><= result["displayName"] ></dt>
+#		  <dd class="blacklight-<= result["name"] >"><=displayValue ></dd>
+   
+#end		                               		
 %>
 
 <% if @special_type.nil? or @special_type.empty? -%>
@@ -70,6 +70,8 @@ end
 <% end -%>
 
 </dl>
+
+
 
 
 

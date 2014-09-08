@@ -52,7 +52,8 @@ class CatalogController < ApplicationController
     config.add_facet_field 'subjectarea_facet', :label => 'Subject Area', :limit => 9
     #config.add_facet_field 'keyword_facet', :label => 'Keyword', :limit => 10
     #config.add_facet_field 'vulnerability_facet', :label => 'Vulnerability', :limit => 9
-    
+    # I want faceting to be enabled by this but not to be drawn in the facet bar
+    config.add_facet_field 'most_specific_type_label_facet', :show => false
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
@@ -106,7 +107,11 @@ class CatalogController < ApplicationController
     
     # Can we add a facet value as display? Is that allowed?
     config.add_show_field 'sector_facet', :label => 'Sector', :link_to_search => true
-    config.add_show_field 'mostSpecificTypeURIs', :label => 'Type', :link_to_search => true, :helper_method => :render_type_display
+    # If including this, be sure to uncomment render_type_display in display_helper
+    #config.add_show_field 'mostSpecificTypeURIs', :label => 'Type', :link_to_search => true, :helper_method => :render_type_display
+    config.add_show_field 'most_specific_type_label_facet', :label => 'Type', :link_to_search => true
+    # If we want to link to the author as facet, we should instead change this to author_facet and just use that consistently
+    # throughout
     config.add_show_field 'author_display', :label => 'Author', :link_to_search => true
     config.add_show_field 'hazard_facet', :label => 'Hazard', :link_to_search => true
     config.add_show_field 'risk_facet', :label => 'Risk', :link_to_search => true

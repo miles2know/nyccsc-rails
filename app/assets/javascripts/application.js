@@ -12,7 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
+//Commenting out turbolinks 
+// require turbolinks
 
 // Required by Panels (jquery.layout.js)
 //= require jquery-ui-v1.9.2.js  
