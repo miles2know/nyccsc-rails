@@ -15,9 +15,9 @@
 //Commenting out turbolinks 
 // require turbolinks
 
-// Required by Panels (jquery.layout.js)
-//= require jquery-ui-v1.9.2.js  
-//= require jquery.layout-v1.3.0.js
+// Required by Panels (jquery.layout.js) - NOT used right now
+// require jquery-ui-v1.9.2.js  
+// require jquery.layout-v1.3.0.js
 
 // Required for carousel 
 //= require bootstrap.transition
@@ -29,7 +29,8 @@
 // require mapInitialize
 
 // Other leaflet related scripts 
-//= require d3.min.js
+//= require d3
+//= require d3.legend
 
 // require L.groupedlayercontrol
 // require typeahead 
@@ -37,7 +38,6 @@
 // Other leaflet related scripts - NOT used right now
 // require L.Control.Locate
 // require L.Control.Sidebar
-// require d3
 // require Control.MiniMap
 // require leaflet.markercluster
 

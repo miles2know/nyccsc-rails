@@ -25,8 +25,14 @@
  * require leaflet.markercluster.default
 
  * Panels - Resize and Toggle Open/Close (jquery.layout)
- *= require jquery.layout-default.css
+ * require jquery.layout-default.css
 
+ * Datepicker 
+ *= require bootstrap.datepicker.css
+
+ * jQuery UI - tried using their slider for date range selector, decided against it for now
+ * require jquery-ui.css
+ 
  * Font awesome for iconography
  *= require font-awesome
 */

@@ -1,0 +1,40 @@
+/* CUSTOMIZE D3 charts
+-------------------------------------------------- */
+
+.chart-container {
+  width:100%;
+  background-color: #fff;
+  margin-top:30px;
+}
+
+.axis path, .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.line {
+  fill: none;
+  stroke: black;
+  stroke-opacity: 0.5;
+  stroke-width: 2px;
+}
+
+.data-point {
+  cursor: pointer;
+}
+
+.tooltip {
+  background:#999 !important;
+  color:#fff;
+}
+
+.legend rect {
+  fill:white;
+  stroke:black;
+  opacity:0.8;
+}

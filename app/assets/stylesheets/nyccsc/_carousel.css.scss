@@ -11,7 +11,7 @@
 
 /* Declare heights because of positioning of img element */
 #photoCarousel.carousel .item {
-  height: 500px;
+  height: 450px;
   background-color: #777;
 }
 #photoCarousel .carousel-inner > .item > img {
@@ -27,39 +27,21 @@
 
 /* Since positioning the image, we need to help out the caption */
 #photoCarousel .carousel-caption {
-  z-index: 10;
+  
   background: url('nyccsc/bg-grey.png') repeat;
   padding:10px;
 }
 
-/* top left position */
-#photoCarousel .carousel-caption.tl {
-  left:5%;
-  top:5%;
-  max-width:400px;
-  max-height:300px;
+/* top position */
+#photoCarousel .carousel-caption.top {
+  top:15px;
+  bottom: auto;
 }
-/* top right position */
-#photoCarousel .carousel-caption.tr {
-  right:5%;
-  top:5%;
-  max-width:400px;
-  max-height:300px;
+/* bottom position */
+#photoCarousel .carousel-caption.bottom {
+  bottom:35px;
 }
-/* bottom right position */
-#photoCarousel .carousel-caption.br {
-  right:5%;
-  bottom:10%;
-  max-width:400px;
-  height:auto;
-}
-/* bottom left position */
-#photoCarousel .carousel-caption.bl {
-  left:5%;
-  bottom:10%;
-  max-width:400px;
-  height:auto;
-}
+
 
 /* used on news carousel */
 
