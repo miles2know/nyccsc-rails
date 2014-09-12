@@ -1,0 +1,136 @@
+<% content_for :title do %>
+  Data Product | NY Climate Change Science Clearinghouse
+<% end %>
+
+<style>
+
+  .chart-container {
+    width:100%;
+    background-color: #fff;
+    margin-top:30px;
+  }
+
+  .axis path, .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+
+  .x.axis path {
+    display: none;
+  }
+
+  .line {
+    fill: none;
+    stroke: black;
+    stroke-opacity: 0.5;
+    stroke-width: 2px;
+  }
+
+  .data-point {
+    cursor: pointer;
+  }
+
+  .tooltip {
+    background:#999 !important;
+    color:#fff;
+  }
+
+  .legend rect {
+    fill:white;
+    stroke:black;
+    opacity:0.8;
+  }
+
+</style>
+
+<div id="main-container" class="container">
+     
+  <div class="row vertical-offset-md">
+
+    <div class="col-lg-3 col-md-3">
+
+      <div class="row" id="options">
+
+      <form class="form-vertical">
+
+          <h3>Chart Options</h3>
+          <div class="form-group">
+            <label for="county">Select Region:</label>
+            <select id="county" name="county" class="form-control"> 
+               <%= render 'pages/shared/counties' %>
+            </select>
+          </div>
+
+          <!-- <div class="form-group">
+            <label for="date-range">Select Chart:</label>
+            <select id="chart" name="chart" class="form-control">
+              dynamically populated each time a chart is added to the page
+              <option value="" disabled>Add Canvas</option>          
+            </select>
+          </div>
+ -->
+          <button type="submit" id="addData" class="btn btn-primary">Add Chart Set</button>
+
+          <button type="submit" id="clearCharts" class="btn btn-primary">Clear Charts</button>
+
+      </form>
+
+      </div>
+
+    </div>
+
+    <div class="col-lg-offset-1 col-lg-8 col-md-offset-1 col-md-8">
+
+      <div class="chart-container" id="results"> 
+    
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<%= javascript_include_tag 'bootstrap.datepicker.js' %>
+<%= javascript_include_tag 'data/chartData.js' %>
+<%= javascript_include_tag 'data/opt2/chartD3Layers.js' %>
+
+<script type="text/javascript">
+
+
+// function zoomed (container) {
+//   container.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+// }
+   
+var base_url = "/data/"
+
+
+$(document).ready(function() {
+
+  
+
+  // clearPage -- all canvases
+  $("#clearCanvas").click(function(e) {
+  
+    e.preventDefault();
+    clearCharts();
+    
+  });
+
+  //add data to existing canvas
+  $("#addData").click(function(e) {
+    
+    e.preventDefault();
+    var sequence = $('#chart').val();
+    addChartSeriesByRegion();
+    //var chart = new Chart(canvas.container, canvas.svg);
+
+  });
+
+});
+
+</script>
+
+
+

@@ -21,15 +21,17 @@ Rails.application.routes.draw do
   get 'pages/strategies'
   get 'pages/news'
   get 'pages/panels'
-  get 'pages/data'
+  get 'pages/dataopt1'
+  get 'pages/dataopt2'
 
   get 'highlights/feature'
   get 'highlights/gis'
-  get 'proxy/data'
+  #get 'proxy/dataopt1'
+  #get 'proxy/dataopt2'
 
   #experimenting with views and controllers within application for static html pages, SPARQL queries, and CMS integration
-  get 'pages/calendar(/:year(/:month))', to: 'pages#calendar', as: 'calendar'
-  get 'pages/test2'
+  #get 'pages/calendar(/:year(/:month))', to: 'pages#calendar', as: 'calendar'
+  #get 'pages/test2'
 
   #blacklight_for :catalog
 

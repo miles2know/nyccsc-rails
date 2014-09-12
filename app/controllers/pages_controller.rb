@@ -21,8 +21,12 @@ class PagesController < ApplicationController
     #placeholder
   end
 
-  def data
+  def dataopt1
+    #placeholder
+  end
 
+  def dataopt2
+    #placeholder
   end
 
 end
