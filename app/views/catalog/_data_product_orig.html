@@ -1,0 +1,112 @@
+
+<%# partial for data product type -%>
+
+<style>
+    
+    /*.axis path,
+    .axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
+ 
+    .line {
+      fill: none;
+      stroke: black;
+      stroke-opacity: 0.5;
+      stroke-width: 3.5px;
+    }
+
+    .overlay {
+      fill: none;
+      pointer-events: all;
+    }*/
+
+</style>
+
+
+<h2>Data Product</h2>
+
+<p>Initial View of Charts and Variables </p>
+
+<!-- <div class="row" id="options">
+
+    <select name="county"> 
+      <option value="Tompkins">Tompkins</option>
+      <option value="Erie">Erie</option>
+      <option value="Genessee">Genessee</option>
+    </select>
+
+    <select id="products" name="products">
+    </select>
+
+</div>
+
+<div class="row" id="results"> </div>
+
+<script type="text/javascript">
+  
+    var options = //data: {
+      {
+        "products": [
+          //grdAnnMaxT: {
+          {  
+            title: "Annual Mean Maximum Temperature",
+            short: "Annual Max Temperature",
+            url: "prism_yly_maxt_ny_cnty.json",
+            comp: "temp-plot",
+            ylabel: "Temp. °F",
+            valueFormat: "5.1f"
+          },
+          //grdAnnMinT: {
+          {
+            title: "Annual Mean Minimum Temperature",
+            short: "Annual Min Temperature",
+            url: "prism_yly_mint_ny_cnty.json",
+            comp: "temp-plot",
+            ylabel: "Temp. °F",
+            valueFormat: "5.1f"
+
+          },
+          //grdAnnAvgT: {
+          {  
+            title: "Annual Mean Average Temperature",
+            short: "Annual Avg Temperature",
+            url: "prism_yly_meant_ny_cnty.json",
+            comp: "temp-plot",
+            ylabel: "Temp. °F",
+            valueFormat: "5.1f"
+
+          },
+          //grdAnnPcpn: {
+          {
+            title: "Annual Total Precipitation",
+            short: "Annual Precipitation",
+            url: "prism_yly_pcpn_ny_cnty.json",
+            comp: "temp-plot",
+            ylabel: "Prcp. inches",
+            valueFormat: "7.3f"
+          }
+        ]
+      }
+
+      $(document).ready(function() {
+        //get a reference to the select element
+        var $select = $('#products');
+   
+        //request the JSON data and parse into the select element
+        $.getJSON(options, function(data){
+          //clear the current content of the select
+          $select.html('');
+          //iterate over the data and append a select option
+          $.each(data.products, function(key, val){
+            console.log(key + "| " + val)
+            //$select.append('<option id="' + val.url + '">' + val.title + '</option>');
+          })
+        });
+
+      });
+
+        
+  
+  </script> -->

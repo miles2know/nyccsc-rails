@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   get 'highlights/gis'
   #get 'proxy/dataopt1'
   #get 'proxy/dataopt2'
-
+  get 'proxy/data'
   #experimenting with views and controllers within application for static html pages, SPARQL queries, and CMS integration
   #get 'pages/calendar(/:year(/:month))', to: 'pages#calendar', as: 'calendar'
   #get 'pages/test2'

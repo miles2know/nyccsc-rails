@@ -14,25 +14,21 @@ var canvas = (function() {
   // // generate generic/empty chart
   return {
 
-    onLoad: function(seq) {
-      this.initializeCanvas(seq);
-      this.initializeAxes(seq);
+    onLoad: function(chartId) {console.log("on load");
+      this.initializeCanvas(chartId);
+      this.initializeAxes(chartId);
     },
 
-    initializeCanvas: function(seq) {
+    initializeCanvas: function(chartId) {console.log("initialize canvas");
 
-      //add new div for new canvas
-      //$container.append('<div class="chart" id="chart-'+seq+'"></div>');
-      //var el = '#chart-'+seq;
-      //console.log(el);
-
+ 
       //main canvas for drawing chart
       var svg = d3.select('.chart-container').append("svg");
 
       svg.attr("width", w + m.left + m.right)
          .attr("height", h + m.top + m.bottom)
          .attr("class","chart")
-         .attr("id","chart-"+seq)
+         .attr("id",chartId)
          //.attr('preserveAspectRatio','xMinYMin')
          //.append("g")
          //  .attr("transform", "translate(" + m.left + "," + m.top + ")");
@@ -42,13 +38,13 @@ var canvas = (function() {
           .attr("x", "20px")
           .attr("y", "20px")
           //.style({"text-anchor": "middle"})
-          .text('Canvas ' + seq);
+          .text('Canvas ');
       
     },
 
-    initializeAxes: function(seq) {
+    initializeAxes: function(chartId) { console.log("initialize axes with chart id " + chartId);
       //var canvas = this;
-      var svg = d3.select("#chart-"+seq)
+      var svg = d3.select("#" + chartId)
         .append("g")
         .attr("transform", "translate(" + m.left + "," + m.top + ")");
 
@@ -144,59 +140,3 @@ var canvas = (function() {
 
 })();
 
-// //not sure about this function yet.. thinking it might be nice to completely separate chart, axes, and data points
-// var axes = (function() {
-
-//   initializeAxes: function() {
-//       //var canvas = this;
-
-//       // //x-axis - time - establishes it's date/time data
-//       var x = d3.time.scale().range([0, w]);
-
-//       // //y-axis - variable - temperature, precipitation, etc. - establishes it's numeric values
-//       var y = d3.scale.linear().range([h, 0]);
-
-//       // var xMin = d3.min(filteredData, function(d) { return (d[0]); });
-//       // var xMax = d3.max(filteredData, function(d) { return (d[0]); });
-//       // var yMin = d3.min(filteredData, function(d) { return Number(d[1]); });
-//       // var yMax = d3.max(filteredData, function(d) { return Number(d[1]); });
-
-//       //x.domain([xMin - 10, xMax]);
-//       //y.domain([yMin - 5, yMax + 5]);
-
-//       //preset instead of dynamic
-//       x.domain([, 2014])
-//       y.domain([25, 65]);
-
-//       var xAxis = d3.svg.axis()
-//         .scale(x)
-//         .ticks(6)
-//         .orient("bottom");
-
-//       var yAxis = d3.svg.axis()
-//         .scale(y)
-//         .ticks(8)
-//         .orient("left");
-
-
-//       // var svg = this.svg;
-
-//       //draw x-axis 
-//       svg.append("g")
-//           .attr("class", "x axis")
-//           .attr("transform", "translate(0," + h + ")")
-//           .call(xAxis);
-
-//       //draw y-axis 
-//       svg.append("g")
-//           .attr("class", "y axis")
-//           .call(yAxis)
-//         .append("text")
-//           .attr("transform", "rotate(-90)")
-//           .attr("y", "-50px")
-//           .attr("x",-h/2)
-//           .style("text-anchor", "middle")
-//           .text('y-axis');
-//     };
-
-// })();

@@ -1,4 +1,4 @@
-var sparqlQueryResults = {
+var gisLayers = {
 	 onLoad: function() {
 		 	this.initData();
 	        this.initObjects();
@@ -19,9 +19,17 @@ var sparqlQueryResults = {
 	    initObjects:function() {
 	    	
 	    	this.includeURLInfo = $("#includeURLInfo");
+	    	this.addData = $("#addData");
+	    	this.accessURLInput = $("input#gisLayerSrc");
+	    	
 	    },
 		bindEventListeners:function() {
 			//There isn't really a binding here for specific events
+			this.addData.click(function(e) {
+				//Need to check whether options have been selected, i.e. error validation
+				//Can have something that draws the GIS layer or displays it automatically
+			});
+			
 		},
 		loadRequests:function() {
 			//Multiple types of query request might be possible
@@ -32,12 +40,8 @@ var sparqlQueryResults = {
 			//Will need way to distinguish between them
 			this.makeLinkQueryRequest();
 			if(this.isSpecialTypePage) {
-				if(this.special_type == "data_product") {
-					//If data product, then need to make a data product query
-					//To get variables and other information
-					this.makeDataProductQueryRequest();
-				}
-				if(this.special_type =="data_product" || this.special_type =="gis_layer") {
+				
+				if(this.special_type =="gis_layer") {
 					this.makeAccessURLQuery();
 				}
 				//for both data product and gis layer need access URL
@@ -46,34 +50,36 @@ var sparqlQueryResults = {
 		},
 		makeLinkQueryRequest:function() {
 			
-			var thisURL = "/proxy/data?sparqlquerytype=link&sparqlquery=" + sparqlQueryResults.sparqlQueryURI;
+			var thisURL = "/proxy/data?sparqlquerytype=link&sparqlquery=" + gisLayers.sparqlQueryURI;
 			
 			
 			$.getJSON(thisURL, function(results) {
 				
-						var displayHtml = sparqlQueryResults.generateDisplay(results);
-						sparqlQueryResults.includeURLInfo.append(displayHtml);
+						var displayHtml = gisLayers.generateDisplay(results);
+						gisLayers.includeURLInfo.append(displayHtml);
 						
 					
 				});
 		
 		},
-		makeDataProductQueryRequest:function() {
-			var thisURL = "/proxy/data?sparqlquerytype=dataproduct&sparqlquery=" + sparqlQueryResults.sparqlQueryURI;
-			$.getJSON(thisURL, function(results) {
-				
-						var displayHtml = sparqlQueryResults.generateDataProductDisplay(results);
-						//sparqlQueryResults.includeURLInfo.append(displayHtml);
-						
-					
-				});
-		},
 		makeAccessURLQuery:function() {
-			var thisURL = "/proxy/data?sparqlquerytype=accessurl&sparqlquery=" + sparqlQueryResults.sparqlQueryURI;
+			var thisURL = "/proxy/data?sparqlquerytype=accessurl&sparqlquery=" + gisLayers.sparqlQueryURI;
 			$.getJSON(thisURL, function(results) {
-				
-						//var displayHtml = sparqlQueryResults.generateDataProductDisplay(results);
-						//sparqlQueryResults.includeURLInfo.append(displayHtml);
+						if(("results" in results) && ("bindings" in results["results"])) {
+							var bindings = results["results"]["bindings"];
+							//This is an array
+							var len = bindings.length;
+							//Expecting to only use one URL although there is no restriction against having multiple
+							if((len > 0)
+									&& ("url" in bindings[0])
+									&& ("value" in bindings[0]["url"])) {
+								url = bindings[0]["url"]["value"];
+								gisLayers.accessURLInput.val(url);
+								
+							}
+						}
+						//var displayHtml = gisLayers.generateDataProductDisplay(results);
+						//gisLayers.includeURLInfo.append(displayHtml);
 						
 					
 				});
@@ -115,15 +121,36 @@ var sparqlQueryResults = {
 			}
 			return htmlDisplay;
 		},
-		generateDataProductDisplay:function(jsonResult) {
-			return "data product";
+		processDataProductJSON:function(jsonResult) {
+			var returnResult = {};
+			//bindings is an array of objects
+			//We are looking for categories of the variables
+			//submission value, label, and typeLabel
+			if(("results" in jsonResult) && ("bindings" in jsonResult["results"])) {
+				var bindings = jsonResult["results"]["bindings"];
+				var len = bindings.length;
+				var i;
+				for(i = 0; i < len; i++) {
+					var binding = bindings[i];
+					if(("submissionValue" in binding)
+							&&
+							("label" in binding)
+							&& 
+							("typeLabel" in binding)) {
+						var typeLabel = binding["typeLabel"];
+						if("value" in typeLabel) {
+							var typeLabelValue = typeLabel["value"];
+							if(! (typeLabelValue in returnResult)) {
+								returnResult[typeLabelValue] = [];
+							}
+							returnResult[typeLabelValue].push(binding);
+						}
+					}
+				}
+			}
+			return returnResult;
 		}
+		
+		
+		
 };
-
-
-//Am doing it this way here but this may need to be changed based on
-//how we want these particular scripts called from the page or particular view
-$(document).ready(function() {
-	
-    sparqlQueryResults.onLoad();
-});

@@ -118,6 +118,13 @@ var mapResults = {
         }); //loop overlays
 
       }); //end .overlay-tabs listener
+      
+      //Try on click here
+      mapResults.map.on("click", function(e) { 
+    	  console.log("On Map click, from the map itself");
+      	console.log(e.latlng);
+      });
+
 
     },
     verifyReady: function() {

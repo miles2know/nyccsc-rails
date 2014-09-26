@@ -32,7 +32,7 @@ gem 'execjs'
 
 
 #blacklight 
-gem 'blacklight'
+gem 'blacklight', '~> 5.4.0'
 
 gem 'comfortable_mexican_sofa', '~> 1.12.0'
 # Use ActiveModel has_secure_password

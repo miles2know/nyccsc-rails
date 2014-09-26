@@ -54,4 +54,19 @@ end
 %>
 
 </script>
-<%= javascript_include_tag 'sparqlQueryResults' %>
+
+<%
+## Based on special type, load javascript - we can load both anyway but this can cut down on unnecessary javascript
+if !@special_type.nil? and !@special_type.empty? and @special_type  == "data_product" 
+%>
+<%= javascript_include_tag 'dataProductResults' %>
+<%
+elsif !@special_type.nil? and !@special_type.empty? and @special_type  == "gis_layer" 
+%>
+<%= javascript_include_tag 'gisLayers' %>
+
+<%
+end
+%>
+
+<%= javascript_include_tag 'initContentHandlers' %>

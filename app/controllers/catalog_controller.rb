@@ -44,11 +44,16 @@ class CatalogController < ApplicationController
     config.add_facet_field 'sector_facet', :label => 'Sector', :limit => 9
     #config.add_facet_field 'type', :label => 'Type',  :limit => 9, :helper_method => :render_type_facet_display
     config.add_facet_field 'classgroup_label_facet', :label => 'Type',  :limit => 9
-        
+    config.add_facet_field 'climate_changes_facet', :label => 'Climate Changes',  :limit => 9
+
+    config.add_facet_field 'effect_facet', :label => 'Effect', :limit => 9
+    config.add_facet_field 'individual_effect_facet', :label => 'Individual Effect', :limit => 9
+    config.add_facet_field 'strategy_subclass_facet', :label => 'Strategy', :limit => 9
+    config.add_facet_field 'strategy_facet', :label => 'Strategy (By Most Specific Type)', :limit => 9
+    config.add_facet_field 'actions_facet', :label => 'Actions', :limit => 9
+    config.add_facet_field 'confounding_factors_facet', :label => 'Non-climate change factors', :limit => 9
     config.add_facet_field 'author_facet', :label => 'Author', :limit => 9
-    config.add_facet_field 'hazard_facet', :label => 'Hazard', :limit => 9
-    config.add_facet_field 'risk_facet', :label => 'Risk', :limit => 9
-    config.add_facet_field 'strategy_facet', :label => 'Strategy', :limit => 9
+
     config.add_facet_field 'subjectarea_facet', :label => 'Subject Area', :limit => 9
     #config.add_facet_field 'keyword_facet', :label => 'Keyword', :limit => 10
     #config.add_facet_field 'vulnerability_facet', :label => 'Vulnerability', :limit => 9
