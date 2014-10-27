@@ -29,4 +29,16 @@ class PagesController < ApplicationController
     #placeholder
   end
 
+  def dataopt3
+    #placeholder
+  end
+
+  def map
+    #placeholder
+  end
+
+  def mapUber
+    #placeholder
+  end
+
 end

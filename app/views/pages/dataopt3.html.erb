@@ -1,0 +1,83 @@
+<% content_for :title do %>
+  Data Product | NY Climate Change Science Clearinghouse
+<% end %>
+
+<style>
+
+  .chart-container {
+    width:100%;
+    background-color: #fff;
+    margin-top:30px;
+  }
+
+  .axis path, .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+
+  .x.axis path {
+    display: none;
+  }
+
+  .line {
+    fill: none;
+    stroke: black;
+    stroke-opacity: 0.5;
+    stroke-width: 2px;
+  }
+
+  .data-point {
+    cursor: pointer;
+  }
+
+  .tooltip {
+    background:#999 !important;
+    color:#fff;
+  }
+
+  .legend rect {
+    fill:white;
+    stroke:black;
+    opacity:0.8;
+  }
+
+</style>
+
+<div id="main-container" class="container">
+     
+  <div class="row vertical-offset-md">
+
+    <div class="col-lg-3 col-md-3">
+
+      <div class="row" id="options">
+
+      <form class="form-vertical">
+
+          <!-- placeholder for select options -->
+
+      </form>
+
+      </div>
+
+    </div>
+
+    <div class="col-lg-offset-1 col-lg-8 col-md-offset-1 col-md-8">
+
+      <div class="chart-container" id="results"> 
+    
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<%= javascript_include_tag 'bootstrap.datepicker.js' %>
+<%= javascript_include_tag 'data/chartData.js' %>
+<%= javascript_include_tag 'data/opt3/chartD3Layers.js' %>
+
+
+
+

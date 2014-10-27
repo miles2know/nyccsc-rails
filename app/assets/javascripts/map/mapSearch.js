@@ -1,61 +1,25 @@
 //mapSearch.js
-//specifically for a search that's related to a location on the map
-var placesSearch=[];
-
-// Highlight search box text on click
-// $("#search").on('click', function () {
-
-//     var searchTerms = getUrlParameters("q", "", true);
-//     //from posted (window refreshed) so the following will no work
-//     //var searchTerms = $('#q').value();
-//     alert('search terms changed');
-//     if ($.inArray(searchTerms, placesSearch)) {
-//         console.log('found in array');
-//     } else {
-//         console.log('not found in array')
-//     }
-// });
- function highlightFeature(featureId) {
-    //mapResults.map.hasLayer(featureId).setStyle(hoverPolygonStyle);     
-    //layers[featureId].setStyle( hoverPolygonStyle );
-    //counties
-    
- }
-
- // function updateAreas (areas) {
- //      // only load once
- //      if (this.county.getLayers().length == 0) {
- //        var layer=this.county
- //        areas.forEach(function (v) {
- //          layer.addData(v)
- //        })
- //      }
- //      var layers = this.county.getLayers()
- //      areas.forEach(function (v,i) {
- //        if (v.selected) {
- //          layers[i].setStyle({fillOpacity:0.7})
- //        } else {
- //          layers[i].setStyle({fillOpacity: 0})
- //        }
- //      })
- //    },
+//for a geo-spatial search that's specifically related to context layers
 
 
+function highlightFeature(featureId) {
+  //mapResults.map.hasLayer(featureId).setStyle(hoverPolygonStyle);     
+  //layers[featureId].setStyle( hoverPolygonStyle );
+  //counties
+}
 
+
+/*
+  Function: getUrlParameters
+  Description: Get the value of URL parameters either from 
+               current URL or static URL
+  Author: Tirumal
+  URL: www.code-tricks.com
+*/
 function getUrlParameters(parameter, staticURL, decode){
-    /*
-    Function: getUrlParameters
-    Description: Get the value of URL parameters either from 
-                 current URL or static URL
-    Author: Tirumal
-    URL: www.code-tricks.com
-    */
-   
+    
     var currLocation = (staticURL.length)? staticURL : window.location.search,
         returnBool = true;
-       
-
-
 
     if (currLocation.indexOf("?") > -1) {
 
@@ -76,153 +40,214 @@ function getUrlParameters(parameter, staticURL, decode){
     if(!returnBool) return false;  
  }
 
-// Typeahead search functionality
-// $(document).one("ajaxStop", function () {
-// //map.fitBounds(decregion.getBounds());
-//     $("#loading").hide();
 
-// /*                var placeBH = new Bloodhound({
-    //     name: "place",
-    //     datumTokenizer: function (d) {
-    //         return Bloodhound.tokenizers.whitespace(d.name);
-    //     },
-    //     queryTokenizer: Bloodhound.tokenizers.whitespace,
-    //     local: placeSearch,
-    //     limit: 10
-    // });*/
+function addContextLayers(data_source) {
 
-    // var huc8BH = new Bloodhound({
-    //     name: "huc8",
-    //     datumTokenizer: function (d) {
-    //         return Bloodhound.tokenizers.whitespace(d.name);
-    //     },
-    //     queryTokenizer: Bloodhound.tokenizers.whitespace,
-    //     local: huc8Search,
-    //     limit: 10
-    // });
+  //loop through data to create search array
+  if (data_array) {
+        
+      //push to typeahead search array
+      data_array.push({
+          name: layer.feature.properties.name,
+          source: data_source, 
+          //id: L.stamp(layer),
+          //id: layer.feature.properties.countyfp,
+          lat: layer.feature.geometry.coordinates[1],
+          lng: layer.feature.geometry.coordinates[0]
+      });
+    }
 
-    // var clim_divBH = new Bloodhound({
-    //     name: "clim_div",
-    //     datumTokenizer: function (d) {
-    //         return Bloodhound.tokenizers.whitespace(d.name);
-    //     },
-    //     queryTokenizer: Bloodhound.tokenizers.whitespace,
-    //     local: clim_divSearch,
-    //     limit: 10
-    // });
+    
+  var custom = new Bloodhound({
+    datumTokenizer: function(d) { return d.tokens; },
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    remote: 'http://'+window.location.hostname+'/invoice/loadItemOption?query=%QUERY'
+    });
 
-    // var decregionBH = new Bloodhound({
-    //     name: "decregion",
-    //     datumTokenizer: function (d) {
-    //         return Bloodhound.tokenizers.whitespace(d.name);
-    //     },
-    //     queryTokenizer: Bloodhound.tokenizers.whitespace,
-    //     local: decregionSearch,
-    //     limit: 10
-    // });
-    // var geonamesBH = new Bloodhound({
-    //         name: "GeoNames",
-    //         datumTokenizer: function (d) {
-    //             return Bloodhound.tokenizers.whitespace(d.name);
-    //         },
-    //         queryTokenizer: Bloodhound.tokenizers.whitespace,
-    //         remote: {
-    //             url: "http://api.geonames.org/searchJSON?username=bootleaf&featureClass=P&maxRows=5&countryCode=US&name_startsWith=%QUERY",
-    //             filter: function (data) {
-    //                 return $.map(data.geonames, function (result) {
-    //                     return {
-    //                         name: result.name + ", " + result.adminCode1,
-    //                         lat: result.lat,
-    //                         lng: result.lng,
-    //                         source: "GeoNames"
-    //                     };
-    //                 });
-    //             },
-    //             ajax: {
-    //                 beforeSend: function (jqXhr, settings) {
-    //                     settings.url += "&east=-71&west=-80&north=45&south=40";
-    //                     $("#searchicon").removeClass("fa-search").addClass("fa-refresh fa-spin");
-    //                 },
-    //                 complete: function (jqXHR, status) {
-    //                     $('#searchicon').removeClass("fa-refresh fa-spin").addClass("fa-search");
-    //                 }
-    //             }
-    //         },
-    //         limit: 10
-    //     });
+    custom.initialize();
+
+    $('.typeahead_option_items').typeahead(null, {
+          name: 'item_title[]',
+          displayKey: 'invoice_item_option_title',
+          source: custom.ttAdapter(),
+          hint: (App.isRTL() ? false : true),
+    }).on('typeahead:selected', function (obj, value) {
+        console.log(value.invoice_item_option_title);
+    });
+}
 
 
-    // huc8BH.initialize();
-    // decregionBH.initialize();
-    // clim_divBH.initialize();
-    // geonamesBH.initialize();
+//variables that are required include
+//search array, bh object, 
+//create search array 
+//create bh object
+//initialize bh object
+//add to typeahead
 
-    // // instantiate the typeahead UI
-    // $("#searchbox").typeahead({
-    //     minLength: 3,
-    //     highlight: true,
-    //     hint: false
-    // },  {
-    //     name: "huc8",
-    //     displayKey: "name",
-    //     source: huc8BH.ttAdapter(),
-    //     templates: {
-    //         header: "<h4 class='typeahead-header'>Watershed</h4>"
-    //     }
-    // }, {
-    //     name: "clim_div",
-    //     displayKey: "name",
-    //     source: clim_divBH.ttAdapter(),
-    //     templates: {
-    //         header: "<h4 class='typeahead-header'>Climate Division</h4>"
-    //     }
-    // }, {
-    //     name: "decregion",
-    //     displayKey: "name",
-    //     source: decregionBH.ttAdapter(),
-    //     templates: {
-    //         header: "<h4 class='typeahead-header'>DEC Region</h4>"
-    //     }
-    // }, {
-    //     name: "GeoNames",
-    //     displayKey: "name",
-    //     source: geonamesBH.ttAdapter(),
-    //     templates: {
-    //         header: "<h4 class='typeahead-header'><img src='assets/img/globe.png' width='25' height='25'>&nbsp;GeoNames</h4>"
-    //     }
-    // }).on("typeahead:selected", function (obj, datum) {
-    //     if (datum.source === "place") {
-    //         map.setView([datum.lat, datum.lng], 15);
-    //     };
-    //     if (datum.source === "huc8") {
-    //         map.setView([datum.lat, datum.lng], 15);
-    //     };
-    //      if (datum.source === "clim_div") {
-    //         map.setView([datum.lat, datum.lng], 17);
-    //     };
-    //    if (datum.source === "decregion") {
-    //         if (!map.hasLayer(decregion)) {
-    //             map.addLayer(decregion);
-    //         };
-    //         map.setView([datum.lat, datum.lng], 15);
-    //         if (map._layers[datum.id]) {
-    //             map._layers[datum.id].fire("click");
-    //         };
-    //     };
-    //     if (datum.source === "GeoNames") {
-    //         map.setView([datum.lat, datum.lng], 14);
-    //     };
-    //     if ($(".navbar-collapse").height() > 50) {
-    //         $(".navbar-collapse").collapse("hide");
-    //     };
-    // }).on("typeahead:opened", function () {
-    //     $(".navbar-collapse.in").css("max-height", $(document).height() - $(".navbar-header").height());
-    //     $(".navbar-collapse.in").css("height", $(document).height() - $(".navbar-header").height());
-    // }).on("typeahead:closed", function () {
-    //     $(".navbar-collapse.in").css("max-height", "");
-    //     $(".navbar-collapse.in").css("height", "");
-    // });
-    // $(".twitter-typeahead").css("position", "static");
-    // $(".twitter-typeahead").css("display", "block");
-//});
+ /* Highlight search box text on click */
+$("#searchbox").click(function () {
+  $(this).select();
+});
+
+/* Typeahead search functionality */
+$(document).one("ajaxStop", function () {
+  $("#loading").hide();
+  /* Fit map to boroughs bounds */
+  //map.fitBounds(ny_county.getBounds());
+/*  featureList = new List("features", {valueNames: ["feature-name"]});
+  featureList.sort("feature-name", {order:"asc"});*/
+
+  ny_countyBH = new Bloodhound({
+    name: "ny_county",
+    datumTokenizer: function (d) {
+      return Bloodhound.tokenizers.whitespace(d.name);
+    },
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    local: ny_countySearch,
+    limit: 10
+  });
+
+  ny_dotBH = new Bloodhound({
+    name: "ny_dot",
+    datumTokenizer: function (d) {
+      return Bloodhound.tokenizers.whitespace(d.name);
+    },
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    local: ny_dotSearch,
+    limit: 10
+  });
+
+  ny_decBH = new Bloodhound({
+    name: "ny_dec",
+    datumTokenizer: function (d) {
+      return Bloodhound.tokenizers.whitespace(d.name);
+    },
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    local: ny_decSearch,
+    limit: 10
+  });
+
+  ny_clim_divBH = new Bloodhound({
+    name: "ny_clim_div",
+    datumTokenizer: function (d) {
+      return Bloodhound.tokenizers.whitespace(d.name);
+    },
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    local: ny_clim_divSearch,
+    limit: 10
+  });
+
+  var geonamesBH = new Bloodhound({
+    name: "GeoNames",
+    datumTokenizer: function (d) {
+      return Bloodhound.tokenizers.whitespace(d.name);
+    },
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    remote: {
+      url: "http://api.geonames.org/searchJSON?username=frontierspatial&featureClass=P&maxRows=5&country=US&adminCode1=NY&name_startsWith=%QUERY",
+      filter: function (data) {
+        return $.map(data.geonames, function (result) {
+          return {
+            name: result.name + ", " + result.adminCode1,
+            lat: result.lat,
+            lng: result.lng,
+            source: "GeoNames"
+          };
+        });
+      },
+      ajax: {
+        beforeSend: function (jqXhr, settings) {
+          settings.url += "&east=-71&west=-80&north=45&south=40";
+          $("#searchicon").removeClass("fa-search").addClass("fa-refresh fa-spin");
+        },
+        complete: function (jqXHR, status) {
+          $('#searchicon').removeClass("fa-refresh fa-spin").addClass("fa-search");
+        }
+      }
+    },
+    limit: 10
+  });
+  
+  ny_countyBH.initialize();
+  ny_dotBH.initialize();
+  ny_decBH.initialize();
+  ny_clim_divBH.initialize();
+  geonamesBH.initialize();
+
+  /* instantiate the typeahead UI */
+  $("#searchbox").typeahead({
+    minLength: 3,
+    highlight: true,
+    hint: false
+  }, {
+    name: "ny_county",
+    displayKey: "name",
+    source: ny_countyBH.ttAdapter(),
+    templates: {
+      header: "<h5 class='typeahead-header'>Counties</h5>"
+    }
+  }, {
+    name: "ny_dot",
+    displayKey: "name",
+    source: ny_dotBH.ttAdapter(),
+    templates: {
+      header: "<h5 class='typeahead-header'>DOT Regions</h5>"
+    }
+  }, {
+    name: "ny_dec",
+    displayKey: "name",
+    source: ny_decBH.ttAdapter(),
+    templates: {
+      header: "<h5 class='typeahead-header'>DEC Regions</h5>"
+    }
+  }, {
+    name: "ny_clim_div",
+    displayKey: "name",
+    source: ny_clim_divBH.ttAdapter(),
+    templates: {
+      header: "<h5 class='typeahead-header'>Climate Divisions</h5>"
+    }
+  }, {
+    name: "GeoNames",
+    displayKey: "name",
+    source: geonamesBH.ttAdapter(),
+    templates: {
+      header: "<h5 class='typeahead-header'><i class='fa fa-globe'></i>&nbsp;Place Names</h5>"
+    }
+  })//.on("typeahead:selected", function (obj, datum) {
+  //   if (datum.source === "ny_county") {
+  //     if (!map.hasLayer(ny_county)) {
+  //       map.addLayer(ny_county);
+  //     }
+  //     map.fitBounds(datum.bounds);    
+  //   }
+
+  //   if (datum.source === "ny_dot") {
+  //     if (!map.hasLayer(ny_dot)) {
+  //       map.addLayer(ny_dot);
+  //     }
+  //     map.fitBounds(datum.bounds);
+  //   }
+
+  //   if (datum.source === "ny_dec") {
+  //     if (!map.hasLayer(ny_dec)) {
+  //       map.addLayer(ny_dec);
+  //     }
+  //     map.fitBounds(datum.bounds);
+  //   }
+
+  //   if (datum.source === "ny_clim_div") {
+  //     if (!map.hasLayer(ny_clim_div)) {
+  //       map.addLayer(ny_clim_div);
+  //     }
+  //     map.fitBounds(datum.bounds);
+  //   }
+
+  //   if (datum.source === "GeoNames") {
+  //     map.setView([datum.lat, datum.lng], 14);
+  //   }
+    
+  // })
+});
+
 

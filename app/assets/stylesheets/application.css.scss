@@ -18,11 +18,6 @@
 
  * Other leaflet css files used 
  *= require L.groupedlayercontrol
- * require L.Control.Locate
- * require L.Control.Sidebar
- * require Control.MiniMap
- * require leaflet.markercluster
- * require leaflet.markercluster.default
 
  * Panels - Resize and Toggle Open/Close (jquery.layout)
  * require jquery.layout-default.css
@@ -30,8 +25,9 @@
  * Datepicker 
  *= require bootstrap.datepicker.css
 
- * jQuery UI - tried using their slider for date range selector, decided against it for now
- * require jquery-ui.css
+ * Range Selector / Slider
+ *= require ion.rangeSlider.css
+ *= require ion.rangeSlider.skinFlat.css
  
  * Font awesome for iconography
  *= require font-awesome

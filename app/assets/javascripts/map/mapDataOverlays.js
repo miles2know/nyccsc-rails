@@ -1,28 +1,102 @@
+var layerSearch=[],ny_countySearch=[],ny_dotSearch=[],ny_decSearch=[],ny_clim_divSearch=[],ny_watershedSearch=[]; 
+var layerBH, ny_countyBH, ny_dotBH, ny_decBH, ny_clim_divBH, ny_watershedBH; 
+var ny_county, ny_dot, ny_dec, ny_clim_div, ny_watershed;
 
 //context overlay options
+//once things are migrated to fully dynamic, this can be removed
 var contextOverlays =  
 [
     {
+        data_id : ny_county,
         data_name : "Counties",
-        data_source : "data/ny_counties_tiger.geojson",
+        data_source : "/data/ny_counties_tiger.geojson",
+        data_array : ny_countySearch,
         active : true
     },
     {
+        data_id : ny_watershed,
         data_name : "Watersheds",
-        data_source : "data/basin.geojson",
+        data_source : "/data/basin.geojson",
+        data_array : ny_watershedSearch,
         active : false
     },
     {
+        data_id : ny_dec,
         data_name : "DEC Regions",
-        data_source : "data/decregions.geojson",
+        data_source : "/data/ny_dec.geojson",
+        data_array : ny_decSearch,
+        active : false
+    }//,
+    // {
+    //     data_id : ny_dot,
+    //     data_name : "DOT Regions",
+    //     data_source : "/data/ny_dot.geojson",
+    //     data_array : ny_dotSearch,
+    //     active : false
+    // },
+    // {
+    //     data_id : ny_clim_div,
+    //     data_name : "Climate Divisions",
+    //     data_source : "/data/ny_clim_div.geojson",
+    //     data_array : ny_clim_divSearch,
+    //     active : false
+    // }
+];
+
+var contextLayers =  
+[
+    {
+        id : 'ny_county',
+        title : "Counties",
+        format : 'topojson',
+        geometry : 'Polygon',
+        proxy : false,
+        gisData : "/data/ny_counties_tiger.topojson",
+        searchData : ny_countySearch,
+        active : true
+    },
+    {
+        id : 'ny_watershed',
+        title : "Watersheds",
+        format : 'geojson',
+        geometry : 'Polygon',
+        proxy : false,
+        gisData : "/data/basin.geojson",
+        searchData : ny_watershedSearch,
         active : false
     },
     {
-        data_name : "Climate Divisions",
-        data_source : "data/clim_div.geojson",
+        id : 'ny_dec',
+        title : "DEC Regions",
+        format : 'topojson',
+        geometry : 'Polygon',
+        proxy : false,
+        gisData : "/data/ny_dec.topojson",
+        searchData : ny_decSearch,
+        active : false
+    },
+    {
+        id : 'ny_dot',
+        title : "DOT Regions",
+        format : 'topojson',
+        geometry : 'Polygon',
+        proxy : false,
+        gisData : "/data/ny_dot.topojson",
+        searchData : ny_dotSearch,
+        active : false
+    },
+    {
+        id : 'ny_clim_div',
+        title : "Climate Divisions",
+        format : 'topojson',
+        geometry : 'Polygon',
+        proxy : false,
+        gisData : "/data/ny_clim_div.topojson",
+        searchData : ny_clim_divSearch,
         active : false
     }
 ];
+
 
 //various base layer options
 //some of these came from http://leaflet-extras.github.io/leaflet-providers/preview/
@@ -61,7 +135,7 @@ var Stamen_Terrain = L.tileLayer('http://{s}.tile.stamen.com/terrain/{z}/{x}/{y}
   maxZoom: 18
 });
 
-var MapQuestOpen_OSM = L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpeg', {
+var MapQuestOSM = L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpeg', {
   attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
   subdomains: '1234'
 });

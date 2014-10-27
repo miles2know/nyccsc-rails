@@ -9,28 +9,168 @@ svg {
   position: relative;
 }
 
-path {
+path.d3-area {
   fill: $green;
   fill-opacity: .2;
   stroke: #fff;
   stroke-width: 1.5px;
 }
-
-path:hover, path.active {
+  path:hover, path.active {
   fill: $green-dark;
   fill-opacity: .6;
 }
-/*
-circle {
+
+circle.d3-point {
   fill: #600;
   fill-opacity: .6;
   stroke: #fff;
   stroke-width: 1.5px;
 }
-circle:hover, circle.active {
+  circle:hover, circle.active {
   fill: #f00;
   fill-opacity: 1;
-}*/
+}
+
+
+.legend { 
+  display:block;
+  width: 15px;
+  height: 15px;
+}
+
+.legend.circle {
+  border-radius: 50%
+}
+
+#loading {
+    position: absolute;
+    width: 80%;
+    height: 19px;
+    top: 30%;
+    left: 20%;
+    margin: -10px 0 0 -110px;
+    z-index: 20001;
+  }
+  
+  .progress-bar-full {
+    width: 100%;
+  }
+  
+  
+  .leaflet-control-layers label {
+    font-weight: normal;
+    margin-bottom: 0px;
+  }
+  .leaflet-control-layers-list input[type="radio"], 
+  .leaflet-control-layers-list input[type="checkbox"] {
+    margin: 2px;
+  }
+  
+  .typeahead {
+    background-color: #FFFFFF;
+  }
+  .typeahead-header {
+    margin: 0 5px 5px 5px;
+    padding: 3px 0;
+    border-bottom: 2px solid #333;
+  }
+  .tt-dropdown-menu {
+    background-color: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    margin-top: 4px;
+    padding: 4px 0;
+    width: 100%;
+    max-height: 300px;
+    overflow: auto;
+  }
+  .tt-suggestion {
+    font-size: 14px;
+    line-height: 20px;
+    padding: 3px 10px;
+  }
+  .tt-suggestion.tt-cursor {
+    background-color: #0097CF;
+    color: #FFFFFF;
+    cursor: pointer;
+  }
+  .tt-suggestion p {
+    margin: 0;
+  }
+  .tt-suggestion + .tt-suggestion {
+    border-top: 1px solid #ccc;
+  }
+  
+
+  /*.has-feedback .form-control-feedback {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+  }*/
+  
+
+  /* Styles for Clusters  */
+  .spdesCluster {
+      color: black;
+      font-weight: bold;
+      width: 45px;
+      height: 45px;
+      line-height: 45px;
+      background: transparent url(../../assets/img/sewer-pipe.png) 0 0 no-repeat scroll;
+      text-align: left;
+      text-indent: 8px;
+      font-size: 11px;
+  }
+
+  .alscCluster {
+      color: black;
+      font-weight: bold;
+      width: 40px;
+      height: 48px;
+      line-height: 38px;
+      background: transparent url(../../assets/img/alscCluster.png) 0 0 no-repeat scroll;
+      text-align: left;
+      text-indent: 4px;
+      font-size: 1.2em;
+  }
+
+  #map {
+    width:100%;
+    height:600px;
+  }
+
+  /*@media (min-width: @screen-sm-min) { 
+    #map-container.affix-bottom, #map-container.affix-top {
+      width:100%;
+    }
+    
+    #map-container.affix {
+      width:100%;
+      height:600px;
+    }
+  }*/
+
+  /*@media (min-width: @screen-md-min) {  */
+    #map-container.affix-bottom, #map-container.affix-top {
+      width:850px;
+    }
+    
+    #map-container.affix {
+      position: fixed !important;
+      top:0px;
+      width:850px;
+      height:600px;
+    }
+
+  /*}*/
+
+
 
 div.tooltip {   
   position: absolute;           
@@ -39,7 +179,7 @@ div.tooltip {
   font: 12px;        
   background: #fff;   
   border: 0px;      
-  border-radius: 3px;           
+  border-radius: 2px;           
   pointer-events: none;         
 }
 
@@ -48,9 +188,25 @@ div.tooltip {
   padding: 5px
 }
 
-.nav-tabs.overlay-tabs > li.active > a, .nav-tabs.overlay-tabs > li.active a:hover, .nav-tabs.overlay-tabs > li.active > a:focus {
+.nav-tabs.overlay-tabs > li.active > a, 
+.nav-tabs.overlay-tabs > li.active a:hover, 
+.nav-tabs.overlay-tabs > li.active a:focus {
   background:#fff;
   outline:0;
+}
+
+#map-sidebar {
+  font-size: .8em;
+}
+#map-sidebar .panel-heading {
+  background-color: #f5f5f5;
+}
+#map-sidebar .panel-title {
+  font-size: 12px;
+  font-weight: bold;
+}
+#map-sidebar .panel-body p {
+  margin: 0 0 5px;
 }
 
 
@@ -64,3 +220,129 @@ table td.right {
 table td.left {
   text-align: left;
 }
+
+/* styles are default only - can be overridden by custom layer js */
+
+/* popups */
+.leaflet-popup-content-wrapper {
+  border-radius: 4px;
+}
+
+.leaflet-popup-content-wrapper .leaflet-popup-content {
+}
+
+.leaflet-popup-tip-container {
+}
+
+/* controls */
+.leaflet-control-layers {
+  border-radius: 4px;
+}
+
+/* locate (current location) */
+[class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: "FontAwesome";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+ 
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+ 
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+     
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+ 
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+ 
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+ 
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+
+.icon-location:before { content: '\f041';}
+.icon-direction:before { content: '\f124'; } 
+.icon-spinner:before { content: '\f110'; } 
+
+.fa-icon {
+  color: #007d99;
+}
+
+/* marker clustering - colors
+.marker-cluster-small {
+  background-color: rgba(181, 226, 140, 0.6);
+  }
+.marker-cluster-small div {
+  background-color: rgba(110, 204, 57, 0.6);
+  }
+
+.marker-cluster-medium {
+  background-color: rgba(241, 211, 87, 0.6);
+  }
+.marker-cluster-medium div {
+  background-color: rgba(240, 194, 12, 0.6);
+  }
+
+.marker-cluster-large {
+  background-color: rgba(253, 156, 115, 0.6);
+  }
+.marker-cluster-large div {
+  background-color: rgba(241, 128, 23, 0.6);
+  }
+*/
+[class*=" marker-cluster-"] {
+  background-color: #fff;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
+}
+
+
+  /* IE 6-8 fallback colors */
+.leaflet-oldie .marker-cluster-small {
+  background-color: rgb(181, 226, 140);
+  }
+.leaflet-oldie .marker-cluster-small div {
+  background-color: rgb(110, 204, 57);
+  }
+
+.leaflet-oldie .marker-cluster-medium {
+  background-color: rgb(241, 211, 87);
+  }
+.leaflet-oldie .marker-cluster-medium div {
+  background-color: rgb(240, 194, 12);
+  }
+
+.leaflet-oldie .marker-cluster-large {
+  background-color: rgb(253, 156, 115);
+  }
+.leaflet-oldie .marker-cluster-large div {
+  background-color: rgb(241, 128, 23);
+}
+
+.marker-cluster {
+  background-clip: padding-box;
+  border-radius: 20px;
+  }
+.marker-cluster div {
+  width: 30px;
+  height: 30px;
+  margin-left: 5px;
+  margin-top: 5px;
+
+  text-align: center;
+  border-radius: 15px;
+  font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif;
+  }
+.marker-cluster span {
+  line-height: 30px;
+  }

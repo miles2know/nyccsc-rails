@@ -52,15 +52,20 @@ gem 'comfortable_mexican_sofa', '~> 1.12.0'
 gem 'font-awesome-sass'
 ##Some of these are from geoblacklight to make things work
 gem 'leaflet-rails'
-gem 'leaflet-locatecontrol-rails', :git => 'https://github.com/zentrification/leaflet-locatecontrol-rails.git'
-gem 'leaflet-sidebar-rails', '~> 0.0.3'
-gem 'leaflet-minimap-rails', :git => 'https://github.com/zentrification/leaflet-minimap-rails.git'
+
+## tried locate gem, but wasn't working
+##gem 'leaflet-locatecontrol-rails', :git => 'https://github.com/zentrification/leaflet-locatecontrol-rails.git'
+##gem 'leaflet-sidebar-rails', '~> 0.0.3'
+##gem 'leaflet-minimap-rails', :git => 'https://github.com/zentrification/leaflet-minimap-rails.git'
 gem 'leaflet-markercluster-rails', '~> 0.7.0'
 
 ## d3
 gem 'd3_rails'
 # twitter typeahead js
 gem 'typeahead-rails', '~> 0.10.1'
+
+#makimarkers for map
+gem 'leaflet-makimarkers-rails', '~> 0.5.0'
 
 
 

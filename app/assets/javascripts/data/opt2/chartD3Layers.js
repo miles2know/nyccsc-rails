@@ -51,11 +51,14 @@ function addChartSeriesByRegion() {
       options
     ) );
     
+    console.log(charts[seq]);
     seq++;
 
   });
 
+
   //setup space for series 
+  //hardcoded for 2 charts - 1 chart to display max, min and mean temp, and 1 chart to display precip
   var height = config.margin.top*(seq+1)+(config.height*seq)+config.margin.bottom;
   
   svg.attr("width", config.width + config.margin.left + config.margin.right)
@@ -79,145 +82,170 @@ var Chart = function (chartCount,options) {
   //date functions
   var parseDate = d3.time.format("%Y").parse,
       formatDate = d3.time.format("%Y");
-  //var yMin;
+  var yMin;
   //var chart = {};
 
   d3.json( base_url + options.sourceData , function(data) {
     createChart(data);
   });
 
+  var chart = svg.append("g");
+  var xScale = d3.time.scale();
+  var yScale = d3.scale.linear();
+  var xAxis = d3.svg.axis();
+  var yAxis = d3.svg.axis();
+  var dataPoints = chart.selectAll("circle");
+
+
   //console.log(yMin);
   
   function createChart(data) {  
 
-    //console.log(chartData);
-      //re-map data array for plotting x/y coordinates
-      //filters for region and converts year number to date object
-    //d3.json( base_url + options.sourceData , function(data) {
-      
-      var filteredData = data.data.map(function(d) {
-        return [ parseDate(d[0]), d[2][options.id] ]
-      });
-          
-      //same svg, new chart grouping for each sub-grouping (data product)
-      //to add to margin with each chart to have it layout further down the page
-      var top = (chartCount === 0 ? config.margin.top : config.margin.top*(chartCount+1)+(config.height*chartCount));
-
-
-      this.chart = svg.append("g")
-          .attr("transform", "translate("+config.margin.left+","+top+")")
-          .attr("height", config.height)
-          .attr("class","chart")
-          .attr("id", "chart-"+chartCount);
-
-      //console.log(filteredData);
-      var yMin = d3.min(filteredData, function(d) { return Number(d[1]); });
-      var yMax = d3.max(filteredData, function(d) { return Number(d[1]); });
-      
-      //y-axis - variable - temperature, precipitation, etc. - establishes it's numeric values
-      this.yScale = d3.scale.linear().range([config.height, 0]).domain([yMin - 5, yMax + 5]);
-
-      //x-axis - time - establishes it's date/time data
-      var d = new Date();
-      this.xScale = d3.time.scale().range([0, config.width]).domain([d.setFullYear(1890), d.setFullYear(2015)]);
-
-      var yS = this.yScale;
-      var xS = this.xScale;
-
-      //establish set range for y-axis for comparison between charts
-      this.yAxis = d3.svg.axis()
-        .scale(yS)
-        .ticks(8)
-        .orient("left");
-
-      if (chartCount === 0) {
-        
-        this.xAxis = d3.svg.axis()
-          .scale(xS)
-          .ticks(6)
-          .orient("top");
-
-        //draw x-axis 
-        this.chart.append("g")
-            .attr("class", "x axis primary")
-            .attr("transform", "translate(0,0)")
-            .call(this.xAxis);
-
+    var color = "#333";
+    
+    if (options.dataProduct.indexOf("Temp") > -1) {
+      if (options.dataProduct.indexOf("Min") > -1) {
+        color = "#0f0"; //green
+      } else if (options.dataProduct.indexOf("Max") > -1) {
+        color = "#f00"; //red
+      } else if (options.dataProduct.indexOf("Ave") > -1 ) {
+        color = "#ff0"; //yellow
       } 
+    } else if (options.dataProduct.indexOf("Precip") > -1) {
+      color = "#00f"; //blue
+    } 
+
       
-      // draw y-axis 
-      this.chart.append("g")
-          .attr("class", "y axis")
-          .call(this.yAxis)
-        .append("text")
-          .attr("transform", "rotate(-90)")
-          .attr("y", "-50px")
-          .attr("x",-config.height/2)
-          .style("text-anchor", "middle")
-          .text(options.yLabel);
+    var filteredData = data.data.map(function(d) {
+      return [ parseDate(d[0]), d[2][options.id] ]
+    });
+        
+    //same svg, new chart grouping for each sub-grouping (data product)
+    //to add to margin with each chart to have it layout further down the page
+    var top = (chartCount === 0 ? config.margin.top : config.margin.top*(chartCount+1)+(config.height*chartCount));
 
-      // add the tooltip area to the webpage
-      var tooltip = d3.select('.chart-container').append("div")
-          .attr("class", "tooltip")
-          .style("opacity", 0);
+    chart.attr("transform", "translate("+config.margin.left+","+top+")")
+        .attr("height", config.height)
+        .attr("class","chart")
+        .attr("id", "chart-"+chartCount);
 
+    //console.log(filteredData);
+    var yMin = d3.min(filteredData, function(d) { return Number(d[1]); });
+    var yMax = d3.max(filteredData, function(d) { return Number(d[1]); });
+    
+    //y-axis - variable - temperature, precipitation, etc. - establishes it's numeric values
+    yScale.range([config.height, 0]).domain([yMin - 5, yMax + 5]);
+
+    //x-axis - time - establishes it's date/time data
+    var d = new Date();
+    xScale.range([0, config.width]).domain([d.setFullYear(1890), d.setFullYear(2015)]);
+
+    // var yS = this.yScale;
+    // var xS = this.xScale;
+
+    //establish set range for y-axis for comparison between charts
+    yAxis
+      .scale(yScale)
+      .ticks(8)
+      .orient("left");
+
+    if (chartCount === 0) {
+      
+      xAxis
+        .scale(xScale)
+        .ticks(6)
+        .orient("top");
+
+      //draw x-axis 
+      chart.append("g")
+          .attr("class", "x axis primary")
+          .attr("transform", "translate(0,0)")
+          .call(xAxis);
+
+    } 
+
+    chart.append("text")
+     .attr("x", "20px")
+     .attr("y", "20px")
+      //.style({"text-anchor": "middle"})
+     .text(options.dataProduct);
      
-      //draw scatterplot 
-      this.dataPoints = this.chart.selectAll("circle")
-         .data(filteredData)
-         .enter()
-         .append("circle")
-          .attr("cx", function(d) { return xS(d[0]); })
-          .attr("cy", function(d) { return yS(d[1]); })
-          .attr("r", "4px")
-          .attr("class", "data-point")
-          //.attr("data-legend",function(d) { return title})
-          .style("fill", "#00f")
-          .style("opacity", .6)
-          .on("mouseover", function(d) {
-              tooltip.transition()
-                   .duration(200)
-                   .style("opacity", 1.0);
-              tooltip.html("Year: " + formatDate(d[0]) + "<br/> " + options.yLabel + ": " + formatNumber(d[1],2) )
-                    .style("left", d3.select(this).attr("cx") + "px")
-                    .style("top", (d3.event.pageY - 200) + "px");
-                   
-          })
-          .on("mouseout", function(d) {
-              tooltip.transition()
-                   .duration(500)
-                   .style("opacity", 0);
-          });
+    
+    // draw y-axis 
+    chart.append("g")
+        .attr("class", "y axis")
+        .call(yAxis)
+      .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", "-50px")
+        .attr("x",-config.height/2)
+        .style("text-anchor", "middle")
+        .text(options.yLabel);
 
-       //create summary line
-      var line = d3.svg.line()
-        // .defined(function (d,i) {
-        //   if (i<5) return false
-        //   d[2][region] = d3.mean(data.data.slice(i-5,i).map(function (x) {return x[1]} ))
-        //   return true
-        // })
-        .interpolate("basis")
-        .x(function(d) { return xS(d[0]); })
-        .y(function(d) { return yS(d[1]); });
+    // add the tooltip area to the webpage
+    var tooltip = d3.select('.chart-container').append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
 
-      //draw interpolation line
-      this.chart.append("path")
-        .datum(filteredData)
-        .attr("class","line")
-        .attr("d",line);
+   
+    //draw scatterplot 
+    dataPoints
+       .data(filteredData)
+       .enter()
+       .append("circle")
+        .attr("cx", function(d) { return xScale(d[0]); })
+        .attr("cy", function(d) { return yScale(d[1]); })
+        .attr("r", "4px")
+        .attr("class", "data-point")
+        //.attr("data-legend",function(d) { return title})
+        .style("fill", color)
+        .style("opacity", .3)
+        .on("mouseover", function(d) {
+            tooltip.transition()
+                 .duration(200)
+                 .style("opacity", 1.0);
+            tooltip.html("Year: " + formatDate(d[0]) + "<br/> " + options.yLabel + ": " + formatNumber(d[1],2) )
+                  .style("left", d3.select(this).attr("cx") + "px")
+                  .style("top", (d3.event.pageY - 200) + "px");
+                 
+        })
+        .on("mouseout", function(d) {
+            tooltip.transition()
+                 .duration(500)
+                 .style("opacity", 0);
+        });
 
-      //return chart;  
-   //}
-  //}); //end json data function
-  //console.log(this.chart);
+     //create summary line
+    var line = d3.svg.line()
+      // .defined(function (d,i) {
+      //   if (i<5) return false
+      //   d[2][region] = d3.mean(data.data.slice(i-5,i).map(function (x) {return x[1]} ))
+      //   return true
+      // })
+      .interpolate("basis")
+      .x(function(d) { return xScale(d[0]); })
+      .y(function(d) { return yScale(d[1]); });
 
-  //return this.chart, this.yAxis;
+    //draw interpolation line
+    chart.append("path")
+      .datum(filteredData)
+      .attr("class","line")
+      .attr("d",line)
+      .attr("stroke", color)
+      .style('fill', color)
+      .style('opacity', .2);
 
-     // Chart.showOnly = function(){
-     //   console.log('showOnly');
-     //   chart.select(".x.axis.primary").call(this.xAxis);
-     // }
+    
+    //console.log(chart);
+
+    showOnly = function(b){
+      console.log('showOnly');
+      //chart.select(".x.axis.primary").call(this.xAxis);
+    }
   }
+
+  return chart;
+  
 
 }
 
@@ -273,34 +301,30 @@ var Chart = function (chartCount,options) {
         .text('Click and drag above to zoom / pan the data');
     
     function brushed() {
-      var b = xS.domain(brush.empty() ? xS.domain() : brush.extent());
 
-      this.chart.showOnly(b);
-      // for(var i = 0; i < chartCount; i++){
-
-      //   //console.log(charts[i]);
-      //   //charts[i].showOnly(b);
-      // }
+      /* this will return a date range to pass into the chart object */
+      var b = brush.empty() ? xS.domain() : brush.extent();
+      for(var i = 0; i < 3; i++){
+        charts[i].showOnly(b);
+      }
     }
   }
     
 
-  Chart.prototype.showOnly = function(b){
+  // Chart.prototype.showOnly = function(b){
 
-    // focus.select(".x.axis").call(xAxis);
-    //   mydots.selectAll(".dot")
-    //     .attr("cx", xMap)
-    //     .attr("cy", yMap);
+  //   console.log('showOnly triggered');
+  //   // focus.select(".x.axis").call(xAxis);
+  //   //   mydots.selectAll(".dot")
+  //   //     .attr("cx", xMap)
+  //   //     .attr("cy", yMap);
 
-      //this.xScale.domain(b);
+  //     //this.xScale.domain(b);      
 
-      
-      
-
-    // chart.select("path").data([chartData]).attr("d", this.area);
-    // chart.select(".x.axis.top").call(this.xAxisTop);
-     this.chart.select(".x.axis.primary").call(this.xAxis);
-  }
+  //   // chart.select("path").data([chartData]).attr("d", this.area);
+  //   // chart.select(".x.axis.top").call(this.xAxisTop);
+  //   //this.chart.select(".x.axis.primary").call(this.xAxis);
+  // }
 
 
 

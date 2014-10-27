@@ -1,8 +1,30 @@
 #for mapping features
 Rails.application.config.assets.precompile += %w( map/mapDataOverlays.js )
+Rails.application.config.assets.precompile += %w( map/mapSessionLayers.js )
 Rails.application.config.assets.precompile += %w( map/mapAddD3Layer.js )
+Rails.application.config.assets.precompile += %w( map/mapAddLeafletLayer.js )
+Rails.application.config.assets.precompile += %w( map/mapAddLayer.js )
 Rails.application.config.assets.precompile += %w( map/mapResults.js )
 Rails.application.config.assets.precompile += %w( map/mapSearch.js )
+Rails.application.config.assets.precompile += %w( map/mapSearchAlt.js )
+
+#for mapping - static html version 
+Rails.application.config.assets.precompile += %w( map/frontier/overlays.js )
+Rails.application.config.assets.precompile += %w( map/frontier/county.js )
+Rails.application.config.assets.precompile += %w( map/frontier/ny_dot.js )
+Rails.application.config.assets.precompile += %w( map/frontier/ny_dec.js )
+Rails.application.config.assets.precompile += %w( map/frontier/ny_clim_div.js )
+Rails.application.config.assets.precompile += %w( map/frontier/spdes.js )
+Rails.application.config.assets.precompile += %w( map/frontier/spdesLoad.js )
+Rails.application.config.assets.precompile += %w( map/frontier/historicdeclarations_ny.js )
+Rails.application.config.assets.precompile += %w( map/frontier/historicdeclarations_nyLoad.js )
+Rails.application.config.assets.precompile += %w( map/frontier/alsc.js )
+Rails.application.config.assets.precompile += %w( map/frontier/alscLoad.js )
+Rails.application.config.assets.precompile += %w( map/frontier/usgs_streamflow.js )
+Rails.application.config.assets.precompile += %w( map/frontier/usgs_streamflowLoad.js )
+Rails.application.config.assets.precompile += %w( map/frontier/nfhl.js )
+Rails.application.config.assets.precompile += %w( map/frontier/nfhlLoad.js )
+Rails.application.config.assets.precompile += %w( map/frontier/app.js )
 
 #for data product chart features
 Rails.application.config.assets.precompile += %w( data/chartData.js )

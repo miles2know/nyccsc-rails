@@ -21,10 +21,9 @@
       var map = L.map('map').setView([43.1393, -76], 7);
 
       // add initial layer to map  
-      //map.addLayer(OpenStreetMap_BlackAndWhite);
+      map.addLayer(OpenStreetMap_BlackAndWhite);
 
       // map is finished loading
-      //$.when(mapResults.onLoad()).done(function() {
       $.when(map).done(function() {
         
         var svg = d3.select(map.getPanes().overlayPane).append("svg");
@@ -37,7 +36,7 @@
                contextOverlays[i].data_name, 
                contextOverlays[i].active);
           }
-           addOverlayButton(contextOverlays[i].data_name, contextOverlays[i].active);
+          addOverlayButton(contextOverlays[i].data_name, contextOverlays[i].active);
         }
       });
     

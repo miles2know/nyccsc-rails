@@ -18,37 +18,42 @@ var mapResults = {
         //establish base layers
         var baseLayers = {
             "Grayscale" : OpenStreetMap_BlackAndWhite,
-            /*"Street Map" : Esri_WorldStreetMap,*/
+            "Street Map": MapQuestOSM,
             "Topography": Esri_WorldTopoMap,
-            "Satellite": Esri_WorldImagery
+            "Satellite": Esri_WorldImagery,
+            "Satellitte with Streets": mapquestHYB
         };
     	
-        //create map
-    	this.map = L.map('map', {
-            center:[43.1393, -76],
-            zoom: 6,
-            layers: [OpenStreetMap_BlackAndWhite]
-        });
+
+      
+            //create map
+            this.map = L.map('map', {
+                center:[43.1393, -76],
+                zoom: 6,
+                layers: [OpenStreetMap_BlackAndWhite]
+            });
+
+        
+        
 
         // add initial layer to map  
-        //mapResults.map.addBaseLayer(OpenStreetMap_BlackAndWhite);
-        L.control.layers(baseLayers).addTo(mapResults.map);
+            //mapResults.map.addBaseLayer(OpenStreetMap_BlackAndWhite);
+            L.control.layers(baseLayers).addTo(mapResults.map);
 
-        // load svg canvas for d3 layers
-        var svg = d3.select(mapResults.map.getPanes().overlayPane).append("svg");
+            // load svg canvas for d3 layers
+            var svg = d3.select(mapResults.map.getPanes().overlayPane).append("svg");
 
-        //loop through possible overlays and add active layer
-        for (var i = 0; i < contextOverlays.length; i++) {
-          //console.log(contextOverlays[i].data_source);
-          if (contextOverlays[i].active) {
-            addPolygonLayerToMap(mapResults.map,contextOverlays[i].data_source, 
-               contextOverlays[i].data_name, 
-               contextOverlays[i].active);
-          }
-          addOverlayButton(contextOverlays[i].data_name, contextOverlays[i].active);
-        }
-        
-        
+            //loop through possible overlays and add active layer
+            for (var i = 0; i < contextOverlays.length; i++) {
+              //console.log(contextOverlays[i].data_source);
+              if (contextOverlays[i].active) {
+                addPolygonLayerToMap(mapResults.map,contextOverlays[i].data_source, 
+                   contextOverlays[i].data_name, 
+                   contextOverlays[i].active);
+              }
+              addOverlayButton(contextOverlays[i].data_name, contextOverlays[i].active);
+            }
+
     },
     bindEventListeners:function() {
 

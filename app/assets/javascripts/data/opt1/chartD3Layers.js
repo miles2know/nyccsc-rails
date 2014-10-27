@@ -17,7 +17,8 @@ function updateChart (seq, config) {
       endYear = $("#endDate").val(),
       color = $("#data-color").val();
 
-  console.log(yLabel + '|' + yLabel.indexOf("Temp"));
+
+  //console.log(yLabel + '|' + yLabel.indexOf("Temp"));
   
   // var zoom = d3.behavior.zoom()
   //   .scaleExtent([1, 10])
@@ -62,7 +63,7 @@ function updateChart (seq, config) {
 
       //establish set range for y-axis for comparison between charts
       var d = new Date();
-      x.domain([d.setFullYear(1890), d.setFullYear(2015)]);
+      x.domain([d.setFullYear(startYear), d.setFullYear(endYear)]);
       y0.domain([25, 65]);
       y1.domain([20, 60]);
 

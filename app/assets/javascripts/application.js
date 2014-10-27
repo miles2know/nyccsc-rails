@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+
 //Commenting out turbolinks 
 // require turbolinks
 
@@ -19,27 +20,26 @@
 // require jquery-ui-v1.9.2.js  
 // require jquery.layout-v1.3.0.js
 
-// Required for carousel 
-//= require bootstrap.transition
-//= require bootstrap.carousel
+// Required for bootstrap features - carousel, affix, tabs, etc. 
+//= require bootstrap
 
-// Required by leaflet
+// range input 
+//= require ion.rangeSlider.min.js
+
+// Map & Chart related GEMs 
 //= require leaflet
-
-// require mapInitialize
-
-// Other leaflet related scripts 
+//= require typeahead 
+//= require leaflet.markercluster 
 //= require d3
+//= require leaflet.makimarkers
+
+// Map & Chart related vendor JSs
+//= require L.groupedlayercontrol
+//= require L.Control.Locate 
+//= require esri-leaflet
+//= require topojson.js
 //= require d3.legend
-
-// require L.groupedlayercontrol
-// require typeahead 
-
-// Other leaflet related scripts - NOT used right now
-// require L.Control.Locate
-// require L.Control.Sidebar
-// require Control.MiniMap
-// require leaflet.markercluster
+//= require colorbrewer
 
 // Required by Blacklight
 //= require blacklight/blacklight

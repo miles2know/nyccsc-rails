@@ -1,0 +1,107 @@
+
+
+    <div class="container">
+
+      <div class="row">
+
+      </div>
+      
+      <div class="row">
+        
+        <div class="col-sm-3">
+          <div id="sidebar">
+
+            <form role="search">
+              <div class="form-group has-feedback">
+                <input id="searchbox" type="text" placeholder="Search Places" class="form-control">
+                <span id="searchicon" class="fa fa-search form-control-feedback"></span>
+              </div>
+            </form>
+          
+            <div id="map-sidebar">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <a class="panel-title" data-toggle="collapse" data-target="#map-context-layers">Regional Context Layers</a>
+
+                  <!-- <input type='checkbox' name='contextLayers' id='all' onChange=toggleRadioLayer('contextLayers','all')>&nbsp;
+                  <a class="panel-title" data-toggle="collapse" data-target="#map-context-layers">Regional Context Layers</a> -->
+                
+                </div>
+                <div id="map-context-layers" class="panel-collapse collapse in">
+                  <div class="panel-body">
+
+                      <form role="form" id="context-layers">
+                        
+                      </form>
+
+                  </div>
+                </div>
+              </div><!-- .panel -->  
+              
+              <div id="map-selected-layers"></div>
+            </div><!-- #map-sidebar -->
+            
+          </div><!-- #sidebar -->  
+        </div><!--.col-sm-3 -->
+
+        <div class="col-sm-9">
+          <div id="map-container" data-spy="affix" data-offset-top="200" data-offset-bottom="220" >
+            <div id="map" ></div>
+            <div id="loading">
+              <div class="loading-indicator">
+                <div class="progress progress-striped active">
+                  <div class="progress-bar progress-bar-info progress-bar-full"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+
+        </div><!-- .col-sm-9 -->
+    
+      </div><!-- .row -->
+
+    </div><!-- #container -->
+
+    
+
+    <div class="modal fade" id="attributionModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">
+              Application by <a href='http://frontierspatial.com' target='_blank_'>frontierspatial.com</a>
+            </h4>
+           
+          </div>
+          <div class="modal-body">
+            <div id="attribution"></div>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+  
+    <!-- requires leaflet and leaflet specific plugins -->
+    <!-- // Map & Chart related GEMs 
+         //= require leaflet
+         //= require typeahead 
+         //= require leaflet.markercluster 
+        
+         // Map & Chart related vendor JSs
+         //= require L.groupedlayercontrol
+         //= require L.Control.Locate 
+         //= require esri.leaflet
+         //= require topojson.js  -->
+
+    <%= javascript_include_tag 'map/mapDataOverlays' %>
+    <%= javascript_include_tag 'map/mapAddLayer' %>
+    <%= javascript_include_tag 'map/mapSearchAlt' %>
+    <%= javascript_include_tag 'map/mapSessionLayers' %>
+    
+    <!-- bring it all together now -->
+    <%= javascript_include_tag 'map/mapUberApp.js' %>
+
+   
+  </body>
+</html>

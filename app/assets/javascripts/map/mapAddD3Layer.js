@@ -35,7 +35,7 @@ function addPolygonLayerToMap (map, data_source, data_name, active) {
     var feature = g.selectAll("path")
         .data(collection.features, function(d,i) { return d+i; } )
         .enter().append("path")
-        .attr("class", "area")
+        .attr("class", "d3-area")
         .attr("id", function(d,i) {return d.properties.countyfp})
         .attr("title", function(d,i) {return d.properties.name.toLowerCase()})
         //.attr("d", path)
@@ -151,7 +151,7 @@ function addPointsLayerToMap (map, data_source, data_name, active) {
     var feature = g.selectAll("circle")
       .data(collection.features, function(d,i) { return d+i; } )
       .enter().append("circle")
-      .attr("class", "point")
+      .attr("class", "d3-point")
       .attr("r", 10)
       .on("mouseover", function(d) {  
         var prop = d.properties;

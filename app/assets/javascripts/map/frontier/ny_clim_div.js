@@ -1,0 +1,54 @@
+var ny_clim_divSearch=[];
+
+var ny_clim_div = new L.TopoJSON(null, {
+    style: {
+            clickable: true,
+            weight: 2,
+            color: 'red',
+            opacity: 1,
+            fill: true,
+            fillOpacity: 0
+    },
+            
+
+    onEachFeature: function (feature, layer) {
+        ny_clim_divSearch.push({
+            name: layer.feature.id,
+            source: "ny_clim_div", 
+            id: L.stamp(layer),
+            bounds: layer.getBounds(),
+            lat: layer.getBounds().getSouthWest().lat,
+            lng: layer.getBounds().getSouthWest().lng,
+            bounds: layer.getBounds()
+        });
+
+        if (feature.properties) {
+        
+            layer.bindPopup(
+                "<strong>Climate Region: " + feature.id + "</strong>" ,  {
+                closeButton: false
+            });
+        }
+/*        layer.on({
+            mouseover: function(e) {
+                var layer = e.target;
+                layer.setStyle({
+                    weight: 3,
+                    color: "#00FFFF",
+                    opacity: 1
+                });
+                if (!L.Browser.ie && !L.Browser.opera) {
+                    layer.bringToFront();
+                }
+            },
+            mouseout: function(e) {
+                dot.resetStyle(e.target);
+            }
+        });*/
+
+    }
+});
+
+$.getJSON("/data/ny_clim_div.topojson", function (data) {
+    ny_clim_div.addData(data);
+});

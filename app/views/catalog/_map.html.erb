@@ -1,23 +1,11 @@
 
-  <!--<button href="javascript:void(0);" class="btn btn-default map-toggle hide-map">Hide Map &raquo;</button>-->
   <!-- default map / should default to NYS -->
   <ul class="nav nav-tabs overlay-tabs"></ul>
 
-  <div class="mapResults" id="map" page="default-view" style="width:100%; height:600px;">
-      <div id="loading" style="display: block;">
-          <div class="loading-indicator">
-              <div class="progress progress-striped active">
-                  <div class="progress-bar progress-bar-info" style="width: 100%"></div>
-              </div>
-          </div>
-      </div>
+  <div id="map-region">
+    <div id="map" style="width:100%;height:600px;"></div>
   </div>
 
-  <div>&nbsp;</div>
-
-  <!--<div class="mapit">
-    <button class="btn btn-default" id="add-overlay" href="#">Stream Gauges - Map It!</button>
-  </div>-->
 
   <!-- for mapping application -->
   <%= javascript_include_tag 'map/mapDataOverlays' %>
@@ -40,12 +28,10 @@
     var currLocation = (staticURL.length)? staticURL : window.location.search,
         returnBool = true;
       
-
     if (currLocation.indexOf("?") > -1) {
 
        parArr = currLocation.split("?")[1].split("&");
        
-
         for(var i = 0; i < parArr.length; i++){
             parr = parArr[i].split("=");
             if(parr[0] == parameter){
@@ -60,53 +46,69 @@
     if(!returnBool) return false;  
   }
 
+  $(document).ready(function() { 
+  //function pageReady() {
 
-  $(document).ready(function() {
+      //check for element, 
+        //if none, create
+        // if ($('#map').length !== 0) {
 
-      // are there search terms??
-      var searchTerms = getUrlParameters("q", "", true);
+        //   console.log('found map container');
 
-      // map is finished loading - supposedly, but this doesn't seem to work!  oddly, sometimes leaflet basemaps won't load, but the d3 layers do!
-      $.when(mapResults.onLoad()).done(function() {  
-        //if search terms are found on map, highlight it
 
-        if (searchTerms) {
-          searchTerms.split("+").forEach(function(s) {
-            //this isn't working all of a sudden... yet, if you run this in console, it works fine... timing again??  
-            d3.select(".area[title='"+s.toLowerCase()+"']").style("fill-opacity", ".6");
-          
-          });//end searchTerms loop
-        }//end if
+        // } else {
 
-      });//end mapResults.onLoad()
+        //   console.log('did not find map container');
+
+        //     $('#map-region').append('<div id="map"></div>');
+        //     $('#map').css('width','600px').css('height','600px');
+
+            // are there search terms??
+            var searchTerms = getUrlParameters("q", "", true);
+
+            // wait till leaflet map loads, then load d3 layers
+            $.when(mapResults.onLoad()).done(function() {  
+              //if search terms are found on map, highlight it
+
+              if (searchTerms) {
+                searchTerms.split("+").forEach(function(s) {
+                  //this isn't working all of a sudden... yet, if you run this in console, it works fine... timing again??  
+                  d3.select(".area[title='"+s.toLowerCase()+"']").style("fill-opacity", ".6");
+                
+                });//end searchTerms loop
+              }//end if
+
+            });//end mapResults.onLoad()
+       // }
+
+
+    //toggle map show/hide on search results page
+    $('.map-toggle').click(function(e){
+      e.preventDefault();
       
-
-      //toggle map show/hide on search results page
-      $('.map-toggle').click(function(e){
-        e.preventDefault();
+      if ($(this).hasClass('show-map')) { //show
         
-        if ($(this).hasClass('show-map')) { //show
-          
-          $("#map-region").removeClass('hide');
-          $("#map-region").addClass('col-md-4');
-          
-          $("#content").removeClass("col-md-9 col-lg-10");
-          $("#content").addClass("col-md-5 col-lg-6");
+        $("#map-region").removeClass('hide');
+        $("#map-region").addClass('col-md-4');
         
-          $(this).html('Hide Map &raquo;').removeClass('show-map').addClass('hide-map');
-
-        } else { //hide
-          
-          $("#map-region").removeClass('col-md-4');
-          $("#map-region").addClass('hide');
-          
-          $("#content").removeClass("col-md-5 col-lg-6");
-          $("#content").addClass("col-md-9 col-lg-10");
+        $("#content").removeClass("col-md-9 col-lg-10");
+        $("#content").addClass("col-md-5 col-lg-6");
       
-          $(this).html('Show Map &laquo;').removeClass('hide-map').addClass('show-map');    
-        }
-      }); //end .map-toggle
+        $(this).html('Hide Map &raquo;').removeClass('show-map').addClass('hide-map');
 
+      } else { //hide
+        
+        $("#map-region").removeClass('col-md-4');
+        $("#map-region").addClass('hide');
+        
+        $("#content").removeClass("col-md-5 col-lg-6");
+        $("#content").addClass("col-md-9 col-lg-10");
+    
+        $(this).html('Show Map &laquo;').removeClass('hide-map').addClass('show-map');    
+      }
+    }); //end .map-toggle
+
+  //} // end pageReady function
   });
 
   </script>
