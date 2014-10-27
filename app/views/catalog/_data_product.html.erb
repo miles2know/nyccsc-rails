@@ -1,112 +1,120 @@
 
 <%# partial for data product type -%>
-
 <style>
-    
-    /*.axis path,
-    .axis line {
-      fill: none;
-      stroke: #000;
-      shape-rendering: crispEdges;
-    }
- 
-    .line {
-      fill: none;
-      stroke: black;
-      stroke-opacity: 0.5;
-      stroke-width: 3.5px;
-    }
 
-    .overlay {
-      fill: none;
-      pointer-events: all;
-    }*/
+  .chart-container {
+    width:100%;
+    background-color: #fff;
+    margin-top:30px;
+  }
+
+  .axis path, .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+
+  .x.axis path {
+    display: none;
+  }
+
+  .line {
+    fill: none;
+    stroke: black;
+    stroke-opacity: 0.5;
+    stroke-width: 2px;
+  }
+
+  .data-point {
+    cursor: pointer;
+  }
+
+  .tooltip {
+    background:#999 !important;
+    color:#fff;
+  }
+
+  .legend rect {
+    fill:white;
+    stroke:black;
+    opacity:0.8;
+  }
 
 </style>
 
 
+
 <h2>Data Product</h2>
 
-<p>Initial View of Charts and Variables </p>
 
-<!-- <div class="row" id="options">
+<div class="row vertical-offset-md">
 
-    <select name="county"> 
-      <option value="Tompkins">Tompkins</option>
-      <option value="Erie">Erie</option>
-      <option value="Genessee">Genessee</option>
-    </select>
+    <div class="col-lg-3 col-md-3">
 
-    <select id="products" name="products">
-    </select>
+      <div class="row" id="options">
 
-</div>
+      <form class="form-vertical">
 
-<div class="row" id="results"> </div>
+       
+        <fieldset>
+
+          <h3>Chart Options</h3>
+          <div class="form-group" content="county">
+            <label for="county">Select Region:</label>
+            <select id="county" name="county" class="form-control"> 
+               <%= render 'pages/shared/counties' %>
+            </select>
+          </div>
+
+          <div class="form-group" content="calculation">
+            <label for="data-product">Select Data Product:</label>
+            <select id="data-product" name="data-product" class="form-control"></select>
+          </div>
+
+          <div class="form-group" content="dates" includes="start" includes="end">
+            <label for="date-range">Select Range:</label>
+            <div class="input-daterange input-group" id="datepicker">
+              <input type="text" class="input-sm form-control" name="startDate" id="startDate" />
+              <span class="input-group-addon">to</span>
+              <input type="text" class="input-sm form-control" name="endDate" id="endDate" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="date-range">Select Color:</label>
+            <select id="data-color" name="data-color" class="form-control">
+              <option value="#f00">Red</option>
+              <option value="#0f0">Green</option>
+              <option value="#00f">Blue</option>
+            </select>
+          </div>
+		<input type="hidden" id="dataProductSrc" value=""/>
+         
+          <button type="submit" id="addData" class="btn btn-primary">Add Data</button>
+
+      </form>
+
+      </div>
+
+    </div>
+
+    <div class="col-lg-offset-1 col-lg-8 col-md-offset-1 col-md-8">
+
+      <div class="chart-container" id="results"> </div>
+
+    </div>
+
+  </div>
+
+
+<%= javascript_include_tag 'bootstrap.datepicker.js' %>
+<%= javascript_include_tag 'data/showview/page_chartD3.js' %>
+ <%= javascript_include_tag 'data/showview/page_chartD3Layers.js' %>
 
 <script type="text/javascript">
-  
-    var options = //data: {
-      {
-        "products": [
-          //grdAnnMaxT: {
-          {  
-            title: "Annual Mean Maximum Temperature",
-            short: "Annual Max Temperature",
-            url: "prism_yly_maxt_ny_cnty.json",
-            comp: "temp-plot",
-            ylabel: "Temp. °F",
-            valueFormat: "5.1f"
-          },
-          //grdAnnMinT: {
-          {
-            title: "Annual Mean Minimum Temperature",
-            short: "Annual Min Temperature",
-            url: "prism_yly_mint_ny_cnty.json",
-            comp: "temp-plot",
-            ylabel: "Temp. °F",
-            valueFormat: "5.1f"
+var base_url = "/data/"
 
-          },
-          //grdAnnAvgT: {
-          {  
-            title: "Annual Mean Average Temperature",
-            short: "Annual Avg Temperature",
-            url: "prism_yly_meant_ny_cnty.json",
-            comp: "temp-plot",
-            ylabel: "Temp. °F",
-            valueFormat: "5.1f"
-
-          },
-          //grdAnnPcpn: {
-          {
-            title: "Annual Total Precipitation",
-            short: "Annual Precipitation",
-            url: "prism_yly_pcpn_ny_cnty.json",
-            comp: "temp-plot",
-            ylabel: "Prcp. inches",
-            valueFormat: "7.3f"
-          }
-        ]
-      }
-
-      $(document).ready(function() {
-        //get a reference to the select element
-        var $select = $('#products');
-   
-        //request the JSON data and parse into the select element
-        $.getJSON(options, function(data){
-          //clear the current content of the select
-          $select.html('');
-          //iterate over the data and append a select option
-          $.each(data.products, function(key, val){
-            console.log(key + "| " + val)
-            //$select.append('<option id="' + val.url + '">' + val.title + '</option>');
-          })
-        });
-
-      });
-
-        
-  
-  </script> -->
+function zoomed (container) {
+  container.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+}
+</script>

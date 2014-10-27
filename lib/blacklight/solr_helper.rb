@@ -9,7 +9,7 @@ module Blacklight::SolrHelper
     # If the id arg is nil, then the value is fetched from params[:id]
     # This method is primary called by the get_solr_response_for_doc_id method.
     def solr_doc_params(id=nil)
-      Rails.logger.debug("Debugging in the solr_doc_params field!#{id}")
+      #Rails.logger.debug("Debugging in the solr_doc_params field!#{id}")
       if params["DocId"]
               id ||= params["DocId"]
            else 
@@ -48,9 +48,9 @@ module Blacklight::SolrHelper
   # We aren't really overriding the actual functionality here, but just utilzing logging here
   # to see what is actually being passed to Solr
     def get_solr_response_for_doc_id(id=nil, extra_controller_params={})
-     Rails.logger.debug("Get solr response for doc id #{id.inspect} and #{extra_controller_params.inspect}")
+     #Rails.logger.debug("Get solr response for doc id #{id.inspect} and #{extra_controller_params.inspect}")
      solr_params = solr_doc_params(id).merge(extra_controller_params)
-     Rails.logger.debug("Get solr response for doc, solr params now #{solr_params.inspect}")
+     #Rails.logger.debug("Get solr response for doc, solr params now #{solr_params.inspect}")
      solr_response = find(blacklight_config.document_solr_path, solr_params)
      raise Blacklight::Exceptions::InvalidSolrID.new if solr_response.documents.empty?
      [solr_response, solr_response.documents.first]

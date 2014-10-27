@@ -30,7 +30,7 @@ function addPolygonLayerToMap (map, data_source, data_name, active) {
   d3.json(data_source, function(collection) {
     var transform = d3.geo.transform({point: projectPoint}),
         path = d3.geo.path().projection(transform);
-
+    
           
     var feature = g.selectAll("path")
         .data(collection.features, function(d,i) { return d+i; } )
@@ -56,11 +56,26 @@ function addPolygonLayerToMap (map, data_source, data_name, active) {
           })
         //on click, set new query parameters and send to blacklight
         .on("click", function(d) { 
-            //console.log(d.properties.name); 
+        	//console.log("d3 mouse is ");
+        	//console.log(d3.mouse(this));
+        	//console.log("d is ");
+        	//console.log(d);
+        	//d3.event is a global variable used to refer to the actual event
+        	//and map.mouseEventToLatLng is a leaflet function that will convert
+        	//the coordinates for the current event into lat and long
+        	var latlng = map.mouseEventToLatLng(d3.event);
+        	
             //capture feature name and pass to Blacklight form - search criteria
             //document.getElementById("q").value = document.getElementById("q").value + " " + d.properties.name;
-            document.getElementById("q").value = d.properties.name;
-            document.getElementsByTagName('form')[0].submit();
+            
+        	 //Code below was being utilized to submit search form with name of county
+        	 //document.getElementById("q").value = d.properties.name;
+            //document.getElementsByTagName('form')[0].submit();
+        	
+        	//Changing the URL here but may want to 
+        	var spatialSortString = "spatialsort=" + latlng.lat + "," + latlng.lng;
+        	console.log("Spatial sort " + spatialSortString);
+        	window.location = window.location.protocol + "//" + window.location.host + "/catalog?search_field=all_fields&q=*&" + spatialSortString;
           });
 
 
