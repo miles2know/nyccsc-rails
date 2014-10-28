@@ -1,6 +1,7 @@
 
 
   <div class="mapResults" id="map" page="default-view" style="width:100%; height:600px;">
+    <h3>Impact by Region</h3>
       <!--<div id="loading" style="display: block;">
           <div class="loading-indicator">
               <div class="progress progress-striped active">
@@ -11,7 +12,8 @@
   </div>
 
   <%= javascript_include_tag 'map/mapDataOverlays' %>
-  <%= javascript_include_tag 'map/mapAddD3Layer' %>
+  <%= javascript_include_tag 'map/mapAddLayer' %>
+  
 
   <script>
 
@@ -20,26 +22,51 @@
       //setup map
       var map = L.map('map').setView([43.1393, -76], 7);
 
-      // add initial layer to map  
+      // add base layer to map  
       map.addLayer(OpenStreetMap_BlackAndWhite);
 
-      // map is finished loading
-      $.when(map).done(function() {
+      // map is finished loading, load context layer (home page so just counties)
+      map.whenReady(function() {
         
-        var svg = d3.select(map.getPanes().overlayPane).append("svg");
+        var layerProperties;
+        for (var i = 0; i < contextLayers.length; i++) {
 
-        //loop through possible overlays and add active layer
-        for (var i = 0; i < contextOverlays.length; i++) {
-          //console.log(contextOverlays[i].data_source);
-          if (contextOverlays[i].active) {
-            addPolygonLayerToMap(map,contextOverlays[i].data_source, 
-               contextOverlays[i].data_name, 
-               contextOverlays[i].active);
-          }
-          addOverlayButton(contextOverlays[i].data_name, contextOverlays[i].active);
+          layerProperties = contextLayers[i];
+
+          if (layerProperties.active) {
+            contextLayer = addLayer(layerProperties);
+          } 
+   
         }
+
       });
-    
+
+      map.addLayer(contextLayer);
+
+      // on click, go to search page
+      contextLayer.on('click', function(e) {
+        
+        var spatialRef = e.latlng.toString();
+        spatialRef = spatialRef.replace("(","").replace(")","").replace(" ", "").replace("LatLng", "spatialsort=");
+
+        console.log(spatialRef);
+        window.location = window.location.protocol + "//" + window.location.host + "/catalog?search_field=all_fields&q=*&" + spatialRef;
+
+      });
+
+      // on bbox change, do?
+      map.on('moveend', function(e) {
+        bounds = map.getBounds();
+        center = map.getCenter();
+
+        //getData (Ajax call) search based on bounding box change  
+        //&q=*&lat1=" + bounds.getSouthWest().lat + "&lon1=" + bounds.getSouthWest().lng + "&lat2=" + bounds.getNorthEast().lat + "&lon2=" + bounds.getNorthEast().lng + "&midlon=" + center.lng + "&midlat=" + center.lat;
+
+      });
+
+
+      
   });
+
 
   </script>

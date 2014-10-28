@@ -7,6 +7,8 @@ Rails.application.config.assets.precompile += %w( map/mapAddLayer.js )
 Rails.application.config.assets.precompile += %w( map/mapResults.js )
 Rails.application.config.assets.precompile += %w( map/mapSearch.js )
 Rails.application.config.assets.precompile += %w( map/mapSearchAlt.js )
+Rails.application.config.assets.precompile += %w( map/mapSearchApp.js )
+Rails.application.config.assets.precompile += %w( map/mapUberApp.js )
 
 #for mapping - static html version 
 Rails.application.config.assets.precompile += %w( map/frontier/overlays.js )
