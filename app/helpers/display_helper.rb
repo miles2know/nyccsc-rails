@@ -375,8 +375,10 @@ module DisplayHelper
       partial_name = "catalog/profile/author_in_authorship"
     elsif(property_template_name == "propStatement-fullName.ftl")
       partial_name = "catalog/profile/full_name"
-      elsif(property_template_name == "propStatement-informationResourceInAuthorship.ftl")
+    elsif(property_template_name == "propStatement-informationResourceInAuthorship.ftl")
             partial_name = "catalog/profile/resource_in_authorship"
+      elsif(property_template_name == "propStatement-webpage.ftl")
+                  partial_name = "catalog/profile/webpage"
     else
       
     end

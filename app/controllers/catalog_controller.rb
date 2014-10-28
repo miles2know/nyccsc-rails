@@ -38,28 +38,30 @@ class CatalogController < ApplicationController
     config.show.display_type_field = 'type'
    
 
-    #config.add_facet_field 'type_facet', :label => 'Type', :single => true, :limit => 10
-    #config.add_facet_field 'type', :label => 'Type',  :limit => 10
-    ## Reordered per GitHub issue 20
+ 
+    config.add_facet_field 'classgroup_pivot_facet', :label => 'Type',  :limit => 9, pivot: ['classgroup_pivot_facet', 'type_pivot_facet']
+
     config.add_facet_field 'sector_facet', :label => 'Sector', :limit => 9
-    #config.add_facet_field 'type', :label => 'Type',  :limit => 9, :helper_method => :render_type_facet_display
-    config.add_facet_field 'classgroup_label_facet', :label => 'Type',  :limit => 9
+    ##config.add_facet_field 'classgroup_label_facet', :label => 'Type',  :limit => 9
     config.add_facet_field 'climate_changes_facet', :label => 'Climate Changes',  :limit => 9
 
     config.add_facet_field 'effect_facet', :label => 'Effect', :limit => 9
-    config.add_facet_field 'individual_effect_facet', :label => 'Individual Effect', :limit => 9
-    config.add_facet_field 'strategy_subclass_facet', :label => 'Strategy', :limit => 9
-    config.add_facet_field 'strategy_facet', :label => 'Strategy (By Most Specific Type)', :limit => 9
+    config.add_facet_field 'strategy_facet', :label => 'Strategy', :limit => 9
     config.add_facet_field 'actions_facet', :label => 'Actions', :limit => 9
-    config.add_facet_field 'confounding_factors_facet', :label => 'Non-climate change factors', :limit => 9
+    config.add_facet_field 'confounding_factors_facet', :label => 'Ancillary factors', :limit => 9
     config.add_facet_field 'author_facet', :label => 'Author', :limit => 9
 
     config.add_facet_field 'subjectarea_facet', :label => 'Subject Area', :limit => 9
     #config.add_facet_field 'keyword_facet', :label => 'Keyword', :limit => 10
     #config.add_facet_field 'vulnerability_facet', :label => 'Vulnerability', :limit => 9
     # I want faceting to be enabled by this but not to be drawn in the facet bar
-    config.add_facet_field 'most_specific_type_label_facet', :show => false
+    config.add_facet_field 'most_specific_type_label_facet', :label => 'Most Specific Type', :show => false
 
+    config.add_facet_field 'type_pivot_facet', :label => 'Subtype',  :show => false
+
+
+    
+    
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
     #
