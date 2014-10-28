@@ -50,10 +50,11 @@
 all_properties = retrieve_individual_profile_properties_for_show(document)
 display_hash = display_all_properties(all_properties)
 display_hash.each do|statement_hash|        
+	property_display_values = statement_hash["property_display_values"]
 %>
 
                       <dt class="blacklight-<%= statement_hash["property_name"] %>"><%=statement_hash["property_name"]%></dt>
-  		                <dd class="blacklight-<%= statement_hash["property_name"] %>"><%=statement_hash["property_display_values"].html_safe%></dd>
+  		              <dd class="blacklight-<%= statement_hash["property_name"] %>"><%=property_display_values.join('<br />').html_safe%></dd>
 
 <%
      					      

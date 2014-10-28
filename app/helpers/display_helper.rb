@@ -328,16 +328,21 @@ module DisplayHelper
           end
 
           if (statements != nil and statements.length > 0)
+            display_statement_values_per_property = Array.new
             statements.each do|statement|
               Rails.logger.debug("Statement is #{statement.inspect}")
               display_statement_values = getStatementDisplay(statement, property_uri, property["domainUri"], property["rangeUri"], property_type, property_template_name)
 
               ## Testing out partial rendering
-              display_profile_properties_hash << {"property_name" => property_name.titleize,
-                "property_display_values"=> display_statement_values}
-              Rails.logger.debug("Display profile properties hash is now #{display_profile_properties_hash.inspect}")
+              ## display_statement_values returns a string, here we are going to store these in an array
+              ## because we don't want to repeat the property name in case of multiple statements for the same property
+              display_statement_values_per_property << display_statement_values
+              
             end #end loop through statements
-
+            # The hash should now be the property name plus an ARRAY of applicable statements
+            display_profile_properties_hash << {"property_name" => property_name.titleize,
+                            "property_display_values"=> display_statement_values_per_property}
+            Rails.logger.debug("Display profile properties hash is now #{display_profile_properties_hash.inspect}")
           end #if statements
 
         end #do properties
