@@ -105,6 +105,7 @@ function addLayer (layerProp) {
 }
 
 
+
 //*******************************************************************************//
 //*******************************************************************************//
 //*******************************************************************************//
@@ -337,7 +338,7 @@ function addTopoJsonPolygon (dataSource, dataName) {
         
             layer.bindPopup(
                 "<strong>" + feature.id + "</strong> (" + dataName + ")",  popupOptions);
-        }
+      }
 
       //layer.on("mouseover", function(e) { layer.setStyle( hoverPolygonStyle ) });
       //layer.on("mouseout", function(e) { layer.setStyle( defaultPolygonStyle ) });
