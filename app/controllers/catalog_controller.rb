@@ -265,41 +265,41 @@ class CatalogController < ApplicationController
   # to the actual individual.  This update below enables the DocId parameter to be passed along
   # from the link to the redirected page. 
   # updates the search counter (allows the show view to paginate)
-      # def track
-      #   require 'cgi'
-      #   search_session['counter'] = params[:counter]
-      #   search_session['per_page'] = params[:per_page]
+      def track
+        require 'cgi'
+        search_session['counter'] = params[:counter]
+        search_session['per_page'] = params[:per_page]
           
   
-      #   path = if params[:redirect] and (params[:redirect].starts_with?("/") or params[:redirect] =~ URI::regexp)
-      #     Rails.logger.debug("TRACK method being used and redirect exists")
-      #    # if redirect path has DocId parameter, save that
-      #    if(params[:redirect].include?("?DocId=")) 
+        path = if params[:redirect] and (params[:redirect].starts_with?("/") or params[:redirect] =~ URI::regexp)
+          Rails.logger.debug("TRACK method being used and redirect exists")
+         # if redirect path has DocId parameter, save that
+         if(params[:redirect].include?("?DocId=")) 
           
-      #      #OR use CGI parse?
-      #      urlhash=  CGI::parse("DocId=" + params[:redirect].partition("?DocId=").last)
-      #      #Rails.logger.debug("test hash #{urlhash.inspect}")
-      #      #URI.parse(params[:redirect])
-      #       if(urlhash["DocId"].length > 0)
-      #           URI.parse(params[:redirect]).path + "?DocId=" + urlhash["DocId"].first
-      #       else 
-      #         URI.parse(params[:redirect]).path
-      #       end
+           #OR use CGI parse?
+           urlhash=  CGI::parse("DocId=" + params[:redirect].partition("?DocId=").last)
+           #Rails.logger.debug("test hash #{urlhash.inspect}")
+           #URI.parse(params[:redirect])
+            if(urlhash["DocId"].length > 0)
+                URI.parse(params[:redirect]).path + "?DocId=" + urlhash["DocId"].first
+            else 
+              URI.parse(params[:redirect]).path
+            end
            
-      #     else
-      #       URI.parse(params[:redirect]).path
-      #     end
+          else
+            URI.parse(params[:redirect]).path
+          end
           
           
-      #   else
-      #     Rails.logger.debug("Using show action")
-      #     { action: 'show' }
-      #   end
+        else
+          Rails.logger.debug("Using show action")
+          { action: 'show' }
+        end
        
        
-      #     redirect_to path, :status => 303
+          redirect_to path, :status => 303
        
-      # end
+      end
       
 
 

@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   #root :to => "catalog#index"
   root :to => "pages#home"
 
+  devise_for:users
+
   # get '/data', to: 'catalog#index'
 
   #maps and data
@@ -35,8 +37,7 @@ Rails.application.routes.draw do
   #get 'pages/calendar(/:year(/:month))', to: 'pages#calendar', as: 'calendar'
   #get 'pages/test2'
 
-  #blacklight_for :catalog
-
+  
   #Get an error when we try to get constraints below with regular search
   #blacklight_for :catalog, :constraints => { :id => ALLOW_SOLR_DOCIDS, :format => false }
   #, :constraints => { :id => ALLOW_SOLR_DOCIDS, :format => false }
