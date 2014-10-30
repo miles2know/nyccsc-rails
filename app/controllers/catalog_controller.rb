@@ -300,7 +300,13 @@ class CatalogController < ApplicationController
           redirect_to path, :status => 303
        
       end
-      
 
+      def set_map_preference 
+
+        preference_session['pref_map'] = params[:pref_map]
+        #Rails.logger.debug('MY SESSION MAP PREFERENCE' + preference_session['pref_map'])
+
+      end
+      
 
 end

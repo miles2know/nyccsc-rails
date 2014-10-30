@@ -1,20 +1,19 @@
-<div id="main-container" class="container full-width-container">
 
-    <div class="col-md-12">
-      <div class="pull-right">
-        <a href="#">Selected <strong>Map it!</strong> Items (<span id="map-count">0</span>)</a>&nbsp;&nbsp;
-        <button href="#" class="btn btn-default btn-xs map-toggle hide-map">Hide Map &raquo;</button>
-      </div>
-    </div>
+<div class="container">
+  <div class="pull-right">
+      <%= render :partial=>'/user_bookmark_links' %>
+      <button href="#" class="btn btn-default btn-xs map-toggle" data-preference-map="hide">Hide Map &raquo;</button>
+  </div>
+</div>
+
+<div id="main-container" class="container full-width-container">
 
     <div class="row vertical-offset-md">&nbsp;</div>
     
-    <!--<div id="sidebar" class="col-md-2 pane ui-layout-west">-->
     <div id="sidebar" class="col-sm-3 col-md-3 col-lg-2">
      <%= render 'search_sidebar' %>
     </div>
 
-    <!--<div id="content" class="col-md-5 pane ui-layout-center">-->
     <div id="content" class="col-sm-5 col-md-5 col-lg-6">
 
         <%= render 'search_and_constraints' %>
@@ -58,50 +57,35 @@
 
     </div>
 
-    <div class="col-sm-4 col-md-4">
+    <div class="map-region col-sm-4 col-md-4">
       
         <%= render 'map' %>
       
     </div>
-
-    
 
 </div>
 
 
 <script type="text/javascript">
 
-  $(document).ready(function() {
+  
+  $('.map-toggle').on('click',function() {
 
-    //reset all 
-    $("input.toggle_list").removeAttr("checked");
-    var count = 0;
+    console.log('clicked on show/hide map');
 
-    //setup session variable to hold map it IDs and count?
-    //for now it's a hack for count and there isn't a holding tank for IDs
-    $(".toggle_list").each(function() {
-      $(this).attr("id",($(this).parents('div.document').attr("docid")));
+    console.log($(this).data('preference-map'));
+
+    var jqxhr = $.ajax({
+      url: '/session',
+      data: 'pref_map=' + $(this).data('preference-map'),
+      method: 'POST'
     });
 
-    $("input.toggle_list").on("change", function() {
-    
-      //console.log($(this).attr("id"));
-      if ($(this).is(':checked')) {
-          count ++;
-          $(this).next().html("Map it! Selected");
-          $("#map-count").html(count.toString());
-          
-      } else {
-          count --;
-          $(this).next().html("Map it! Select");
-          $("#map-count").html(count.toString());
-      }
-      
-    });
-
-   
+    console.log(jqxhr);
 
   });
+
+  
 
 </script>
 

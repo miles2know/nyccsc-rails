@@ -3,31 +3,33 @@ en:
     application_name: 'NYCCSC'
     ##SEPARATE MAP BOOKMARKS NOT FULLY IMPLEMENTED
     maps:
-      title: 'MapIt Selected Items'
+      title: 'Map It Selected Items'
       no_bookmarks: 'You have no MapIt bookmarks'
       add:
-        button: 'MapIt'
+        button: 'Map It'
         success:
-          one: 'Successfully added a MapIt item.'
-          other: 'Successfully added MapIt items.'
-        failure:  'Sorry, there was a problem saving the MapIt bookmarks.'
+          one: 'Successfully added a Map It item.'
+          other: 'Successfully added Map It items.'
+        failure:  'Sorry, there was a problem saving the Map It items.'
       remove:
-        button: 'MapIt Selected'
-        success: 'Successfully removed MapIt items.'
-        failure: 'Sorry, there was a problem removing the MapIt bookmarks.'
-        action_confirm: 'Remove this MapIt bookmark?'
+        button: 'Map It Selected'
+        success: 'Successfully removed Map It items.'
+        failure: 'Sorry, there was a problem removing the Map It items.'
+        action_confirm: 'Remove this Map It bookmark?'
       clear:
-        action_title: 'Clear MapIt'
-        action_confirm: 'Clear your MapIt items?'
-        success: 'Cleared your MapIt bookmarks.'
-        failure: 'Sorry, there was a problem clearing your MapIt bookmarks.'
-      need_login: 'Please log in to manage and view your MapIt bookmarks.'
-      list_title: 'Your MapIt Bookmarks'
+        action_title: 'Clear Map It'
+        action_confirm: 'Clear your Map It items?'
+        success: 'Cleared your Map It bookmarks.'
+        failure: 'Sorry, there was a problem clearing your Map It bookmarks.'
+      need_login: 'Please log in to manage and view your Map It bookmarks.'
+      list_title: 'Your Map It Bookmarks'
       delete: 'Remove'
 
     search: 
       maps:
-        present: "MapIt Selected"
-        absent: "MapIt"
+        present: "Map It Selected"
+        absent: "Map It"
         inprogress: "Saving..."
 
+    header_links: 
+      bookmarks: "Map It Items"
