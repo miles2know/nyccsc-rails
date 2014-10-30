@@ -33,12 +33,30 @@
 
       <div class="collapse navbar-collapse" id="user-util-collapse">
         <ul class="nav navbar-nav primary-nav">
-          <li><a href="/"><span class="glyphicon glyphicon-home"></span><br/>Home</a></li>
-          <li><a href="/pages/understand">UNDERSTAND<br/>Climate Change</a></li>
-          <li><a href="/pages/risks">Impacts<br/>&amp; Risks</a></li>
-          <li><a href="/pages/strategies">Response<br/>Strategies</a></li>
-          <li><a href="/catalog">BROWSE Maps <br/>&amp; FIND Data</a></li>
-          <li><a href="/highlights/feature">News &amp;<br/>Events</a></li>
+          <li class="<%= is_active?('/') %>">
+            <a href="/"><span class="glyphicon glyphicon-home"></span><br/>Home</a>
+          </li>
+          <li class="<%= is_active?('/pages/understand') %>">
+            <a href="/pages/understand">UNDERSTAND<br/>Climate Change</a>
+          </li>
+          <li class="<%= is_active?('/pages/risks') %>">
+            <a href="/pages/risks">Impacts<br/>&amp; Risks</a>
+          </li>
+          <li class="<%= is_active?('/pages/strategies') %>">
+            <a href="/pages/strategies">Response<br/>Strategies</a>
+          </li>
+          <li class="<%= is_active?('/catalog') %>">
+            <a href="/catalog">BROWSE Maps <br/>&amp; FIND Data</a>
+          </li>
+          <li class="<%= is_active?('/highlights/feature') %>">
+            <a href="/highlights/feature">News &amp;<br/>Events</a>
+          </li>
+          <!--<li><a href="/"><span class="glyphicon glyphicon-home"></span><br/>Home</a></li>-->
+          <!-- <li><a href="/pages/understand">UNDERSTAND<br/>Climate Change</a></li> -->
+          <!-- <li><a href="/pages/risks">Impacts<br/>&amp; Risks</a></li> -->
+          <!-- <li><a href="/pages/strategies">Response<br/>Strategies</a></li> -->
+          <!-- <li><a href="/catalog">BROWSE Maps <br/>&amp; FIND Data</a></li> -->
+          <!-- <li><a href="/highlights/feature">News &amp;<br/>Events</a></li> -->
         </ul>
       </div>
 

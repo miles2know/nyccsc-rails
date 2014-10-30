@@ -1,5 +1,3 @@
-
-
 // Colors
 $green:         #acb74e;
 $green-light:   lighten($green, 15%);
@@ -19,16 +17,21 @@ $headings-color:  #007d99;
 $brand-primary:   $green;
 
 $navbar-border-radius: 0px;
+
 $navbar-margin-bottom: 0px;
 $navbar-default-bg: $blue;
 $navbar-default-border: $blue;
 $navbar-default-link-color: #e2e2e2;
-$navbar-default-link-hover-bg: lighten($blue, 10%);
+
+$navbar-default-link-hover-bg: lighten($blue, 5%);
 $navbar-default-link-hover-color: #fff;
+
+$navbar-default-link-active-bg: lighten($blue, 5%);
+$navbar-default-link-active-color: #fff;
+
 
 $panel-default-heading-bg: #fff;
 $well-bg: #fff;
-
 
 @import 'bootstrap';
 @import 'blacklight/blacklight';
