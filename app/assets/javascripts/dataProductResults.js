@@ -21,7 +21,7 @@ var dataProductResults = {
 
 		this.includeURLInfo = $("#includeURLInfo");
 		this.addData = $("#addData");
-		this.accessURLInput = $("input#dataProductSrc");
+		this.downloadURLInput = $("input#dataProductSrc");
 
 		this.initDatePicker();
 	},
@@ -46,24 +46,10 @@ var dataProductResults = {
 		if (this.isSpecialTypePage) {
 			if (this.special_type == "data_product") {
 				this.makeDataProductQueryRequest();
-				this.makeAccessURLQuery();
+				this.makeDownloadURLQuery();
 			}
-			// for both data product and gis layer need access URL
+			// for both data product and gis layer need download URL
 		}
-
-	},
-	//TODO : Remove this once we have the custom ruby form display for web urls in place
-	makeLinkQueryRequest : function() {
-
-		var thisURL = "/proxy/data?sparqlquerytype=link&sparqlquery="
-				+ dataProductResults.sparqlQueryURI;
-
-		$.getJSON(thisURL, function(results) {
-
-			var displayHtml = dataProductResults.generateDisplay(results);
-			dataProductResults.includeURLInfo.append(displayHtml);
-
-		});
 
 	},
 	makeDataProductQueryRequest : function() {
@@ -76,8 +62,8 @@ var dataProductResults = {
 
 		});
 	},
-	makeAccessURLQuery : function() {
-		var thisURL = "/proxy/data?sparqlquerytype=accessurl&sparqlquery="
+	makeDownloadURLQuery : function() {
+		var thisURL = "/proxy/data?sparqlquerytype=downloadurl&sparqlquery="
 				+ dataProductResults.sparqlQueryURI;
 		$.getJSON(thisURL, function(results) {
 			if (("results" in results) && ("bindings" in results["results"])) {
@@ -89,7 +75,7 @@ var dataProductResults = {
 				if ((len > 0) && ("url" in bindings[0])
 						&& ("value" in bindings[0]["url"])) {
 					url = bindings[0]["url"]["value"];
-					dataProductResults.accessURLInput.val(url);
+					dataProductResults.downloadURLInput.val(url);
 
 				}
 			}
@@ -228,7 +214,7 @@ var dataProductResults = {
 		};
 		// console.log("config exists");
 		// console.log(config);
-		var url = dataProductResults.accessURLInput.val();
+		var url = dataProductResults.downloadURLInput.val();
 		if (url != "") {
 			// Go ahead and make this call if the url exists,
 			var startYear = $("#startDate").val();

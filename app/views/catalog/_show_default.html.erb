@@ -1,55 +1,58 @@
 <%# default partial to display solr document fields in catalog show view -%>
 <dl class="dl-horizontal  dl-invert">
-  <% document_show_fields(document).each do |solr_fname, field| -%>
 
-    <% if should_render_show_field? document, field %>
+<%#We want to show certain information at the top of the page always, including URL, description/abstract/overview -%>
+<%#We get this information not from the Solr index but from the VIVO information-%>
+
+<%
+## Determine what type this is to handle maps and/or GIS layers
+is_GIS_layer = isGISLayer(document)
+# May need to tweak this based on what else is a data retrieval service
+is_data_product = isDataProduct(document)
+if is_data_product
+	@special_type = "data_product"
+elsif is_GIS_layer
+	@special_type = "gis_layer"
+end
+
+
+# Get all the VIVO properties
+all_properties = retrieve_individual_profile_properties_for_show(document)
+display_hash = display_all_properties(all_properties)
+by_priority_hash = get_display_by_priority(display_hash)
+priority_list = by_priority_hash["priority"]
+non_priority_list = by_priority_hash["non_priority"]
+# display_hash is actually an array of hashes, where each hash consists of a property name and an array of strings with the values to be displayed
+# For now iterating over array but we should arrange the data in a better fashion to allow what we need
+
+priority_list.each do|statement_hash|        
+	property_display_values = statement_hash["property_display_values"]
+%>
+
+                      <dt class="blacklight-<%= statement_hash["property_name"] %>"><%=statement_hash["property_name"]%></dt>
+  		              <dd class="blacklight-<%= statement_hash["property_name"] %>"><%=property_display_values.join('<br />').html_safe%></dd>
+
+<%
+     					      
+   					      
+end             
+%>
+
+
+  <% document_show_fields(document).each do |solr_fname, field| 
+
+    if should_render_show_field? document, field %>
 
 	    <dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_label document, :field => solr_fname %></dt>
 	    <dd class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_value document, :field => solr_fname %></dd>
 
-      <%# need to add a helper method to get the field value only, couldn't find a built in method to do so -%>
-      <% 
-        field_value = render_document_show_field_value document, :field => solr_fname
-      %>
-      
-      <%# Is this a Data Product or GIS Layer? -%>
-      <%  
-          if field_value.include? "Data Product" 
-            @special_type = "data_product"
-          elsif field_value.include? "GIS Mapping Layer" 
-            @special_type = "gis_layer"
-          end -%>  
-
-    <% end -%>
-  <% end -%>
+      <%
+     end 
+   end %>
   
-   <%# Including a linked data request here to retrieve RDF values OR get values from a sparql query -%>
-   <%# Commented out but leaving in here for reference if we need to use this for some reason later -%>
 <%
-#jsonResult = get_linkeddata_result(document)
-#displayResult = get_display_hash(jsonResult, document)
-#Rails.logger.debug("Display result is #{displayResult.inspect}")
-# displayResult.each do |result|
-# 	displayValue = result["displayValue"]
- 	# Not truncating display values here
 
-         #  <dt class="blacklight-= result["name"] ">= result["displayName"] </dt>
-		 #  <dd class="blacklight-= result["name"]">=displayValue </dd>
-  
-#end		                               		
-%>
-<span id="includeURLInfo"></span>
-<% 
-## Here we will try a sparql query request - for now until we get all properties back as we wish - to get the URL
-
-%>
-
-<%#  Trying out a full profile dump here as well, will comment out linked data request in favor of profile info instead -%>
-
-<%
-all_properties = retrieve_individual_profile_properties_for_show(document)
-display_hash = display_all_properties(all_properties)
-display_hash.each do|statement_hash|        
+non_priority_list.each do|statement_hash|        
 	property_display_values = statement_hash["property_display_values"]
 %>
 

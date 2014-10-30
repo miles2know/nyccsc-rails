@@ -38,7 +38,6 @@ module DisplayHelper
   ## but (a) for types, we are using strings and not URIs so we no longer need to make a
   ## linked data request for that, and (b) any linked data requests we do need can be done
   ## using an AJAX request as calling this code from within the page slowed everything down too much
-
   #  def get_linkeddata_result document
   #    require "net/http"
   #    result = []
@@ -230,7 +229,6 @@ module DisplayHelper
   #    displayLabel
   #  end
   #
-
   ####
   ##We are using the code below to make a call to get the JSON for the profile and display that
   ## We can convert this into an AJAX request if need be
@@ -298,58 +296,92 @@ module DisplayHelper
       if property_group.has_key?("properties")
         properties = property_group["properties"]
         properties.each do |property|
-          Rails.logger.debug("---------------->Property is #{property.inspect}")
-          property_name = property["name"]
-          # Data property or object property which can be either collated or uncollated
-          property_type = property["type"]
-          # For now, we are just printing out the data
-          # But I am also saving the template name for reference
-          # It may be useful with respect to our own templates
-          # Works for data properties and uncollated object properties
-          property_template_name = property["template"]
           property_uri = property["uri"]
-          statements = property["statements"]
-          if(property_type == "object" and property["collatedBySubclass"] == true and property.has_key?("subclasses"))
-            subclasses = property["subclasses"]
-            # We are going to put everything into the same master statements array for now
-            # although we may want to pull this out separately later
-            statements = []
-            subclasses.each do|subclass|
-              Rails.logger.debug("Subclass exists #{subclass.inspect}")
-              if(subclass.has_key?("statements"))
-                Rails.logger.debug("Subclass does have key statements")
-                statements += subclass["statements"]
-              else
-                Rails.logger.debug("Subclass does NOT have key statements")
+          # If we want this property to be displayed on the page
+          if isVisibleProperty(property_uri)
+            #Rails.logger.debug("---------------->Property is #{property.inspect}")
+            property_name = property["name"]
+            # Data property or object property which can be either collated or uncollated
+            property_type = property["type"]
+            # For now, we are just printing out the data
+            # But I am also saving the template name for reference
+            # It may be useful with respect to our own templates
+            # Works for data properties and uncollated object properties
+            property_template_name = property["template"]
+            statements = property["statements"]
+            if(property_type == "object" and property["collatedBySubclass"] == true and property.has_key?("subclasses"))
+              subclasses = property["subclasses"]
+              # We are going to put everything into the same master statements array for now
+              # although we may want to pull this out separately later
+              statements = []
+              subclasses.each do|subclass|
+                Rails.logger.debug("Subclass exists #{subclass.inspect}")
+                if(subclass.has_key?("statements"))
+                  Rails.logger.debug("Subclass does have key statements")
+                  statements += subclass["statements"]
+                else
+                  Rails.logger.debug("Subclass does NOT have key statements")
+                end
+                Rails.logger.debug("Statements after subclass is now #{statements.inspect}")
               end
-              Rails.logger.debug("Statements after subclass is now #{statements.inspect}")
+
             end
 
-          end
+            if (statements != nil and statements.length > 0)
+              display_statement_values_per_property = Array.new
+              statements.each do|statement|
+                Rails.logger.debug("Statement is #{statement.inspect}")
+                display_statement_values = getStatementDisplay(statement, property_uri, property["domainUri"], property["rangeUri"], property_type, property_template_name)
 
-          if (statements != nil and statements.length > 0)
-            display_statement_values_per_property = Array.new
-            statements.each do|statement|
-              Rails.logger.debug("Statement is #{statement.inspect}")
-              display_statement_values = getStatementDisplay(statement, property_uri, property["domainUri"], property["rangeUri"], property_type, property_template_name)
+                ## Testing out partial rendering
+                ## display_statement_values returns a string, here we are going to store these in an array
+                ## because we don't want to repeat the property name in case of multiple statements for the same property
+                display_statement_values_per_property << display_statement_values
 
-              ## Testing out partial rendering
-              ## display_statement_values returns a string, here we are going to store these in an array
-              ## because we don't want to repeat the property name in case of multiple statements for the same property
-              display_statement_values_per_property << display_statement_values
-              
-            end #end loop through statements
-            # The hash should now be the property name plus an ARRAY of applicable statements
-            display_profile_properties_hash << {"property_name" => property_name.titleize,
-                            "property_display_values"=> display_statement_values_per_property}
-            Rails.logger.debug("Display profile properties hash is now #{display_profile_properties_hash.inspect}")
-          end #if statements
-
+              end #end loop through statements
+              # The hash should now be the property name plus an ARRAY of applicable statements
+              display_profile_properties_hash << {"property_name" => property_name.titleize,
+                "property_URI" => property_uri,
+                "property_display_values"=> display_statement_values_per_property}
+              Rails.logger.debug("Display profile properties hash is now #{display_profile_properties_hash.inspect}")
+            end #if statements
+          end # if visible property
         end #do properties
       end #if property_group.has_key
     end #do all_properties
     return display_profile_properties_hash
   end
+
+  # We need something similar to above but for specific properties that we want to show first
+  # Example: Any webpage links, Description/abstract/overview
+  # This returns a hash, with priority key linking to properties that should be displayed on top
+  # and the other key linking to properties that should be displayed below
+  def get_display_by_priority(display_profile_properties_hash)
+    priority_list = []
+     non_priority_list = []
+    display_profile_properties_hash.each do|statement_hash|
+      if isPriorityProperty(statement_hash["property_name"].downcase)
+        priority_list << statement_hash
+      else 
+        non_priority_list << statement_hash
+      end
+    end
+    return {"priority" => priority_list, "non_priority" => non_priority_list}
+  end
+
+  #Is this a property that should be displayed at the top of the page?
+  def isPriorityProperty(property_name)
+    # We may want to change this to URIs later although then we would have to be careful about handling faux properties
+    priority_property_names = ["alternate title", "webpage", "abstract"];
+      Rails.logger.debug("Property name is " + property_name)
+    if priority_property_names.include?(property_name)
+      Rails.logger.debug("Is priority")
+      return true
+    end
+    return false
+  end
+  
+
 
   ## Determine which partial to use based on the statement
   def getStatementDisplay(statement, property_uri, property_domain_uri, property_range_uri, property_type, property_template_name)
@@ -362,7 +394,7 @@ module DisplayHelper
     if(property_type == "object" and statement.has_key?("allData"))
       # Print out all the data
       partial_name = pickPartial(property_uri, property_domain_uri, property_range_uri, property_type, property_template_name)
-      display_statement_values = render(partial: partial_name, locals: {statement: statement, 
+      display_statement_values = render(partial: partial_name, locals: {statement: statement,
         property_uri: property_uri,
         property_domain_uri: property_domain_uri,
         property_range_uri: property_range_uri,
@@ -372,7 +404,7 @@ module DisplayHelper
 
     return display_statement_values
   end
-  
+
   # pick partial
   def pickPartial(property_uri, property_domain_uri, property_range_uri, property_type, property_template_name)
     partial_name = "catalog/profile/default_object_property"
@@ -381,19 +413,48 @@ module DisplayHelper
     elsif(property_template_name == "propStatement-fullName.ftl")
       partial_name = "catalog/profile/full_name"
     elsif(property_template_name == "propStatement-informationResourceInAuthorship.ftl")
-            partial_name = "catalog/profile/resource_in_authorship"
-      elsif(property_template_name == "propStatement-webpage.ftl")
-                  partial_name = "catalog/profile/webpage"
+      partial_name = "catalog/profile/resource_in_authorship"
+    elsif(property_template_name == "propStatement-webpage.ftl")
+      partial_name = "catalog/profile/webpage"
     else
-      
+
     end
     return partial_name
   end
-  
-  
 
-   
+  #  Certain properties we don't want displayed, e.g. data variables for a data product
+  #or GIS-specific metadata
 
+  def isVisibleProperty(property_uri)
+    doNotShowProperties = ["http://nyclimateclearinghouse.org/ontology/hasDataVariable",
+      "http://nyclimateclearinghouse.org/ontology/isHighlightedContent",
+      "http://www.w3.org/2004/02/skos/core#inScheme",
+      "http://nyclimateclearinghouse.org/ontology/informationApplicableToSector",
+      "http://nyclimateclearinghouse.org/ontology/generatedBy"];
+    if doNotShowProperties.include?(property_uri)
+      return false;
+    end
+
+    return true;
+  end
   
+  ## Is this a specific type, e.g. GIS layer or data product
+  ## We have access to type labels which we should be able to employ
+  def isDocumentOfType(document, type_uri)
+    #Rails.logger.debug("Document type #{document['type'].inspect}")
+    if(document["type"].include?(type_uri))
+      return true
+    end
+    return false
+  end
   
+  def isGISLayer(document)
+    return isDocumentOfType(document, "http://nyclimateclearinghouse.org/ontology/gisMappingLayer")
+  end
+  
+  def isDataProduct(document)
+    return isDocumentOfType(document, "http://nyclimateclearinghouse.org/ontology/DataRetrievalService")
+
+  end
+
 end

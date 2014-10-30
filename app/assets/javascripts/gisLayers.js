@@ -20,7 +20,7 @@ var gisLayers = {
 	    	
 	    	this.includeURLInfo = $("#includeURLInfo");
 	    	this.addData = $("#addData");
-	    	this.accessURLInput = $("input#gisLayerSrc");
+	    	this.downloadURLInput = $("input#gisLayerSrc");
 	    	
 	    },
 		bindEventListeners:function() {
@@ -38,32 +38,20 @@ var gisLayers = {
 		makeQueryRequest:function() {
 			//If this is the details page, multiple sparql query results might be possible
 			//Will need way to distinguish between them
-			this.makeLinkQueryRequest();
+			
 			if(this.isSpecialTypePage) {
 				
 				if(this.special_type =="gis_layer") {
-					this.makeAccessURLQuery();
+					this.makeDownloadURLQuery();
+					this.makeGISMappingQuery();
 				}
 				//for both data product and gis layer need access URL
 			}
 			
 		},
-		makeLinkQueryRequest:function() {
-			
-			var thisURL = "/proxy/data?sparqlquerytype=link&sparqlquery=" + gisLayers.sparqlQueryURI;
-			
-			
-			$.getJSON(thisURL, function(results) {
-				
-						var displayHtml = gisLayers.generateDisplay(results);
-						gisLayers.includeURLInfo.append(displayHtml);
-						
-					
-				});
 		
-		},
-		makeAccessURLQuery:function() {
-			var thisURL = "/proxy/data?sparqlquerytype=accessurl&sparqlquery=" + gisLayers.sparqlQueryURI;
+		makeDownloadURLQuery:function() {
+			var thisURL = "/proxy/data?sparqlquerytype=downloadurl&sparqlquery=" + gisLayers.sparqlQueryURI;
 			$.getJSON(thisURL, function(results) {
 						if(("results" in results) && ("bindings" in results["results"])) {
 							var bindings = results["results"]["bindings"];
@@ -74,7 +62,7 @@ var gisLayers = {
 									&& ("url" in bindings[0])
 									&& ("value" in bindings[0]["url"])) {
 								url = bindings[0]["url"]["value"];
-								gisLayers.accessURLInput.val(url);
+								gisLayers.downloadURLInput.val(url);
 								
 							}
 						}
@@ -83,6 +71,57 @@ var gisLayers = {
 						
 					
 				});
+		},
+		makeGISMappingQuery:function() {
+			var thisURL = "/proxy/data?sparqlquerytype=gismap&sparqlquery=" + gisLayers.sparqlQueryURI;
+			$.getJSON(thisURL, function(results) {
+						if(("results" in results) && ("bindings" in results["results"])) {
+							var bindings = results["results"]["bindings"];
+							//This is an array
+							var len = bindings.length;
+							//Expecting to only use one URL although there is no restriction against having multiple
+							if(len > 0) {
+									//There are multiple possible values that can occur here
+									//There is a global hash called 
+								gisLayers.setupGISLayer(bindings[0]);
+								
+							}
+						}
+						//var displayHtml = gisLayers.generateDataProductDisplay(results);
+						//gisLayers.includeURLInfo.append(displayHtml);
+						
+					
+				});
+		},
+		//this method will call whatever we need to make the map display this GIS layer
+		setupGISLayer:function(resultBindings) {
+			//First, get the values we need
+			
+		},
+		getGISDataHash:function(resultBindings) {
+			var gisHash = {"metadata":{}};
+			if("title" in resultBindings) {
+				gisHash["title"] = resultBindings["title"];
+			}
+			if("format" in resultBindings) {
+				gisHash["format"] = resultBindings["format"];
+
+			}
+			if("layerGeometry" in resultBindings) {
+				gisHash["geometry"] = resultBindings["layerGeometry"];
+
+			}
+			if("layerType" in resultBindings) {
+				gisHash["type"] = resultBindings["layerType"];
+
+			}
+			if("layerDataProp" in resultBindings) {
+				gisHash["metadata"]["dataProp"] = resultBindings["layerDataProp"];
+
+			}
+			
+			
+			
 		},
 		//return html stringn to add
 		generateDisplay:function(jsonResult) {

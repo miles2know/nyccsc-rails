@@ -39,7 +39,7 @@ class CatalogController < ApplicationController
    
 
  
-    config.add_facet_field 'classgroup_pivot_facet', :label => 'Type',  :limit => 9, pivot: ['classgroup_pivot_facet', 'type_pivot_facet']
+    config.add_facet_field 'classgroup_pivot_facet', :label => 'Group',  :limit => 9, pivot: ['classgroup_pivot_facet', 'type_pivot_facet']
 
     config.add_facet_field 'sector_facet', :label => 'Sector', :limit => 9
     ##config.add_facet_field 'classgroup_label_facet', :label => 'Type',  :limit => 9
@@ -52,12 +52,11 @@ class CatalogController < ApplicationController
     config.add_facet_field 'author_facet', :label => 'Author', :limit => 9
 
     config.add_facet_field 'subjectarea_facet', :label => 'Subject Area', :limit => 9
-    #config.add_facet_field 'keyword_facet', :label => 'Keyword', :limit => 10
-    #config.add_facet_field 'vulnerability_facet', :label => 'Vulnerability', :limit => 9
+  
     # I want faceting to be enabled by this but not to be drawn in the facet bar
     config.add_facet_field 'most_specific_type_label_facet', :label => 'Most Specific Type', :show => false
 
-    config.add_facet_field 'type_pivot_facet', :label => 'Subtype',  :show => false
+    config.add_facet_field 'type_pivot_facet', :label => 'Type',  :show => false
 
 
     
@@ -94,7 +93,7 @@ class CatalogController < ApplicationController
     
     # Can we add a facet value as display? Is that allowed?
     config.add_index_field 'sector_facet', :label => 'Sector', :link_to_search => true
-    config.add_index_field 'classgroup_label_facet', :label => 'Type', :link_to_search => true
+    config.add_index_field 'classgroup_label_facet', :label => 'Group', :link_to_search => true
     #config.add_index_field 'most_specific_type_label_facet', :label => 'Specific Type', :link_to_search => true
     config.add_index_field 'author_display', :label => 'Author', :link_to_search => true
     config.add_index_field 'hazard_facet', :label => 'Hazard', :link_to_search => true

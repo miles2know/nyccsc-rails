@@ -74,8 +74,10 @@ class ProxyController < ApplicationController
       result = get_vivo_link_sparql()
     elsif(params["sparqlquerytype"] == "dataproduct")
       result = get_vivo_dataproduct_info(thisURI)
-    elsif(params["sparqlquerytype"] == "accessurl")
+    elsif(params["sparqlquerytype"] == "downloadurl")
       result = get_vivo_access_url(thisURI)
+    elsif(params["sparqlquerytype"] == "gismap")
+       result = get_GIS_Mapping_Info(thisURI)
     end
 
     return result
@@ -150,7 +152,7 @@ class ProxyController < ApplicationController
     "<" + thisURI + "> <http://purl.obolibrary.org/obo/ARG_2000028> ?vcard ." +
     "?vcard a <http://www.w3.org/2006/vcard/ns#Kind> ." +
     "?vcard <http://www.w3.org/2006/vcard/ns#hasURL> ?link ." +
-    "?link a <http://nyclimateclearinghouse.org/ontology/AccessURL> ." +
+    "?link a <http://nyclimateclearinghouse.org/ontology/DownloadURL> ." +
     "?link <http://www.w3.org/2006/vcard/ns#url> ?url ." +
     "}"
     base_sparql_url = Rails.application.config.vivo_app_url + '/ajax/sparqlQuery'
@@ -161,6 +163,57 @@ class ProxyController < ApplicationController
     data = resp.body
     result = JSON.parse(data)
     return result
+  end
+  
+  ## Get the GIS layer information, apart from the URL - 
+  def get_GIS_Mapping_Info(thisURI)
+    query = "PREFIX rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
+        "PREFIX rdfs:     <http://www.w3.org/2000/01/rdf-schema#> " +
+        "PREFIX xsd:      <http://www.w3.org/2001/XMLSchema#> " +
+        "PREFIX owl:      <http://www.w3.org/2002/07/owl#> " +
+        "PREFIX ccsc:      <http://nyclimateclearinghouse.org/ontology/> " +
+    "SELECT ?title ?format ?layerGeometry ?layerType ?layerIconType ?layerDataProp ?layerRangeIntervals ?colorHue ?iconImageURL ?iconClusterImageURL ?legendImageURL WHERE {"+
+    "<" + thisURI + "> rdf:type  <http://nyclimateclearinghouse.org/ontology/gisMappingLayer> ."+
+    "<" + thisURI + "> rdfs:label ?title ."+
+    "<" + thisURI + "> <http://purl.org/dc/terms/format> ?formatInd."+
+    "?formatInd rdfs:label ?format ."+
+    "OPTIONAL {"+
+    "<" + thisURI + "> <http://nyclimateclearinghouse.org/ontology/layerGeometry> ?layerGeometry."+
+    "}"+
+    "OPTIONAL {"+
+    "<" + thisURI + "> <http://nyclimateclearinghouse.org/ontology/layerType> ?layerType ."+
+    "}"+
+    "OPTIONAL {"+
+    "<" + thisURI + "> <http://nyclimateclearinghouse.org/ontology/layerIconType> ?layerIconType ."+
+    "}"+
+    "OPTIONAL {"+
+    "<" + thisURI + "> <http://nyclimateclearinghouse.org/ontology/layerDataProp> ?layerDataProp ."+
+    "}"+
+    "OPTIONAL {"+
+    "<" + thisURI + "> <http://nyclimateclearinghouse.org/ontology/layerRangeIntervals> ?layerRangeIntervals."+
+    "}"+
+    "OPTIONAL {"+
+    "<" + thisURI + "> <http://nyclimateclearinghouse.org/ontology/colorHue> ?colorHue ."+
+    "}"+
+    "OPTIONAL {"+
+    "<" + thisURI + "> <http://nyclimateclearinghouse.org/ontology/iconImageURL> ?iconImageURL ."+
+    "}"+
+    "OPTIONAL {"+
+    "<" + thisURI + "> <http://nyclimateclearinghouse.org/ontology/iconClusterImageURL> ?iconClusterImageURL ."+
+    "}"+
+    "OPTIONAL {"+
+    "<" + thisURI + "> <http://nyclimateclearinghouse.org/ontology/legendImageURL> ?legendImageURL ."+
+    "}"+
+    "}"
+        base_sparql_url = Rails.application.config.vivo_app_url + '/ajax/sparqlQuery'
+        encoded_query = URI::encode(query)
+        url = URI.parse(base_sparql_url + "?query=" + encoded_query)
+        Rails.logger.debug("url for sparql query is " + url.to_s)
+        resp = Net::HTTP.get_response(url)
+        data = resp.body
+        result = JSON.parse(data)
+        return result
+    
   end
 
   #Get Solr query results
