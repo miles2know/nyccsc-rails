@@ -1,7 +1,36 @@
 var map, bounds, center;
 
-/* Trigger Events */
-// removed all - didn't see any added functionality with these?
+
+//preload custom/selected layers
+function loadSelectedLayers() {
+  
+  var selected, content = "";
+
+  //start with selected layers (bookmarks) returned by blacklight app
+  $("#maps-selected span").each( function(){
+
+    //TODO: this will be handled differently moving forward
+    //needs to be cleaned up and the sidebar should probably be built using ruby
+    selected = $(this).attr("id");
+    //loop through session variable to build sidebar and load layers (hidden) 
+    var customLayers = sessionLayers;
+    var layerProperties;
+            
+    for (var i = 0; i < customLayers.length; i++) {
+      layerProperties = customLayers[i];
+
+      if (layerProperties["uri"] && layerProperties["uri"] == selected) {
+        window[layerProperties["id"]] = addLayer(layerProperties);
+
+        content = content + renderPanel(layerProperties);
+      }
+
+    }  
+  });
+  
+  $("#map-selected-layers").append(content);
+
+}
 
 /* initialize map */
 map = L.map("map", {
@@ -212,12 +241,66 @@ function buildSidebar(e){
             + "</div>" //.panel-element
           + "</div>" //.panel
         
-          //+ "<script>$('#" + value.tablename + "_toggle').on('click',function(){$.getScript('/assets/map/frontier/" + value.tablename + "Load.js');});</script>";
-
+        
           $("#map-selected-layers").append(content);
           
         });
     });
+}
+
+function renderPanel(properties){
+        
+  var legend;
+  var layerProperties = properties;
+
+
+  if (layerProperties.metaData.legend) {
+    legend = "<p>&nbsp;</p><img src='/assets" + layerProperties.metaData.legend + "'>";
+  } else if (layerProperties.type == "Color") {
+    legend = createLegend(layerProperties.metaData.icon, layerProperties.metaData.colorHue, layerProperties.metaData.intervals);
+  } else {
+    legend = "<p>&nbsp;</p><i class='fa fa-map-marker fa-2x'></i>"
+  }  
+
+
+  var content = ""
+  + "<div class='panel panel-default toc-layer' id='" + layerProperties.id + "_layer'>"
+    + "<div class='collapse-toggle panel-heading' data-target='#map-layer-" + layerProperties.id + "' data-toggle='collapse'>"
+      
+        + "<input type='checkbox' name='overlayLayers'  id='" + layerProperties.id + "' onClick=toggleLayer('" + layerProperties.id + "');>"
+        + "&nbsp;<a class='panel-title' data-toggle='collapse' href='#panel-element-" + layerProperties.id + "'>" + layerProperties.title + "</a>"
+      
+    + "</div>"
+    + "<div id='panel-element-" + layerProperties.id + "' class='panel-collapse collapse in '>"
+      + "<div class='panel-body'>"
+        
+          + "<div class='tabbable'>"
+            + "<ul class='nav nav-tabs'>"
+              + "<li class='active'><a href='#panel-legend-" + layerProperties.id + "' data-toggle='tab'>Legend</a></li>"
+              + "<li><a href='#panel-info-" + layerProperties.id + "' data-toggle='tab'>Info</a></li>"
+            + "</ul>"
+            + "<div class='tab-content'>"
+            + "<div class='tab-pane active' id='panel-legend-" + layerProperties.id + "'>"
+              + legend
+            + "</div>"
+            + "<div class='tab-pane' id='panel-info-" + layerProperties.id + "'>"
+              + "<p>&nbsp;</p>"
+              + "<p><strong>Source: </strong><a target='_blank_' href='#'>Insert Source</a></p>"
+              + "<p><strong>Last Updated: </strong>Insert last_updated </p>"
+              + "<p><strong>Description:</strong>Insert value.description </p>"
+              + "<p><strong>Native format:</strong>Insert value.native_format </p>"
+              + "<p><a target='_blank_' href='#'><i class='fa fa-download'></i> Download Data</a></p>"
+              + "<p><a target='_blank_' href='#'><i class='fa fa-file-o'></i> Metadata</a></p>"
+              + "</div>" //.tab-content
+            + "</div>" //.tab-pane
+          + "</div>" //.tabbable
+          
+          + "<p>Remove MapIt</p>"
+      + "</div>" //.panel-body
+    + "</div>" //#panel-element
+  + "</div>" //.panel        
+      
+  return content;
 }
 
 //turns sidebar options on/off using transparency on panel
@@ -242,7 +325,8 @@ var popup = L.popup();
 
 function loadLayers () {
   loadContextLayers();
-  loadCustomLayers();
+  loadSelectedLayers();
+  getTransparency();
 }
 
 map.on('moveend', getTransparency);

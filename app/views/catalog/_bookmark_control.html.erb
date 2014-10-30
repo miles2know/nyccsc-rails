@@ -3,17 +3,18 @@
   # Note these two forms are pretty similar but for different :methods, classes, and labels. 
   # but it was simpler to leave them seperate instead of DRYing them, got confusing trying that.
   # the data-doc-id attribute is used by our JS that converts to a checkbox/label.
+  # this is being used for the uber map feature at this point in time... will need a more generalized bookmark feature in the future though
   -%>
   <% if current_bookmarks.find { |x| x.document_id == document.id and x.document_type == document.class }.blank? %>  
 
-      <%= form_tag( url_for_bookmark( document ), :method => :put, :class => "bookmark_toggle", "data-doc-id" => document.id, :'data-present' => t('blacklight.search.bookmarks.present'), :'data-absent' => t('blacklight.search.bookmarks.absent'), :'data-inprogress' => t('blacklight.search.bookmarks.inprogress')) do %>   
-        <%= submit_tag(t('blacklight.bookmarks.add.button'), :id => "bookmark_toggle_#{document.id.to_s.parameterize}", :class => "bookmark_add") %>
+      <%= form_tag( url_for_bookmark( document ), :method => :put, :class => "bookmark_toggle", "data-doc-id" => document.id, :'data-present' => t('blacklight.search.maps.present'), :'data-absent' => t('blacklight.search.maps.absent'), :'data-inprogress' => t('blacklight.search.maps.inprogress')) do %>   
+        <%= submit_tag(t('blacklight.maps.add.button'), :id => "bookmark_toggle_#{document.id.to_s.parameterize}", :class => "bookmark_add") %>
       <% end %>
   
   <% else %>
   
-      <%= form_tag( url_for_bookmark( document ), :method => :delete, :class => "bookmark_toggle", "data-doc-id" => document.id, :'data-present' => t('blacklight.search.bookmarks.present'), :'data-absent' => t('blacklight.search.bookmarks.absent'), :'data-inprogress' => t('blacklight.search.bookmarks.inprogress')) do %>  
-        <%= submit_tag(t('blacklight.bookmarks.remove.button'), :id => "bookmark_toggle_#{document.id.to_s.parameterize}", :class => "bookmark_remove") %>
+      <%= form_tag( url_for_bookmark( document ), :method => :delete, :class => "bookmark_toggle", "data-doc-id" => document.id, :'data-present' => t('blacklight.search.maps.present'), :'data-absent' => t('blacklight.search.maps.absent'), :'data-inprogress' => t('blacklight.search.maps.inprogress')) do %>  
+        <%= submit_tag(t('blacklight.maps.remove.button'), :id => "bookmark_toggle_#{document.id.to_s.parameterize}", :class => "bookmark_remove") %>
       <% end %>
       
   <% end %>
