@@ -10,7 +10,7 @@
 </div>
 
 <div id="main-container" class="container full-width-container">
-    
+
     <div id="sidebar" class="col-sm-3 col-md-3 col-lg-2">
      <%= render 'search_sidebar' %>
     </div>
@@ -21,7 +21,7 @@
 
         <% unless has_search_parameters? %>
     	    <%# if there are no input/search related params, display the "home" partial -%>
-          
+
     	    <%= render 'home' %>
         <% else %>
 
@@ -59,9 +59,9 @@
     </div>
 
     <div id="map-region" class="col-sm-3 col-md-3 col-lg-4">
-      
+
         <%= render 'map' %>
-      
+
     </div>
 
 </div>
@@ -82,14 +82,14 @@
       $(this).removeClass('visible');
       $(this).html('<< Show Map')
       params = 'map=hide';
-      visibleMap(false);
+      visibleMap(true);
 
     } else {
 
       $(this).addClass('visible');
       $(this).html('Hide Map >>')
       params = 'map=show';
-      visibleMap(true);
+      visibleMap(false);
 
     }
 
@@ -113,10 +113,10 @@
       $('#content').removeClass().addClass('col-sm-6 col-md-6 col-lg-6');
       $('#map-region').removeClass().addClass('col-sm-3 col-md-3 col-lg-4');
 
-    } 
+    }
   }
 
-  
+
 </script>
 
 
