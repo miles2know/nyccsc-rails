@@ -1,3 +1,11 @@
+/**
+ * This is a hard-coded array that maps ids in a PostGres database to the URIs in the system.
+ * Ideally, we should not have to hardcode or store this in this file, but we are doing so for now.
+ */
+
+/**
+ * Actual Map code
+ */
 var map, bounds, center;
 
 
@@ -7,17 +15,16 @@ function loadSelectedLayers() {
   var selected, content = "";
 
   //start with selected layers (bookmarks) returned by blacklight app
-  $("#maps-selected span").each( function(){
+  $("#maps-selected span").each( function(index){
 
     //TODO: this will be handled differently moving forward
     //needs to be cleaned up and the sidebar should probably be built using ruby
     selected = $(this).attr("id");
-    //loop through session variable to build sidebar and load layers (hidden) 
-    //var customLayers = sessionLayers;
-    //var layerProperties;
+    //build sidebar and load layers (hidden) 
+    
     
     //Get the GIS layer info and pass in the callback function addSelectedLayer below
-    getGISLayerInfo.makeGISMappingQuery(selected, addSelectedLayer);
+    getGISLayerInfo.makeGISMappingQuery(selected, index, addSelectedLayer);
             /*
     for (var i = 0; i < customLayers.length; i++) {
       layerProperties = customLayers[i];
@@ -31,21 +38,19 @@ function loadSelectedLayers() {
     }  */
   });
   
-  $("#map-selected-layers").append(content);
 
 }
 
-function addSelectedLayer(selected, layerProperties) {
-	//var id = selected.hashCode();
-	//alert(id);
-	//layerProperties["id"] = selected.hashCode();
-	//if (layerProperties["uri"] && layerProperties["uri"] == selected) {
-        //window[layerProperties["id"]] = addLayer(layerProperties);
-        //window[selected.hashCode()] = addLayer(layerProperties);
-
-        //content = renderPanel(layerProperties);
-        //$("#map-selected-layers").append(content);
-	//}
+function addSelectedLayer(selected, index, layerProperties) {
+	//We need a unique identifier for the layer that is NOT the URI as that does not appear
+	//to work correctly, perhaps due to slashes?
+	//TODO: find a better mechanism for the id - if possible, some version of the URI
+	var id = "layer_" + index;
+	
+	layerProperties["id"] = id;
+	window[id] = addLayer(layerProperties);
+	content = renderPanel(layerProperties);
+    $("#map-selected-layers").append(content);
 }
 
 /* initialize map */

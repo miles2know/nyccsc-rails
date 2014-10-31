@@ -1,7 +1,7 @@
 var getGISLayerInfo = {
 	   //Pass this a callback function that will actually draw the layers
 		//where the callback function expects a hash of properties
-		makeGISMappingQuery:function(gisLayerURI, drawLayerCallback) {
+		makeGISMappingQuery:function(gisLayerURI, index, drawLayerCallback) {
 			var thisURL = "/proxy/data?sparqlquerytype=gismap&sparqlquery=" + gisLayerURI;
 			$.getJSON(thisURL, function(results) {
 						if(("results" in results) && ("bindings" in results["results"])) {
@@ -12,7 +12,7 @@ var getGISLayerInfo = {
 							if(len > 0) {
 									//There are multiple possible values that can occur here
 									//There is a global hash called 
-								getGISLayerInfo.setupGISLayer(gisLayerURI, bindings[0], drawLayerCallback);
+								getGISLayerInfo.setupGISLayer(gisLayerURI, index, bindings[0], drawLayerCallback);
 								
 							}
 						}
@@ -23,12 +23,12 @@ var getGISLayerInfo = {
 				});
 		},
 		//this method will call whatever we need to make the map display this GIS layer
-		setupGISLayer:function(gisLayerURI, resultBindings, drawLayerCallback) {
+		setupGISLayer:function(gisLayerURI, index, resultBindings, drawLayerCallback) {
 			//First, get the values we need
 			var gisLayerInfo = getGISLayerInfo.getGISDataHash(resultBindings);
 			console.log(gisLayerInfo);
 			//Any call to map magic would ha
-			drawLayerCallback(gisLayerURI, gisLayerInfo);
+			drawLayerCallback(gisLayerURI, index, gisLayerInfo);
 			
 		},
 		getGISDataHash:function(resultBindings) {
