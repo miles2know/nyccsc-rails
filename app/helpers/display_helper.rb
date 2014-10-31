@@ -1,5 +1,23 @@
 module DisplayHelper
 
+  # @param [Array<SolrDocument>] list of documents to render
+  # @param [Hash] locals to pass to the render call
+  # @return [String]
+  def render_map_collection_index documents = nil, locals = {}
+    #documents ||= @document_list
+    content = "<div id='maps-selected' class='hidden'>"
+
+    documents ||= @document_list
+    documents.each do |document|
+      content = content + "<span id='" + document["URI"] + "' ></span>"
+    end
+    
+    content = content + "</div>"
+
+    return content.html_safe
+
+  end
+
   # Types are returned as URIs, we want them returned as
   # Currently not using this as utilizing labels instead of URIs
   # But might not to consider this later

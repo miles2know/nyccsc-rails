@@ -4,6 +4,7 @@
 var sessionLayers =  
 [
     {
+       
         id : 'alsc',
         title : 'Adirondack Lakes Survey Corp',
         format : 'geojson',
@@ -17,7 +18,7 @@ var sessionLayers =
           colorHue : "Bl"
         }
     },
-    {
+    {   uri : 'http://nyclimateclearinghouse.org/individual/n15379',
         id : 'historicdeclarations_ny',
         title : 'FEMA Historic Declared Emergencies',
         format : 'geojson',
@@ -59,6 +60,7 @@ var sessionLayers =
         }
     },
     {
+        uri : 'http://nyclimateclearinghouse.org/individual/n12164',
         id : 'usgs_streamflow',
         title : 'USGS Stream Gages',
         format : 'geojson',

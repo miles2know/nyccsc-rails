@@ -14,10 +14,16 @@
   color: #fff;
 }
 
-.primary-nav li {
+.navbar-nav.primary-nav > li {
+  height: 70px; 
+  max-width: 140px;
   text-align: center;
-
 }
+
+.navbar-nav li a {
+  height: inherit;
+}
+
 /* search form in header/banner region */
 #header-search{
   margin-top: 20px;

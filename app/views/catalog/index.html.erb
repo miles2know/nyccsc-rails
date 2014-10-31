@@ -1,27 +1,27 @@
+
+<div class="container">
+    <div class="pull-right">
+      <% if render_bookmarks_control? %>
+        <%= link_to t('blacklight.header_links.bookmarks'), bookmarks_path, :class =>"btn" %>
+      <% end %>
+      <a href="#" class="btn visible" id="map-toggle">Hide Map >></a>
+    </div>
+    <h3>Browse Maps and Find Data</h3>
+</div>
+
 <div id="main-container" class="container full-width-container">
 
-    <div class="col-md-12">
-      <div class="pull-right">
-        <a href="#">Selected <strong>Map it!</strong> Items (<span id="map-count">0</span>)</a>&nbsp;&nbsp;
-        <button href="#" class="btn btn-default btn-xs map-toggle hide-map">Hide Map &raquo;</button>
-      </div>
-    </div>
-
-    <div class="row vertical-offset-md">&nbsp;</div>
-    
-    <!--<div id="sidebar" class="col-md-2 pane ui-layout-west">-->
     <div id="sidebar" class="col-sm-3 col-md-3 col-lg-2">
      <%= render 'search_sidebar' %>
     </div>
 
-    <!--<div id="content" class="col-md-5 pane ui-layout-center">-->
-    <div id="content" class="col-sm-5 col-md-5 col-lg-6">
+    <div id="content" class="col-sm-6 col-md-6 col-lg-6">
 
         <%= render 'search_and_constraints' %>
 
         <% unless has_search_parameters? %>
     	    <%# if there are no input/search related params, display the "home" partial -%>
-          
+
     	    <%= render 'home' %>
         <% else %>
 
@@ -58,50 +58,64 @@
 
     </div>
 
-    <div class="col-sm-4 col-md-4">
-      
-        <%= render 'map' %>
-      
-    </div>
+    <div id="map-region" class="col-sm-3 col-md-3 col-lg-4">
 
-    
+        <%= render 'map' %>
+
+    </div>
 
 </div>
 
 
 <script type="text/javascript">
 
-  $(document).ready(function() {
 
-    //reset all 
-    $("input.toggle_list").removeAttr("checked");
-    var count = 0;
+  $('#map-toggle').on('click',function(e) {
 
-    //setup session variable to hold map it IDs and count?
-    //for now it's a hack for count and there isn't a holding tank for IDs
-    $(".toggle_list").each(function() {
-      $(this).attr("id",($(this).parents('div.document').attr("docid")));
+    e.preventDefault();
+    var params;
+
+    console.log($(this).hasClass('visible'));
+    //immediate reaction to show/hide toggle
+    if ($(this).hasClass('visible')) {
+
+      $(this).removeClass('visible');
+      $(this).html('<< Show Map')
+      params = 'map=hide';
+      visibleMap(false);
+
+    } else {
+
+      $(this).addClass('visible');
+      $(this).html('Hide Map >>')
+      params = 'map=show';
+      visibleMap(true);
+
+    }
+    //set session so this persists for user
+    var jqxhr = $.ajax({
+      url: '/catalog/set_map_preference',
+      data: params,
+      method: 'POST'
     });
-
-    $("input.toggle_list").on("change", function() {
-    
-      //console.log($(this).attr("id"));
-      if ($(this).is(':checked')) {
-          count ++;
-          $(this).next().html("Map it! Selected");
-          $("#map-count").html(count.toString());
-          
-      } else {
-          count --;
-          $(this).next().html("Map it! Select");
-          $("#map-count").html(count.toString());
-      }
-      
-    });
-
-   
 
   });
+
+  function visibleMap (visible) {
+
+    if (visible) {
+      
+      $('#content').removeClass().addClass('col-sm-6 col-md-6 col-lg-6');
+      $('#map-region').removeClass().addClass('col-sm-3 col-md-3 col-lg-4');
+
+    } else {
+
+      $('#content').removeClass().addClass('col-sm-9 col-md-9 col-lg-10');
+      $('#map-region').removeClass().addClass('hidden');
+
+    }
+  }
+
 
 </script>
 

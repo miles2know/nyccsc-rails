@@ -10,12 +10,12 @@ class CatalogController < ApplicationController
     config.default_solr_params = {
       :qt => 'search',
       :rows => 10,
-      'facet.mincount' => 1 
+      'facet.mincount' => 1
     }
     #adding facet mincount to the general search area because the facet request is always made
-    # and the default is 0, the other place to set this is solrconfig.xml under the 
+    # and the default is 0, the other place to set this is solrconfig.xml under the
     # request handler specification - since we have our own override mechanism we can do that
-    
+
 
     ## Default parameters to send on single-document requests to Solr. These settings are the Blackligt defaults (see SolrHelper#solr_doc_params) or
     ## parameters included in the Blacklight-jetty document requestHandler.
@@ -36,7 +36,7 @@ class CatalogController < ApplicationController
     # solr field configuration for document/show views
     config.show.title_field = 'name_display'
     config.show.display_type_field = 'type'
-   
+
 
  
     config.add_facet_field 'classgroup_pivot_facet', :label => 'Group',  :limit => 9, pivot: ['classgroup_pivot_facet', 'type_pivot_facet']
@@ -80,7 +80,7 @@ class CatalogController < ApplicationController
     #
     # :show may be set to false if you don't want the facet to be drawn in the
     # facet bar
-  
+
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
@@ -90,7 +90,7 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
     # config.add_index_field 'mostSpecificTypeURIs', :label => 'Type', :link_to_search => true, :helper_method => :render_type_display
-    
+
     # Can we add a facet value as display? Is that allowed?
     config.add_index_field 'sector_facet', :label => 'Sector', :link_to_search => true
     config.add_index_field 'classgroup_label_facet', :label => 'Group', :link_to_search => true
@@ -101,16 +101,16 @@ class CatalogController < ApplicationController
     config.add_index_field 'strategy_facet', :label => 'Strategy', :link_to_search => true
     # Publication date
     config.add_index_field 'subjectarea_display', :label => 'Subject Area', :link_to_search => true
-    
-    
+
+
     ## URI is not displayed but this enables making a call to the linked data for the URI
     ## and we can then display what is relevant for that URI
     # config.add_index_field 'URI', :label => 'URI', :helper_method => :render_linkeddata_display
-    
+
     #config.add_index_field 'keyword_display', :label => 'Keyword'
-    
+
     ##Adding show fields
-    
+
     # Can we add a facet value as display? Is that allowed?
     config.add_show_field 'sector_facet', :label => 'Sector', :link_to_search => true
     # If including this, be sure to uncomment render_type_display in display_helper
@@ -124,10 +124,10 @@ class CatalogController < ApplicationController
     config.add_show_field 'strategy_facet', :label => 'Strategy', :link_to_search => true
     # Publication date
     config.add_show_field 'subjectarea_display', :label => 'Subject Area', :link_to_search => true
-    
-    
 
-    
+
+
+
     #Can we use facet to display
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
@@ -202,7 +202,7 @@ class CatalogController < ApplicationController
     #   }
     # end
 
- 
+
     # "sort results by" select (pulldown)
     # label in pulldown is followed by the name of the SOLR field to sort by and
     # whether the sort is ascending or descending (it must be asc or desc
@@ -223,7 +223,7 @@ class CatalogController < ApplicationController
   #   def index
   #     Rails.logger.debug("///////Params: #{params.inspect}////////")
   #     (@response, @document_list) = get_search_results
-      
+
   #     respond_to do |format|
   #       format.html { }
   #       format.rss  { render :layout => false }
@@ -236,13 +236,13 @@ class CatalogController < ApplicationController
   #       document_export_formats(format)
   #     end
   #   end
-    
+
   #    # get single document from the solr index
   #   def show
   #   Rails.logger.debug("///////Params: #{params.inspect}////////")
 
-  #     @response, @document = get_solr_response_for_doc_id    
-      
+  #     @response, @document = get_solr_response_for_doc_id
+
   #     respond_to do |format|
 
   #       format.html {setup_next_and_previous_documents}
@@ -252,10 +252,10 @@ class CatalogController < ApplicationController
   #       # export formats.
   #       @document.export_formats.each_key do | format_name |
   #         # It's important that the argument to send be a symbol;
-  #         # if it's a string, it makes Rails unhappy for unclear reasons. 
+  #         # if it's a string, it makes Rails unhappy for unclear reasons.
   #         format.send(format_name.to_sym) { render :text => @document.export_as(format_name), :layout => false }
   #       end
-        
+
   #     end
   #   end
 
@@ -264,44 +264,53 @@ class CatalogController < ApplicationController
   # link for an individual result.  Currently, clicking the link actually sets up a form
   # which is then submitted using the 'track' action, and then the page is redirected
   # to the actual individual.  This update below enables the DocId parameter to be passed along
-  # from the link to the redirected page. 
+  # from the link to the redirected page.
   # updates the search counter (allows the show view to paginate)
       def track
         require 'cgi'
         search_session['counter'] = params[:counter]
         search_session['per_page'] = params[:per_page]
-          
-  
+
+
         path = if params[:redirect] and (params[:redirect].starts_with?("/") or params[:redirect] =~ URI::regexp)
           Rails.logger.debug("TRACK method being used and redirect exists")
          # if redirect path has DocId parameter, save that
-         if(params[:redirect].include?("?DocId=")) 
-          
+         if(params[:redirect].include?("?DocId="))
+
            #OR use CGI parse?
            urlhash=  CGI::parse("DocId=" + params[:redirect].partition("?DocId=").last)
            #Rails.logger.debug("test hash #{urlhash.inspect}")
            #URI.parse(params[:redirect])
             if(urlhash["DocId"].length > 0)
                 URI.parse(params[:redirect]).path + "?DocId=" + urlhash["DocId"].first
-            else 
+            else
               URI.parse(params[:redirect]).path
             end
-           
+
           else
             URI.parse(params[:redirect]).path
           end
-          
-          
+
+
         else
           Rails.logger.debug("Using show action")
           { action: 'show' }
         end
-       
-       
-          redirect_to path, :status => 303
-       
+
+        redirect_to path, :status => 303
+
       end
-      
+
+      def set_map_preference
+
+        search_session['map'] = params[:map]
+
+        Rails.logger.debug('MY SESSION TEST' + search_session['map'])
+
+        respond_to do |format|
+          format.json  { render :json => 'game on', :status => :ok }
+        end
+      end
 
 
 end

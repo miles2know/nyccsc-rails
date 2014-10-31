@@ -78,3 +78,5 @@ gem 'httparty'
 # Comment this out on unix
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin]
+gem "devise"
+gem "devise-guests", "~> 0.3"

@@ -1,6 +1,35 @@
 en:
   blacklight:
     application_name: 'NYCCSC'
+    ##SEPARATE MAP BOOKMARKS NOT FULLY IMPLEMENTED
+    maps:
+      title: 'Map It Selected Items'
+      no_bookmarks: 'You have no MapIt bookmarks'
+      add:
+        button: 'Map It'
+        success:
+          one: 'Successfully added a Map It item.'
+          other: 'Successfully added Map It items.'
+        failure:  'Sorry, there was a problem saving the Map It items.'
+      remove:
+        button: 'Map It Selected'
+        success: 'Successfully removed Map It items.'
+        failure: 'Sorry, there was a problem removing the Map It items.'
+        action_confirm: 'Remove this Map It bookmark?'
+      clear:
+        action_title: 'Clear Map It'
+        action_confirm: 'Clear your Map It items?'
+        success: 'Cleared your Map It bookmarks.'
+        failure: 'Sorry, there was a problem clearing your Map It bookmarks.'
+      need_login: 'Please log in to manage and view your Map It bookmarks.'
+      list_title: 'Your Map It Bookmarks'
+      delete: 'Remove'
+
+    search: 
+      maps:
+        present: "Map It Selected"
+        absent: "Map It"
+        inprogress: "Saving..."
 
     header_links: 
-      search_history: 'Search History'
+      bookmarks: "Map It Items"

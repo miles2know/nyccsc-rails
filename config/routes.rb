@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   #root :to => "catalog#index"
   root :to => "pages#home"
 
+  devise_for:users
+
   # get '/data', to: 'catalog#index'
 
   #maps and data
@@ -31,11 +33,9 @@ Rails.application.routes.draw do
   get 'highlights/gis'
   
   get 'proxy/data'
-  #experimenting with views and controllers within application for static html pages, SPARQL queries, and CMS integration
-  #get 'pages/calendar(/:year(/:month))', to: 'pages#calendar', as: 'calendar'
-  #get 'pages/test2'
 
-  #blacklight_for :catalog
+  post "/catalog/set_map_preference", :to => 'catalog#set_map_preference', :as => :map
+  
 
   #Get an error when we try to get constraints below with regular search
   #blacklight_for :catalog, :constraints => { :id => ALLOW_SOLR_DOCIDS, :format => false }
