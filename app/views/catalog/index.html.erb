@@ -4,7 +4,12 @@
       <% if render_bookmarks_control? %>
         <%= link_to t('blacklight.header_links.bookmarks'), bookmarks_path, :class =>"btn" %>
       <% end %>
-      <a href="#" class="btn visible" id="map-toggle">Hide Map >></a>
+      <% if search_session['map'] == 'hide' %>
+        <a href="#" class="btn" id="map-toggle"><< Show Map</a>
+      <% else %>
+        <a href="#" class="btn visible" id="map-toggle">Hide Map >></a>
+      <% end %>
+      
     </div>
     <h3>Browse Maps and Find Data</h3>
 </div>
@@ -15,13 +20,16 @@
      <%= render 'search_sidebar' %>
     </div>
 
-    <div id="content" class="col-sm-6 col-md-6 col-lg-6">
+    <% if search_session['map'] == 'hide' %>
+      <div id="content" class="col-sm-9 col-md-9 col-lg-10">
+    <% else %>
+      <div id="content" class="col-sm-6 col-md-6 col-lg-6">
+    <% end %>
 
         <%= render 'search_and_constraints' %>
 
         <% unless has_search_parameters? %>
     	    <%# if there are no input/search related params, display the "home" partial -%>
-
     	    <%= render 'home' %>
         <% else %>
 
@@ -58,7 +66,11 @@
 
     </div>
 
-    <div id="map-region" class="col-sm-3 col-md-3 col-lg-4">
+    <% if search_session['map'] == 'hide' %>
+      <div id="map-region" class="hidden col-sm-3 col-md-3 col-lg-4">
+    <% else %>
+      <div id="map-region" class="col-sm-3 col-md-3 col-lg-4">
+    <% end %>
 
         <%= render 'map' %>
 
