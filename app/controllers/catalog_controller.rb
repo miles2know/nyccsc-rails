@@ -296,16 +296,17 @@ class CatalogController < ApplicationController
           { action: 'show' }
         end
        
-       
-          redirect_to path, :status => 303
+        redirect_to path, :status => 303
        
       end
 
       def set_map_preference 
 
-        preference_session['pref_map'] = params[:pref_map]
-        #Rails.logger.debug('MY SESSION MAP PREFERENCE' + preference_session['pref_map'])
+        search_session['map'] = params[:map]
 
+        Rails.logger.debug('MY SESSION TEST' + search_session['map'])
+        
+        redirect_to bookmarks_path
       end
       
 

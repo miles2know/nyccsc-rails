@@ -34,9 +34,7 @@ Rails.application.routes.draw do
   
   get 'proxy/data'
 
-  #post 'set_map_preference', :to => '#set_map_preference', :as => :pref_map
-
-  post "/session", :to => 'catalog_controller#set_map_preference', :as => :pref_map
+  post "/catalog/set_map_preference", :to => 'catalog#set_map_preference', :as => :pref_map
   
 
   #Get an error when we try to get constraints below with regular search

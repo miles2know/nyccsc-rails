@@ -47,68 +47,24 @@
   }
 
   $(document).ready(function() { 
-  //function pageReady() {
+  
+      // are there search terms??
+      var searchTerms = getUrlParameters("q", "", true);
 
-      //check for element, 
-        //if none, create
-        // if ($('#map').length !== 0) {
+      // wait till leaflet map loads, then load d3 layers
+      $.when(mapResults.onLoad()).done(function() {  
+        //if search terms are found on map, highlight it
 
-        //   console.log('found map container');
+        if (searchTerms) {
+          searchTerms.split("+").forEach(function(s) {
+            //this isn't working all of a sudden... yet, if you run this in console, it works fine... timing again??  
+            d3.select(".area[title='"+s.toLowerCase()+"']").style("fill-opacity", ".6");
+          
+          });//end searchTerms loop
+        }//end if
 
+      });//end mapResults.onLoad()
 
-        // } else {
-
-        //   console.log('did not find map container');
-
-        //     $('#map-region').append('<div id="map"></div>');
-        //     $('#map').css('width','600px').css('height','600px');
-
-            // are there search terms??
-            var searchTerms = getUrlParameters("q", "", true);
-
-            // wait till leaflet map loads, then load d3 layers
-            $.when(mapResults.onLoad()).done(function() {  
-              //if search terms are found on map, highlight it
-
-              if (searchTerms) {
-                searchTerms.split("+").forEach(function(s) {
-                  //this isn't working all of a sudden... yet, if you run this in console, it works fine... timing again??  
-                  d3.select(".area[title='"+s.toLowerCase()+"']").style("fill-opacity", ".6");
-                
-                });//end searchTerms loop
-              }//end if
-
-            });//end mapResults.onLoad()
-       // }
-
-
-    //toggle map show/hide on search results page
-    $('.map-toggle').click(function(e){
-      e.preventDefault();
-      
-      if ($(this).hasClass('show-map')) { //show
-        
-        $("#map-region").removeClass('hide');
-        $("#map-region").addClass('col-md-4');
-        
-        $("#content").removeClass("col-md-9 col-lg-10");
-        $("#content").addClass("col-md-5 col-lg-6");
-      
-        $(this).html('Hide Map &raquo;').removeClass('show-map').addClass('hide-map');
-
-      } else { //hide
-        
-        $("#map-region").removeClass('col-md-4');
-        $("#map-region").addClass('hide');
-        
-        $("#content").removeClass("col-md-5 col-lg-6");
-        $("#content").addClass("col-md-9 col-lg-10");
-    
-        $(this).html('Show Map &laquo;').removeClass('hide-map').addClass('show-map');    
-      }
-    }); //end .map-toggle
-
-  //} // end pageReady function
   });
 
   </script>

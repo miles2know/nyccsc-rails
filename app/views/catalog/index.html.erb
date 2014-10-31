@@ -4,7 +4,7 @@
       <% if render_bookmarks_control? %>
         <%= link_to t('blacklight.header_links.bookmarks'), bookmarks_path, :class =>"btn" %>
       <% end %>
-      <a href="#" class="btn">Hide Map</a>
+      <a href="#" class="btn visible" id="map-toggle">Hide Map >></a>
     </div>
     <h3>Browse Maps and Find Data</h3>
 </div>
@@ -15,7 +15,7 @@
      <%= render 'search_sidebar' %>
     </div>
 
-    <div id="content" class="col-sm-5 col-md-5 col-lg-6">
+    <div id="content" class="col-sm-6 col-md-6 col-lg-6">
 
         <%= render 'search_and_constraints' %>
 
@@ -58,7 +58,7 @@
 
     </div>
 
-    <div class="map-region col-sm-4 col-md-4">
+    <div id="map-region" class="col-sm-3 col-md-3 col-lg-4">
       
         <%= render 'map' %>
       
@@ -69,25 +69,54 @@
 
 <script type="text/javascript">
 
-  
-  $('.map-toggle').on('click',function() {
 
-    console.log('clicked on show/hide map');
+  $('#map-toggle').on('click',function(e) {
 
-    console.log($(this).data('preference-map'));
+    e.preventDefault();
+    var params;
+
+    console.log($(this).hasClass('visible'));
+
+    if ($(this).hasClass('visible')) {
+
+      $(this).removeClass('visible');
+      $(this).html('<< Show Map')
+      params = 'map=hide';
+      visibleMap(false);
+
+    } else {
+
+      $(this).addClass('visible');
+      $(this).html('Hide Map >>')
+      params = 'map=show';
+      visibleMap(true);
+
+    }
 
     var jqxhr = $.ajax({
-      url: '/session',
-      data: 'pref_map=' + $(this).data('preference-map'),
+      url: '/catalog/set_map_preference',
+      data: params,
       method: 'POST'
     });
 
-    console.log(jqxhr);
-
   });
 
-  
+  function visibleMap (visible) {
 
+    if (visible) {
+
+      $('#content').removeClass().addClass('col-sm-9 col-md-9 col-lg-10');
+      $('#map-region').removeClass().addClass('hidden');
+
+    } else {
+
+      $('#content').removeClass().addClass('col-sm-6 col-md-6 col-lg-6');
+      $('#map-region').removeClass().addClass('col-sm-3 col-md-3 col-lg-4');
+
+    } 
+  }
+
+  
 </script>
 
 
