@@ -13,9 +13,12 @@ function loadSelectedLayers() {
     //needs to be cleaned up and the sidebar should probably be built using ruby
     selected = $(this).attr("id");
     //loop through session variable to build sidebar and load layers (hidden) 
-    var customLayers = sessionLayers;
-    var layerProperties;
-            
+    //var customLayers = sessionLayers;
+    //var layerProperties;
+    
+    //Get the GIS layer info and pass in the callback function addSelectedLayer below
+    getGISLayerInfo.makeGISMappingQuery(selected, addSelectedLayer);
+            /*
     for (var i = 0; i < customLayers.length; i++) {
       layerProperties = customLayers[i];
 
@@ -25,11 +28,24 @@ function loadSelectedLayers() {
         content = content + renderPanel(layerProperties);
       }
 
-    }  
+    }  */
   });
   
   $("#map-selected-layers").append(content);
 
+}
+
+function addSelectedLayer(selected, layerProperties) {
+	//var id = selected.hashCode();
+	//alert(id);
+	//layerProperties["id"] = selected.hashCode();
+	//if (layerProperties["uri"] && layerProperties["uri"] == selected) {
+        //window[layerProperties["id"]] = addLayer(layerProperties);
+        //window[selected.hashCode()] = addLayer(layerProperties);
+
+        //content = renderPanel(layerProperties);
+        //$("#map-selected-layers").append(content);
+	//}
 }
 
 /* initialize map */
@@ -318,6 +334,9 @@ function getTransparency(e){
         })
     });
 }
+
+
+//This is a built-in map to things with ids
 
 
 var popup = L.popup();

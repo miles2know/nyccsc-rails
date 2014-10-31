@@ -47,6 +47,7 @@ Rails.application.config.assets.precompile += %w( linkedDataRequests.js )
 Rails.application.config.assets.precompile += %w( dataProductResults.js )
 Rails.application.config.assets.precompile += %w( gisLayers.js )
 Rails.application.config.assets.precompile += %w( initContentHandlers.js )
+Rails.application.config.assets.precompile += %w( getGISLayerInfo.js )
 
 
 

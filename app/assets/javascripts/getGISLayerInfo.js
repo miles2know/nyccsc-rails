@@ -1,79 +1,8 @@
-var gisLayers = {
-	 onLoad: function() {
-		 	this.initData();
-	        this.initObjects();
-	        this.bindEventListeners();
-	        this.loadRequests();
-	    },
-	    initData:function() {
-	    	//little klunky but we will make sparqlQueryURI a global javascript variable ont he page
-			//declared within the html itself
-	    	this.sparqlQueryURI = sparqlQueryURI;
-	    	//whether or not this is a special page
-	    	this.isSpecialTypePage = false;
-	    	if(typeof(page_special_type) != "undefined") {
-	    		this.isSpecialTypePage = true;
-	    		this.special_type = page_special_type;
-	    	}
-	    },
-	    initObjects:function() {
-	    	
-	    	this.includeURLInfo = $("#includeURLInfo");
-	    	this.addData = $("#addData");
-	    	this.downloadURLInput = $("input#gisLayerSrc");
-	    	
-	    },
-		bindEventListeners:function() {
-			//There isn't really a binding here for specific events
-			this.addData.click(function(e) {
-				//Need to check whether options have been selected, i.e. error validation
-				//Can have something that draws the GIS layer or displays it automatically
-			});
-			
-		},
-		loadRequests:function() {
-			//Multiple types of query request might be possible
-			this.makeQueryRequest();
-		},
-		makeQueryRequest:function() {
-			//If this is the details page, multiple sparql query results might be possible
-			//Will need way to distinguish between them
-			
-			if(this.isSpecialTypePage) {
-				
-				if(this.special_type =="gis_layer") {
-					this.makeDownloadURLQuery();
-					this.makeGISMappingQuery();
-				}
-				//for both data product and gis layer need access URL
-			}
-			
-		},
-		
-		makeDownloadURLQuery:function() {
-			var thisURL = "/proxy/data?sparqlquerytype=downloadurl&sparqlquery=" + gisLayers.sparqlQueryURI;
-			$.getJSON(thisURL, function(results) {
-						if(("results" in results) && ("bindings" in results["results"])) {
-							var bindings = results["results"]["bindings"];
-							//This is an array
-							var len = bindings.length;
-							//Expecting to only use one URL although there is no restriction against having multiple
-							if((len > 0)
-									&& ("url" in bindings[0])
-									&& ("value" in bindings[0]["url"])) {
-								url = bindings[0]["url"]["value"];
-								gisLayers.downloadURLInput.val(url);
-								
-							}
-						}
-						//var displayHtml = gisLayers.generateDataProductDisplay(results);
-						//gisLayers.includeURLInfo.append(displayHtml);
-						
-					
-				});
-		},
-		makeGISMappingQuery:function() {
-			var thisURL = "/proxy/data?sparqlquerytype=gismap&sparqlquery=" + gisLayers.sparqlQueryURI;
+var getGISLayerInfo = {
+	   //Pass this a callback function that will actually draw the layers
+		//where the callback function expects a hash of properties
+		makeGISMappingQuery:function(gisLayerURI, drawLayerCallback) {
+			var thisURL = "/proxy/data?sparqlquerytype=gismap&sparqlquery=" + gisLayerURI;
 			$.getJSON(thisURL, function(results) {
 						if(("results" in results) && ("bindings" in results["results"])) {
 							var bindings = results["results"]["bindings"];
@@ -83,50 +12,52 @@ var gisLayers = {
 							if(len > 0) {
 									//There are multiple possible values that can occur here
 									//There is a global hash called 
-								gisLayers.setupGISLayer(bindings[0]);
+								getGISLayerInfo.setupGISLayer(gisLayerURI, bindings[0], drawLayerCallback);
 								
 							}
 						}
-						//var displayHtml = gisLayers.generateDataProductDisplay(results);
-						//gisLayers.includeURLInfo.append(displayHtml);
+						//var displayHtml = getGISLayerInfo.generateDataProductDisplay(results);
+						//getGISLayerInfo.includeURLInfo.append(displayHtml);
 						
 					
 				});
 		},
 		//this method will call whatever we need to make the map display this GIS layer
-		setupGISLayer:function(resultBindings) {
+		setupGISLayer:function(gisLayerURI, resultBindings, drawLayerCallback) {
 			//First, get the values we need
-			var gisLayerInfo = gisLayers.getGISDataHash(resultBindings);
+			var gisLayerInfo = getGISLayerInfo.getGISDataHash(resultBindings);
+			console.log(gisLayerInfo);
 			//Any call to map magic would ha
+			drawLayerCallback(gisLayerURI, gisLayerInfo);
 			
 		},
 		getGISDataHash:function(resultBindings) {
-			var gisHash = {"metadata":{}};
+			var gisHash = {"metaData":{}};
 			var fieldMapping = {
 					"title": "title",
 					"url": "gisData",
 					"format": "format",
 					"layerGeometry": "geometry",
 					"layerType": "type",
-					"layerDataProp": "metadata.dataProp",
-					"layerIconType": "metadata.icon",
-					"layerRangeIntervals": "metadata.intervals",
-					"colorHue": "metadata.colorHue",
-					"iconImageURL": "metadata.iconUrl",
-					"iconClusterImageURL": "metadata.icon_cluster",
-					"legendImageURL": "metadata.legend"
+					"layerDataProp": "metaData.dataProp",
+					"layerIconType": "metaData.icon",
+					"layerRangeIntervals": "metaData.intervals",
+					"colorHue": "metaData.colorHue",
+					"iconImageURL": "metaData.iconUrl",
+					"iconClusterImageURL": "metaData.icon_cluster",
+					"legendImageURL": "metaData.legend"
 						
 			};
 			
 			for(var resultField in fieldMapping) {
-				if(gisLayers.resultHasField(resultBindings, resultField)) {
+				if(getGISLayerInfo.resultHasField(resultBindings, resultField)) {
 					var mappedFieldName = fieldMapping[resultField];
 					var fieldValue = resultBindings[resultField]["value"];
 					//if there is a dot, it's in the other array
 					if(mappedFieldName.indexOf(".") > -1) {
 						var fieldPortions = mappedFieldName.split(".");
 						//Also check if interval
-						if(mappedFieldName == "metadata.intervals") {
+						if(mappedFieldName == "metaData.intervals") {
 							//will have to change field value somehow to array
 							//TODO: Add validation that this is in fact an array, etc. 
 							fieldValue = JSON.parse(fieldValue);

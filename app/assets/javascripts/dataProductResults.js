@@ -39,10 +39,7 @@ var dataProductResults = {
 		this.makeQueryRequest();
 	},
 	makeQueryRequest : function() {
-		// If this is the details page, multiple sparql query results might be
-		// possible
-		// Will need way to distinguish between them
-		this.makeLinkQueryRequest();
+		
 		if (this.isSpecialTypePage) {
 			if (this.special_type == "data_product") {
 				this.makeDataProductQueryRequest();
