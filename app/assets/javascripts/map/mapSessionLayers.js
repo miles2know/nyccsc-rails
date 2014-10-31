@@ -4,7 +4,7 @@
 var sessionLayers =  
 [
     {
-       
+        uri : 'http://nyclimateclearinghouse.org/individual/n5189',
         id : 'alsc',
         title : 'Adirondack Lakes Survey Corp',
         format : 'geojson',
@@ -35,6 +35,7 @@ var sessionLayers =
         }
     },
     {
+        uri : 'http://nyclimateclearinghouse.org/individual/n13232',
         id : 'nfhl',
         title : 'FEMA Flood Hazards',
         format : 'tiles', //geometry, type, icon n/a
@@ -45,6 +46,7 @@ var sessionLayers =
         }
     },
     {
+        uri : 'http://nyclimateclearinghouse.org/individual/n1438',
         id : 'spdes',
         title : 'Waste Treatment Plants',
         format : 'geojson',
