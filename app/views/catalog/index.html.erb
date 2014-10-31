@@ -1,14 +1,15 @@
 
 <div class="container">
-  <div class="pull-right">
-      <%= render :partial=>'/user_bookmark_links' %>
-      <button href="#" class="btn btn-default btn-xs map-toggle" data-preference-map="hide">Hide Map &raquo;</button>
-  </div>
+    <div class="pull-right">
+      <% if render_bookmarks_control? %>
+        <%= link_to t('blacklight.header_links.bookmarks'), bookmarks_path, :class =>"btn" %>
+      <% end %>
+      <a href="#" class="btn">Hide Map</a>
+    </div>
+    <h3>Browse Maps and Find Data</h3>
 </div>
 
 <div id="main-container" class="container full-width-container">
-
-    <div class="row vertical-offset-md">&nbsp;</div>
     
     <div id="sidebar" class="col-sm-3 col-md-3 col-lg-2">
      <%= render 'search_sidebar' %>
