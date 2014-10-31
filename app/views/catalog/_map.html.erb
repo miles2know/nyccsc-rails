@@ -3,13 +3,13 @@
   <ul class="nav nav-tabs overlay-tabs"></ul>
 
   <div id="map-container">
-    <div id="map" style="width:auto;height:600px;"></div>
+    <div id="map" class="mapResults"></div>
   </div>
 
 
   <!-- for mapping application -->
   <%= javascript_include_tag 'map/mapDataOverlays' %>
-  <%= javascript_include_tag 'map/mapAddD3Layer' %>
+  <%#= javascript_include_tag 'map/mapAddD3Layer' %>
   <%= javascript_include_tag 'map/mapResults' %>
   <%#= javascript_include_tag 'map/mapSearch' %>
 
@@ -46,26 +46,16 @@
     if(!returnBool) return false;  
   }
 
-  $(document).ready(function() { 
-  
-      // are there search terms??
-      var searchTerms = getUrlParameters("q", "", true);
+  // on click, go to search page
+      mapResults.map.on('click', function(e) {
+        
+        var spatialRef = e.latlng.toString();
+        spatialRef = spatialRef.replace("(","").replace(")","").replace(" ", "").replace("LatLng", "spatialsort=");
 
-      // wait till leaflet map loads, then load d3 layers
-      $.when(mapResults.onLoad()).done(function() {  
-        //if search terms are found on map, highlight it
+        //console.log(spatialRef);
+        window.location = window.location.protocol + "//" + window.location.host + "/catalog?search_field=all_fields&q=*&" + spatialRef;
 
-        if (searchTerms) {
-          searchTerms.split("+").forEach(function(s) {
-            //this isn't working all of a sudden... yet, if you run this in console, it works fine... timing again??  
-            d3.select(".area[title='"+s.toLowerCase()+"']").style("fill-opacity", ".6");
-          
-          });//end searchTerms loop
-        }//end if
-
-      });//end mapResults.onLoad()
-
-  });
+      });
 
   </script>
   

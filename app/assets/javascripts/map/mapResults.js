@@ -4,18 +4,138 @@
 //Additionally, zooming in or zooming out will actually change the results that are being displayed to those
 //that fit within the bounding box provided
 
-
 var mapResults = {
     // Initial page setup
     onLoad: function() {
-        this.initializeMap();
-        //this.setupMap();
+        this.initObjects();
+        this.setupMap();
         this.bindEventListeners();
+    },
+    initObjects:function() {
+        //this variable is setup in _document_list.html
+        if(typeof docs != "undefined") {
+            this.docs = docs;
+        } else {
+            this.docs = {};
+        }
+        this.bBoxs = new L.LayerGroup([]); 
+        //this contains the maximum boudning box that will cover all the results
+        this.mapBbox = [];
+
+        /* initialize map */
+        this.map = L.map("map", {
+          layers: [OpenStreetMap_BlackAndWhite],
+          center:[43.1393, -76],
+          zoom: 6,
+          minZoom: 5,
+          maxZoom: 15,
+          zoomControl: false,
+          attributionControl: false
+        });
+        
+        this.documentItems = $("div.document[docCounter]");
+    },
+    bindEventListeners:function() {
+        $("div.document[docCounter]").hover( function() {
+            mapResults.showResultBoundingBox($(this));
+        }, function() {
+            mapResults.hideResultBoundingBox($(this));
+        });
+
+        // on click, refresh search
+
+        this.map.on('click', function(e) {
+        
+        var spatialRef = e.latlng.toString();
+        spatialRef = spatialRef.replace("(","").replace(")","").replace(" ", "").replace("LatLng", "spatialsort=");
+
+        //console.log(spatialRef);
+        window.location = window.location.protocol + "//" + window.location.host + "/catalog?search_field=all_fields&q=*&" + spatialRef;
+
+      });
+
         
     },
-    initializeMap:function() {
+    calculateMaximumBoundingBox:function() {
+        //is document_counter for ALL documents? i.e. not just the ones being displayed
+        //so 2nd page might have 15 out of 300 and 1st might have 2 out of 300, etc.
+          var numberDocs = mapResults.docs.length;
+          var i;
 
-        //establish base layers
+            //Calculates map bounding box and creates layer bbox
+          for(i = 0; i < numberDocs; i++) {
+              var doc = mapResults.docs[i];
+            if (doc.solr_bbox){
+
+               solr_sw_pt = doc.solr_sw_pt[0].split(", ");
+               solr_ne_pt = doc.solr_ne_pt[0].split(", ");
+
+              //mapResults.bBoxs[i] = L.polygon([[sw lat, sw lng], [ne lat, sw lng], [ne lat, ne lng], [sw lat, ne lng]]);  
+              mapResults.bBoxs[i] = L.polygon([[Number(solr_sw_pt[0]), Number(solr_sw_pt[1])], [Number(solr_ne_pt[0]), 
+                Number(solr_sw_pt[1])], [Number(solr_ne_pt[0]), Number(solr_ne_pt[1])], [Number(solr_sw_pt[0]), Number(solr_ne_pt[1])]]);
+              
+              if (mapResults.mapBbox.length == 0){
+                mapResults.mapBbox = [[Number(solr_sw_pt[0]), Number(solr_sw_pt[1])], [Number(solr_ne_pt[0]), Number(solr_ne_pt[1])]];
+              }else{
+                if (doc.solr_sw_pt_0_d < mapResults.mapBbox[0][0]){
+                    mapResults.mapBbox[0][0] = Number(solr_sw_pt[0]);
+                }
+                if (doc.solr_sw_pt_1_d < mapResults.mapBbox[0][1]){
+                    mapResults.mapBbox[0][1] = Number(solr_sw_pt[1]);
+                }
+                if (doc.solr_ne_pt_0_d > mapResults.mapBbox[1][0]){
+                    mapResults.mapBbox[1][0] = Number(solr_ne_pt[0]);
+                }
+                if (doc.solr_ne_pt_1_d > mapResults.mapBbox[1][1]){
+                    mapResults.mapBbox[1][1] = Number(solr_ne_pt[1]);
+                }
+              }
+            
+            }
+          }
+    },
+    //display a boundingBox for a single result
+    showResultBoundingBox:function(el) {
+        if(el.attr("docCounter") != null) {
+            var docCounter = el.attr("docCounter");
+             if (mapResults.bBoxs[docCounter]){
+                    mapResults.bBoxs[docCounter].addTo(mapResults.map);
+             }
+        }
+    },
+    hideResultBoundingBox:function(el) {
+        for(i in mapResults.map._layers) {
+            if(mapResults.map._layers[i]._path !== undefined && i !== 0) {
+                try {
+                    mapResults.map.removeLayer(mapResults.map._layers[i]);
+                }
+                catch(e) {
+                    console.log("problem with " + e + mapResults.map._layers[i]);
+                }
+            }
+        }
+    },
+    //include this method because of the way the assets directory seems to be included
+    //even when a particular javascript is not referenced
+    doLoad: function() {
+        var mapDiv = $("#map");
+        if (mapDiv != null && mapDiv.hasClass("mapResults")) {
+            return true;
+        }
+        return false;
+    },
+    serialiseObject:function(obj) {
+        var pairs = [];
+        for (var prop in obj) {
+            if (!obj.hasOwnProperty(prop)) {
+                continue;
+            }
+            pairs.push(prop + '=' + obj[prop]);
+        }
+        return pairs.join('&');
+    },
+    setupMap:function(){
+        //baseLayers
         var baseLayers = {
             "Grayscale" : OpenStreetMap_BlackAndWhite,
             "Street Map": MapQuestOSM,
@@ -23,184 +143,62 @@ var mapResults = {
             "Satellite": Esri_WorldImagery,
             "Satellitte with Streets": mapquestHYB
         };
-    	
 
-      
-            //create map
-            this.map = L.map('map', {
-                center:[43.1393, -76],
-                zoom: 6,
-                layers: [OpenStreetMap_BlackAndWhite]
-            });
+        //add baseLayers to map
+        L.control.layers(baseLayers).addTo(mapResults.map);
 
-        
-        
+        //add zoom control to map
+        var zoomControl = L.control.zoom({
+          position: "topleft"
+        }).addTo(mapResults.map);
 
-        // add initial layer to map  
-            //mapResults.map.addBaseLayer(OpenStreetMap_BlackAndWhite);
-            L.control.layers(baseLayers).addTo(mapResults.map);
-
-            // load svg canvas for d3 layers
-            var svg = d3.select(mapResults.map.getPanes().overlayPane).append("svg");
-
-            //loop through possible overlays and add active layer
-            for (var i = 0; i < contextOverlays.length; i++) {
-              //console.log(contextOverlays[i].data_source);
-              if (contextOverlays[i].active) {
-                addPolygonLayerToMap(mapResults.map,contextOverlays[i].data_source, 
-                   contextOverlays[i].data_name, 
-                   contextOverlays[i].active);
-              }
-              addOverlayButton(contextOverlays[i].data_name, contextOverlays[i].active);
-            }
-
-    },
-    bindEventListeners:function() {
-
-        // can detect map changes - search results change functionality    
-        // mapResults.map.on('moveend dragend zoomend', function (e) { 
-
-        //     var bounds = mapResults.map.getBounds();
-        //     //NOT DONE:  change map data points based on change in map bounding box 
-        //     //also need to pass this information to solr (along with other parameters to change search results)
-        //     //hardcoded to a specific layer for now
-        //     console.log('boundingBox change:: SW:' + bounds.getSouthWest() + 'NE:' + bounds.getNorthEast() ); 
-            
-        //     var url = "proxy/data?q=data&querytype=streamGage2geojson&" 
-        //       + "lat1=" + bounds.getSouthWest().lat + "&lon1=" + bounds.getSouthWest().lng 
-        //       + "&lat2=" + bounds.getNorthEast().lat + "&lon2=" + bounds.getNorthEast().lng;
-
-        //     var layer = 'Streamflow Gauge';
-        //     if (mapResults.map.hasLayer(layer)) {
-        //         mapResults.map.removeLayer(layer)
-        //     }    
-        //     mapResults.map.addLayer(addGeoJsonPoint( url, 'Streamflow Gauge' ) );
-        // });
-        
-        //eventually this will come from vivo 
-      $("#add-overlay").click(function(e) {
-        e.preventDefault();
-
-        $(this).toggleClass('active');
-
-        if ($(this).hasClass('active')) {
-            addPointsLayerToMap(mapResults.map, "data/streamGage.geojson", "Streamflow Gauge", true);
-            $(this).html("Remove It!");
-            
-        } else {
-            d3.selectAll("g.Streamflow").remove();
-            $(this).html("Map It!");
-        }
-
-      }); //end add-overlay listener
-
-      $(".overlay-tabs li a").click(function(e) {
-        e.preventDefault();
-        
-        //capture which button was clicked
-        var activeLayer = $(this);
-        
-        //remove active class on all 
-        $(".overlay-tabs li").removeClass("active");
-        d3.selectAll("g.context-overlay").remove();
-
-        //loop through possible overlays 
-        $( ".overlay-tabs li a" ).each(function( i ) {
-
-          if ($(this).attr("id") == activeLayer.attr("id")) {
-            $(this).parent().addClass("active");
-
-            for (var i = 0; i < contextOverlays.length; i++) {
-              //console.log(contextOverlays[i].data_source);
-              if ($(this).attr("id") == contextOverlays[i].data_name.replace(/\s+/g, '')) {
-                addPolygonLayerToMap(mapResults.map,contextOverlays[i].data_source, 
-                   contextOverlays[i].data_name, 
-                   true);
-              }
-            }
+        //add my location control to map
+        var locateControl = L.control.locate({
+          position: "bottomright",
+          drawCircle: true,
+          follow: true,
+          setView: true,
+          keepCurrentZoomLevel: true,
+          markerStyle: {
+            weight: 1,
+            opacity: 0.8,
+            fillOpacity: 0.8
+          },
+          circleStyle: {
+            weight: 1,
+            clickable: false
+          },
+          icon: "icon-direction",
+          metric: false,
+          strings: {
+            title: "My location",
+            popup: "You are within {distance} {unit} from this point",
+            outsideMapBoundsMsg: "You seem located outside the boundaries of the map"
+          },
+          locateOptions: {
+            maxZoom: 18,
+            watch: true,
+            enableHighAccuracy: true,
+            maximumAge: 10000,
+            timeout: 10000
           }
+        }).addTo(mapResults.map);
 
-        }); //loop overlays
-
-      }); //end .overlay-tabs listener
-      
-      //Try on click here
-      mapResults.map.on("click", function(e) { 
-    	  console.log("On Map click, from the map itself");
-      	console.log(e.latlng);
-      });
-
-
-    },
-    verifyReady: function() {
-        var mapDiv = $("#map");
-        if (mapDiv != null && mapDiv.hasClass("mapResults")) {
-            return true;
+        //base bbox/zoom/pan level on search results
+        mapResults.calculateMaximumBoundingBox();
+           console.log(mapResults.mapBbox.length);
+          if(mapResults.mapBbox.length > 0) {
+              mapResults.map.fitBounds(mapResults.mapBbox);
         }
-        return false;
-        console.log('dom not ready');
-        //error condition 
     }
-        
-    // NOT USED AT THIS TIME
-    // refreshSearchResults:function() {
-    //     getGages(); 
 
-    // },
-    // calculateMaximumBoundingBox:function() {
-    // 	//is document_counter for ALL documents? i.e. not just the ones being displayed
-    // 	//so 2nd page might have 15 out of 300 and 1st might have 2 out of 300, etc.
-    // 	  var numberDocs = mapResults.docs.length;
-    // 	  var i;
-    // 	    //Calculates map bounding box and creates layer bbox
-    // 	  for(i = 0; i < numberDocs; i++) {
-    // 		  var doc = mapResults.docs[i];
-    // 	    if (doc.solr_bbox){
-    // 	      mapResults.bBoxs[i] = L.polygon([[doc.solr_sw_pt_0_d, doc.solr_sw_pt_1_d], [doc.solr_ne_pt_0_d, doc.solr_sw_pt_1_d], [doc.solr_ne_pt_0_d, doc.solr_ne_pt_1_d], [doc.solr_sw_pt_0_d, doc.solr_ne_pt_1_d]]);
-    	      
-    // 	      if (mapResults.mapBbox.length == 0){
-    // 	        mapResults.mapBbox = [[doc.solr_sw_pt_0_d, doc.solr_sw_pt_1_d], [doc.solr_ne_pt_0_d, doc.solr_ne_pt_1_d]];
-    // 	      }else{
-    // 	        if (doc.solr_sw_pt_0_d < mapResults.mapBbox[0][0]){
-    // 	        	mapResults.mapBbox[0][0] = doc.solr_sw_pt_0_d;
-    // 	        }
-    // 	        if (doc.solr_sw_pt_1_d < mapResults.mapBbox[0][1]){
-    // 	        	mapResults.mapBbox[0][1] = doc.solr_sw_pt_1_d;
-    // 	        }
-    // 	        if (doc.solr_ne_pt_0_d > mapResults.mapBbox[1][0]){
-    // 	        	mapResults.mapBbox[1][0] = doc.solr_ne_pt_0_d;
-    // 	        }
-    // 	        if (doc.solr_ne_pt_1_d > mapResults.mapBbox[1][1]){
-    // 	        	mapResults.mapBbox[1][1] = doc.solr_ne_pt_1_d;
-    // 	        }
-    // 	      }
-    // 	    }
-    // 	  }
-    // },
-    
-    //display a boundingBox for a single result
-    // showResultBoundingBox:function(el) {
-    // 	if(el.attr("docCounter") != null) {
-    // 		var docCounter = el.attr("docCounter");
-    // 		 if (mapResults.bBoxs[docCounter]){
-    // 			    mapResults.bBoxs[docCounter].addTo(mapResults.map);
-    // 		 }
-    // 	}
-    // },
-    // hideResultBoundingBox:function(el) {
-    // 	for(i in mapResults.map._layers) {
-    //         if(mapResults.map._layers[i]._path !== undefined && i !== 0) {
-    //             try {
-    //                 mapResults.map.removeLayer(mapResults.map._layers[i]);
-    //             }
-    //             catch(e) {
-    //                 console.log("problem with " + e + mapResults.map._layers[i]);
-    //             }
-    //         }
-    //     }
-    // },
-    //include this method because of the way the assets directory seems to be included
-    //even when a particular javascript is not referenced
-    
+        
+        
 };
+
+$(document).ready(function() {
+    if(mapResults.doLoad()) {
+        mapResults.onLoad();
+    } 
+});
 
