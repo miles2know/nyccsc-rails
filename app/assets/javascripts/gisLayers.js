@@ -96,32 +96,58 @@ var gisLayers = {
 		//this method will call whatever we need to make the map display this GIS layer
 		setupGISLayer:function(resultBindings) {
 			//First, get the values we need
+			var gisLayerInfo = gisLayers.getGISDataHash(resultBindings);
+			//Any call to map magic would happen here
 			
 		},
 		getGISDataHash:function(resultBindings) {
 			var gisHash = {"metadata":{}};
-			if("title" in resultBindings) {
-				gisHash["title"] = resultBindings["title"];
+			var fieldMapping = {
+					"title": "title",
+					"url": "gisData",
+					"format": "format",
+					"layerGeometry": "geometry",
+					"layerType": "type",
+					"layerDataProp": "metadata.dataProp",
+					"layerIconType": "metadata.icon",
+					"layerRangeIntervals": "metadata.intervals",
+					"colorHue": "metadata.colorHue",
+					"iconImageURL": "metadata.iconUrl",
+					"iconClusterImageURL": "metadata.icon_cluster",
+					"legendImageURL": "metadata.legend"
+						
+			};
+			
+			for(var resultField in fieldMapping) {
+				if(gisLayers.resultHasField(resultBindings, resultField)) {
+					var mappedFieldName = fieldMapping[resultField];
+					var fieldValue = resultBindings[resultField]["value"];
+					//if there is a dot, it's in the other array
+					if(mappedFieldName.indexOf(".") > -1) {
+						var fieldPortions = mappedFieldName.split(".");
+						//Also check if interval
+						if(mappedFieldName == "metadata.intervals") {
+							//will have to change field value somehow to array
+							//TODO: Add validation that this is in fact an array, etc. 
+							fieldValue = JSON.parse(fieldValue);
+						}
+						if(fieldPortions.length > 1) {
+							gisHash[fieldPortions[0]][fieldPortions[1]] = fieldValue;
+						}
+					} else {
+						gisHash[mappedFieldName] = fieldValue;
+					}
+				}
 			}
-			if("format" in resultBindings) {
-				gisHash["format"] = resultBindings["format"];
-
-			}
-			if("layerGeometry" in resultBindings) {
-				gisHash["geometry"] = resultBindings["layerGeometry"];
-
-			}
-			if("layerType" in resultBindings) {
-				gisHash["type"] = resultBindings["layerType"];
-
-			}
-			if("layerDataProp" in resultBindings) {
-				gisHash["metadata"]["dataProp"] = resultBindings["layerDataProp"];
-
-			}
+			return gisHash;
+		
 			
 			
 			
+		},
+		resultHasField:function(resultBindings, fieldName) {
+			
+			return ((fieldName in resultBindings) && ("value" in resultBindings[fieldName])); 
 		},
 		//return html stringn to add
 		generateDisplay:function(jsonResult) {

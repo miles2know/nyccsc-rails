@@ -172,11 +172,16 @@ class ProxyController < ApplicationController
         "PREFIX xsd:      <http://www.w3.org/2001/XMLSchema#> " +
         "PREFIX owl:      <http://www.w3.org/2002/07/owl#> " +
         "PREFIX ccsc:      <http://nyclimateclearinghouse.org/ontology/> " +
-    "SELECT ?title ?format ?layerGeometry ?layerType ?layerIconType ?layerDataProp ?layerRangeIntervals ?colorHue ?iconImageURL ?iconClusterImageURL ?legendImageURL WHERE {"+
+    "SELECT ?url ?title ?format ?layerGeometry ?layerType ?layerIconType ?layerDataProp ?layerRangeIntervals ?colorHue ?iconImageURL ?iconClusterImageURL ?legendImageURL WHERE {"+
     "<" + thisURI + "> rdf:type  <http://nyclimateclearinghouse.org/ontology/gisMappingLayer> ."+
     "<" + thisURI + "> rdfs:label ?title ."+
     "<" + thisURI + "> <http://purl.org/dc/terms/format> ?formatInd."+
     "?formatInd rdfs:label ?format ."+
+    "<" + thisURI + "> <http://purl.obolibrary.org/obo/ARG_2000028> ?vcard ." +
+      "?vcard a <http://www.w3.org/2006/vcard/ns#Kind> ." +
+      "?vcard <http://www.w3.org/2006/vcard/ns#hasURL> ?link ." +
+      "?link a <http://nyclimateclearinghouse.org/ontology/DownloadURL> ." +
+      "?link <http://www.w3.org/2006/vcard/ns#url> ?url ." +
     "OPTIONAL {"+
     "<" + thisURI + "> <http://nyclimateclearinghouse.org/ontology/layerGeometry> ?layerGeometry."+
     "}"+
