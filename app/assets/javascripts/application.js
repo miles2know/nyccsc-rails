@@ -40,6 +40,7 @@
 //= require topojson.js
 //= require d3.legend
 //= require colorbrewer
+//= require jquery.jsticky
 
 // Required by Blacklight
 //= require blacklight/blacklight

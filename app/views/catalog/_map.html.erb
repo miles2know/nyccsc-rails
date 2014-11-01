@@ -1,63 +1,11 @@
 
   <!-- default map / should default to NYS -->
-  <ul class="nav nav-tabs overlay-tabs"></ul>
-
-  <div id="map-container">
+  <div id="map-container" style="width:100%;height:600px;">
+    <ul class="nav nav-tabs overlay-tabs"></ul>
     <div id="map" class="mapResults"></div>
   </div>
 
-
   <!-- for mapping application -->
   <%= javascript_include_tag 'map/mapDataOverlays' %>
-  <%#= javascript_include_tag 'map/mapAddD3Layer' %>
   <%= javascript_include_tag 'map/mapResults' %>
-  <%#= javascript_include_tag 'map/mapSearch' %>
-
-  <script type="text/javascript">
-
-
-  /*
-    Function: getUrlParameters
-    Description: Get the value of URL parameters either from 
-                 current URL or static URL
-    Author: Tirumal
-    URL: www.code-tricks.com
-  */
-  function getUrlParameters(parameter, staticURL, decode){
-   
-    var currLocation = (staticURL.length)? staticURL : window.location.search,
-        returnBool = true;
-      
-    if (currLocation.indexOf("?") > -1) {
-
-       parArr = currLocation.split("?")[1].split("&");
-       
-        for(var i = 0; i < parArr.length; i++){
-            parr = parArr[i].split("=");
-            if(parr[0] == parameter){
-                return (decode) ? decodeURIComponent(parr[1]) : parr[1];
-                returnBool = true;
-            }else{
-                returnBool = false;            
-            }
-        }
-    }   
-   
-    if(!returnBool) return false;  
-  }
-
-  // on click, go to search page
-      mapResults.map.on('click', function(e) {
-        
-        var spatialRef = e.latlng.toString();
-        spatialRef = spatialRef.replace("(","").replace(")","").replace(" ", "").replace("LatLng", "spatialsort=");
-
-        //console.log(spatialRef);
-        window.location = window.location.protocol + "//" + window.location.host + "/catalog?search_field=all_fields&q=*&" + spatialRef;
-
-      });
-
-  </script>
-  
-
   

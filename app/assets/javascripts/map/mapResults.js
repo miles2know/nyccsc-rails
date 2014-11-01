@@ -36,24 +36,35 @@ var mapResults = {
         this.documentItems = $("div.document[docCounter]");
     },
     bindEventListeners:function() {
+        
         $("div.document[docCounter]").hover( function() {
+
             mapResults.showResultBoundingBox($(this));
-        }, function() {
+          }, function() {
+          
             mapResults.hideResultBoundingBox($(this));
         });
 
         // on click, refresh search
-
-        this.map.on('click', function(e) {
+        mapResults.map.on('click', function(e) {
         
-        var spatialRef = e.latlng.toString();
-        spatialRef = spatialRef.replace("(","").replace(")","").replace(" ", "").replace("LatLng", "spatialsort=");
+          //get any other search terms and/or facets
+          var searchTerms = window.location.search;
+          
+          //get the latlng of click
+          var spatialRef = e.latlng.toString();
+          spatialRef = spatialRef.replace("(","").replace(")","").replace(" ", "").replace("LatLng", "spatialsort=");
 
-        //console.log(spatialRef);
-        window.location = window.location.protocol + "//" + window.location.host + "/catalog?search_field=all_fields&q=*&" + spatialRef;
+          if (searchTerms.indexOf("spatialsort")) {
+            searchTerms = searchTerms.slice(0,searchTerms.indexOf("spatialsort"));
+          } else {
+            searchTerms = "?search_field=all_fields&q=*&"
+          }
 
-      });
+          //window.location = window.location.protocol + "//" + window.location.host + "/catalog?search_field=all_fields&q=*&" + spatialRef;
+          window.location = window.location.protocol + "//" + window.location.host + "/catalog" + searchTerms + spatialRef;
 
+        });
         
     },
     calculateMaximumBoundingBox:function() {
@@ -196,9 +207,49 @@ var mapResults = {
         
 };
 
+/*
+  Function: getUrlParameters
+  Description: Get the value of URL parameters either from 
+               current URL or static URL
+  Author: Tirumal
+  URL: www.code-tricks.com
+*/
+function getUrlParameters(parameter, staticURL, decode){
+ 
+  var currLocation = (staticURL.length)? staticURL : window.location.search,
+      returnBool = true;
+
+  //console.log(currLocation);
+    
+  if (currLocation.indexOf("?") > -1) {
+
+     parArr = currLocation.split("?")[1].split("&");
+     
+      for(var i = 0; i < parArr.length; i++){
+          parr = parArr[i].split("=");
+          if(parr[0] == parameter){
+              return (decode) ? decodeURIComponent(parr[1]) : parr[1];
+              returnBool = true;
+          }else{
+              returnBool = false;            
+          }
+      }
+  }   
+ 
+  if(!returnBool) return false;  
+}
+
+//load map when page loads
 $(document).ready(function() {
-    if(mapResults.doLoad()) {
-        mapResults.onLoad();
-    } 
+  if(mapResults.doLoad()) {
+      mapResults.onLoad();
+  } 
+
+  $('#map-container').sticky({
+      topSpacing: 10, // Space between element and top of the viewport
+      zIndex: 100, // z-index
+      stopper: "footer" // Id, class, or number value
+  });
+    
 });
 
