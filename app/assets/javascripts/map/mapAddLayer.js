@@ -64,8 +64,11 @@ function addLayer (layerProp) {
   //lots of conditions here to determine what type of layer to add
   var layer, dataSource;
 
-  if (layerProp["proxy"]) {
-    dataSource = "/proxy/data?q=data&querytype=" + layerProp["gisData"];
+  //if (layerProp["proxy"]) {
+  
+  if (layerProp["gisData"].indexOf("frontierspatial") >= 1) {
+    console.log('frontier');
+    dataSource = "/proxy/data?q=data&frontier=y&querytype=" + layerProp["gisData"];
   } else {
     dataSource = layerProp["gisData"];
   }
@@ -183,7 +186,7 @@ function addGeoJsonPoint (dataSource, dataName, featureProp) {
 
           return L.marker(latlng, {
             icon: L.icon({
-              iconUrl : "/assets" + featureProp.iconUrl
+              iconUrl : featureProp.iconUrl
             })
           
           });
@@ -242,7 +245,7 @@ function addMarkerClusterGroup (dataSource, dataName, featureProp) {
 
           return L.marker(latlng, {
             icon: L.icon({
-              iconUrl : "/assets" + featureProp.iconUrl
+              iconUrl : featureProp.iconUrl
             })
           
           });

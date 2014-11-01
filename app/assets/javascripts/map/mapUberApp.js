@@ -46,11 +46,10 @@ function addSelectedLayer(selected, index, layerProperties) {
 	//to work correctly, perhaps due to slashes?
 	//TODO: find a better mechanism for the id - if possible, some version of the URI
 	var id = "layer_" + index;
-	
 	layerProperties["id"] = id;
 	window[id] = addLayer(layerProperties);
 	content = renderPanel(layerProperties);
-    $("#map-selected-layers").append(content);
+  $("#map-selected-layers").append(content);
 }
 
 /* initialize map */
@@ -217,7 +216,7 @@ function buildSidebar(e){
             
             if (layerProperties.id == value.tablename) {
               if (layerProperties.metaData.legend) {
-                legend = "<p>&nbsp;</p><img src='/assets" + layerProperties.metaData.legend + "'>";
+                legend = "<p>&nbsp;</p><img src='" + layerProperties.metaData.legend + "'>";
               } else if (layerProperties.type == "Color") {
                 legend = createLegend(layerProperties.metaData.icon, layerProperties.metaData.colorHue, layerProperties.metaData.intervals);
               } else {
@@ -276,7 +275,7 @@ function renderPanel(properties){
 
 
   if (layerProperties.metaData.legend) {
-    legend = "<p>&nbsp;</p><img src='/assets" + layerProperties.metaData.legend + "'>";
+    legend = "<p>&nbsp;</p><img src='" + layerProperties.metaData.legend + "'>";
   } else if (layerProperties.type == "Color") {
     legend = createLegend(layerProperties.metaData.icon, layerProperties.metaData.colorHue, layerProperties.metaData.intervals);
   } else {
@@ -306,10 +305,10 @@ function renderPanel(properties){
             + "</div>"
             + "<div class='tab-pane' id='panel-info-" + layerProperties.id + "'>"
               + "<p>&nbsp;</p>"
-              + "<p><strong>Source: </strong><a target='_blank_' href='#'>Insert Source</a></p>"
-              + "<p><strong>Last Updated: </strong>Insert last_updated </p>"
-              + "<p><strong>Description:</strong>Insert value.description </p>"
-              + "<p><strong>Native format:</strong>Insert value.native_format </p>"
+              + "<p><strong>Source: </strong><a target='_blank_' href='#'>Placeholder</a></p>"
+              + "<p><strong>Last Updated: </strong>Placeholder</p>"
+              + "<p><strong>Description:</strong>Placeholder </p>"
+              + "<p><strong>Native format:</strong>Placeholder </p>"
               + "<p><a target='_blank_' href='#'><i class='fa fa-download'></i> Download Data</a></p>"
               + "<p><a target='_blank_' href='#'><i class='fa fa-file-o'></i> Metadata</a></p>"
               + "</div>" //.tab-content

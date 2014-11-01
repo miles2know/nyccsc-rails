@@ -197,10 +197,13 @@ var mapResults = {
 
         //base bbox/zoom/pan level on search results
         mapResults.calculateMaximumBoundingBox();
-           console.log(mapResults.mapBbox.length);
           if(mapResults.mapBbox.length > 0) {
               mapResults.map.fitBounds(mapResults.mapBbox);
         }
+
+        //add context layers and radio toggle 
+
+
     }
 
         

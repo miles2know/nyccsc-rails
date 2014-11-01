@@ -13,6 +13,7 @@ class ProxyController < ApplicationController
     # VIVO profile as JSON parameter
     #@vivo_json = params["vivoprofile"]
     # VIVO linked data request
+    @frontier = params["frontier"]
     @vivo_linked_data = params["linkeddata"]
     @vivo_sparql_query = params["sparqlquery"]
     @base_solr_url = Blacklight.solr_config[:url] + '/select/?wt=json&q='
@@ -22,7 +23,9 @@ class ProxyController < ApplicationController
     #@base_vivo_url =
     ##Check whether this is solr or for something else
     result = []
-    if (@querytype)
+    if (@frontier)
+      result = get_frontier_data()
+    elsif (@querytype) 
       result = get_geojson_data()
     elsif(@vivo_linked_data)
       result= get_vivo_linkeddata()
@@ -47,6 +50,25 @@ class ProxyController < ApplicationController
     sliced = current_url.slice!(@base_current_url)
     Rails.logger.debug("sliced #{sliced} and current #{current_url}")
     new_url = @base_forestservices + @querytype + ".php" + current_url
+    Rails.logger.debug("new url is " + new_url)
+    url = URI.parse(new_url)
+    resp = Net::HTTP.get_response(url)
+    data = resp.body
+    result = JSON.parse(data)
+    return result
+
+  end
+
+  def get_frontier_data
+    current_url = request.original_url
+
+    new_url = params["querytype"]
+
+    Rails.logger.debug("get_frontier_data")
+
+    # sliced = current_url.slice!(@base_current_url)
+    # Rails.logger.debug("sliced #{sliced} and current #{current_url}")
+    # new_url = @base_forestservices + @querytype + ".php" + current_url
     Rails.logger.debug("new url is " + new_url)
     url = URI.parse(new_url)
     resp = Net::HTTP.get_response(url)
