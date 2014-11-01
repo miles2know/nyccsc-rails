@@ -428,5 +428,16 @@ var baseLayers = {
 
 L.control.layers(baseLayers).addTo(map);
 
+//load map when page loads
+$(document).ready(function() {
+  
+  $('#map-container').sticky({
+      topSpacing: 10, // Space between element and top of the viewport
+      zIndex: 100, // z-index
+      stopper: "footer" // Id, class, or number value
+  });
+    
+});
+
 
 
