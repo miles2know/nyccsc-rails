@@ -51,18 +51,21 @@ var mapResults = {
           //get any other search terms and/or facets
           var searchTerms = window.location.search;
           
+          //setup url
+          if (searchTerms) {
+            if (searchTerms.indexOf("spatialsort") >= 1) {
+              searchTerms = searchTerms.slice(0,searchTerms.indexOf("spatialsort")-1);
+            } 
+          } else {
+            searchTerms = "?search_field=all_fields&q=*"
+          }
+
           //get the latlng of click
           var spatialRef = e.latlng.toString();
           spatialRef = spatialRef.replace("(","").replace(")","").replace(" ", "").replace("LatLng", "spatialsort=");
 
-          if (searchTerms.indexOf("spatialsort")) {
-            searchTerms = searchTerms.slice(0,searchTerms.indexOf("spatialsort"));
-          } else {
-            searchTerms = "?search_field=all_fields&q=*&"
-          }
-
           //window.location = window.location.protocol + "//" + window.location.host + "/catalog?search_field=all_fields&q=*&" + spatialRef;
-          window.location = window.location.protocol + "//" + window.location.host + "/catalog" + searchTerms + spatialRef;
+          window.location = window.location.protocol + "//" + window.location.host + "/catalog" + searchTerms + "&" + spatialRef;
 
         });
         
@@ -210,37 +213,6 @@ var mapResults = {
         
 };
 
-/*
-  Function: getUrlParameters
-  Description: Get the value of URL parameters either from 
-               current URL or static URL
-  Author: Tirumal
-  URL: www.code-tricks.com
-*/
-function getUrlParameters(parameter, staticURL, decode){
- 
-  var currLocation = (staticURL.length)? staticURL : window.location.search,
-      returnBool = true;
-
-  //console.log(currLocation);
-    
-  if (currLocation.indexOf("?") > -1) {
-
-     parArr = currLocation.split("?")[1].split("&");
-     
-      for(var i = 0; i < parArr.length; i++){
-          parr = parArr[i].split("=");
-          if(parr[0] == parameter){
-              return (decode) ? decodeURIComponent(parr[1]) : parr[1];
-              returnBool = true;
-          }else{
-              returnBool = false;            
-          }
-      }
-  }   
- 
-  if(!returnBool) return false;  
-}
 
 //load map when page loads
 $(document).ready(function() {
