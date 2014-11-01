@@ -14,16 +14,10 @@
         <%= link_to_document document, :label=>document_show_link_field(document), :counter => counter %>
     </h5>
 
-    <%
-        ## Determine what type this is to handle maps and/or GIS layers
-        is_GIS_layer = isGISLayer(document)
-    %>
-
-
     <% # bookmark functions for items/docs -%>
     <% # render_index_doc_actions document, :wrapping_class => "index-document-functions col-sm-3 col-lg-2" %>
 
-    <% if is_GIS_layer %>
+    <% if isGISLayer(document) %>
         <%= render_index_doc_actions document, :wrapping_class => "index-document-functions col-sm-3 col-lg-2" %>
     <% end -%>
 

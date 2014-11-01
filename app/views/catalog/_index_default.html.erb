@@ -8,23 +8,6 @@
 	    <dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_index_field_label document, :field => solr_fname %></dt>
 	    <dd class="blacklight-<%= solr_fname.parameterize %>"><%= render_index_field_value document, :field => solr_fname %></dd>
 
-      <%#
-        field_label = render_index_field_label document, :field => solr_fname
-        field_value = render_index_field_value document, :field => solr_fname
-      %>
-      
-      
-      <%# Note if this is GIS layer -%>
-      <%#  
-          
-          if field_label.eql? "Type:" 
-            field_value = field_value.downcase
-            if field_value.include?("gis") 
-              @special_type = "GIS"
-            end 
-          end 
-      -%>  
-
     <% end -%>
   <% end -%>
 

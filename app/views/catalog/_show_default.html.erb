@@ -29,8 +29,8 @@ priority_list.each do|statement_hash|
 	property_display_values = statement_hash["property_display_values"]
 %>
 
-                      <dt class="blacklight-<%= statement_hash["property_name"] %>"><%=statement_hash["property_name"]%></dt>
-  		              <dd class="blacklight-<%= statement_hash["property_name"] %>"><%=property_display_values.join('<br />').html_safe%></dd>
+  <dt class="blacklight-<%= statement_hash["property_name"] %>"><%=statement_hash["property_name"]%></dt>
+  <dd class="blacklight-<%= statement_hash["property_name"] %>"><%=property_display_values.join('<br />').html_safe%></dd>
 
 <%
      					      
@@ -64,17 +64,19 @@ non_priority_list.each do|statement_hash|
    					      
 end             
 %>
-<hr>
 
+</dl>
+
+<div id="maps-selected" style="display:none;">
+  <span id='<%=@document["URI"]%>'></span>
+</div>
+<hr>
 
 <% if @special_type.nil? or @special_type.empty? -%>
   <%# nothing extra to show -%>
 <% elsif @special_type == "data_product" -%>
   <%= render 'data_product' %>
 <% elsif @special_type == "gis_layer" -%>
-  <%= render 'map' %>
+  <%= render 'map_document' %>
 <% end -%>
-
-</dl>
-
 
