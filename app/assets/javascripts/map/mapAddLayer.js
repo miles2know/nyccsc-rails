@@ -11,10 +11,10 @@
 var defaultPolygonStyle = {
   clickable: true,
   weight: 2,
-  color: 'gray',
+  color: 'white',
   opacity: 1,
-  fill: true,
-  fillOpacity: 0
+  fillColor: 'gray',
+  fillOpacity: 0.2
 };
 var hoverPolygonStyle = {
   fillOpacity: 1

@@ -9,27 +9,7 @@ svg {
   position: relative;
 }
 
-path.d3-area {
-  fill: $green;
-  fill-opacity: .2;
-  stroke: #fff;
-  stroke-width: 1.5px;
-}
-  path:hover, path.active {
-  fill: $green-dark;
-  fill-opacity: .6;
-}
 
-circle.d3-point {
-  fill: #600;
-  fill-opacity: .6;
-  stroke: #fff;
-  stroke-width: 1.5px;
-}
-  circle:hover, circle.active {
-  fill: #f00;
-  fill-opacity: 1;
-}
 
 
 .legend { 

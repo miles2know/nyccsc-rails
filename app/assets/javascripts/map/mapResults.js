@@ -203,13 +203,9 @@ var mapResults = {
           if(mapResults.mapBbox.length > 0) {
               mapResults.map.fitBounds(mapResults.mapBbox);
         }
-
         //add context layers and radio toggle 
 
-
     }
-
-        
         
 };
 
