@@ -63,11 +63,16 @@ var popupOptions = {
 function addLayer (layerProp) {
   //lots of conditions here to determine what type of layer to add
   var layer, dataSource;
- 
+  var layerFormat = "";
+  if("format" in layerProp) {
+  	layerFormat = layerProp["format"];
+  }
   
-  if (isExternalURL(layerProp["gisData"])) {
-    //console.log('external');
-    dataSource = "/proxy/data?q=data&external=y&querytype=" + layerProp["gisData"];
+  if (layerFormat != "tiles" && isExternalURL(layerProp["gisData"])) {
+	  //TODO: Fix this so it works for Esri layers, but with that layer, additional parameters
+	  //are added to the URL when the user clicks on the checkbox and those are
+	  //probably not recognized correctly
+    dataSource = "/proxy/data?q=data&external=y&format=" + layerFormat + "&querytype=" + layerProp["gisData"] 
   } else {
     dataSource = layerProp["gisData"];
   }
@@ -109,13 +114,11 @@ function addLayer (layerProp) {
 //This method will check whether a particular URL is outside this server
 //Added by Huda, just as an fyi for Darcy
 function isExternalURL(url) {
-	console.log("url is " + url);
-	console.log("location host is " + location.host);
 	
 	var hostname = new RegExp(location.host);
 	//Also tests if this is a relative url
 	if(url.indexOf("/") != 0 && !hostname.test(url)) {
-		console.log("url passed the regex test");
+		//console.log("url passed the regex test");
 		return true;
 	} else {
 		//There may be cases with anchors that fail but I don't think we'll be doing that here

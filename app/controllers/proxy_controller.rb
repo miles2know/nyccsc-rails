@@ -20,11 +20,12 @@ class ProxyController < ApplicationController
     @base_forestservices = 'http://frontierspatial.com/nyccsc/data/'
     @base_url = request.env['HTTP_HOST']
     @base_current_url = 'http://' + @base_url + '/proxy/data'
+    @data_format = params["format"]
     #@base_vivo_url =
     ##Check whether this is solr or for something else
     result = []
     if (@external)
-      result = get_external_JSON_data()
+      result = get_external_data()
     elsif (@querytype) 
       result = get_geojson_data()
     elsif(@vivo_linked_data)
@@ -63,18 +64,25 @@ class ProxyController < ApplicationController
   #Calling the URL directly from an AJAX request would result in cross-scripting errors
   #This allows us to pass the URL and get the data from it
   #TODO: Include additional error checking etc./Ensure this is secure
-  #Also, this method only handles JSON, we may want other formats in the future
-  def get_external_JSON_data
+  #Also, this method expects the default to be JSON, we may want other formats in the future
+  def get_external_data
     current_url = request.original_url
 
     new_url = params["querytype"]
-    Rails.logger.debug("get_external_JSON_data")
+    Rails.logger.debug("get_external_data")
 
     Rails.logger.debug("new url is " + new_url)
     url = URI.parse(new_url)
     resp = Net::HTTP.get_response(url)
     data = resp.body
-    result = JSON.parse(data)
+    # In case the format parameter is passed and it is in fact not geojson, which would be the case
+    # for GIS Mapping layers
+    if(@format and @format != "geojson")
+     result = data
+    else 
+      result = JSON.parse(data)
+    end
+    
     return result
 
   end
