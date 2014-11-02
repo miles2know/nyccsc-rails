@@ -53,8 +53,8 @@
           stopper        = settings.stopper,
           $window        = $(window);
 
-      console.log('height' + thisHeight);
-      console.log('width' + thisWidth);
+      // console.log('height' + thisHeight);
+      // console.log('width' + thisWidth);
 
       function stickyScroll() {
 

@@ -315,7 +315,7 @@ function renderPanel(properties){
             + "</div>" //.tab-pane
           + "</div>" //.tabbable
           
-          + "<p>Remove MapIt</p>"
+          // + "<p>Remove MapIt</p>"
       + "</div>" //.panel-body
     + "</div>" //#panel-element
   + "</div>" //.panel        
