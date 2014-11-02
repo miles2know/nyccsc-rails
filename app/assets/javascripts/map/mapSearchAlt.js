@@ -144,10 +144,10 @@ $(document).one("ajaxStop", function () {
       ajax: {
         beforeSend: function (jqXhr, settings) {
           settings.url += "&east=-71&west=-80&north=45&south=40";
-          $("#searchicon").removeClass("fa-search").addClass("fa-refresh fa-spin");
+          $("#searchicon i").removeClass("fa-search").addClass("fa-refresh fa-spin");
         },
         complete: function (jqXHR, status) {
-          $('#searchicon').removeClass("fa-refresh fa-spin").addClass("fa-search");
+          $('#searchicon i').removeClass("fa-refresh fa-spin").addClass("fa-search");
         }
       }
     },
