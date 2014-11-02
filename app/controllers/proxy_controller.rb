@@ -13,7 +13,7 @@ class ProxyController < ApplicationController
     # VIVO profile as JSON parameter
     #@vivo_json = params["vivoprofile"]
     # VIVO linked data request
-    @frontier = params["frontier"]
+    @external = params["external"]
     @vivo_linked_data = params["linkeddata"]
     @vivo_sparql_query = params["sparqlquery"]
     @base_solr_url = Blacklight.solr_config[:url] + '/select/?wt=json&q='
@@ -23,8 +23,8 @@ class ProxyController < ApplicationController
     #@base_vivo_url =
     ##Check whether this is solr or for something else
     result = []
-    if (@frontier)
-      result = get_frontier_data()
+    if (@external)
+      result = get_external_JSON_data()
     elsif (@querytype) 
       result = get_geojson_data()
     elsif(@vivo_linked_data)
@@ -59,16 +59,17 @@ class ProxyController < ApplicationController
 
   end
 
-  def get_frontier_data
+  #This should be for any URL that has data that is external to the site
+  #Calling the URL directly from an AJAX request would result in cross-scripting errors
+  #This allows us to pass the URL and get the data from it
+  #TODO: Include additional error checking etc./Ensure this is secure
+  #Also, this method only handles JSON, we may want other formats in the future
+  def get_external_JSON_data
     current_url = request.original_url
 
     new_url = params["querytype"]
+    Rails.logger.debug("get_external_JSON_data")
 
-    Rails.logger.debug("get_frontier_data")
-
-    # sliced = current_url.slice!(@base_current_url)
-    # Rails.logger.debug("sliced #{sliced} and current #{current_url}")
-    # new_url = @base_forestservices + @querytype + ".php" + current_url
     Rails.logger.debug("new url is " + new_url)
     url = URI.parse(new_url)
     resp = Net::HTTP.get_response(url)

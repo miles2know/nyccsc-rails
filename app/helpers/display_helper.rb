@@ -448,7 +448,16 @@ module DisplayHelper
       "http://nyclimateclearinghouse.org/ontology/isHighlightedContent",
       "http://www.w3.org/2004/02/skos/core#inScheme",
       "http://nyclimateclearinghouse.org/ontology/informationApplicableToSector",
-      "http://nyclimateclearinghouse.org/ontology/generatedBy"];
+      "http://nyclimateclearinghouse.org/ontology/generatedBy",
+      "http://nyclimateclearinghouse.org/ontology/layerType",
+      "http://nyclimateclearinghouse.org/ontology/colorHue",
+      "http://nyclimateclearinghouse.org/ontology/iconClusterImageURL",
+      "http://nyclimateclearinghouse.org/ontology/iconImageURL",
+      "http://nyclimateclearinghouse.org/ontology/layerDataProp",
+      "http://nyclimateclearinghouse.org/ontology/layerGeometry",
+      "http://nyclimateclearinghouse.org/ontology/layerIconType",
+      "http://nyclimateclearinghouse.org/ontology/layerRangeIntervals",
+      "http://nyclimateclearinghouse.org/ontology/legendImageURL"];
     if doNotShowProperties.include?(property_uri)
       return false;
     end

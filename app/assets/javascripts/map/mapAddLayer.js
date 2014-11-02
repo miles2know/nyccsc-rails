@@ -63,12 +63,11 @@ var popupOptions = {
 function addLayer (layerProp) {
   //lots of conditions here to determine what type of layer to add
   var layer, dataSource;
-
-  //if (layerProp["proxy"]) {
+ 
   
-  if (layerProp["gisData"].indexOf("frontierspatial") >= 1) {
-    console.log('frontier');
-    dataSource = "/proxy/data?q=data&frontier=y&querytype=" + layerProp["gisData"];
+  if (isExternalURL(layerProp["gisData"])) {
+    //console.log('external');
+    dataSource = "/proxy/data?q=data&external=y&querytype=" + layerProp["gisData"];
   } else {
     dataSource = layerProp["gisData"];
   }
@@ -105,6 +104,24 @@ function addLayer (layerProp) {
 
   return layer;
 
+}
+
+//This method will check whether a particular URL is outside this server
+//Added by Huda, just as an fyi for Darcy
+function isExternalURL(url) {
+	console.log("url is " + url);
+	console.log("location host is " + location.host);
+	
+	var hostname = new RegExp(location.host);
+	//Also tests if this is a relative url
+	if(url.indexOf("/") != 0 && !hostname.test(url)) {
+		console.log("url passed the regex test");
+		return true;
+	} else {
+		//There may be cases with anchors that fail but I don't think we'll be doing that here
+		//As reference: http://stackoverflow.com/questions/2910946/test-if-links-are-external-with-jquery-javascript
+	}
+	return false;
 }
 
 
