@@ -1,7 +1,7 @@
 
 
 
-<div id="main-container" class="container">
+<div id="main-container" class="container bg-gray">
 
 <div class="row vertical-offset-md">
 
@@ -53,38 +53,79 @@
 
 
 <div class="row vertical-offset-md">  
+
   <div class="col-sm-8 col-md-8 col-lg-8">
+    <h3>Impact by Region</h3>
     <%= render "map_simplified" %> 
   </div>
 
   <div class="col-sm-4 col-md-4 col-lg-4">
     <h3>Impact by Sector</h3>
-    <ul class="with-icons">
-      <li id="ag"><a href="/catalog?f[sector_facet][]=Agriculture&search_field=all_fields"><i class="fa fa-leaf"></i>Agriculture</a></li>
-      <li id="water" ><a href="/catalog?f[sector_facet][]=Water+Resources&search_field=all_fields"><i class="fa fa-tint"></i>Water Resources</a></li>
-      <li id="coast" ><a href="/catalog?f[sector_facet][]=Coastal+Zones&search_field=all_fields"><i class="fa fa-umbrella"></i>Coastal Zones</a></li>
-      <li id="eco" ><a href="/catalog?f[sector_facet][]=Ecosystems&search_field=all_fields"><i class="fa fa-tree"></i>Ecosystems</a></li>
-      <li id="trans" ><a href="/catalog?f[sector_facet][]=Transportation&search_field=all_fields"><i class="fa fa-truck"></i>Transportation</a></li>
-      <li id="comm" ><a href="/catalog?f[sector_facet][]=Telecommunications&search_field=all_fields"><i class="fa fa-mobile-phone"></i>Telecommunications</a></li>
-      <li id="energy" ><a href="/catalog?f[sector_facet][]=Energy&search_field=all_fields"><i class="fa fa-lightbulb-o"></i>Energy</a></li>
-      <li id="health" ><a href="/catalog?f[sector_facet][]=Public+Health&search_field=all_fields"><i class="fa fa-medkit"></i>Public Health</a></li>
-    </ul>
+
+    <div class="row">
+      <div class="col-sm-6 col-md-6 col-lg-6">
+        <a href="/catalog?f[sector_facet][]=Agriculture&search_field=all_fields">
+          <div class="tile-wrapper"><span class="tile"><i class="fa fa-leaf"></i><br/>Agriculture</span></div>
+        </a>
+        <a href="/catalog?f[sector_facet][]=Water+Resources&search_field=all_fields">
+          <div class="tile-wrapper"><span class="tile"><i class="fa fa-tint"></i><br/>Water Resources</span></div>
+        </a>
+        <a href="/catalog?f[sector_facet][]=Coastal+Zones&search_field=all_fields">
+          <div class="tile-wrapper"><span class="tile"><i class="fa fa-umbrella"></i><br/>Coastal Zones</span></div>
+        </a>
+        <a href="/catalog?f[sector_facet][]=Ecosystems&search_field=all_fields">
+          <div class="tile-wrapper"><span class="tile"><i class="fa fa-tree"></i><br/>Ecosystems</span></div>
+        </a>
+         <a href="/catalog?f[sector_facet][]=Buildings&search_field=all_fields">
+          <div class="tile-wrapper"><span class="tile"><i class="fa fa-university"></i><br/>Buildings</span></div>
+        </a>
+      </div>
+      <div class="col-sm-6 col-md-6 col-lg-6">
+        <a href="/catalog?f[sector_facet][]=Transportation&search_field=all_fields">
+          <div class="tile-wrapper"><span class="tile"><i class="fa fa-truck"></i><br/>Transportation</span></div>
+        </a>
+        <a href="/catalog?f[sector_facet][]=Telecommunications&search_field=all_fields">
+          <div class="tile-wrapper"><span class="tile"><i class="fa fa-mobile-phone"></i><br/>Telecommunications</span></div>
+        </a>
+        <a href="/catalog?f[sector_facet][]=Energy&search_field=all_fields">
+          <div class="tile-wrapper"><span class="tile"><i class="fa fa-lightbulb-o"></i><br/>Energy</span></div>
+        </a>
+        <a href="/catalog?f[sector_facet][]=Public+Health&search_field=all_fields">
+          <div class="tile-wrapper"><span class="tile"><i class="fa fa-medkit"></i><br/>Public Health</span></div>
+        </a>
+      </div>
+    </div>
   
-  <hr/>
+  </div>
 
-  <h3>Response Strategies</h3>
-    <p>Our choices can make us more or less vulnerable to climate change. Two primary strategies include mitigation and adaptation, and there are a variety of interactions between these measures. For example, improving insulation and using reflective roofing materials keeps buildings cooler in summer (adaptation) as well as reducing energy use and the related emissions (mitigation).</p>
-    <h5>Mitigation</h5>
-    <p>Mitigation is action taken to reduce the severity of climate change.  Early mitigation will make it easier to adapt to climate change later on.</p>
-    <h5>Adaptation</h5>
-    <p>Adaptation refers to actions taken to prepare for climate change, helping to reduce adverse impacts or take advantage of beneficial ones.</p>
+</div>
 
-    <p><strong>Both adaptation and mitigation are necessary elements of an effective response strategy.</strong></p>
+<div class="row vertical-offset-md bg-blue padded"> 
+
+  <div class="col-sm-12 col-md-12 col-lg-12">
+
+    <h3>Response Strategies</h3>
+      <p>Our choices can make us more or less vulnerable to climate change. Two primary strategies include mitigation and adaptation, and there are a variety of interactions between these measures. For example, improving insulation and using reflective roofing materials keeps buildings cooler in summer (adaptation) as well as reducing energy use and the related emissions (mitigation). Both adaptation and mitigation are necessary elements of an effective response strategy.</p>
+      
+      
+      <div class="row">
+        <div class="col-sm-6 col-md-6 col-lg-6">
+          <div class="tile-response bg-blue-dark padded">
+            <p><strong>Mitigation</strong> is action taken to reduce the severity of climate change.  Early mitigation will make it easier to adapt to climate change later on.</p>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-6">
+          <div class="tile-response bg-blue-dark padded">
+            <p><strong>Adaptation</strong> refers to actions taken to prepare for climate change, helping to reduce adverse impacts or take advantage of beneficial ones.</p>
+          </div>
+        </div>
+      </div>
+      
   </div><!-- end col-lg-4 -->
 
 </div><!-- end row -->
 
-<div class="row vertical-offset-md">
+<div class="row vertical-offset-md padded">
 
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -113,7 +154,7 @@
                       <span>30</span>
                     </time>
                     <h5>Brian Swett discusses Boston’s climate future</h5>
-                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla congue orci eu elit accumsan eleifend. Maecenas sed eleifend leo. Suspendisse euismod est sit amet ultricies scelerisque.</p>
+                    <p><strong>Placeholder</strong> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla congue orci eu elit accumsan eleifend. Maecenas sed eleifend leo. Suspendisse euismod est sit amet ultricies scelerisque.</p>
                     <p class="clearfix"></p>
                 </div>
                 <div class="col-md-3">
@@ -123,7 +164,7 @@
                       <span>28</span>
                     </time>
                     <h5>Eastern Pacific temperatures say yes to El Niño, western Pacific undecided</h5>
-                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla congue orci eu elit accumsan eleifend. Maecenas sed eleifend leo. Suspendisse euismod est sit amet ultricies scelerisque.</p>
+                    <p><strong>Placeholder</strong> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla congue orci eu elit accumsan eleifend. Maecenas sed eleifend leo. Suspendisse euismod est sit amet ultricies scelerisque.</p>
                     <p class="clearfix"></p>
                 </div>
                 <div class="col-md-3">
@@ -133,7 +174,7 @@
                       <span>28</span>
                     </time>
                     <h5>Sea Level Rise and Nuisance Flood Frequency Changes around the United States</h5>
-                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla congue orci eu elit accumsan eleifend. Maecenas sed eleifend leo. Suspendisse euismod est sit amet ultricies scelerisque.</p>
+                    <p><strong>Placeholder</strong> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla congue orci eu elit accumsan eleifend. Maecenas sed eleifend leo. Suspendisse euismod est sit amet ultricies scelerisque.</p>
                     <p class="clearfix"></p>
                 </div>
                 <div class="col-md-3">
@@ -143,7 +184,7 @@
                       <span>12</span>
                     </time>
                     <h5>2013 State of the Climate: Snow in the Northern Hemisphere</h5>
-                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla congue orci eu elit accumsan eleifend. Maecenas sed eleifend leo. Suspendisse euismod est sit amet ultricies scelerisque.</p>
+                    <p><strong>Placeholder</strong> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla congue orci eu elit accumsan eleifend. Maecenas sed eleifend leo. Suspendisse euismod est sit amet ultricies scelerisque.</p>
                     <p class="clearfix"></p>
                 </div>
             </div>
@@ -163,7 +204,7 @@
                       <span>30</span>
                     </time>
                     <h5>Brian Swett discusses Boston’s climate future</h5>
-                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla congue orci eu elit accumsan eleifend. Maecenas sed eleifend leo. Suspendisse euismod est sit amet ultricies scelerisque.</p>
+                    <p><strong>Placeholder</strong> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla congue orci eu elit accumsan eleifend. Maecenas sed eleifend leo. Suspendisse euismod est sit amet ultricies scelerisque.</p>
                     <p class="clearfix"></p>
                 </div>
                 <div class="col-md-3">
@@ -173,7 +214,7 @@
                       <span>28</span>
                     </time>
                     <h5>Eastern Pacific temperatures say yes to El Niño, western Pacific undecided</h5>
-                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla congue orci eu elit accumsan eleifend. Maecenas sed eleifend leo. Suspendisse euismod est sit amet ultricies scelerisque.</p>
+                    <p><strong>Placeholder</strong> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla congue orci eu elit accumsan eleifend. Maecenas sed eleifend leo. Suspendisse euismod est sit amet ultricies scelerisque.</p>
                     <p class="clearfix"></p>
                 </div>
                 <div class="col-md-3">
@@ -183,7 +224,7 @@
                       <span>28</span>
                     </time>
                     <h5>Sea Level Rise and Nuisance Flood Frequency Changes around the United States</h5>
-                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla congue orci eu elit accumsan eleifend. Maecenas sed eleifend leo. Suspendisse euismod est sit amet ultricies scelerisque.</p>
+                    <p><strong>Placeholder</strong> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla congue orci eu elit accumsan eleifend. Maecenas sed eleifend leo. Suspendisse euismod est sit amet ultricies scelerisque.</p>
                     <p class="clearfix"></p>
                 </div>
                 <div class="col-md-3">
@@ -193,7 +234,7 @@
                       <span>12</span>
                     </time>
                     <h5>2013 State of the Climate: Snow in the Northern Hemisphere</h5>
-                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla congue orci eu elit accumsan eleifend. Maecenas sed eleifend leo. Suspendisse euismod est sit amet ultricies scelerisque.</p>
+                    <p><strong>Placeholder</strong> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla congue orci eu elit accumsan eleifend. Maecenas sed eleifend leo. Suspendisse euismod est sit amet ultricies scelerisque.</p>
                     <p class="clearfix"></p>
                 </div>
             </div>

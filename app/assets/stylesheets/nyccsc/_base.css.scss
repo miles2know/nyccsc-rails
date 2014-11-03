@@ -11,23 +11,77 @@ ul.with-icons {
 }
 
 ul.with-icons li {
-  font-size: 1.1em;
-  margin-bottom: 10px;
-  line-height: 1.2em;
+  font-size: 1.3em;
+  display: inline-block;
+  width: 50%;
+  max-width: 60px;
+  height: 60px;
+  text-align:center;
+  background-color: #fff;
+  border: 1px solid #e2e2e2;
 }
 
-ul.with-icons li span.glyphicon{
-  font-size: 1.2em;
-  padding-right: 10px;
-  width:26px;
-  text-align: center;
-}
 ul.with-icons li i.fa{
-  font-size: 1.2em;
-  padding-right: 10px;
-  width:26px;
-  text-align: center;
+  font-size: 2em;
 }
+
+.tile-wrapper {
+  width: 100%;
+  height: 100px;
+  text-align:center;
+  background-color: #fff;
+  color: $green;
+  text-decoration:none !important;
+  border: 1px solid #e2e2e2;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+
+.tile-wrapper:hover {
+  background-color: $green-dark;
+  color: #fff; 
+}
+
+.tile {
+  display: block;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.tile i.fa{
+  font-size: 4em;
+}
+
+.padded {
+  padding: 20px;
+}
+
+.bg-gray {
+  background-color: #eaeaea;
+}
+
+.bg-beige {
+  background-color: #fefdf7;
+}
+
+.bg-blue {
+  background-color: $blue;
+  color: #e2e2e2;
+}
+
+.tile-response {
+  margin: 10px;
+}
+
+.bg-blue-dark {
+  background-color: $blue-dark;
+}
+
+.bg-blue h3, .bg-blue h5{
+  color: #fff;
+}
+
 
 .full-width-container {width:100%;margin:20px auto;}
 .full-width-container:after {clear:both;}

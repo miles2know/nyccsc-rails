@@ -3,6 +3,7 @@ $green:         #acb74e;
 $green-light:   lighten($green, 15%);
 $green-dark:    darken($green, 10%);
 $blue:          #007d99;
+$blue-dark:     darken($blue, 5%);
 
 // Secondary Colors
 $brand-secondary:       $blue;
