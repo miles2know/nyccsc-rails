@@ -73,6 +73,12 @@ ul.with-icons li i.fa{
 .tile-response {
   margin: 10px;
 }
+.tile-response:first-child {
+  margin-left: 0;
+}
+.tile-response:last-child {
+  margin-right: 0;
+}
 
 .bg-blue-dark {
   background-color: $blue-dark;
