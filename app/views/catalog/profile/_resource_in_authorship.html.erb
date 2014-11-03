@@ -7,7 +7,7 @@ if statement_data["author"].present?
         	<%= statement_data["authorName"] %>
         <%
     	else
-    		author_link = statement_data["author"]
+    		author_link = "n1res?DocId=" + CGI::escape("vitroIndividual:" + statement_data["author"])
     		%>
     		
         	<a href="<%= author_link%>" title="author name"><%= statement_data["authorName"] %></a>
@@ -15,7 +15,8 @@ if statement_data["author"].present?
     	end
     else
        # This shouldn't happen, but we must provide for it
-       authorship_link = statement_data["authorship"] 
+       authorship_link = "n1res?DocId=" + CGI::escape("vitroIndividual:" + statement_data["authorship"] )
+       
        %>
         <a href="<%= authorship_link%>" title="missing author">missing author</a>
         <%

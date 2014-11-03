@@ -30,10 +30,7 @@ if statement_data.has_key?("subclass")
                 elsif statement_data.has_key?("partOf")
                     citation_details += "<em>" + statement_data["partOf"] + "</em>."
                 end
-                if statement_data.has_key?("editor")
-                    citation_details +="ed. &nbsp;" + statement_data["editor"] + ".&nbsp;"
-                    
-                end
+             
                 if statement_data.has_key?("locale") and statement_data.has_key?("publisher")
                     citation_details += statement_data["locale"] + ":&nbsp;" + statement_data["publisher"] + "."
                 elsif statement_data.has_key?("locale")
@@ -50,9 +47,7 @@ if statement_data.has_key?("subclass")
                 if statement_data.has_key?("volume") and (statement_data["volume"].length > 0 )
                     citation_details += "vol. &nbsp;" + statement_data["volume"] + ".&nbsp;" 
                 end
-                if statement_data.has_key?("editor")
-                    citation_details += "editor &nbsp;" + statement_data["editor"] + ".&nbsp;"
-                end
+               
                 if statement_data.has_key?("locale") and statement_data.has_key?("publisher")
                     citation_details += statement_data["locale"] + ":&nbsp;" + statement_data["publisher"] + "."
                     
@@ -70,10 +65,7 @@ if statement_data.has_key?("subclass")
                 elsif statement_data.has_key?("partOf")
                     citation_details += "<em>" + statement_data["partOf"] + "</em>."
                 end
-                if statement_data.has_key?("editor")
-                    citation_details += "editor " + statement_data["editor"] + "&nbsp;"
-                    
-                end
+                
                 if statement_data.has_key?("startPage") and statement_data.has_key?("endPage")
                     citation_details += statement_data["startPage"]+ "-" + statement_data["endPage"] + "."
                 elsif statement_data.has_key?("startPage")
@@ -105,9 +97,9 @@ if statement_data.has_key?("subclass")
             end
         else
             # This shouldn't happen, but we must provide for it
-            authorship_link =  "n1auth?DocId=" + CGI::escape("vitroIndividual:" + statement_data["authorship"])
+            editorship_link =  "n1auth?DocId=" + CGI::escape("vitroIndividual:" + statement_data["editorship"])
             %>
-            <a href="<%= authorship_link%>" title="missing resource information">missing resource information</a>
+            <a href="<%= editorship_link%>" title="missing resource information">missing resource information</a>
        		<%
         end
     

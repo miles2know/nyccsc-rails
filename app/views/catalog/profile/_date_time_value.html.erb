@@ -1,0 +1,35 @@
+<% # http://vivoweb.org/ontology/core#dateTimeValue %>
+<%
+statement_data = statement["allData"]
+if !statement_data["dateTime"].present?
+    	
+    		## This is from the original line but this wouldn't be a document in solr to begin with
+    		#profileUrl(statement.uri("dateTimeValue")
+    		%>
+    		Incomplete date time value (Error)
+        	
+    		<%
+    	
+else
+       d = DateTime.parse(statement_data["dateTime"])
+       precision = "%Y"
+       if(statement_data["precision"].present?)
+       	statement_precision = statement_data["precision"]
+       	if(statement_precision == "yearMonthPrecision")
+       		precision = "%B %Y"
+       	elsif(statement_precision == "yearMonthDayPrecision")
+       		precision = "%B %-d, %Y"
+       	
+       	end
+       end
+       formatted_date = d.strftime(precision)
+       
+       %>
+        	<%=formatted_date%>
+        <%
+end
+    
+%>
+
+
+

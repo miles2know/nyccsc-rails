@@ -30,5 +30,15 @@ if(statement_data.has_key?("object"))
 %>
 <a href="<%= local_name + "?DocId=" + CGI::escape("vitroIndividual:" + statement_data["object"])%>"><%= display_name%></a>
 <%
+## This will print out whatever information there is if there is no partial specified to deal with the property and no object variable exists
+## We should no longer need this when we have a partial to cover all properties
+else
+	statement_data.each do|statement_data_key, statement_data_value|
+		display_statement_values = statement_data_key + " = " + statement_data_value.to_s + "<br/>"
+		%>
+       <%= display_statement_values.html_safe %>
+       <%
+	end
+      
 end
 %>

@@ -88,18 +88,17 @@ class CatalogController < ApplicationController
     config.add_facet_fields_to_solr_request!
 
     # solr fields to be displayed in the index (search results) view
-    #   The ordering of the field names is the order of the display
-    # config.add_index_field 'mostSpecificTypeURIs', :label => 'Type', :link_to_search => true, :helper_method => :render_type_display
 
     # Can we add a facet value as display? Is that allowed?
+    #config.add_index_field 'classgroup_label_facet', :label => 'Group', :link_to_search => true
+    ##Keeping this consistent with whatever appears on the left hand side
+    config.add_index_field 'classgroup_pivot_facet', :label => 'Group', :link_to_search => true
+    config.add_index_field 'type_pivot_facet', :label => 'Type', :link_to_search => true
     config.add_index_field 'sector_facet', :label => 'Sector', :link_to_search => true
-    config.add_index_field 'classgroup_label_facet', :label => 'Group', :link_to_search => true
-    #config.add_index_field 'most_specific_type_label_facet', :label => 'Specific Type', :link_to_search => true
-    config.add_index_field 'author_display', :label => 'Author', :link_to_search => true
-    config.add_index_field 'hazard_facet', :label => 'Hazard', :link_to_search => true
-    config.add_index_field 'risk_facet', :label => 'Risk', :link_to_search => true
-    config.add_index_field 'strategy_facet', :label => 'Strategy', :link_to_search => true
-    # Publication date
+    ## We can decide to add more if we want or keep it simple
+    #config.add_index_field 'climate_changes_facet', :label => 'Climate Changes',  :limit => 9
+    #config.add_facet_field 'effect_facet', :label => 'Effect', :limit => 9
+    #config.add_index_field 'strategy_facet', :label => 'Strategy', :link_to_search => true
     config.add_index_field 'subjectarea_display', :label => 'Subject Area', :link_to_search => true
 
 
@@ -111,17 +110,15 @@ class CatalogController < ApplicationController
 
     ##Adding show fields
 
-    # Can we add a facet value as display? Is that allowed?
-    config.add_show_field 'sector_facet', :label => 'Sector', :link_to_search => true
-    # If including this, be sure to uncomment render_type_display in display_helper
-    #config.add_show_field 'mostSpecificTypeURIs', :label => 'Type', :link_to_search => true, :helper_method => :render_type_display
     config.add_show_field 'most_specific_type_label_facet', :label => 'Type', :link_to_search => true
-    # If we want to link to the author as facet, we should instead change this to author_facet and just use that consistently
-    # throughout
-    config.add_show_field 'author_display', :label => 'Author', :link_to_search => true
-    config.add_show_field 'hazard_facet', :label => 'Hazard', :link_to_search => true
-    config.add_show_field 'risk_facet', :label => 'Risk', :link_to_search => true
+    config.add_show_field 'sector_facet', :label => 'Sector', :link_to_search => true
+   #VIVO brings out the authors and links to them directly so we will just use that instead
+    #config.add_show_field 'author_display', :label => 'Author', :link_to_search => true
+    config.add_show_field 'climate_changes_facet', :label => 'Climate Changes', :link_to_search => true
+    config.add_show_field 'effect_facet', :label => 'Effect', :link_to_search => true
     config.add_show_field 'strategy_facet', :label => 'Strategy', :link_to_search => true
+    config.add_show_field 'actions_facet', :label => 'Actions', :link_to_search => true
+    config.add_show_field 'confounding_factors_facet', :label => 'Ancillary factors', :link_to_search => true
     # Publication date
     config.add_show_field 'subjectarea_display', :label => 'Subject Area', :link_to_search => true
 

@@ -1,5 +1,4 @@
 module DisplayHelper
-
   # @param [Array<SolrDocument>] list of documents to render
   # @param [Hash] locals to pass to the render call
   # @return [String]
@@ -11,7 +10,7 @@ module DisplayHelper
     documents.each do |document|
       content = content + "<span id='" + document["URI"] + "' ></span>"
     end
-    
+
     content = content + "</div>"
 
     return content.html_safe
@@ -333,14 +332,14 @@ module DisplayHelper
               # although we may want to pull this out separately later
               statements = []
               subclasses.each do|subclass|
-                Rails.logger.debug("Subclass exists #{subclass.inspect}")
+                #Rails.logger.debug("Subclass exists #{subclass.inspect}")
                 if(subclass.has_key?("statements"))
-                  Rails.logger.debug("Subclass does have key statements")
+                  #Rails.logger.debug("Subclass does have key statements")
                   statements += subclass["statements"]
                 else
-                  Rails.logger.debug("Subclass does NOT have key statements")
+                  #Rails.logger.debug("Subclass does NOT have key statements")
                 end
-                Rails.logger.debug("Statements after subclass is now #{statements.inspect}")
+                #Rails.logger.debug("Statements after subclass is now #{statements.inspect}")
               end
 
             end
@@ -348,7 +347,7 @@ module DisplayHelper
             if (statements != nil and statements.length > 0)
               display_statement_values_per_property = Array.new
               statements.each do|statement|
-                Rails.logger.debug("Statement is #{statement.inspect}")
+                #Rails.logger.debug("Statement is #{statement.inspect}")
                 display_statement_values = getStatementDisplay(statement, property_uri, property["domainUri"], property["rangeUri"], property_type, property_template_name)
 
                 ## Testing out partial rendering
@@ -361,7 +360,7 @@ module DisplayHelper
               display_profile_properties_hash << {"property_name" => property_name.titleize,
                 "property_URI" => property_uri,
                 "property_display_values"=> display_statement_values_per_property}
-              Rails.logger.debug("Display profile properties hash is now #{display_profile_properties_hash.inspect}")
+              #Rails.logger.debug("Display profile properties hash is now #{display_profile_properties_hash.inspect}")
             end #if statements
           end # if visible property
         end #do properties
@@ -376,11 +375,11 @@ module DisplayHelper
   # and the other key linking to properties that should be displayed below
   def get_display_by_priority(display_profile_properties_hash)
     priority_list = []
-     non_priority_list = []
+    non_priority_list = []
     display_profile_properties_hash.each do|statement_hash|
       if isPriorityProperty(statement_hash["property_name"].downcase)
         priority_list << statement_hash
-      else 
+      else
         non_priority_list << statement_hash
       end
     end
@@ -391,15 +390,13 @@ module DisplayHelper
   def isPriorityProperty(property_name)
     # We may want to change this to URIs later although then we would have to be careful about handling faux properties
     priority_property_names = ["alternate title", "webpage", "abstract"];
-      Rails.logger.debug("Property name is " + property_name)
+    #Rails.logger.debug("Property name is " + property_name)
     if priority_property_names.include?(property_name)
-      Rails.logger.debug("Is priority")
+      #Rails.logger.debug("Is priority")
       return true
     end
     return false
   end
-  
-
 
   ## Determine which partial to use based on the statement
   def getStatementDisplay(statement, property_uri, property_domain_uri, property_range_uri, property_type, property_template_name)
@@ -434,6 +431,14 @@ module DisplayHelper
       partial_name = "catalog/profile/resource_in_authorship"
     elsif(property_template_name == "propStatement-webpage.ftl")
       partial_name = "catalog/profile/webpage"
+    elsif(property_template_name == "propStatement-editorship.ftl")
+      partial_name = "catalog/profile/editorship"
+    elsif(property_template_name == "propStatement-informationResourceInEditorship.ftl")
+      partial_name = "catalog/profile/resource_in_editorship"
+      elsif(property_template_name == "propStatement-dateTimeValue.ftl")
+           partial_name = "catalog/profile/date_time_value"
+      elsif(property_template_name == "propStatement-dateTimeInterval.ftl")
+                partial_name = "catalog/profile/date_time_interval"
     else
 
     end
@@ -457,14 +462,16 @@ module DisplayHelper
       "http://nyclimateclearinghouse.org/ontology/layerGeometry",
       "http://nyclimateclearinghouse.org/ontology/layerIconType",
       "http://nyclimateclearinghouse.org/ontology/layerRangeIntervals",
-      "http://nyclimateclearinghouse.org/ontology/legendImageURL"];
+      "http://nyclimateclearinghouse.org/ontology/legendImageURL",
+      "http://nyclimateclearinghouse.org/ontology/effectAssociatedSector",
+      "http://vivoweb.org/ontology/core#hasSubjectArea"];
     if doNotShowProperties.include?(property_uri)
       return false;
     end
 
     return true;
   end
-  
+
   ## Is this a specific type, e.g. GIS layer or data product
   ## We have access to type labels which we should be able to employ
   def isDocumentOfType(document, type_uri)
@@ -474,11 +481,11 @@ module DisplayHelper
     end
     return false
   end
-  
+
   def isGISLayer(document)
     return isDocumentOfType(document, "http://nyclimateclearinghouse.org/ontology/gisMappingLayer")
   end
-  
+
   def isDataProduct(document)
     return isDocumentOfType(document, "http://nyclimateclearinghouse.org/ontology/DataRetrievalService")
 

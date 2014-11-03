@@ -1,0 +1,57 @@
+<% # http://vivoweb.org/ontology/core#dateTimeInterval %>
+<%
+statement_data = statement["allData"]
+if (!statement_data["valueStart"].present? and !statement_data["valueEnd"].present? and !statement_data["label"].present?)
+    	
+    		
+    		%>
+    		Incomplete date time interval (Error)
+        	
+    		<%
+    	
+else
+	if(statement_data["label"].present?)
+		%><%=statement_data["label"]%><%
+	else
+		
+			startDate = ""
+			startPrecision = ""
+			endDate = ""
+			endPrecision = ""
+		
+		if(statement_data["dateTimeStart"].present?)
+			startDate = statement_data["dateTimeStart"]
+		end
+		if(statement_data["precisionStart"].present?)
+			startPrecision = statement_data["precisionStart"]
+		end
+		if(statement_data["dateTimeEnd"].present?)
+			endDate = statement_data["dateTimeEnd"]
+		end
+		if(statement_data["precisionEnd"].present?)
+			endPrecision = statement_data["precisionEnd"]
+		end
+		
+		if(startDate != "")
+			sD = DateTime.parse(startDate)
+			#Using this by default, will incorporate main precision later
+			formatted_sd = sD.strftime("%Y")
+			%><%=formatted_sd%><%
+		end
+		%>
+		<%= " - " %>
+		<%
+		if(endDate != "")
+			eD = DateTime.parse(endDate)
+			#Using this by default, will incorporate main precision later
+			formatted_ed = eD.strftime("%Y")
+			%><%=formatted_ed%><%
+		end
+      
+    end
+end
+    
+%>
+
+
+
