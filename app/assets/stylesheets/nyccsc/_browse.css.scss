@@ -15,20 +15,32 @@
   color: #A3A856;
 }
 
+.document .document-counter {
+  color: #000;  
+}
+
 .document h5 {
   font-size: 1.3em;
 }
 
+.document a {
+  color: $blue;
+}
+
+.document a:hover {
+  color: $blue-light;
+}
+
 .document-metadata {
-  font-size: .8em;
+  font-size: .95em;
 }
 
 .document dl.document-metadata dt {
-  width: 70px; 
+  width: 10%; 
 }
 
 .document dl.document-metadata dd {
-  margin-left: 80px;
+  margin-left: 12%;
 }
 
 .panel-heading {
@@ -39,5 +51,6 @@
   word-wrap:break-word;
   padding-left:10px;
   padding-right:.5em;
+  font-size: .9em;
 }
 
