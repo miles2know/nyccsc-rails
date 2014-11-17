@@ -10,7 +10,10 @@ class CatalogController < ApplicationController
     config.default_solr_params = {
       :qt => 'search',
       :rows => 10,
-      'facet.mincount' => 1
+      'facet.mincount' => 1,
+      #When testing directly on Solr, use
+      #bq=classgroup:(("http%3A%2F%2Fvivoweb.org%2Fontology%23vitroClassGrouppublications" OR "http%3A%2F%2Fnyclimateclearinghouse.org%2Findividual%2FvitroClassGroupGIS" OR "http%3A%2F%2Fvivoweb.org%2Fontology%23vitroClassGroupactivities")^50.0)
+      'bq' => 'classgroup:(("http://vivoweb.org/ontology#vitroClassGrouppublications" OR "http://nyclimateclearinghouse.org/individual/vitroClassGroupGIS" OR "http://vivoweb.org/ontology#vitroClassGroupactivities")^50.0)'
     }
     #adding facet mincount to the general search area because the facet request is always made
     # and the default is 0, the other place to set this is solrconfig.xml under the
