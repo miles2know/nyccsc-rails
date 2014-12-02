@@ -13,7 +13,7 @@ class CatalogController < ApplicationController
       'facet.mincount' => 1,
       #When testing directly on Solr, use
       #bq=classgroup:(("http%3A%2F%2Fvivoweb.org%2Fontology%23vitroClassGrouppublications" OR "http%3A%2F%2Fnyclimateclearinghouse.org%2Findividual%2FvitroClassGroupGIS" OR "http%3A%2F%2Fvivoweb.org%2Fontology%23vitroClassGroupactivities")^50.0)
-      'bq' => 'classgroup:(("http://vivoweb.org/ontology#vitroClassGrouppublications" OR "http://nyclimateclearinghouse.org/individual/vitroClassGroupGIS" OR "http://vivoweb.org/ontology#vitroClassGroupactivities")^50.0)'
+      'bq' => 'classgroup:(("http://vivoweb.org/ontology#vitroClassGrouppublications" OR "http://nyclimateclearinghouse.org/individual/vitroClassGroupGIS" OR "http://vivoweb.org/ontology#vitroClassGroupactivities")^100.0)'
     }
     #adding facet mincount to the general search area because the facet request is always made
     # and the default is 0, the other place to set this is solrconfig.xml under the
@@ -42,24 +42,24 @@ class CatalogController < ApplicationController
 
 
  
-    config.add_facet_field 'classgroup_pivot_facet', :label => 'Group',  :limit => 9, pivot: ['classgroup_pivot_facet', 'type_pivot_facet']
+    config.add_facet_field 'classgroup_pivot_facet', :label => 'Types',  :limit => 9, pivot: ['classgroup_pivot_facet', 'type_pivot_facet']
 
-    config.add_facet_field 'sector_facet', :label => 'Sector', :limit => 9
+    config.add_facet_field 'sector_facet', :label => 'Sectors', :limit => 9
     ##config.add_facet_field 'classgroup_label_facet', :label => 'Type',  :limit => 9
     config.add_facet_field 'climate_changes_facet', :label => 'Climate Changes',  :limit => 9
 
-    config.add_facet_field 'effect_facet', :label => 'Effect', :limit => 9
-    config.add_facet_field 'strategy_facet', :label => 'Strategy', :limit => 9
+    config.add_facet_field 'effect_facet', :label => 'Effects', :limit => 9
+    config.add_facet_field 'strategy_facet', :label => 'Strategies', :limit => 9
     config.add_facet_field 'actions_facet', :label => 'Actions', :limit => 9
     config.add_facet_field 'confounding_factors_facet', :label => 'Ancillary factors', :limit => 9
-    config.add_facet_field 'author_facet', :label => 'Author', :limit => 9
+    config.add_facet_field 'author_facet', :label => 'Authors', :limit => 9
 
-    config.add_facet_field 'subjectarea_facet', :label => 'Subject Area', :limit => 9
+    config.add_facet_field 'subjectarea_facet', :label => 'Subject Areas', :limit => 9
   
     # I want faceting to be enabled by this but not to be drawn in the facet bar
     config.add_facet_field 'most_specific_type_label_facet', :label => 'Most Specific Type', :show => false
 
-    config.add_facet_field 'type_pivot_facet', :label => 'Type',  :show => false
+    config.add_facet_field 'type_pivot_facet', :label => 'Subtypes',  :show => false
 
 
     
@@ -93,16 +93,14 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the index (search results) view
 
     # Can we add a facet value as display? Is that allowed?
-    #config.add_index_field 'classgroup_label_facet', :label => 'Group', :link_to_search => true
     ##Keeping this consistent with whatever appears on the left hand side
-    config.add_index_field 'classgroup_pivot_facet', :label => 'Group', :link_to_search => true
-    config.add_index_field 'type_pivot_facet', :label => 'Type', :link_to_search => true
-    config.add_index_field 'sector_facet', :label => 'Sector', :link_to_search => true
+    config.add_index_field 'most_specific_type_label_facet', :label => 'Types',  :helper_method => :render_index_type
+    config.add_index_field 'sector_facet', :label => 'Sectors', :link_to_search => true
     ## We can decide to add more if we want or keep it simple
     #config.add_index_field 'climate_changes_facet', :label => 'Climate Changes',  :limit => 9
     #config.add_facet_field 'effect_facet', :label => 'Effect', :limit => 9
     #config.add_index_field 'strategy_facet', :label => 'Strategy', :link_to_search => true
-    config.add_index_field 'subjectarea_display', :label => 'Subject Area', :link_to_search => true
+    config.add_index_field 'subjectarea_display', :label => 'Subject Areas', :link_to_search => true
 
 
     ## URI is not displayed but this enables making a call to the linked data for the URI
@@ -113,17 +111,17 @@ class CatalogController < ApplicationController
 
     ##Adding show fields
 
-    config.add_show_field 'most_specific_type_label_facet', :label => 'Type', :link_to_search => true
-    config.add_show_field 'sector_facet', :label => 'Sector', :link_to_search => true
+    config.add_show_field 'most_specific_type_label_facet', :label => 'Types', :link_to_search => true
+    config.add_show_field 'sector_facet', :label => 'Sectors', :link_to_search => true
    #VIVO brings out the authors and links to them directly so we will just use that instead
     #config.add_show_field 'author_display', :label => 'Author', :link_to_search => true
     config.add_show_field 'climate_changes_facet', :label => 'Climate Changes', :link_to_search => true
-    config.add_show_field 'effect_facet', :label => 'Effect', :link_to_search => true
-    config.add_show_field 'strategy_facet', :label => 'Strategy', :link_to_search => true
+    config.add_show_field 'effect_facet', :label => 'Effects', :link_to_search => true
+    config.add_show_field 'strategy_facet', :label => 'Strategies', :link_to_search => true
     config.add_show_field 'actions_facet', :label => 'Actions', :link_to_search => true
     config.add_show_field 'confounding_factors_facet', :label => 'Ancillary factors', :link_to_search => true
     # Publication date
-    config.add_show_field 'subjectarea_display', :label => 'Subject Area', :link_to_search => true
+    config.add_show_field 'subjectarea_display', :label => 'Subject Areas', :link_to_search => true
 
 
 

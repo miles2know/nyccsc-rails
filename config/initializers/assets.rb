@@ -41,8 +41,8 @@ Rails.application.config.assets.precompile += %w( data/showview/page_chartD3Laye
 # used on data product pages for selecting date range
 Rails.application.config.assets.precompile += %w( bootstrap.datepicker.js )
 
-# used to make linked data requests
-Rails.application.config.assets.precompile += %w( linkedDataRequests.js )
+# used to make linked data OR sparql query requests to VIVO within index/show pages
+Rails.application.config.assets.precompile += %w( vivoDataRequests.js )
 # used for data product content and gis content and picking between them on a page
 Rails.application.config.assets.precompile += %w( dataProductResults.js )
 Rails.application.config.assets.precompile += %w( gisLayers.js )

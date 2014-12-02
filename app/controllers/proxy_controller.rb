@@ -264,18 +264,35 @@ class ProxyController < ApplicationController
             "PREFIX xsd:      <http://www.w3.org/2001/XMLSchema#> " +
             "PREFIX owl:      <http://www.w3.org/2002/07/owl#> " +
             "PREFIX ccsc:      <http://nyclimateclearinghouse.org/ontology/> " +
-        "SELECT ?url ?title ?abstract   WHERE {"+
+        "SELECT ?downloadURL ?accessURL ?standardLink ?title ?abstract  ?overview  WHERE {"+
         "<" + thisURI + "> rdfs:label ?title . "+
         "OPTIONAL {"+
         "<" + thisURI + "> <http://purl.obolibrary.org/obo/ARG_2000028> ?vcard ." +
           "?vcard a <http://www.w3.org/2006/vcard/ns#Kind> . " +
           "?vcard <http://www.w3.org/2006/vcard/ns#hasURL> ?link . " +
           "?link a <http://nyclimateclearinghouse.org/ontology/DownloadURL> . " +
-          "?link <http://www.w3.org/2006/vcard/ns#url> ?url . " +
+          "?link <http://www.w3.org/2006/vcard/ns#url> ?downloadURL . " +
           "}"+ 
+          "OPTIONAL {"+
+           "<" + thisURI + "> <http://purl.obolibrary.org/obo/ARG_2000028> ?vcard ." +
+             "?vcard a <http://www.w3.org/2006/vcard/ns#Kind> . " +
+             "?vcard <http://www.w3.org/2006/vcard/ns#hasURL> ?link . " +
+             "?link a <http://nyclimateclearinghouse.org/ontology/AccessURL> . " +
+             "?link <http://www.w3.org/2006/vcard/ns#url> ?accessURL . " +
+             "}"+ 
+             "OPTIONAL {"+
+               "<" + thisURI + "> <http://purl.obolibrary.org/obo/ARG_2000028> ?vcard ." +
+                 "?vcard a <http://www.w3.org/2006/vcard/ns#Kind> . " +
+                 "?vcard <http://www.w3.org/2006/vcard/ns#hasURL> ?link . " +
+                 "?link a <http://www.w3.org/2006/vcard/ns#URL> . " +
+                 "?link <http://www.w3.org/2006/vcard/ns#url> ?standardLink . " +
+                 "}"+     
         "OPTIONAL {"+
         "<" + thisURI + "> <http://purl.org/ontology/bibo/abstract> ?abstract. "+
         "}"+
+        "OPTIONAL {"+
+           "<" + thisURI + "> <http://vivoweb.org/ontology/core#overview> ?overview. "+
+           "}"+
         "}"
         Rails.logger.debug("Query is " + query)
             base_sparql_url = Rails.application.config.vivo_app_url + '/ajax/sparqlQuery'
