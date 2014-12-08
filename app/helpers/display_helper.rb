@@ -22,9 +22,9 @@ module DisplayHelper
   ## Individuals not within a classgroup (i.e. among the classgroups we are looking for) will also need to 
   ## trigger this method and associating this method with the classgroup will not trigger the method for those individuals
   def render_index_type args
-    Rails.logger.debug("============>>>>>>INdex type")
     returnvalue = ""
     doc = args[:document]
+    #  Rails.logger.debug(">>>>>>>>>>>>>>RENDER INDEX DocID is " + doc["DocId"])
     # Different fields hold different kinds of information, e.g. the classgroup pivot and type fields
     # include the classgroups and corresponding types that we want to show under the types facet
     #These fields will be empty for individuals that do not have types that correspond to those classgroups
@@ -32,20 +32,23 @@ module DisplayHelper
     classgroup_pivot_field = "classgroup_pivot_facet"
     type_pivot_field = "type_pivot_facet"
     most_specific_type_field = "most_specific_type_label_facet"
-    classgroup = ""
-    type_pivot = ""
-    most_specific_type = ""
+    classgroup = []
+    type_pivot = []
+    most_specific_type = []
     ##Check what fields are available in doc, if classgroup and type_pivot are available use those
     ##Otherwise use most specific type
     if(doc.has_key?(classgroup_pivot_field))
       #Returns array
       classgroup = doc[classgroup_pivot_field]
+      #Rails.logger.debug("Classgroup exists " + classgroup.join(","))
       if(doc.has_key?(type_pivot_field))
         #Returns array
         type_pivot = doc[type_pivot_field]
+        #Rails.logger.debug("Type pivot exists " + type_pivot.join(","))
       end
     elsif (doc.has_key?(most_specific_type_field))
       most_specific_type = doc[most_specific_type_field]
+      #Rails.logger.debug("Most specific type " + most_specific_type.join(","))
     end
 
     if(!classgroup.empty?)
@@ -59,7 +62,7 @@ module DisplayHelper
         returnvalue = classgroup_html
       end
     elsif(!most_specific_type.empty?)
-      most_specific_type_html = generateTypeFacetLinks(most_specific_type_field, type_pivot).join(" ,")
+      most_specific_type_html = generateTypeFacetLinks(most_specific_type_field, most_specific_type).join(" ,")
       returnvalue = most_specific_type_html
     end
     returnvalue.html_safe

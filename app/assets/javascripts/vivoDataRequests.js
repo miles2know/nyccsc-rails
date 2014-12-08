@@ -69,32 +69,52 @@ var vivoDataRequests = {
 			//TODO: Update sparql query correctly
 			if((! ("downloadURL" in binding)) && (! ("accessURL" in binding)) && 
 					("standardLink" in binding) && ("value" in binding["standardLink"])) {
-				html += vivoDataRequests.generateStandardURLDisplay(binding["standardLink"]["value"]);
+				//Check if label exists
+				var standardLinkLabel = null;
+				if(("standardLinkLabel" in binding) && ("value" in binding["standardLinkLabel"]))  {
+					standardLinkLabel = binding["standardLinkLabel"]["value"];
+				}
+				html += vivoDataRequests.generateStandardURLDisplay(binding["standardLink"]["value"], standardLinkLabel);
 			}
 			if(("downloadURL" in binding) && ("value" in binding["downloadURL"])) {
-				html += vivoDataRequests.generateDownloadURLDisplay(binding["downloadURL"]["value"]);
+				var downloadURLLabel = null;
+				if(("downloadURLLabel" in binding) && ("value" in binding["downloadURLLabel"]))  {
+					downloadURLLabel = binding["downloadURLLabel"]["value"];
+				}
+				html += vivoDataRequests.generateDownloadURLDisplay(binding["downloadURL"]["value"], downloadURLLabel);
 			}
 			if(("accessURL" in binding) && ("value" in binding["accessURL"])) {
-				html += vivoDataRequests.generateAccessURLDisplay(binding["accessURL"]["value"]);
+				var accessURLLabel = null;
+				if(("accessURLLabel" in binding) && ("value" in binding["accessURLLabel"]))  {
+					accessURLLabel = binding["accessURLLabel"]["value"];
+				}
+				html += vivoDataRequests.generateAccessURLDisplay(binding["accessURL"]["value"], accessURLLabel);
 			}
-			if(("abstract" in binding) && ("value" in binding["abstract"])) {
+			//We only want to show the abstract once, not multiple times
+			if((i == len - 1) && ("abstract" in binding) && ("value" in binding["abstract"])) {
 				html += vivoDataRequests.generateAbstractDisplay(binding["abstract"]["value"]);
 			}
 		}
 		return html;
 		
 	},
-	generateStandardURLDisplay:function(standardURL) {
-		var standardLink =  vivoDataRequests.generateURLForDisplay(standardURL, "Link");
-		return vivoDataRequests.generateIndexHTMLForField("standardURL", "URL", standardLink);
+	generateStandardURLDisplay:function(standardURL, label) {
+		var URLLabel = vivoDataRequests.generateLabelForLink("Link", label);
+		var standardLink =  vivoDataRequests.generateURLForDisplay(standardURL, URLLabel);
+		return vivoDataRequests.generateIndexHTMLForField("standardURL", "&nbsp;", standardLink);
 	},
-	generateAccessURLDisplay:function(accessURL) {
-		var accessLink =  vivoDataRequests.generateURLForDisplay(accessURL, "Website");
-		return vivoDataRequests.generateIndexHTMLForField("accessURL", "URL", accessLink);
+	generateAccessURLDisplay:function(accessURL, label) {
+		var URLLabel = vivoDataRequests.generateLabelForLink("Website", label);
+		var accessLink =  vivoDataRequests.generateURLForDisplay(accessURL, URLLabel);
+		return vivoDataRequests.generateIndexHTMLForField("accessURL", "&nbsp;", accessLink);
 	},
-	generateDownloadURLDisplay:function(downloadURL) {
-		var downloadLink =  vivoDataRequests.generateURLForDisplay(downloadURL, "Download");
-		return vivoDataRequests.generateIndexHTMLForField("downloadURL", "URL", downloadLink);
+	generateDownloadURLDisplay:function(downloadURL, label) {
+		var URLLabel = vivoDataRequests.generateLabelForLink("Download", label);
+		var downloadLink =  vivoDataRequests.generateURLForDisplay(downloadURL, URLLabel);
+		return vivoDataRequests.generateIndexHTMLForField("downloadURL", "&nbsp;", downloadLink);
+	},
+	generateLabelForLink:function(defaultLabel, label) {
+		return (label == null || label == "")?defaultLabel:label + " (" + defaultLabel + ")";
 	},
 	//return the actual string 
 	generateURLForDisplay:function(URL, label) {

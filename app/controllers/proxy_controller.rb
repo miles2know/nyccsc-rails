@@ -264,7 +264,7 @@ class ProxyController < ApplicationController
             "PREFIX xsd:      <http://www.w3.org/2001/XMLSchema#> " +
             "PREFIX owl:      <http://www.w3.org/2002/07/owl#> " +
             "PREFIX ccsc:      <http://nyclimateclearinghouse.org/ontology/> " +
-        "SELECT ?downloadURL ?accessURL ?standardLink ?title ?abstract  ?overview  WHERE {"+
+        "SELECT ?downloadURL ?downloadURLLabel ?accessURL ?accessURLLabel ?standardLink ?standardLinkLabel ?title ?abstract  ?overview  WHERE {"+
         "<" + thisURI + "> rdfs:label ?title . "+
         "OPTIONAL {"+
         "<" + thisURI + "> <http://purl.obolibrary.org/obo/ARG_2000028> ?vcard ." +
@@ -272,6 +272,7 @@ class ProxyController < ApplicationController
           "?vcard <http://www.w3.org/2006/vcard/ns#hasURL> ?link . " +
           "?link a <http://nyclimateclearinghouse.org/ontology/DownloadURL> . " +
           "?link <http://www.w3.org/2006/vcard/ns#url> ?downloadURL . " +
+          "OPTIONAL{?link rdfs:label ?downloadURLLabel .}" + 
           "}"+ 
           "OPTIONAL {"+
            "<" + thisURI + "> <http://purl.obolibrary.org/obo/ARG_2000028> ?vcard ." +
@@ -279,6 +280,7 @@ class ProxyController < ApplicationController
              "?vcard <http://www.w3.org/2006/vcard/ns#hasURL> ?link . " +
              "?link a <http://nyclimateclearinghouse.org/ontology/AccessURL> . " +
              "?link <http://www.w3.org/2006/vcard/ns#url> ?accessURL . " +
+             "OPTIONAL{?link rdfs:label ?accessURLLabel .}" + 
              "}"+ 
              "OPTIONAL {"+
                "<" + thisURI + "> <http://purl.obolibrary.org/obo/ARG_2000028> ?vcard ." +
@@ -286,6 +288,7 @@ class ProxyController < ApplicationController
                  "?vcard <http://www.w3.org/2006/vcard/ns#hasURL> ?link . " +
                  "?link a <http://www.w3.org/2006/vcard/ns#URL> . " +
                  "?link <http://www.w3.org/2006/vcard/ns#url> ?standardLink . " +
+                 "OPTIONAL{?link rdfs:label ?standardLinkLabel .}" + 
                  "}"+     
         "OPTIONAL {"+
         "<" + thisURI + "> <http://purl.org/ontology/bibo/abstract> ?abstract. "+
