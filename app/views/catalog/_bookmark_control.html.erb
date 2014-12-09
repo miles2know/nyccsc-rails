@@ -1,4 +1,10 @@
-<% if current_or_guest_user and (!@special_type.nil? and !@special_type.empty? and @special_type == 'gis_layer')%>
+<%-
+#This page is responsible for rendering the bookmark icon/checkbox next to both the search results in the index page as
+#well as the checkbox on the main item show page 
+#Because of that, the page should use a method that gives the same results across document and show pages
+#The @special_type variable is only accessible on the show page and not the index page
+-%>
+<% if current_or_guest_user and isGISLayer(document) %>
   <%- 
   # Note these two forms are pretty similar but for different :methods, classes, and labels. 
   # but it was simpler to leave them seperate instead of DRYing them, got confusing trying that.

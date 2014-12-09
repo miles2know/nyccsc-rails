@@ -307,8 +307,10 @@ module DisplayHelper
   ## Is this a specific type, e.g. GIS layer or data product
   ## We have access to type labels which we should be able to employ
   def isDocumentOfType(document, type_uri)
-    #Rails.logger.debug("Document type #{document['type'].inspect}")
+    Rails.logger.debug("Checking type for document " + document["DocId"])
+    Rails.logger.debug("Document type #{document['type'].inspect}")
     if(document["type"].include?(type_uri))
+      Rails.logger.debug("YES, includes type uri " + type_uri)
       return true
     end
     return false

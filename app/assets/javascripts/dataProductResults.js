@@ -130,7 +130,7 @@ var dataProductResults = {
 		// We call them data products but it is referred to as "calcuations"
 		// for keys
 		for ( var productType in processedJSON) {
-			if (productType == "Calculation") {
+			if (productType == "Calculated Variable") {
 				var products = processedJSON[productType];
 				var i, len = products.length;
 				if (len > 0) {
