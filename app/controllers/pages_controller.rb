@@ -1,6 +1,10 @@
 
 class PagesController < ApplicationController
 
+  def homeopt1
+    #placeholder
+  end
+
   def understand
     #placeholder
   end

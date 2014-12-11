@@ -1,10 +1,15 @@
 // Colors
 $green:         #acb74e;
-$green-light:   lighten($green, 15%);
+$green-lighter: lighten($green, 40%);
+$green-light:   lighten($green, 20%);
 $green-dark:    darken($green, 10%);
+$green-darker:  darken($green, 20%);
 $blue:          #007d99;
+$blue-lighter:  lighten($blue, 20%);
 $blue-light:    lighten($blue, 10%);
 $blue-dark:     darken($blue, 5%);
+$blue-darker:   darken($blue, 10%);
+
 
 
 // Secondary Colors

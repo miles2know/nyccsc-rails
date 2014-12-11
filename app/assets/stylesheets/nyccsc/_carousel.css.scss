@@ -1,33 +1,11 @@
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */
-
-#photoCarousel.carousel {
-  margin-top: -2px;
-  border-top: 10px solid #333;
-  border-bottom: 10px solid #333;
-  margin-left:-15px;
-  margin-right:-15px;
-}
-
-/* Declare heights because of positioning of img element */
-#photoCarousel.carousel .item {
-  height: 450px;
-  background-color: #777;
-}
-#photoCarousel .carousel-inner > .item > img {
-  position: relative;
-  /*top: 0;
-  left: 0;
-  min-width: 100%;*/
-}
-
 .carousel-indicators {
   bottom:10px; 
 }
 
 /* Since positioning the image, we need to help out the caption */
 #photoCarousel .carousel-caption {
-  
   background: url('nyccsc/bg-grey.png') repeat;
   padding:10px;
 }
@@ -42,9 +20,7 @@
   bottom:35px;
 }
 
-
 /* used on news carousel */
-
 .panel-heading .btn-group {
   margin-top: 20px;
 }

@@ -1,6 +1,5 @@
 
 
-
 <div id="main-container" class="container">
 
 <div class="row vertical-offset-md">
@@ -9,76 +8,191 @@
 <div class="row vertical-offset-md">
 
   <div class="col-sm-4">
-    <%= image_tag "nyccsc/tiles/tile-maps.png", class:"img-responsive" %>
-    <h4 class="home-tile">Maps <i class="fa fa-angle-double-right"></i></h4>
-    <!-- <p>&nbsp;</p>
-    <p><strong>Maps</strong> lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tincidunt fermentum lacus vitae varius. Aliquam erat volutpat. Maecenas non lacinia mi. Maecenas volutpat risus in neque pharetra euismod. Sed non turpis dignissim, sodales nunc efficitur, iaculis mauris. Nulla vitae vehicula libero. Interdum et malesuada fames ac ante ipsum primis in faucibus. </p> -->
+    <%= image_tag "nyccsc/tiles/enhanced-buzz-3015-1395071142-10.jpg" %>
+    <p>&nbsp;</p>
+    <p><strong>Maps</strong> lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tincidunt fermentum lacus vitae varius. Aliquam erat volutpat. Maecenas non lacinia mi. Maecenas volutpat risus in neque pharetra euismod. Sed non turpis dignissim, sodales nunc efficitur, iaculis mauris. Nulla vitae vehicula libero. Interdum et malesuada fames ac ante ipsum primis in faucibus. <br/><a href="#" class="pull-right">Go to Maps</a></p>
   </div>
 
   <div class="col-sm-4">
-    <%= image_tag "nyccsc/tiles/tile-data-products.png", class:"img-responsive" %>
-    <h4 class="home-tile">Data Products <i class="fa fa-angle-double-right"></i></h4>
-    
-    <!-- <p>&nbsp;</p>
-    <p><strong>Data Products</strong> lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tincidunt fermentum lacus vitae varius. Aliquam erat volutpat. Maecenas non lacinia mi. Maecenas volutpat risus in neque pharetra euismod. Sed non turpis dignissim, sodales nunc efficitur, iaculis mauris. Nulla vitae vehicula libero. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p><p class="pull-right"><a href="#">Go to data products <i class="fa fa-angle-double-right"></i></a></p> -->
+    <%= image_tag "nyccsc/tiles/stock-photo-23010764-meteorology-chart.jpg" %>
+    <p>&nbsp;</p>
+    <p><strong>Data</strong> lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tincidunt fermentum lacus vitae varius. Aliquam erat volutpat. Maecenas non lacinia mi. Maecenas volutpat risus in neque pharetra euismod. Sed non turpis dignissim, sodales nunc efficitur, iaculis mauris. Nulla vitae vehicula libero. Interdum et malesuada fames ac ante ipsum primis in faucibus. <br/><a href="#" class="pull-right">Go to Data</a></p>
   </div>
 
   <div class="col-sm-4">
-    <%= image_tag "nyccsc/tiles/tile-documents.png", class:"img-responsive" %>
-    <h4 class="home-tile">Reports and Documents <i class="fa fa-angle-double-right"></i></h4>
-    
-    <!-- <p>&nbsp;</p>
-    <p><strong>Reports, Articles, Webpages, and Documents</strong> lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tincidunt fermentum lacus vitae varius. Aliquam erat volutpat. Maecenas non lacinia mi. Maecenas volutpat risus in neque pharetra euismod. Sed non turpis dignissim, sodales nunc efficitur, iaculis mauris. Nulla vitae vehicula libero. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p><p class="pull-right"><a href="#">Go to documents <i class="fa fa-angle-double-right"></i></a></p> -->
+    <%= image_tag "nyccsc/tiles/tile-documents-sm.png" %>
+    <p>&nbsp;</p>
+    <p><strong>Reports, Articles, Webpages, and Documents</strong> lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tincidunt fermentum lacus vitae varius. Aliquam erat volutpat. Maecenas non lacinia mi. Maecenas volutpat risus in neque pharetra euismod. Sed non turpis dignissim, sodales nunc efficitur, iaculis mauris. Nulla vitae vehicula libero. Interdum et malesuada fames ac ante ipsum primis in faucibus. <br/><a href="#" class="pull-right">Go to Documents</a></p>
   </div>
 
 </div>
 
-<div class="row vertical-offset-sm">&nbsp;</div>
 
-<div class="row bg-blue-darker padded rounded-top"> 
-  <div class="col-sm-12">
-    <p class="pull-right"><a href="#"> More Impacts & Risks <i class="fa fa-angle-double-right"></i></a></p>
-    <h3 class="no-margin">Impacts & Risks</h3>
+<div class="row vertical-offset-md bg-gray padded">
+  <!-- <a href="/catalog?f[sector_facet][]=Agriculture&search_field=all_fields">
+    <div class="tile-wrapper"><span class="tile"><i class="fa fa-leaf"></i><br/>Agriculture</span></div>
+  </a>
+  <a href="/catalog?f[sector_facet][]=Water+Resources&search_field=all_fields">
+    <div class="tile-wrapper"><span class="tile"><i class="fa fa-tint"></i><br/>Water Resources</span></div>
+  </a>
+  <a href="/catalog?f[sector_facet][]=Coastal+Zones&search_field=all_fields">
+    <div class="tile-wrapper"><span class="tile"><i class="fa fa-anchor"></i><br/>Coastal Zones</span></div>
+  </a> -->
+  <div class="col-sm-4">
+    <ul class="nav nav-pills text-justify">
+      <li class="active"><a href="#agriculture" data-toggle="tab"><i class="fa fa-leaf"></i> Agriculture</a></li>
+      <li><a href="#water-resources" data-toggle="tab"><i class="fa fa-tint"></i> Water Resources</a></li>
+      <li><a href="#coastal-zones" data-toggle="tab"><i class="fa fa-anchor"></i> Coastal Zones</a></li>
+      <li><a href="#ecosystems" data-toggle="tab"><i class="fa fa-tree"></i> Ecosystems</a></li>
+      <li><a href="#buildings" data-toggle="tab"><i class="fa fa-university"></i> Buildings</a></li>
+      <li><a href="#transportation" data-toggle="tab"><i class="fa fa-truck"></i> Transportation</a></li>
+      <li><a href="#telecommunications" data-toggle="tab"><i class="fa fa-mobile-phone"></i> Telecommunications</a></li>
+      <li><a href="#energy" data-toggle="tab"><i class="fa fa-lightbulb-o"></i> Energy</a></li>
+      <li><a href="#public-health" data-toggle="tab"><i class="fa fa-medkit"></i> Public Health</a></li>
+    </ul>
   </div>
-</div>
+ 
+  <div class="col-sm-8">
+    <div class="tab-content">
+      <div class="tab-pane active" id="agriculture">
+      
+        <div class="tab-main">
+        <h3>Agriculture</h3>
 
-<div class="row vertical-offset-md bg-blue-dark padded rounded-bottom"> 
+          <p>The Agriculture sector includes livestock, dairy, and crop production, as well as the economically important flower cultivation, nursery, and turf industries. The timber, maple syrup, and fishing industries are not included here; they are included in the Ecosystems or Coastal Zones sectors.</p>
+        
+        </div>
+
+        <div class="tab-more">
+          <a class="btn btn-primary pull-right">Related resources</a>
+        </div>
+
+      </div>
+
+      <div class="tab-pane" id="water-resources">
+      
+        <div class="tab-main">
+        <h3>Water Resources</h3>
+
+        <p>The Water Resources sector encompasses four major water resource themes: 1) flooding in non-coastal regions, 2) drinking water supply, 3) water availability for non-potable uses (primarily agriculture and hydropower), and 4) water quality. </p>
   
-  <div class="col-sm-3">
-    <%= image_tag "nyccsc/impacts/flooding-sandy-street.jpg", class:"img-responsive" %>
-    <p>&nbsp;</p>
-    <p><strong>Coastal flooding</strong> due to sea level risk and storm surge will increasingly put lives and property at risk. Health, water quality, energy, infrastructure, and coastal ecosystems are all affected.</p>
-    <p class="pull-right"><a href="/catalog?utf8=✓&search_field=all_fields&q=coastal+flooding"> Go to resources <i class="fa fa-angle-double-right"></i></a>
+        </div>
+
+        <div class="tab-more">
+          <a class="btn btn-primary pull-right">Related resources</a>
+        </div>
+
+      </div>
+
+      <div class="tab-pane" id="coastal-zones">
+      
+        <div class="tab-main">
+        <h3>Coastal Zones</h3>
+
+        <p>The Coastal Zones sector focuses on the regions close to the ocean. Climate hazards related to coastal zones encompass the distinct but related factors of sea level rise, coastal storms, increasing coastal water temperatures, and changes in precipitation patterns. Climate change vulnerabilities related to the Great Lakes are discussed in the Water Resources, Ecosystems, Energy, Transportation, and Telecommunications sectors.</p>
+        
+        </div>
+
+        <div class="tab-more">
+          <a class="btn btn-primary pull-right">Related resources</a>
+        </div>
+
+      </div>
+
+      <div class="tab-pane" id="ecosystems">
+      
+        <div class="tab-main">
+        <h3>Ecosystems</h3>
+
+        <p>Ecosystems encompass the plants, fish, wildlife, and resources of all natural and managed landscapes (e.g., forests, grasslands, aquatic systems) in New York State except those land areas designated as agricultural, coastal, or urban. This sector includes timber and maple syrup industries and tourism and recreation businesses conducted within natural and managed ecosystems. It also encompasses interior wetlands, waterways, and lakes as well as their associated freshwater fisheries and recreational fishing. </p>
+        
+        </div>
+
+        <div class="tab-more">
+          <a class="btn btn-primary pull-right">Related resources</a>
+        </div>
+
+      </div>
+
+      <div class="tab-pane" id="energy">
+      
+        <div class="tab-main">
+        <h3>Energy</h3>
+
+        <p>The Energy sector encompasses energy supply, demand, transmission, distribution, fuel sources, and technologies. Transport-related energy considerations are in the Transportation sector. </p>
+        
+        </div>
+
+        <div class="tab-more">
+          <a class="btn btn-primary pull-right">Related resources</a>
+        </div>
+
+      </div>
+
+      <div class="tab-pane" id="public-health">
+      
+        <div class="tab-main">
+        <h3>Public Health</h3>
+
+        <p>The Public Health sector includes New York State's and New York City's public health systems, services, and infrastructure; public health funding; emergency preparedness; current health status for climate-sensitive diseases; and economic impact. </p>
+        
+        </div>
+
+        <div class="tab-more">
+          <a class="btn btn-primary pull-right">Related resources</a>
+        </div>
+
+      </div>
+
+      <div class="tab-pane" id="telecommunications">
+      
+        <div class="tab-main">
+        <h3>Telecommunications</h3>
+
+        <p>The Telecommunications sector involves infrastructure systems and the technological sophistication, availability, accessibility, interconnectivity, broadband capacity, redundancy, security, and reliability of services for users in the private and public sectors.  </p>
+        
+        </div>
+
+        <div class="tab-more">
+          <a class="btn btn-primary pull-right">Related resources</a>
+        </div>
+
+      </div>
+
+      <div class="tab-pane" id="transportation">
+      
+        <div class="tab-main">
+        <h3>Transportation</h3>
+
+        <p>The Transportation sector consists of the built assets, operations, services, and institutions that serve public and private needs for moving goods and people within, to, and from the State of New York. The Transportation sector and the Energy and Telecommunications sectors are highly interdependent.   </p>
+        
+        </div>
+
+        <div class="tab-more">
+          <a class="btn btn-primary pull-right">Related resources</a>
+        </div>
+
+      </div>
+
+      <div class="tab-pane" id="buildings">
+      
+        <div class="tab-main">
+        <h3>Buildings</h3>
+
+        <p>The Buildings sector encompasses residential, commercial, and government buildings.   </p>
+        
+        </div>
+
+        <div class="tab-more">
+          <a class="btn btn-primary pull-right">Related resources</a>
+        </div>
+
+      </div>
+
+    </div><!-- end .tab-content -->
   </div>
 
-  <div class="col-sm-3">
-    <%= image_tag "nyccsc/impacts/heatwave-nyc.jpg", class:"img-responsive" %>
-    <p>&nbsp;</p>
-    <p><strong>Heat waves</strong> will become more frequent and intense, increasing heat-related illness and death and posing new challenges to the energy system, air quality, and agriculture.</p>
-    <p class="pull-right"><a href="/catalog?utf8=✓&search_field=all_fields&q=heat+waves"> Go to resources <i class="fa fa-angle-double-right"></i></a>
-  </div>
-
-  <div class="col-sm-3">
-    <%= image_tag "nyccsc/impacts/heavy-rain.jpg", class:"img-responsive" %>
-    <p>&nbsp;</p>
-    <p><strong>Heavy downpours</strong> are increasing and are projected to increase further. These can lead to flooding and related impacts on water quality, infrastructure, and agriculture.</p>
-    <p class="pull-right"><a href="/catalog?utf8=✓&search_field=all_fields&q=heavy+downpours"> Go to resources <i class="fa fa-angle-double-right"></i></a>
-  </div>
-
-  <div class="col-sm-3">
-    <%= image_tag "nyccsc/impacts/extreme-buffalo-shoveling.jpg", class:"img-responsive" %>
-    <p>&nbsp;</p>
-    <p><strong>Extreme weather</strong> can have a big impact in a short time.  Climate models predict significant changes in the frequency and intensity of some extreme weather events over the coming decades.</p>
-    <p class="pull-right"><a href="/catalog?utf8=✓&search_field=all_fields&q=extreme+weather"> Go to resources <i class="fa fa-angle-double-right"></i></a>
-  </div>
-
-</div><!-- end row -->
-
-
-
-<div class="row vertical-offset-md sectors">  
-
-  <%= render 'pages/shared/sectors' %>
+</div>
 
   
   <!-- <div class="col-sm-6">
@@ -87,7 +201,6 @@
   </div>
   -->
 
-</div>
 
 <div class="row vertical-offset-md bg-blue padded rounded"> 
 
@@ -96,31 +209,24 @@
     <h3>Response Strategies</h3>
       <p>Our choices can make us more or less vulnerable to climate change. Two primary strategies include mitigation and adaptation, and there are a variety of interactions between these measures. For example, improving insulation and using reflective roofing materials keeps buildings cooler in summer (adaptation) as well as reducing energy use and the related emissions (mitigation). Both adaptation and mitigation are necessary elements of an effective response strategy.</p>
   
-  </div>
+  </div><!-- end col-sm-6 -->
 
   <div class="col-sm-6">
       
     <div class="tile-response bg-blue-dark padded">
-        <p><strong>Mitigation</strong> is action taken to reduce the severity of climate change.  Early mitigation will make it easier to adapt to climate change later on.</p>
-        <p class="pull-right"><a href="/catalog?f[strategy_facet][]=Mitigation">Go to resources <i class="fa fa-angle-double-right"></i></a></p> 
-        <br class="clearfix">
+        <p><strong>Mitigation</strong> is action taken to reduce the severity of climate change.  Early mitigation will make it easier to adapt to climate change later on.<br/><a href="#">Learn more</a></p> 
     </div>
       
     <div class="tile-response bg-blue-dark padded">
-      <p><strong>Adaptation</strong> refers to actions taken to prepare for climate change, helping to reduce adverse impacts or take advantage of beneficial ones.</p>
-      <p class="pull-right"><a href="/catalog?f[strategy_facet][]=Adaptation">Go to resources <i class="fa fa-angle-double-right"></i></a></p>
-      <br class="clearfix">
+      <p><strong>Adaptation</strong> refers to actions taken to prepare for climate change, helping to reduce adverse impacts or take advantage of beneficial ones.<br/><a href="#">Learn more</a></p>
     </div>
       
   </div><!-- end col-sm-6 -->
 
 </div><!-- end row -->
 
-<div class="row vertical-offset-md bg-gray-light padded rounded">
 
-  <div class="col-sm-4">
-  Across New York State, temperatures are increasing; along the coastline, the sea level is rising.  These changes are projected to accelerate because of increased concentrations of carbon dioxide and other greenhouse gases (GHGs) in the atmosphere. Throughout the Northeast, heavy rain events have become more frequent, and cold events have become more rare. These and other climate changes are projected to lead to increasing impacts across New York State’s economy and natural systems. Not all of these changes will necessarily be gradual; when certain tipping points are crossed, impacts can increase dramatically. Impacts from climate change are already affecting every part of New York State—water, energy, agriculture, ecosystems, and other social and economic systems—and all its 20 million inhabitants.
-  </div>
+<div class="row vertical-offset-md">
 
   <div class="col-sm-8">
   <!-- Photo/Story Carousel
@@ -166,9 +272,12 @@
       </div><!-- /.carousel -->
   </div>
 
-  
+  <div class="col-sm-4">
+  Across the Empire State, temperatures are increasing; along the coastline, the sea level is rising.  These changes are projected to accelerate because of increased concentrations of carbon dioxide and other greenhouse gases (GHGs) in the atmosphere. Throughout the Northeast, heavy rain events have become more frequent, and cold events have become more rare. These and other climate changes are projected to lead to increasing impacts across New York State’s economy and natural systems. Not all of these changes will necessarily be gradual; when certain tipping points are crossed, impacts can increase dramatically. Impacts from climate change are already affecting every part of New York State—water, energy, agriculture, ecosystems, and other social and economic systems—and all its 20 million inhabitants.
+  </div>
 
 </div>
+
 
 
 <div class="row vertical-offset-md">
@@ -195,14 +304,12 @@
                       <span class="md">6 pm</span>
                     </div>-->
                     <time datetime="" class="icon">
-                      <em>2015</em>
-                      <strong>JUN</strong>
-                      <span>15</span>
+                      <em>2014</em>
+                      <strong>JUL</strong>
+                      <span>30</span>
                     </time>
-                    <h5>2015 AWRA Summer Specialty Conference: Climate Change Adaptation</h5>
-                    <p><strong>New Orleans</strong></p>
-                    <p>AWRA's Summer Specialty Conference will bring together experts from a wide range of fields -- engineers, planners, hydrologists, ecologists, social scientists, economists, and meteorologists -- to address applied adaptation to climate change.</p>
-
+                    <h5>Brian Swett discusses Boston’s climate future</h5>
+                    <p><strong>Placeholder</strong> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla congue orci eu elit accumsan eleifend. Maecenas sed eleifend leo. Suspendisse euismod est sit amet ultricies scelerisque.</p>
                     <p class="clearfix"></p>
                 </div>
                 <div class="col-md-3">

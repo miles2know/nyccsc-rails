@@ -48,7 +48,10 @@
 // Required by GeoBlacklight
 //= require bootstrap/tooltip
 
-// Required by NYCCSC application - NOT used right now
+// Required to dynamically truncate text
+//= require jQuery.succinct.min.js
+
+// NOT used right now
 // mapping loaded by page - see /config/initializers/assets.rb and /views/catalog/_map.html.erb
 // require_tree ./map
 
