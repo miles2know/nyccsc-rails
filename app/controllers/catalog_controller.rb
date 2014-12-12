@@ -42,7 +42,7 @@ class CatalogController < ApplicationController
 
 
  
-    config.add_facet_field 'classgroup_pivot_facet', :label => 'Types',  :limit => 9, pivot: ['classgroup_pivot_facet', 'type_pivot_facet']
+    config.add_facet_field 'classgroup_pivot_facet', :label => 'Resource Types',  :limit => 9, pivot: ['classgroup_pivot_facet', 'type_pivot_facet']
 
     config.add_facet_field 'sector_facet', :label => 'Sectors', :limit => 9
     ##config.add_facet_field 'classgroup_label_facet', :label => 'Type',  :limit => 9
