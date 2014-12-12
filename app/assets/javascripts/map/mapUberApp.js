@@ -54,7 +54,7 @@ function addSelectedLayer(selected, index, layerProperties) {
 
 /* initialize map */
 map = L.map("map", {
-  layers: [OpenStreetMap_BlackAndWhite],
+  layers: [OpenStreetMap_DE],
   center:[43.1393, -76],
   zoom: 6,
   minZoom: 5,
