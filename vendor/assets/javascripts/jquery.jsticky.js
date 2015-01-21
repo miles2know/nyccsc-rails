@@ -62,7 +62,7 @@
         
         if ( hasStopper && typeof stopper === 'string' ) {
           var stopperTop = $(stopper).offset().top,
-              stopPoint  = (stopperTop - thisHeight) - topSpacing;
+              stopPoint  = (stopperTop - thisHeight) - topSpacing - 20;
         } else if (hasStopper && typeof stopper === 'number') {
           var stopPoint = stopper;
         }

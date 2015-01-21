@@ -27,9 +27,11 @@ en:
 
     search: 
       maps:
-        present: "Map It Selected"
-        absent: "Map It"
-        inprogress: "Saving..."
+        present: 'Map It Selected'
+        absent: 'Map It'
+        inprogress: 'Saving...'
+      facets:
+        title: 'Refine by'
 
     header_links: 
-      bookmarks: "Map It Items"
+      bookmarks: 'Map It Items'
