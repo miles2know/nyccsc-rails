@@ -9,8 +9,7 @@
 ## Install Rails and Ruby using one of the following guides:
 * https://gorails.com/setup/osx/10.9-mavericks
 * https://gorails.com/setup/osx/10.10-yosemite
-
-## If using Windows, recommended installer is RailsInstaller
+* If using Windows, recommended installer is RailsInstaller (http://railsinstaller.org/en)
 
 ## Running the application locally
 
