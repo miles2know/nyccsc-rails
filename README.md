@@ -1,20 +1,20 @@
 == README
 
-## Stack 
-
-* Rails version 4.1.1
-* Ruby version 2.1.1
-
-* ...
 ## Mac Quick start
 
-* Install Rails and Ruby using one of the following guides:
-https://gorails.com/setup/osx/10.9-mavericks
-https://gorails.com/setup/osx/10.10-yosemite
+# Versions/Stack
+* Rails version 4.1.1
+* Ruby version 2.1.1
+* Solr Index (config/solr.yml) - http://climate-dev.library.cornell.edu:8080/vivosolr
+* 
 
-* If using Windows, recommended installer is RailsInstaller
+# Install Rails and Ruby using one of the following guides:
+* https://gorails.com/setup/osx/10.9-mavericks
+* https://gorails.com/setup/osx/10.10-yosemite
 
-* Running the application locally
+# If using Windows, recommended installer is RailsInstaller
+
+# Running the application locally
 
 1. Clone this repository (the gemfile contains necessary dependencies i.e. Blacklight)
 2. Installed the packaged gems: $ bundle install 
