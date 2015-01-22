@@ -20,7 +20,7 @@
     <% if search_session['map'] == 'hide' %>
       <div id="content" class="col-sm-12">
     <% else %>
-      <div id="content" class="col-sm-6 col-lg-8">
+      <div id="content" class="col-sm-6">
     <% end %>
 
         <%= render 'search_and_constraints' %>
@@ -68,7 +68,7 @@
     <% if search_session['map'] == 'hide' %>
       <div id="map-region" class="hide">
     <% else %>
-      <div id="map-region" class="col-sm-6 col-lg-4">
+      <div id="map-region" class="col-sm-6">
     <% end %>
         <%= render 'map' %>
     </div>
@@ -114,8 +114,8 @@
 
     if (visible) {
       
-      $('#content').removeClass().addClass('col-sm-6 col-lg-8');
-      $('#map-region').removeClass().addClass('col-sm-6 col-lg-4');
+      $('#content').removeClass().addClass('col-sm-6');
+      $('#map-region').removeClass().addClass('col-sm-6');
 
     } else {
 
