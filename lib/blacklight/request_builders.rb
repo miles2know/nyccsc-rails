@@ -26,41 +26,46 @@ module Blacklight::RequestBuilders
     end
 
     ##Handling spatial search here
-    if (user_params["spatialrange"])
-      spatialrange = user_params["spatialrange"]
-      #Need to pass this along as fq=solr_bbox:the value that got passed
-      #so the url should look like spatialrange=[lat,long TO lat,long] and will become fq=solr_bbox:[lat_long TO lat,long]
-      solr_parameters.append_filter_query "solr_bbox:" + spatialrange
+    #Overwrithing this to handle the boundingbox utilizing Solr's custom function that speaks to the PostGres API
+    #Pass in bbox=true and lat1, lon1, lat2, lon2 as separate parameters
+    if (user_params["bbox"])
+      Rails.logger.debug("$$$$BBox parameters are passed and they are #{user_params.inspect}")
+      #Technically the user parameters should be copied to the solr parameters
+      #lat1,lon1=lower left, lat2,lon2 = upper right
+      #Example solr request: select?wt=json&indent=true&q=climate+change&boost=recip%28myfunc%28%29,1,%20300,%201%29&lat1=y1,lat2=y2,lon1=x1,lon2=x2
+      #recip(myfunc(), 1, 300, 1)
+      solr_parameters["boost"] = "recip(myfunc(), 1, 300, 1)"
+      solr_parameters["bbox"] = user_params["bbox"]
     end
 
     ##Handling spatial search sort by distnace here
     ## Commenting out for now but will put back in when handling sorting
-    if (user_params["spatialsort"])
-      spatialsort = user_params["spatialsort"]
-      #Need to pass this along as select?q=*%3A*&fq={!geofilt}&sfield=solr_pt&pt=42,-75&sort=geodist%28%29%20asc&d=1000&filter=false
-      #solr_parameters.append_filter_query "{!geofilt}"
-      #This field should contain the point latitude longitude for the indexed item
-      solr_parameters["sfield"] = "solr_pt"
-      #The parameter passed should be the point we want to sort by
-      solr_parameters["pt"] = spatialsort
-      #solr_parameters["sort"]= "geodist() asc"
-      user_params["sort"]= "geodist() asc"
-
-      #solr_parameters["d"] = "10"
-      #we want to sort but not filter by distance
-      #solr_parameters["filter"] = false
-    end
-
-    ##  This tests results using a boost instead of sorting completely by geodist() asc
-    if(user_params["spatialboost"])
-      spatialboost = user_params["spatialboost"]
-      solr_parameters["sfield"] = "solr_pt"
-      solr_parameters["pt"] = spatialboost
-      # Isn't this normal anyway?
-      user_params["sort"]= "score desc"
-      # Passing this along in user parameters as should get copied to solr parameters
-      user_params["bf"] = "recip(geodist(),2,200,20)"
-    end
+#    if (user_params["spatialsort"])
+#      spatialsort = user_params["spatialsort"]
+#      #Need to pass this along as select?q=*%3A*&fq={!geofilt}&sfield=solr_pt&pt=42,-75&sort=geodist%28%29%20asc&d=1000&filter=false
+#      #solr_parameters.append_filter_query "{!geofilt}"
+#      #This field should contain the point latitude longitude for the indexed item
+#      solr_parameters["sfield"] = "solr_pt"
+#      #The parameter passed should be the point we want to sort by
+#      solr_parameters["pt"] = spatialsort
+#      #solr_parameters["sort"]= "geodist() asc"
+#      user_params["sort"]= "geodist() asc"
+#
+#      #solr_parameters["d"] = "10"
+#      #we want to sort but not filter by distance
+#      #solr_parameters["filter"] = false
+#    end
+#
+#    ##  This tests results using a boost instead of sorting completely by geodist() asc
+#    if(user_params["spatialboost"])
+#      spatialboost = user_params["spatialboost"]
+#      solr_parameters["sfield"] = "solr_pt"
+#      solr_parameters["pt"] = spatialboost
+#      # Isn't this normal anyway?
+#      user_params["sort"]= "score desc"
+#      # Passing this along in user parameters as should get copied to solr parameters
+#      user_params["bf"] = "recip(geodist(),2,200,20)"
+#    end
   end
 
   #For debugging
