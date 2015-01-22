@@ -11,7 +11,12 @@
   border-top-color: #DDDDDD;
 }*/
 
-.text-success, .facet-values li .selected {
+
+.panel-heading {
+  padding-left:10px;
+}
+
+.text-success {
   color: #A3A856;
 }
 
@@ -43,28 +48,39 @@
   margin-left: 12%;
 }
 
-.panel-heading {
-  padding-left:10px;
+/* facets dropdown menus */
+.dropdown-menu > li > .facet-label {
+    clear: both;
+    display: table;
+    width:100%;
+    font-weight: normal;
+    font-size: .9em;
+    line-height: 1.42857;
+    padding: 3px 15px;
 }
 
-
-.facet-label {
-  word-wrap:break-word;
-  padding-left:10px;
-  padding-right:.5em;
-  font-size: .9em;
+.dropdown-menu > li > .facet-label:hover {
+  background-color: $gray-lighter;
+}
+.dropdown-menu > li > .facet-label > .facet_select,
+.dropdown-menu > li > .facet-label > .facet-count {
+  display: table-cell;
+}
+.dropdown-menu > li > .facet-label > .facet_select {
+  color: #333333;
+  text-decoration:none;
+  width: 90%;
+}
+.dropdown-menu > li > .facet-label > .facet-count {
+  width: 10%;
+  color: $gray-light;
+}
+.dropdown-menu > li > .facet-label > .facet-count.selected {
+  color: #000;
 }
 
-/*.facet-values {
-  display:block;
-  width:auto;
-  -webkit-column-count: 3;
-     -moz-column-count: 3;
-          column-count: 3;
-  -webkit-column-gap: 2em;
-     -moz-column-gap: 2em;
-          column-gap: 2em;  
+.dropdown-menu > li > .facet-label .glyphicon {
+  font-size: .8em;
+  margin-left: .5em;
 }
-.facet-values li {
-   display: block;
-} */
+

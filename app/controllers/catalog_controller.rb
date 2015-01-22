@@ -43,7 +43,7 @@ class CatalogController < ApplicationController
 
 
     config.add_facet_field 'sector_facet', :label => 'Sectors', :limit => 9
-    ##config.add_facet_field 'classgroup_label_facet', :label => 'Type',  :limit => 9
+    #config.add_facet_field 'classgroup_label_facet', :label => 'Type',  :limit => 9
     config.add_facet_field 'climate_changes_facet', :label => 'Climate Changes',  :limit => 9
 
     config.add_facet_field 'effect_facet', :label => 'Effects', :limit => 9
@@ -59,7 +59,6 @@ class CatalogController < ApplicationController
   
     # I want faceting to be enabled by this but not to be drawn in the facet bar
     config.add_facet_field 'most_specific_type_label_facet', :label => 'Most Specific Type', :show => false
-
     config.add_facet_field 'type_pivot_facet', :label => 'Subtypes',  :show => false
 
 
@@ -101,7 +100,7 @@ class CatalogController < ApplicationController
     #config.add_index_field 'climate_changes_facet', :label => 'Climate Changes',  :limit => 9
     #config.add_facet_field 'effect_facet', :label => 'Effect', :limit => 9
     #config.add_index_field 'strategy_facet', :label => 'Strategy', :link_to_search => true
-    config.add_index_field 'subjectarea_display', :label => 'Subject Areas', :link_to_search => true
+    #config.add_index_field 'subjectarea_display', :label => 'Subject Areas', :link_to_search => true
 
 
     ## URI is not displayed but this enables making a call to the linked data for the URI
