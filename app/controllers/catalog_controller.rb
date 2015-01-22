@@ -41,8 +41,6 @@ class CatalogController < ApplicationController
     config.show.display_type_field = 'type'
 
 
- 
-    config.add_facet_field 'classgroup_pivot_facet', :label => 'Resource Types',  :limit => 9, pivot: ['classgroup_pivot_facet', 'type_pivot_facet']
 
     config.add_facet_field 'sector_facet', :label => 'Sectors', :limit => 9
     ##config.add_facet_field 'classgroup_label_facet', :label => 'Type',  :limit => 9
@@ -53,6 +51,9 @@ class CatalogController < ApplicationController
     config.add_facet_field 'actions_facet', :label => 'Actions', :limit => 9
     config.add_facet_field 'confounding_factors_facet', :label => 'Ancillary factors', :limit => 9
     config.add_facet_field 'author_facet', :label => 'Authors', :limit => 9
+
+    #config.add_facet_field 'classgroup_pivot_facet', :label => 'Resource Types',  :limit => 9, pivot: ['classgroup_pivot_facet', 'type_pivot_facet']
+
 
     config.add_facet_field 'subjectarea_facet', :label => 'Subject Areas', :limit => 9
   

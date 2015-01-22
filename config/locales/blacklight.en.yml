@@ -32,6 +32,8 @@ en:
         inprogress: 'Saving...'
       facets:
         title: 'Refine by'
+      filters: 
+        title: ''
 
     header_links: 
       bookmarks: 'Map It Items'
