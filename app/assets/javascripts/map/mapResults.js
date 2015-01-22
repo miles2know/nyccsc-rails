@@ -46,6 +46,8 @@ var mapResults = {
         });
 
         // on click, refresh search
+        //No longer doing this, instead working on moving the map
+        /*
         mapResults.map.on('click', function(e) {
         
           //get any other search terms and/or facets
@@ -68,6 +70,35 @@ var mapResults = {
           window.location = window.location.protocol + "//" + window.location.host + "/catalog" + searchTerms + "&" + spatialRef;
 
         });
+        */
+        
+        mapResults.map.on('moveend', function(e) {
+            
+            //get any other search terms and/or facets
+            var searchTerms = window.location.search;
+            
+            //setup url
+            if (searchTerms) {
+              if (searchTerms.indexOf("bbox") >= 1) {
+                searchTerms = searchTerms.slice(0,searchTerms.indexOf("bbox")-1);
+              } 
+            } else {
+              searchTerms = "?search_field=all_fields&q=*"
+            }
+
+            //get the latlng of click
+            //var spatialRef = e.latlng.toString();
+            //spatialRef = spatialRef.replace("(","").replace(")","").replace(" ", "").replace("LatLng", "spatialsort=");
+            var spatialRef = "bbox=";
+            var bounds = mapResults.map.getBounds();
+            //W S E N, i.e. bottom left and top right => x1,y1,x2,y2 => lon1, lat1, lon2, lat2
+            var southWest = bounds.getSouthWest();
+            var northEast = bounds.getNorthEast();
+            spatialRef += southWest.lng + "," + southWest.lat + "," + northEast.lng + "," + northEast.lat;
+            //window.location = window.location.protocol + "//" + window.location.host + "/catalog?search_field=all_fields&q=*&" + spatialRef;
+            window.location = window.location.protocol + "//" + window.location.host + "/catalog" + searchTerms + "&" + spatialRef;
+
+          });
         
     },
     calculateMaximumBoundingBox:function() {
