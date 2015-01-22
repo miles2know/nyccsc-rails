@@ -125,10 +125,10 @@ var vivoDataRequests = {
 		if (abstractText.length > 300) {
 			displayAbstractText = abstractText.substring(0, 299) + "...";
 		}
-		return vivoDataRequests.generateIndexHTMLForField("abstract", "Abstract", displayAbstractText);
+		return vivoDataRequests.generateIndexHTMLForField("abstract", "Abstract:", displayAbstractText);
 	},
 	generateOverviewDisplay:function(overview) {
-		return vivoDataRequests.generateIndexHTMLForField("overview", "Overview", overview);
+		return vivoDataRequests.generateIndexHTMLForField("overview", "Overview:", overview);
 	},
 	generateIndexHTMLForField:function(key, displayPropertyName, displayValue) {
 		var htmlDisplay = '<dt class="blacklight-' + key + '">'
