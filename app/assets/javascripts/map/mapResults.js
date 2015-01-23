@@ -73,6 +73,8 @@ var mapResults = {
         */
         
         mapResults.map.on('moveend', function(e) {
+
+          if ($('input#map-search').is(':checked')) {
             
             //get any other search terms and/or facets
             var searchTerms = window.location.search;
@@ -98,7 +100,9 @@ var mapResults = {
             //window.location = window.location.protocol + "//" + window.location.host + "/catalog?search_field=all_fields&q=*&" + spatialRef;
             window.location = window.location.protocol + "//" + window.location.host + "/catalog" + searchTerms + "&" + spatialRef;
 
-          });
+          }
+
+        });
         
     },
     calculateMaximumBoundingBox:function() {
