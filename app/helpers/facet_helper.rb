@@ -101,7 +101,7 @@ module FacetHelper
   end
 
   # Renders the format field values with applicable format icons
-  def render_format_with_icon value
+  def render_facet_with_icon value
     content_tag :span do
       icon = '<i class="fa fa-' + icon_mapping(value) + '"></i> '
       value.prepend(icon).html_safe unless value.nil?
