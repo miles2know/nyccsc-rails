@@ -80,6 +80,36 @@ module FacetHelper
     end 
   end
 
+  SECTOR_MAPPINGS = {
+    "Agriculture" => "leaf",
+    "Water Resources" =>"tint",
+    "Coastal Zones" => 'anchor',
+    "Ecosystems" => "tree",
+    "Buildings" => "university",
+    "Transportation" => "truck",
+    "Telecommunications" => "mobile-phone",
+    "Energy" => "lightbulb-o",
+    "Public Health" => "medkit"
+  }
+
+  def icon_mapping(format)
+    if (icon_mapping = SECTOR_MAPPINGS[format])
+      icon_mapping
+    else
+      'default'
+    end
+  end
+
+  # Renders the format field values with applicable format icons
+  def render_format_with_icon value
+    content_tag :span do
+      icon = '<i class="fa fa-' + icon_mapping(value) + '"></i> '
+      value.prepend(icon).html_safe unless value.nil?
+    end 
+  end
+
+  
+
   
   
 end

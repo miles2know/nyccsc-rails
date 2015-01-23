@@ -42,24 +42,20 @@ class CatalogController < ApplicationController
 
 
 
-    config.add_facet_field 'sector_facet', :label => 'Sectors', :limit => 9
+    config.add_facet_field 'sector_facet', :label => 'Sectors', helper_method: :render_format_with_icon 
     #config.add_facet_field 'classgroup_label_facet', :label => 'Type',  :limit => 9
     config.add_facet_field 'climate_changes_facet', :label => 'Climate Changes',  :limit => 9
 
     config.add_facet_field 'effect_facet', :label => 'Effects', :limit => 9
     config.add_facet_field 'strategy_facet', :label => 'Strategies', :limit => 9
     config.add_facet_field 'actions_facet', :label => 'Actions', :limit => 9
-    config.add_facet_field 'confounding_factors_facet', :label => 'Ancillary factors', :limit => 9
-    config.add_facet_field 'author_facet', :label => 'Authors', :limit => 9
-
-    #config.add_facet_field 'classgroup_pivot_facet', :label => 'Resource Types',  :limit => 9, pivot: ['classgroup_pivot_facet', 'type_pivot_facet']
-
-
-    config.add_facet_field 'subjectarea_facet', :label => 'Subject Areas', :limit => 9
-  
+    #config.add_facet_field 'confounding_factors_facet', :label => 'Ancillary factors', :limit => 9
+    #config.add_facet_field 'author_facet', :label => 'Authors', :limit => 9
+    #config.add_facet_field 'classgroup_pivot_facet', :label => 'Formats',  :limit => 9, pivot: ['classgroup_pivot_facet', 'type_pivot_facet']
+    #config.add_facet_field 'subjectarea_facet', :label => 'Subject Areas', :limit => 9
     # I want faceting to be enabled by this but not to be drawn in the facet bar
     config.add_facet_field 'most_specific_type_label_facet', :label => 'Most Specific Type', :show => false
-    config.add_facet_field 'type_pivot_facet', :label => 'Subtypes',  :show => false
+    config.add_facet_field 'type_pivot_facet', :label => 'Subtypes',  :show => true
 
 
     
@@ -96,6 +92,8 @@ class CatalogController < ApplicationController
     ##Keeping this consistent with whatever appears on the left hand side
     config.add_index_field 'most_specific_type_label_facet', :label => 'Types',  :helper_method => :render_index_type
     config.add_index_field 'sector_facet', :label => 'Sectors', :link_to_search => true
+    config.add_index_field 'author_facet', :label => 'Authors', :link_to_search => true
+    #config.add_index_field 'sector_facet', helper_method: :render_format_value ## with icon 
     ## We can decide to add more if we want or keep it simple
     #config.add_index_field 'climate_changes_facet', :label => 'Climate Changes',  :limit => 9
     #config.add_facet_field 'effect_facet', :label => 'Effect', :limit => 9
@@ -110,10 +108,10 @@ class CatalogController < ApplicationController
     #config.add_index_field 'keyword_display', :label => 'Keyword'
 
     ##Adding show fields
-
     config.add_show_field 'most_specific_type_label_facet', :label => 'Types', :link_to_search => true
     config.add_show_field 'sector_facet', :label => 'Sectors', :link_to_search => true
-   #VIVO brings out the authors and links to them directly so we will just use that instead
+    config.add_show_field 'author_facet', :label => 'Authors', :link_to_search => true
+    #VIVO brings out the authors and links to them directly so we will just use that instead
     #config.add_show_field 'author_display', :label => 'Author', :link_to_search => true
     config.add_show_field 'climate_changes_facet', :label => 'Climate Changes', :link_to_search => true
     config.add_show_field 'effect_facet', :label => 'Effects', :link_to_search => true
