@@ -1,16 +1,3 @@
-/*.panel-success > .panel-heading, .facet_limit-active {
-  border-color: #DDDDDD;
-}
-
-.panel-success > .panel-heading, .facet_limit-active > .panel-heading {
-  background-color: #fff;
-  color: #A3A856;
-}
-
-.panel-success > .panel-heading + .panel-collapse > .panel-body, .facet_limit-active > .panel-heading + .panel-collapse > .panel-body {
-  border-top-color: #DDDDDD;
-}*/
-
 
 .panel-heading {
   padding-left:10px;
@@ -20,43 +7,50 @@
   color: #A3A856;
 }
 
-.document .document-counter {
-  color: #000;  
+#documents {
+  padding: 0 20px;
+  .document {
+    .document-counter {
+      display: hide;
+    }
+    h5 {
+      font-size: 1.3em;
+    }
+    a {
+      color: $blue;
+    }
+    a:hover {
+      color: $blue-light;
+    }
+    .document-metadata {
+      font-size: .95em;
+      dt {
+        width: 10%; 
+      }
+      dd {
+        margin-left: 12%;
+      }
+    }
+  }
 }
 
-.document h5 {
-  font-size: 1.3em;
-}
-
-.document a {
-  color: $blue;
-}
-
-.document a:hover {
-  color: $blue-light;
-}
-
-.document-metadata {
-  font-size: .95em;
-}
-
-.document dl.document-metadata dt {
-  width: 10%; 
-}
-
-.document dl.document-metadata dd {
-  margin-left: 12%;
-}
 
 /* facets dropdown menus */
+.facets .nav > li > a {
+    padding: 8px 10px;
+    color: $gray-dark;
+}
+
+
 .dropdown-menu > li > .facet-label {
-    clear: both;
-    display: table;
-    width:100%;
-    font-weight: normal;
-    font-size: .9em;
-    line-height: 1.42857;
-    padding: 3px 15px;
+  clear: both;
+  display: table;
+  width:100%;
+  min-width: 200px;
+  font-weight: normal;
+  font-size: .9em;
+  line-height: 1.42857;
+  padding: 3px 15px;
 }
 
 .dropdown-menu > li > .facet-label:hover {
@@ -79,8 +73,33 @@
   color: #000;
 }
 
-.dropdown-menu > li > .facet-label .glyphicon {
-  font-size: .8em;
-  margin-left: .5em;
+.dropdown-menu > li > .facet-label .fa {
+  width: 14px;
+  text-align:center;
+}
+
+.search-query-form .input-group {
+  width: 100%;
+  .input-group-btn {
+    width: 0; /* bootstrap auto is funky */
+  }
+}
+
+#map-search {
+  position:absolute; 
+  top:10px; 
+  left:50px;
+  padding: 5px 15px;
+  border: $border-radius-base;
+  background-color: #fff;
+  z-index: 20000;
+}
+
+#map-search input[type=checkbox] + label{
+  color: #f00;
+  font-weight: light;
+}
+#map-search input[type=checkbox]:checked + label{
+  color: $gray;
 }
 
