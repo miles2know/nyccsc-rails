@@ -1,12 +1,4 @@
 
-.panel-heading {
-  padding-left:10px;
-}
-
-.text-success {
-  color: #A3A856;
-}
-
 #documents {
   padding: 0 20px;
   .document {
@@ -18,9 +10,9 @@
     }
     a {
       color: $blue;
-    }
-    a:hover {
-      color: $blue-light;
+      &:hover {
+        color: $blue-light;
+      }
     }
     .document-metadata {
       font-size: .95em;
@@ -36,48 +28,54 @@
 
 
 /* facets dropdown menus */
-.facets .nav > li > a {
-    padding: 8px 10px;
-    color: $gray-dark;
+.facets {
+  > .nav {
+    > li { 
+      > a {
+        padding: 8px 10px;
+        color: $gray-dark;
+      }
+      > .dropdown-menu {
+        > li {
+          > .facet-label {
+            display: table;
+            width: 100%;
+            min-width: 200px;
+            font-size: .9em;
+            padding: 3px 15px;
+            /* icons */
+            .fa {
+              width: 14px;
+              text-align:center;
+            }
+            /* title of facet / select */
+            > a.facet_select {
+              display: table-cell;
+              width: 90%;
+              color: $gray;
+              text-decoration: none;
+            }
+            /* count of facet */
+            > .facet-count {
+              display: table-cell;
+              width: 10%;
+              color: $gray-light;
+              /* selected */
+              &.selected {
+                color: #000;
+              }
+            }
+            &:hover {
+              background-color: $gray-lighter;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
-
-.dropdown-menu > li > .facet-label {
-  clear: both;
-  display: table;
-  width:100%;
-  min-width: 200px;
-  font-weight: normal;
-  font-size: .9em;
-  line-height: 1.42857;
-  padding: 3px 15px;
-}
-
-.dropdown-menu > li > .facet-label:hover {
-  background-color: $gray-lighter;
-}
-.dropdown-menu > li > .facet-label > .facet_select,
-.dropdown-menu > li > .facet-label > .facet-count {
-  display: table-cell;
-}
-.dropdown-menu > li > .facet-label > .facet_select {
-  color: #333333;
-  text-decoration:none;
-  width: 90%;
-}
-.dropdown-menu > li > .facet-label > .facet-count {
-  width: 10%;
-  color: $gray-light;
-}
-.dropdown-menu > li > .facet-label > .facet-count.selected {
-  color: #000;
-}
-
-.dropdown-menu > li > .facet-label .fa {
-  width: 14px;
-  text-align:center;
-}
-
+/* search box */
 .search-query-form .input-group {
   width: 100%;
   .input-group-btn {
@@ -85,6 +83,7 @@
   }
 }
 
+/* turn map searching on/off */
 #map-search {
   position:absolute; 
   top:10px; 
@@ -93,13 +92,14 @@
   border: $border-radius-base;
   background-color: #fff;
   z-index: 20000;
+  input[type=checkbox] {
+    + label {
+      color: #f00; /* red for now... */
+    }
+    &:checked + label {
+      color: $gray;
+    }
+  }
 }
 
-#map-search input[type=checkbox] + label{
-  color: #f00;
-  font-weight: light;
-}
-#map-search input[type=checkbox]:checked + label{
-  color: $gray;
-}
 

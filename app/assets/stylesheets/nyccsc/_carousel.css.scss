@@ -6,13 +6,13 @@
   .carousel-caption {
     background: url('nyccsc/bg-grey.png') repeat;
     padding:10px;
-  }
-  .carousel-caption.top {
-    top:15px;
-    bottom: auto;
-  }
-  .carousel-caption.bottom {
-    bottom:35px;
+    .top {
+      top:15px;
+      bottom: auto;
+    }
+    .bottom {
+      bottom:35px;
+    }
   }
   .carousel-indicators {
     bottom:5px; 
