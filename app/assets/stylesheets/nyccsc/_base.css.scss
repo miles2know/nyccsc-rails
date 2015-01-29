@@ -2,73 +2,94 @@
 html {overflow: scroll;}
 body {font-family: 'Open Sans', sans-serif;}
 
+
+/*******************************************************************************************/
+/* typography/headings */
+/*******************************************************************************************/
+
 h1, h2, h3, h4 {color: #333;}
 h5, h6 {color: $blue;}
+h6 {text-transform: uppercase;}
 h1, h2, h3 {font-family: 'Montserrat', sans-serif;font-weight:400;}
 h3 {margin-bottom:20px;}
 
-.bg-white {background-color: #fff;}
-.bg-gray { background-color: #ccc; }
-.bg-gray-light { background-color: #e2e2e2; }
-.bg-gray-dark { background-color: $gray; color: #e2e2e2; }
-.bg-blue { background-color: $blue; color: #e2e2e2; }
-.bg-blue-dark { background-color: $blue-dark; color: #e2e2e2; }
-.bg-blue-darker { background-color: $blue-darker; color: #e2e2e2; }
-.bg-green {background-color: $green; color: #e2e2e2; }
-.bg-green-lighter { background-color: $green-lighter; }
-.bg-green-light { background-color: $green-light; }
-.bg-green-dark { background-color: $green-dark; color: #e2e2e2; }
+.bg-white {
+  @include bg-color(#ffffff) ;
+}
+.bg-gray {
+  @include bg-color(#cccccc);
+}
+.bg-gray-light {
+  @include bg-color($gray-lighter);
+}
+.bg-gray-dark { 
+  @include bg-color($gray,$gray-lighter);
+}
+.bg-blue { 
+  @include bg-color($blue,$gray-lighter);
+}
+.bg-blue-dark { 
+  @include bg-color($blue-dark,$gray-lighter);
+}
+.bg-blue-darker { 
+  @include bg-color($blue-darker,$gray-lighter);
+}
+.bg-green {
+  @include bg-color($green,$gray-lighter);
+}
+.bg-green-dark { 
+  @include bg-color($green-dark,$gray-lighter);
+}
+.bg-green-light { 
+  @include bg-color($green-light); 
+}
+.bg-green-lighter { 
+  @include bg-color($green-lighter);
+}
 
-.bg-gray h3, .bg-gray h5,  
-.bg-blue h3, .bg-blue h5, 
-.bg-blue-dark h3, .bg-blue-dark h5, 
-.bg-blue-darker h3, .bg-blue-darker h5, 
-.bg-green h3, .bg-green h5,
-.bg-green-dark h3, .bg-green-dark h5    
-{ color: #fff; }
+.bg-gray,.bg-blue,.bg-blue-dark,.bg-blue-darker,.bg-green,.bg-green-dark {
+  h3,h5 {
+    color: #fff;
+  }
+}
+
+a:hover {
+  h1, h2, h3, h4, h5, h6 {
+    text-decoration: none; 
+  }
+}
+
+
+/*******************************************************************************************/
+/* helper styles - layout mostly */
+/*******************************************************************************************/
+
+.padded { padding: 20px; }
+
+.rounded { border-radius: $border-radius-base; }
+.rounded-top {border-top-left-radius:    v; border-top-right-radius: $border-radius-base }
+.rounded-bottom {border-bottom-left-radius: $border-radius-base; border-bottom-right-radius: $border-radius-base }
+
+.full-width-container {width:100%;margin:20px auto;}
+.full-width-container:after {clear:both;}
+
+.vertical-offset-md {margin-bottom:40px;}
+.vertical-offset-sm {margin-bottom:20px;}
 
 .no-margin {margin:0;}
-
-a:hover h1, a:hover h2, a:hover h3, a:hover h4, a:hover h5, a:hover h6 {text-decoration: none; }
-
-h4.home-tile {
-  margin:0;
-  padding:10px;
-  background-color: #fff;
-  text-transform: uppercase; 
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-/*ul.with-icons {
-  list-style: none outside none;
-  padding-left: 2px;
-}
-
-ul.with-icons li {
-  font-size: 1.3em;
-  display: inline-block;
-  width: 50%;
-  max-width: 60px;
-  height: 60px;
-  text-align:center;
-  background-color: #fff;
-  border: 1px solid #e2e2e2;
-}
-
-ul.with-icons li i.fa{
-  font-size: 2em;
-}*/
 
 ul.with-icons {
   list-style: none outside none;
   padding-left: 2px;
+  li {
+    font-size: 1.1em;
+  }
 }
 
-ul.with-icons li {
-  font-size: 1.1em;
-}
 
+/*******************************************************************************************/
+/* global bootstrap overrides */
+/*******************************************************************************************/
 
 .panel-heading {
   padding: 10px 20px !important;
@@ -76,32 +97,40 @@ ul.with-icons li {
 }
 
 
+/*******************************************************************************************/
+/* sector tiles - home page */
+/*******************************************************************************************/
+
 .tile {
   margin-top: 30px;
   border: 1px solid #e2e2e2;
   width:100%;
   color:#666;
-}
-
-.tile .tile-header {
-  padding: 8px 20px;
-  background-color: $green;
-  width:100%;
-}
-.tile:hover .tile-header {
-  background-color: $blue;
-}
-.tile .tile-header h4 {
-  margin: 0;
-  color: #fff;
-  text-transform: uppercase; 
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.tile .tile-content {
-  padding: 20px;
-  background-color: #fff;
+  .tile-header {
+    padding: 8px 20px;
+    background-color: $green;
+    width:100%;
+    h4 {
+      margin: 0;
+      color: #fff;
+      text-transform: uppercase; 
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+  &:hover {
+    .tile-header {
+      background-color: $blue;
+      .icon-circle {
+        background-color: $blue-dark;
+      }
+    }
+  }
+  .tile-content {
+    padding: 20px;
+    background-color: #fff;
+  }
 }
 
 /* Extra small devices (phones, less than 768px) */
@@ -117,6 +146,11 @@ ul.with-icons li {
 @media (min-width: $screen-lg-min) { .tile .tile-content{ height:160px;}  }
 
 
+/*******************************************************************************************/
+/* sector icons - home page */
+/*******************************************************************************************/
+
+/* icons - home page */
 .icon-circle {
   width: 80px;
   height: 80px;
@@ -127,41 +161,82 @@ ul.with-icons li {
   border-radius: 50%;
   float: left;
   margin: -30px 10px 0 0;
+  .icon {
+    display: block;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    i.fa{
+      font-size: 3em;
+    }
+  }
 }
-.tile:hover .icon-circle {
-  background-color: $blue-dark;
+
+
+/*******************************************************************************************/
+/* sector modals - home page */
+/*******************************************************************************************/
+
+.modal.sector {
+  .modal-header {
+    background-color: $green;
+    border-top-left-radius: $border-radius-base; 
+    border-top-right-radius: $border-radius-base;
+    h4{
+      color: #fff;
+      text-transform: uppercase; 
+    }
+    .icon-circle {
+      width: 100px;
+      height: 100px;
+      background-color: $green-dark;
+      color: #fff;
+      text-align: center;
+      text-decoration: none !important;
+      border-radius: 50%;
+      float: left;
+      margin: -30px 10px 0 0;
+    }
+  }
 }
-.icon-circle .icon {
-  display: block;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
+
+
+/*******************************************************************************************/
+/* response strategies - home page */
+/*******************************************************************************************/
+
+.tile-response {
+  margin: 10px;
 }
-.icon-circle .icon i.fa{
-  font-size: 3em;
-}
+
+/*******************************************************************************************/
+/* steps - strategies page */
+/*******************************************************************************************/
 
 .bg-steps-resilience {
   background-image: url('nyccsc/strategies/bg-new-york-storm-surge-barrier.jpg');
   min-height:600px;
 }
 
-.steps-box { 
+.steps-box {
   position: relative; 
   background: $blue-dark; 
   padding-top: 40px !important;
-} 
-/* Small devices (tablets, 768px and up) */
-@media (min-width: $screen-sm-min) { .steps-box { height:260px;} }
-
-/* Medium devices (desktops, 992px and up) */
-@media (min-width: $screen-md-min) { .steps-box { height:240px;} }
-
-/* Large devices (large desktops, 1200px and up) */
-@media (min-width: $screen-lg-min) { .steps-box { height:220px;}  }
-
-.steps-box h3 {
-  color:#fff;
+  h3 {
+    color:#fff;
+  }
+  .icon-circle {
+    width: 50px;
+    height: 50px;
+    background-color: $green;
+    color: #fff;
+    text-align: center;
+    text-decoration: none !important;
+    border-radius: 50%;
+    float: left;
+    margin: -50px 0 0 -30px;
+    font-size: 2.5em;
+  }
 }
 .arrow-right:after { 
   left: 100%; 
@@ -206,93 +281,22 @@ ul.with-icons li {
   margin-top: -30px; 
 }
 
-.steps-box .icon-circle {
-  width: 50px;
-  height: 50px;
-  background-color: $green;
-  color: #fff;
-  text-align: center;
-  text-decoration: none !important;
-  border-radius: 50%;
-  float: left;
-  margin: -50px 0 0 -30px;
-  font-size: 2.5em;
-}
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
 
-.modal.sector .modal-header {
-  background-color: $green;
-  border-top-left-radius: $border-radius-base; 
-  border-top-right-radius: $border-radius-base;
-}
-.modal.sector .modal-header h4{
-  color: #fff;
-  text-transform: uppercase; 
-}
-.modal.sector .modal-header .icon-circle {
-  width: 100px;
-  height: 100px;
-  background-color: $green-dark;
-  color: #fff;
-  text-align: center;
-  text-decoration: none !important;
-  border-radius: 50%;
-  float: left;
-  margin: -30px 10px 0 0;
-}
+/* Small devices (tablets, 768px and up) */
+@media (min-width: $screen-sm-min) { .steps-box { height:260px;} }
 
-.tab-content .tab-main {
-  display:block;
-  width: 100%;
-  max-height: 200px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: $screen-md-min) { .steps-box { height:240px;} }
 
-.padded { padding: 20px; }
-.rounded { border-radius: $border-radius-base; }
-.rounded-top {border-top-left-radius: $border-radius-base; border-top-right-radius: $border-radius-base }
-.rounded-bottom {border-bottom-left-radius: $border-radius-base; border-bottom-right-radius: $border-radius-base }
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: $screen-lg-min) { .steps-box { height:220px;}  }
 
-.tile-response {
-  margin: 10px;
-}
 
-.full-width-container {width:100%;margin:20px auto;}
-.full-width-container:after {clear:both;}
-
-.vertical-offset-md {margin-bottom:40px;}
-.vertical-offset-sm {margin-bottom:20px;}
-
-/* might split out later */
-.circle-info {
-  background: $brand-secondary;
-  border-radius: 50%;
-  width:80px;
-  height:80px;
-  float:left;
-  margin:0 10px 10px 0;
-  text-align: center;
-}
-.circle-info span {
-  display:block;
-  color:#fff;
-  padding:5px 2px;
-  line-height:.8em;
-}
-.circle-info span.xl {
-  font-size: 1.4em;
-}
-.circle-info span.lg {
-  font-size: 1em;
-  text-transform: uppercase;
-  font-weight: bold;
-}
-.circle-info span.md {
-  font-size: .9em;
-}
-.circle-info span.sm {
-  font-size: .7em;
-}
+/*******************************************************************************************/
+/* event dates - home page */
+/*******************************************************************************************/
 
 time.icon
 {
@@ -307,40 +311,37 @@ time.icon
   overflow: hidden;
   float: left;
   margin: 10px 10px 5px 0;
+  *
+  {
+    display: block;
+    width: 100%;
+    font-size: 1em;
+    font-weight: bold;
+    font-style: normal;
+    text-align: center;
+  }
+  strong
+  {
+    position: absolute;
+    top: 0;
+    padding: 0.4em 0;
+    color: #fff;
+    background-color: $gray-light;
+    text-transform: uppercase;
+  }
+  em
+  {
+    position: absolute;
+    bottom: 0.3em;
+    color: $gray-light;
+  }
+  span
+  {
+    font-size: 2.8em;
+    letter-spacing: -0.05em;
+    padding-top: 0.8em;
+    color: $blue;
+  }
 }
 
-time.icon *
-{
-  display: block;
-  width: 100%;
-  font-size: 1em;
-  font-weight: bold;
-  font-style: normal;
-  text-align: center;
-}
-
-time.icon strong
-{
-  position: absolute;
-  top: 0;
-  padding: 0.4em 0;
-  color: #fff;
-  background-color: $gray-light;
-  text-transform: uppercase;
-}
-
-time.icon em
-{
-  position: absolute;
-  bottom: 0.3em;
-  color: $gray-light;
-}
-
-time.icon span
-{
-  font-size: 2.8em;
-  letter-spacing: -0.05em;
-  padding-top: 0.8em;
-  color: $blue;
-}
 

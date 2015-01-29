@@ -1,16 +1,16 @@
+
 // Colors
 $green:         #acb74e;
 $green-lighter: lighten($green, 40%);
 $green-light:   lighten($green, 20%);
 $green-dark:    darken($green, 10%);
 $green-darker:  darken($green, 20%);
+
 $blue:          #007d99;
 $blue-lighter:  lighten($blue, 20%);
 $blue-light:    lighten($blue, 10%);
 $blue-dark:     darken($blue, 5%);
 $blue-darker:   darken($blue, 10%);
-
-
 
 // Secondary Colors
 $brand-secondary:       $blue;
@@ -19,7 +19,7 @@ $btn-secondary-bg:      $brand-secondary;
 $btn-secondary-border:  darken($btn-secondary-bg, 5%);
 
 
-// Bootstrap Redefined
+// More Bootstrap 
 $body-bg:         #f5f5f5;
 $headings-color:  #007d99;
 $brand-primary:   $green;
@@ -37,9 +37,16 @@ $navbar-default-link-hover-color: #fff;
 $navbar-default-link-active-bg: lighten($blue, 5%);
 $navbar-default-link-active-color: #fff;
 
-
 $panel-default-heading-bg: #fff;
 $well-bg: #fff;
+
+// Mixins
+@mixin bg-color ($bg-color,$font-color:false) {
+  background-color: $bg-color;
+  @if ($font-color) {
+    color:$font-color;
+  }
+}
 
 @import 'bootstrap';
 @import 'blacklight/blacklight';

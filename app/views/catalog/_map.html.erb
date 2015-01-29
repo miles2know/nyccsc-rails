@@ -2,10 +2,18 @@
   <!-- default map / should default to NYS -->
   <div id="map-container" style="width:100%;height:600px;">
     <ul class="nav nav-tabs overlay-tabs"></ul>
-    <div id="map" class="mapResults"></div>
+    <div id="map" class="mapResults">
+      <div id="map-search">
+        <form>
+          <input type="checkbox" name="map-search" id="map-search" value="on" checked> 
+          <label for="map-search">Search When I Move Map</label>
+        </form>
+      </div>
+    </div>
   </div>
 
   <!-- for mapping application -->
   <%= javascript_include_tag 'map/mapDataOverlays' %>
   <%= javascript_include_tag 'map/mapResults' %>
+  
   

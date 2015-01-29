@@ -1,6 +1,9 @@
 <% # main container for facets/limits menu -%>
 <% if has_facet_values?  %>
-<ul class="nav nav-pills">
-  <%= render_facet_partials %>
-</ul>
+  <div class="well facets">
+    <h6>Refine Results</h6>
+    <ul class="nav nav-pills">
+      <%= render_facet_partials %>
+    </ul>
+  </div>
 <% end %>

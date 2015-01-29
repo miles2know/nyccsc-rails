@@ -1,60 +1,79 @@
 
-#header-navbar{
+/*******************************************************************************************/
+/* branding and search */
+/*******************************************************************************************/
+#header-navbar{ 
   background-color: $brand-primary;
   border:0;
+  /*branding @ top left*/
+  .branding {
+    a.navbar-brand {
+      height: 128px;
+      width: 165px;
+      margin-right: 0;
+    }
+    h3 {
+      color: #fff;
+    }
+  }
+  #header-search {
+    margin-top: 20px;
+    input {
+      border-top-left-radius: $border-radius-base;
+      border-bottom-left-radius: $border-radius-base;
+    }
+    .btn-primary {
+      background-color: $gray-lighter;
+      color: $gray;
+      border: $gray-dark;
+      &:hover {
+        background-color: $btn-secondary-bg;
+        color: $btn-secondary-color;
+        border: $btn-secondary-border;
+      }
+    } 
+    a {
+      font-size: .8em;
+      color: #fff;
+      background-color: inherit;
+      padding: 3px 8px;
+      &:hover {
+        background-color: $green-dark;
+        border-radius: 4px;
+      }
+    }
+  }
 }
 
-#header-navbar .navbar-brand {
-  height: 128px;
-  width: 165px;
-  margin-right: 0;
+
+
+/*******************************************************************************************/
+/* navbar */
+/*******************************************************************************************/
+
+#header-navbar{ 
+  .navbar {
+    ul.primary-nav {
+      li {
+        height: 70px; 
+        max-width: 140px;
+        text-align: center;
+        a {
+          height: inherit;
+        }
+      }
+    }
+  }
 }
 
-.branding h3 {
-  color: #fff;
-}
 
-.navbar-nav.primary-nav > li {
-  height: 70px; 
-  max-width: 140px;
-  text-align: center;
-}
+/*******************************************************************************************/
+/* don't think any of this is being used...  */
+/*******************************************************************************************/
 
-.navbar-nav li a {
-  height: inherit;
-}
+/*.navbar-nav li */
 
-/* search form in header/banner region */
-#header-search{
-  margin-top: 20px;
-}
-#header-search .input-group-addon {
-  display:none;
-}
-#header-search input {
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
-}
-#header-search .btn-primary {
-  background-color: $gray-lighter;
-  color: $gray;
-  border: $gray-dark;
-}
-#header-search .btn-primary:hover {
-  background-color: $btn-secondary-bg;
-  color: $btn-secondary-color;
-  border: $btn-secondary-border;
-}
-#header-search a {
-  font-size: .8em;
-  color: #fff;
-  background-color: inherit;
-  padding: 3px 8px;
-}
-#header-search a:hover {
-  background-color: $green-dark;
-  border-radius: 4px;
-}
+/*
 .navbar-form {
   padding:0;
 }
@@ -64,8 +83,10 @@
 .navbar-form .input-group-addon {
   padding: 4px 12px 3px;
 }
+*/
 
-/* secondary navigation in header/banner */
+
+/* secondary navigation in header/banner 
 .secondary-navbar {
   vertical-align: bottom;
 }
@@ -75,3 +96,4 @@
 .secondary-navbar ul li {
   display:inline-block;
 }
+*/

@@ -100,21 +100,24 @@ var vivoDataRequests = {
 	},
 	generateStandardURLDisplay:function(standardURL, label) {
 		var URLLabel = vivoDataRequests.generateLabelForLink("Link", label);
-		var standardLink =  vivoDataRequests.generateURLForDisplay(standardURL, URLLabel);
-		return vivoDataRequests.generateIndexHTMLForField("standardURL", "&nbsp;", standardLink);
+		var link = "<a class='btn btn-default btn-sm' href='" + standardURL + "'><i class='fa fa-link'></i> "+ URLLabel + "</a>";
+		//var standardLink =  vivoDataRequests.generateURLForDisplay(standardURL, URLLabel);
+		return vivoDataRequests.generateIndexHTMLForField("standardURL", "&nbsp;", link);
 	},
 	generateAccessURLDisplay:function(accessURL, label) {
 		var URLLabel = vivoDataRequests.generateLabelForLink("Website", label);
-		var accessLink =  vivoDataRequests.generateURLForDisplay(accessURL, URLLabel);
-		return vivoDataRequests.generateIndexHTMLForField("accessURL", "&nbsp;", accessLink);
+		var link = "<a class='btn btn-default btn-sm' href='" + accessURL + "'><i class='fa fa-external-link'></i> "+ URLLabel + "</a>";
+		//var accessLink =  vivoDataRequests.generateURLForDisplay(accessURL, URLLabel);
+		return vivoDataRequests.generateIndexHTMLForField("accessURL", "&nbsp;", link);
 	},
 	generateDownloadURLDisplay:function(downloadURL, label) {
 		var URLLabel = vivoDataRequests.generateLabelForLink("Download", label);
-		var downloadLink =  vivoDataRequests.generateURLForDisplay(downloadURL, URLLabel);
-		return vivoDataRequests.generateIndexHTMLForField("downloadURL", "&nbsp;", downloadLink);
+		var link = "<a class='btn btn-default btn-sm' href='" + downloadURL + "'><i class='fa fa-download'></i> "+ URLLabel + "</a>";
+		//var downloadLink =  vivoDataRequests.generateURLForDisplay(downloadURL, URLLabel);
+		return vivoDataRequests.generateIndexHTMLForField("downloadURL", "&nbsp;", link);
 	},
 	generateLabelForLink:function(defaultLabel, label) {
-		return (label == null || label == "")?defaultLabel:label + " (" + defaultLabel + ")";
+		return (label == null || label == "") ? defaultLabel : label;
 	},
 	//return the actual string 
 	generateURLForDisplay:function(URL, label) {
@@ -122,13 +125,13 @@ var vivoDataRequests = {
 	},
 	generateAbstractDisplay:function(abstractText) {
 		var displayAbstractText = abstractText;
-		if (abstractText.length > 300) {
-			displayAbstractText = abstractText.substring(0, 299) + "...";
+		if (abstractText.length > 150) {
+			displayAbstractText = abstractText.substring(0, 149) + " ...";
 		}
-		return vivoDataRequests.generateIndexHTMLForField("abstract", "Abstract", displayAbstractText);
+		return vivoDataRequests.generateIndexHTMLForField("abstract", "Abstract:", displayAbstractText);
 	},
 	generateOverviewDisplay:function(overview) {
-		return vivoDataRequests.generateIndexHTMLForField("overview", "Overview", overview);
+		return vivoDataRequests.generateIndexHTMLForField("overview", "Overview:", overview);
 	},
 	generateIndexHTMLForField:function(key, displayPropertyName, displayValue) {
 		var htmlDisplay = '<dt class="blacklight-' + key + '">'
