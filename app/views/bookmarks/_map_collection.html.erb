@@ -6,14 +6,10 @@
           <div id="sidebar">
 
             <form role="search">
-              <div class="has-feedback">
-
                 <div class="input-group has-feedback">
                   <input id="searchbox" type="text" placeholder="Search Places" class="form-control">
                   <span id="searchicon" class="input-group-addon"><i class="fa fa-search"></i></span>
                 </div>
-                
-              </div>
             </form>
 
             <p>&nbsp;</p>
@@ -100,7 +96,7 @@
     <%= javascript_include_tag 'map/mapDataOverlays' %>
     <%= javascript_include_tag 'map/mapAddLayer' %>
     <%= javascript_include_tag 'map/mapSearchAlt' %>
-    <%= javascript_include_tag 'map/mapSessionLayers' %>
+    <%#= javascript_include_tag 'map/mapSessionLayers' %>
     
     <!-- bring it all together now -->
     <%= javascript_include_tag 'getGISLayerInfo' %>

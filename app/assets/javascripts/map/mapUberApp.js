@@ -9,6 +9,17 @@
 var map, bounds, center;
 
 
+/* initialize map */
+map = L.map("map", {
+  layers: [OpenStreetMap_DE],
+  center:[43.1393, -76],
+  zoom: 6,
+  minZoom: 5,
+  maxZoom: 15,
+  zoomControl: false,
+  attributionControl: false
+});
+
 //preload custom/selected layers
 function loadSelectedLayers() {
   
@@ -52,16 +63,7 @@ function addSelectedLayer(selected, index, layerProperties) {
   $("#map-selected-layers").append(content);
 }
 
-/* initialize map */
-map = L.map("map", {
-  layers: [OpenStreetMap_DE],
-  center:[43.1393, -76],
-  zoom: 6,
-  minZoom: 5,
-  maxZoom: 15,
-  zoomControl: false,
-  attributionControl: false
-});
+
 
 function toggleRadioLayer(collection,layer) {
 

@@ -5,6 +5,8 @@
   background: inherit; 
 }
 
+
+
 svg {
   position: relative;
 }
@@ -17,7 +19,12 @@ svg {
   text-overflow: ellipsis;
 }
 
-#map {border: 1px solid #e2e2e2;}
+#map {
+    width:100%;
+    height:800px;
+    border: 1px solid #e2e2e2;
+}
+
 
 .legend { 
   display:block;
@@ -127,10 +134,7 @@ svg {
       font-size: 1.2em;
   }
 
-  #map {
-    width:100%;
-    height:100%;
-  }
+
 
   
 

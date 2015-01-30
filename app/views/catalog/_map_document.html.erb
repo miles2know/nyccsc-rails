@@ -11,6 +11,8 @@
                   <span id="searchicon" class="input-group-addon"><i class="fa fa-search"></i></span>
                 </div>
             </form>
+
+            <p>&nbsp;</p>
           
             <div id="map-sidebar">
               <div class="panel panel-default">
@@ -25,7 +27,9 @@
                   <div class="panel-body">
 
                       <form role="form" id="context-layers">
-                        
+                        <div class="radio">
+                          <label><input type='radio' name='contextLayers' id='none' checked='checked' onChange=toggleRadioLayer('contextLayers','none')>No Context Layer</label>
+                        </div>
                       </form>
 
                   </div>
@@ -77,7 +81,6 @@
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
   
-    
     <!-- requires leaflet and leaflet specific plugins -->
     <!-- // Map & Chart related GEMs 
          //= require leaflet
@@ -99,6 +102,3 @@
     <%= javascript_include_tag 'getGISLayerInfo' %>
     
     <%= javascript_include_tag 'map/mapUberApp.js' %>
-
-  
-
