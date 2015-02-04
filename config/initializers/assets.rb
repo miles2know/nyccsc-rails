@@ -4,6 +4,8 @@ Rails.application.config.assets.precompile += %w( map/mapAddLayer.js )
 Rails.application.config.assets.precompile += %w( map/mapResults.js )
 Rails.application.config.assets.precompile += %w( map/mapSearchAlt.js )
 Rails.application.config.assets.precompile += %w( map/mapUberApp.js )
+Rails.application.config.assets.precompile += %w( map/map.js )
+Rails.application.config.assets.precompile += %w( map/mapBookmarks.js )
 
 #for data product chart features - static pages
 Rails.application.config.assets.precompile += %w( data/chartData.js )

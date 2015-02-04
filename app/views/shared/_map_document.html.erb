@@ -43,6 +43,7 @@
     </div><!-- #sidebar -->  
   </div><!--.col-sm-3 -->
 
+  <!-- MAP -->
   <div class="col-sm-9">
     <div id="map-container">
       <div id="map" ></div>
@@ -94,9 +95,9 @@
 <%= javascript_include_tag 'map/mapDataOverlays' %>
 <%= javascript_include_tag 'map/mapAddLayer' %>
 <%= javascript_include_tag 'map/mapSearchAlt' %>
-<%#= javascript_include_tag 'map/mapSessionLayers' %>
 
 <!-- bring it all together now -->
 <%= javascript_include_tag 'getGISLayerInfo' %>
 
-<%= javascript_include_tag 'map/mapUberApp.js' %>
+<%= javascript_include_tag 'map/map.js' %>
+<%#= javascript_include_tag 'map/mapBookmarks.js' %>

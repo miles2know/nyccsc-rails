@@ -1,48 +1,11 @@
+
+//for typeahead and bloodhound, not yet implemented, not sure it needs to be
 var layerSearch=[],ny_countySearch=[],ny_dotSearch=[],ny_decSearch=[],ny_clim_divSearch=[],ny_watershedSearch=[]; 
 var layerBH, ny_countyBH, ny_dotBH, ny_decBH, ny_clim_divBH, ny_watershedBH; 
 var ny_county, ny_dot, ny_dec, ny_clim_div, ny_watershed;
 
 //context overlay options
 //once things are migrated to fully dynamic, this can be removed
-var contextOverlays =  
-[
-    {
-        data_id : ny_county,
-        data_name : "Counties",
-        data_source : "/data/ny_counties_tiger.geojson",
-        data_array : ny_countySearch,
-        active : true
-    },
-    {
-        data_id : ny_watershed,
-        data_name : "Watersheds",
-        data_source : "/data/basin.geojson",
-        data_array : ny_watershedSearch,
-        active : false
-    },
-    {
-        data_id : ny_dec,
-        data_name : "DEC Regions",
-        data_source : "/data/ny_dec.geojson",
-        data_array : ny_decSearch,
-        active : false
-    }//,
-    // {
-    //     data_id : ny_dot,
-    //     data_name : "DOT Regions",
-    //     data_source : "/data/ny_dot.geojson",
-    //     data_array : ny_dotSearch,
-    //     active : false
-    // },
-    // {
-    //     data_id : ny_clim_div,
-    //     data_name : "Climate Divisions",
-    //     data_source : "/data/ny_clim_div.geojson",
-    //     data_array : ny_clim_divSearch,
-    //     active : false
-    // }
-];
-
 var contextLayers =  
 [
     {
@@ -98,8 +61,7 @@ var contextLayers =
 ];
 
 
-//various base layer options
-//some of these came from http://leaflet-extras.github.io/leaflet-providers/preview/
+//base layer options
 var OpenStreetMap_DE = L.tileLayer('http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
   attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
 });
@@ -150,3 +112,12 @@ var mapquestHYB = L.layerGroup([L.tileLayer("http://{s}.mqcdn.com/tiles/1.0.0/sa
     subdomains: ["oatile1", "oatile2", "oatile3", "oatile4"],
     attribution: 'Tiles and labels courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">. Map data (c) <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> contributors. '
 })]);
+
+
+var baseLayers = {
+  "Grayscale" : OpenStreetMap_BlackAndWhite,
+  "Street Map": MapQuestOSM,
+  "Topography": Esri_WorldTopoMap,
+  "Satellite": Esri_WorldImagery,
+  "Satellitte with Streets": mapquestHYB
+};
