@@ -1,0 +1,146 @@
+
+#documents {
+  padding: 0 20px;
+  .document {
+    .document-counter {
+      display: hide;
+    }
+    h5 {
+      font-size: 1.3em;
+    }
+    a {
+      color: $blue;
+      &:hover {
+        color: $blue-light;
+      }
+    }
+    .document-metadata {
+      font-size: .95em;
+      dt {
+        width: 10%; 
+      }
+      dd {
+        margin-left: 12%;
+      }
+    }
+  }
+}
+
+
+<<<<<<< HEAD
+/* facets dropdown menus */
+.facets {
+  > .nav {
+    > li { 
+      > a {
+        padding: 8px 10px;
+        color: $gray-dark;
+      }
+      > .dropdown-menu {
+        > li {
+          > .facet-label {
+            display: table;
+            width: 100%;
+            min-width: 200px;
+            font-size: .9em;
+            padding: 3px 15px;
+            /* icons */
+            .fa {
+              width: 14px;
+              text-align:center;
+            }
+            /* title of facet / select */
+            > a.facet_select {
+              display: table-cell;
+              width: 90%;
+              color: $gray;
+              text-decoration: none;
+            }
+            /* count of facet */
+            > .facet-count {
+              display: table-cell;
+              width: 10%;
+              color: $gray-light;
+              /* selected */
+              &.selected {
+                color: #000;
+              }
+            }
+            &:hover {
+              background-color: $gray-lighter;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* search box */
+.search-query-form .input-group {
+  width: 100%;
+  .input-group-btn {
+    width: 0; /* bootstrap auto is funky */
+  }
+}
+
+/* turn map searching on/off */
+#map-search {
+  position:absolute; 
+  top:10px; 
+  left:50px;
+  padding: 5px 15px;
+  border: $border-radius-base;
+  background-color: #fff;
+  z-index: 20000;
+  input[type=checkbox] {
+    + label {
+      color: #f00; /* red for now... */
+    }
+    &:checked + label {
+      color: $gray;
+    }
+  }
+}
+
+=======
+.document .document-counter {
+  color: #000;  
+}
+
+.document h5 {
+  font-size: 1.3em;
+}
+
+.document a {
+  color: $blue;
+}
+
+.document a:hover {
+  color: $blue-light;
+}
+
+.document-metadata {
+  font-size: .95em;
+}
+
+.document dl.document-metadata dt {
+  width: 10%; 
+}
+
+.document dl.document-metadata dd {
+  margin-left: 12%;
+}
+
+.panel-heading {
+  padding-left:10px;
+}
+
+.facet-values .facet-label {
+  word-wrap:break-word;
+  padding-left:10px;
+  padding-right:.5em;
+  font-size: .9em;
+}
+>>>>>>> master
+
