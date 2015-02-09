@@ -68,12 +68,7 @@ function addSelectedLayer(selected, index, layerProperties) {
 function toggleRadioLayer(collection,layer) {
 
   var layersCollection = window[collection];
-  // if (layer == 'all' && $('input#'+layer).is(':checkbox')) {
-  //   $('input#'+layer+':checked').length) {
-  //   console.log('checked all');
-  // } else {
-  //   console.log('checked all');
-  // }
+  
   for (var i = 0; i < layersCollection.length; i++) {
     layerProperties = layersCollection[i];
 

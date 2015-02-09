@@ -70,7 +70,7 @@ a:hover {
 .rounded-top {border-top-left-radius: $border-radius-base; border-top-right-radius: $border-radius-base; }
 .rounded-bottom {border-bottom-left-radius: $border-radius-base; border-bottom-right-radius: $border-radius-base; }
 
-.full-width-container {width:100%;margin:20px auto;}
+.full-width-container {width:100%; min-height:600px;margin:20px auto;}
 .full-width-container:after {clear:both;}
 
 .vertical-offset-md {margin-bottom:40px;}
@@ -84,6 +84,18 @@ ul.with-icons {
   li {
     font-size: 1.1em;
   }
+}
+
+
+/*******************************************************************************************/
+/* loader */
+/*******************************************************************************************/
+
+.loading {
+  margin: 100px auto;
+  width: 20px;
+  height: 20px;
+  position: relative;
 }
 
 

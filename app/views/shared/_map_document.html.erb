@@ -47,13 +47,13 @@
   <div class="col-sm-9">
     <div id="map-container">
       <div id="map" ></div>
-      <div id="loading">
+      <!-- <div id="loading">
         <div class="loading-indicator">
           <div class="progress progress-striped active">
             <div class="progress-bar progress-bar-info progress-bar-full"></div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div><!-- .col-sm-9 -->
 
@@ -99,5 +99,5 @@
 <!-- bring it all together now -->
 <%= javascript_include_tag 'getGISLayerInfo' %>
 
-<%= javascript_include_tag 'map/map.js' %>
-<%#= javascript_include_tag 'map/mapBookmarks.js' %>
+<%= javascript_include_tag 'map/mapBookmarks' %>
+<%= javascript_include_tag 'map/map' %>

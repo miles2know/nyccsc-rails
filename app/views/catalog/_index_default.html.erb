@@ -1,7 +1,8 @@
 <%# default partial to display solr document fields in catalog index view -%>
 
+<!-- added URI here to retrieve additional parameters from VIVO -->
 <dl class="document-metadata dl-horizontal dl-invert" uri="<%= document["URI"]%>">
-  
+<!-- <dl class="document-metadata dl-horizontal dl-invert"> -->
   <% index_fields(document).each do |solr_fname, field| -%>
     <% if should_render_index_field? document, field %>
 

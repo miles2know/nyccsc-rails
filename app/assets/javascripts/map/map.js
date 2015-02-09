@@ -1,47 +1,61 @@
+//= require_tree ./modules
 
+//extend using Leaflet
+var Map = L.Class.extend({
+  options: {
+    bbox: [[-85, -180], [85, 180]] //whole world default!
+  },
 
-function Map (baseLayers) {
+  basemap: OpenStreetMap_DE,
+  overlay: L.layerGroup(),
 
-  this.baseLayers = baseLayers;
-
-  
-  this.initObjects = function() {
-    //this variable is setup in _document_list.html
-    if(typeof docs != "undefined") {
-        this.docs = docs;
-    } else {
-        this.docs = {};
-    }
-    this.bBoxs = new L.LayerGroup([]); 
-    //this contains the maximum boudning box that will cover all the results
-    this.mapBbox = [];
-
-    /* initialize map */
-    this.map = L.map("map", {
-      layers: [OpenStreetMap_DE],
-      center:[43.1393, -76],
-      zoom: 6,
-      minZoom: 5,
-      maxZoom: 15,
-      zoomControl: false,
-      attributionControl: false
-    });
+  initialize: function(el, options) {
     
-    //this.documentItems = $("div.document[docCounter]");
-  };
-  this.setupMap = function(){
+    this.element = el;
+    this.data = $(el).data();
+    
+    L.Util.setOptions(this, options);
 
-    //add baseLayers to map
-    L.control.layers(this.baseLayers).addTo(this.map);
+    // trigger viewer load function
+    this.load();
+  },
 
-    //add zoom control to map
-    var zoomControl = L.control.zoom({
-      position: "topleft"
-    }).addTo(this.map);
+  load: function() {
+    this.map = L.map(this.element).fitBounds(this.options.bbox);
+    this.map.addLayer(this.basemap);
+    this.map.addLayer(this.overlay);
+    if (this.data.map === 'index') {
+      this.addBoundsOverlay(this.options.bbox);
+    }
+    this.addShareMyLocation();
+  },
 
-    //add my location control to map
-    var locateControl = L.control.locate({
-      position: "bottomright",
+  /**
+  * Add a bounding box overlay to map.
+  * @param {L.LatLngBounds} bounds Leaflet LatLngBounds
+  */
+  addBoundsOverlay: function(bounds) {
+    if (bounds instanceof L.LatLngBounds) {
+      this.overlay.addLayer(L.polygon([
+        bounds.getSouthWest(),
+        bounds.getSouthEast(),
+        bounds.getNorthEast(),
+        bounds.getNorthWest()
+      ]));
+    }
+  },
+
+  /**
+  * Remove bounding box overlay from map.
+  */
+  removeBoundsOverlay: function() {
+    this.overlay.clearLayers();
+  },
+  
+  //add my location control to map
+  addShareMyLocation: function() {
+    var locateControl = {
+      position: "topleft",
       drawCircle: true,
       follow: true,
       setView: true,
@@ -69,39 +83,11 @@ function Map (baseLayers) {
         maximumAge: 10000,
         timeout: 10000
       }
-    }).addTo(this.map);
-
-      //base bbox/zoom/pan level on search results
-      // mapResults.calculateMaximumBoundingBox();
-      //   if(mapResults.mapBbox.length > 0) {
-      //       mapResults.map.fitBounds(mapResults.mapBbox);
-      // }
-      //add context layers and radio toggle 
-
-  };
- 
-};
-
-//load map when page loads
-$(document).ready(function() {
-
-  if ( $('#map') != null ) {
-    console.log('#map is not null');
-    var thisMap = new Map(baseLayers);
-    thisMap ? (thisMap.initObjects(), thisMap.setupMap()) : console.log('error loading map');
-    
-    //var myMap = new mapResults.onLoad();
+    };
+    this.map.addControl(L.control.locate(locateControl));
   }
-
-  $('#map-container').sticky({
-      topSpacing: 0, // Space between element and top of the viewport
-      zIndex: 100, // z-index
-      stopper: "footer" // Id, class, or number value
-  });
-  $('#search-params').sticky({
-      topSpacing: 0, // Space between element and top of the viewport
-      zIndex: 100, // z-index
-      stopper: "footer" // Id, class, or number value
-  });
     
 });
+
+
+
