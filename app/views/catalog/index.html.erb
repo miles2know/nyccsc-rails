@@ -1,19 +1,14 @@
 
+<header id="header-facets">
+  <div class="container">
 
-<div class="container">
-    <div class="pull-right">
-      <% if render_bookmarks_control? %>
-        <%= link_to t('blacklight.header_links.bookmarks'), bookmarks_path, :class =>"btn" %>
-      <% end %>
-      <% if search_session['map'] == 'hide' %>
-        <a href="#" class="btn" id="map-toggle"><< Show Map</a>
-      <% else %>
-        <a href="#" class="btn visible" id="map-toggle">Hide Map >></a>
-      <% end %>
-      
-    </div>
-    <h3>Browse Maps and Find Data</h3>
-</div>
+      <div class="pull-right">
+        <%= render_search_bar %>
+      </div>
+      <!-- facets -->
+      <%= render 'search_sidebar' %>
+  </div>
+</header>
 
 <div id="main-container" class="container full-width-container">
 
@@ -23,9 +18,7 @@
       <div id="content" class="col-sm-6">
     <% end %>
 
-        <%= render 'search_and_constraints' %>
-        <%= render 'search_sidebar' %>
-        
+        <%#= render 'search_and_constraints' %>
 
         <% unless has_search_parameters? %>
     	    <%# if there are no input/search related params, display the "home" partial -%>

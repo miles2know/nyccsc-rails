@@ -2,8 +2,9 @@
 $(document).ready(function() {
 
   //first setup sticky elements - search params and map
-  stickyElement('#map-container');
-  stickyElement('#search-params');
+  stickyElement('#map-container', 100);
+  stickyElement('#appliedParams', 100);
+  stickyElement('#header-facets');
 
   //history code that follows requires native.history.js 
   var historySupported = !!(window.history && window.history.pushState);

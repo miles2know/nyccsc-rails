@@ -16,7 +16,19 @@
       color: #fff;
     }
   }
-  #header-search {
+  .navbar {
+    ul.primary-nav {
+      li {
+        height: 70px; 
+        max-width: 140px;
+        text-align: center;
+        a {
+          height: inherit;
+        }
+      }
+    }
+  }
+  /*#header-search {
     margin-top: 20px;
     input {
       border-top-left-radius: $border-radius-base;
@@ -42,7 +54,14 @@
         border-radius: 4px;
       }
     }
-  }
+  }*/
+}
+
+header#header-facets {
+  background-color: #fff;
+  padding: 10px 0;
+  border-bottom: 1px solid $gray-lighter;
+  box-shadow: 0 2px 2px $gray-light;
 }
 
 
@@ -52,48 +71,7 @@
 /*******************************************************************************************/
 
 #header-navbar{ 
-  .navbar {
-    ul.primary-nav {
-      li {
-        height: 70px; 
-        max-width: 140px;
-        text-align: center;
-        a {
-          height: inherit;
-        }
-      }
-    }
-  }
+  
 }
 
 
-/*******************************************************************************************/
-/* don't think any of this is being used...  */
-/*******************************************************************************************/
-
-/*.navbar-nav li */
-
-/*
-.navbar-form {
-  padding:0;
-}
-.navbar-form .input-group {
-  vertical-align: top;
-}
-.navbar-form .input-group-addon {
-  padding: 4px 12px 3px;
-}
-*/
-
-
-/* secondary navigation in header/banner 
-.secondary-navbar {
-  vertical-align: bottom;
-}
-.secondary-navbar ul {
-  list-style: none outside none;
-}
-.secondary-navbar ul li {
-  display:inline-block;
-}
-*/
