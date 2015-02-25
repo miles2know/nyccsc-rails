@@ -77,6 +77,7 @@ end
 <% elsif @special_type == "data_product" -%>
   <%= render 'data_product' %>
 <% elsif @special_type == "gis_layer" -%>
-  <%= render 'map_document' %>
+  <%= render :partial => 'shared/map_document' %>
+  <%#= render 'map_document' %>
 <% end -%>
 

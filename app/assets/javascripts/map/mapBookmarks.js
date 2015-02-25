@@ -1,65 +1,62 @@
-/**
- * This is a hard-coded array that maps ids in a PostGres database to the URIs in the system.
- * Ideally, we should not have to hardcode or store this in this file, but we are doing so for now.
- */
 
-/**
- * Actual Map code
- */
-var map, bounds, center;
+var mapBookmarks = {};
 
+//load map when page loads
+$(document).ready(function() {
 
-/* initialize map */
-map = L.map("map", {
-  layers: [OpenStreetMap_DE],
-  center:[43.1393, -76],
-  zoom: 6,
-  minZoom: 5,
-  maxZoom: 15,
-  zoomControl: false,
-  attributionControl: false
+  if ( $('#map') != null ) {
+
+    mapBookmarks = new DetailMap(baseLayers);
+    mapBookmarks.init();
+    mapBookmarks.setup();
+    mapBookmarks.setupContextLayers(); 
+     
+  }
+
+  $('#map-container').sticky({
+      topSpacing: 0, // Space between element and top of the viewport
+      zIndex: 100, // z-index
+      stopper: "footer" // Id, class, or number value
+  });
 });
 
-//preload custom/selected layers
-function loadSelectedLayers() {
-  
-  var selected, content = "";
 
-  //start with selected layers (bookmarks) returned by blacklight app
-  $("#maps-selected span").each( function(index){
+//Individual, Custom and Bookmarks 
+var DetailMap = function() {
+ Map.apply(this,arguments);
+};
 
-    //TODO: this will be handled differently moving forward
-    //needs to be cleaned up and the sidebar should probably be built using ruby
-    selected = $(this).attr("id");
-    //build sidebar and load layers (hidden) 
+//extend Map 
+DetailMap.prototype = new Map();
+DetailMap.prototype.constructor = DetailMap;
+
+
+DetailMap.prototype.setupContextLayers = function() {
+  var layerProperties, panelContent = "";
     
-    
-    //Get the GIS layer info and pass in the callback function addSelectedLayer below
-    getGISLayerInfo.makeGISMappingQuery(selected, index, addSelectedLayer);
-            /*
-    for (var i = 0; i < customLayers.length; i++) {
-      layerProperties = customLayers[i];
+  for (var i = 0; i < contextLayers.length; i++) {
+    layerProperties = contextLayers[i];
+    //add layer to map
+    window[layerProperties.id] = addLayer(layerProperties);
+    //build ui to toggle layer on/off
+    panelContent = panelContent + "<div class='radio'>"
+      + "<label><input type='radio' name='contextLayers' id='" + layerProperties.id + "' onChange=toggleRadioLayer('contextLayers','" + layerProperties.id + "')>" + layerProperties.title + "</label>"
+      + "</div>";
 
-      if (layerProperties["uri"] && layerProperties["uri"] == selected) {
-        window[layerProperties["id"]] = addLayer(layerProperties);
+  }  
 
-        content = content + renderPanel(layerProperties);
-      }
+  $("#context-layers").append(panelContent);
+};
 
-    }  */
-  });
-  
-
-}
 
 function addSelectedLayer(selected, index, layerProperties) {
-	//We need a unique identifier for the layer that is NOT the URI as that does not appear
-	//to work correctly, perhaps due to slashes?
-	//TODO: find a better mechanism for the id - if possible, some version of the URI
-	var id = "layer_" + index;
-	layerProperties["id"] = id;
-	window[id] = addLayer(layerProperties);
-	content = renderPanel(layerProperties);
+  //We need a unique identifier for the layer that is NOT the URI as that does not appear
+  //to work correctly, perhaps due to slashes?
+  //TODO: find a better mechanism for the id - if possible, some version of the URI
+  var id = "layer_" + index;
+  layerProperties["id"] = id;
+  window[id] = map.addLayer(layerProperties);
+  content = renderPanel(layerProperties);
   $("#map-selected-layers").append(content);
 }
 
@@ -68,21 +65,16 @@ function addSelectedLayer(selected, index, layerProperties) {
 function toggleRadioLayer(collection,layer) {
 
   var layersCollection = window[collection];
-  // if (layer == 'all' && $('input#'+layer).is(':checkbox')) {
-  //   $('input#'+layer+':checked').length) {
-  //   console.log('checked all');
-  // } else {
-  //   console.log('checked all');
-  // }
+  
   for (var i = 0; i < layersCollection.length; i++) {
     layerProperties = layersCollection[i];
 
     if (layer === layerProperties.id) {
-      map.addLayer(window[layer]);
+      thisMap.map.addLayer(window[layer]);
     } else {  
       
-      if (map.hasLayer(window[layerProperties.id])) {
-        map.removeLayer(window[layerProperties.id]);
+      if (thisMap.map.hasLayer(window[layerProperties.id])) {
+        thisMap.map.removeLayer(window[layerProperties.id]);
       }
       
     }
@@ -100,25 +92,7 @@ function toggleLayer(layer) {
   }
 }
 
-//preload context layers
-function loadContextLayers() {
-  
-  var layerProperties, content = "";
-  
-  for (var i = 0; i < contextLayers.length; i++) {
-    layerProperties = contextLayers[i];
-    //add layer
-    window[layerProperties.id] = addLayer(layerProperties);
-    //build ui to toggle layer on/off
-    content = content + "<div class='radio'>"
-      + "<label><input type='radio' name='contextLayers' id='" + layerProperties.id + "' onChange=toggleRadioLayer('contextLayers','" + layerProperties.id + "')>" + layerProperties.title + "</label>"
-      + "</div>";
 
-  }  
-
-  $("#context-layers").append(content);
-
-}
 
 //preload custom/selected layers
 function loadCustomLayers(layers) {
@@ -326,109 +300,14 @@ function renderPanel(properties){
 }
 
 //turns sidebar options on/off using transparency on panel
-//could take this one step further and disable checkbox??
-function getTransparency(e){
-    bounds = map.getBounds();
-    center = map.getCenter();
+function getTransparency(bounds,center){
     
     url = "/proxy/data?q=data&querytype=GISdataTransparencyREST2json&lat1=" + bounds.getSouthWest().lat + "&lon1=" + bounds.getSouthWest().lng + "&lat2=" + bounds.getNorthEast().lat + "&lon2=" + bounds.getNorthEast().lng + "&midlon=" + center.lng + "&midlat=" + center.lat;
-    //url = "/proxy/data?q=data&querytype=GISdataTransparencyREST2json&lat1=39.67337039176558&lon1=-85.93505859374999&lat2=45.767522962149876&lon2=-65.58837890625&midlon=-75.77004050000001&midlat=42.788207687920305";
-
+  
     $.getJSON(url, function (data) {
         $.each(data, function( index, value ) {
             $('#' + value.tablename + '_layer').css('opacity',value.opacity)
         })
     });
 }
-
-
-//This is a built-in map to things with ids
-
-
-var popup = L.popup();
-
-
-function loadLayers () {
-  loadContextLayers();
-  loadSelectedLayers();
-  getTransparency();
-}
-
-map.on('moveend', getTransparency);
-map.whenReady(loadLayers);
-
-/* Attribution control */
-function updateAttribution(e) {
-  $.each(map._layers, function(index, layer) {
-    if (layer.getAttribution) {
-      $("#attribution").html((layer.getAttribution()));
-    }
-  });
-}
-map.on("layeradd", updateAttribution);
-map.on("layerremove", updateAttribution);
-
-var attributionControl = L.control({
-  position: "bottomright"
-});
-
-attributionControl.onAdd = function (map) {
-  var div = L.DomUtil.create("div", "leaflet-control-attribution");
-  div.innerHTML = "<span class='hidden-xs'>Developed by <a href='http://frontierspatial.com'>frontierspatial.com</a> | </span><a href='#' target='_blank_' onClick='$(\"#attributionModal\").modal(\"show\"); return false;'>Attribution</a>";
-  return div;
-};
-
-
-map.addControl(attributionControl);
-
-var zoomControl = L.control.zoom({
-  position: "topleft"
-}).addTo(map);
-
-/* GPS enabled geolocation control set to follow the user's location */
-var locateControl = L.control.locate({
-  position: "bottomright",
-  drawCircle: true,
-  follow: true,
-  setView: true,
-  keepCurrentZoomLevel: true,
-  markerStyle: {
-    weight: 1,
-    opacity: 0.8,
-    fillOpacity: 0.8
-  },
-  circleStyle: {
-    weight: 1,
-    clickable: false
-  },
-  icon: "icon-direction",
-  metric: false,
-  strings: {
-    title: "My location",
-    popup: "You are within {distance} {unit} from this point",
-    outsideMapBoundsMsg: "You seem located outside the boundaries of the map"
-  },
-  locateOptions: {
-    maxZoom: 18,
-    watch: true,
-    enableHighAccuracy: true,
-    maximumAge: 10000,
-    timeout: 10000
-  }
-}).addTo(map);
-
-
-
-var baseLayers = {
-  "Grayscale" : OpenStreetMap_BlackAndWhite,
-  "Street Map": MapQuestOSM,
-  "Topography": Esri_WorldTopoMap,
-  "Satellite": Esri_WorldImagery,
-  "Satellitte with Streets": mapquestHYB
-};
-
-
-L.control.layers(baseLayers).addTo(map);
-
-
 

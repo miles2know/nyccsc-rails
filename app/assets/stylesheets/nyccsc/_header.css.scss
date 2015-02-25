@@ -2,21 +2,17 @@
 /*******************************************************************************************/
 /* branding and search */
 /*******************************************************************************************/
-#header-navbar{ 
-  background-color: $brand-primary;
-  border:0;
-  /*branding @ top left*/
-  .branding {
-    a.navbar-brand {
-      height: 128px;
-      width: 165px;
-      margin-right: 0;
-    }
-    h3 {
-      color: #fff;
-    }
+.header-branding{ 
+  background-color: #fff;
+  padding:10px 0;
+}
+.header-navbar {
+  margin-top: 20px;
+  .navbar-collapse {
+    padding: 0;
   }
-  #header-search {
+}
+  /*#header-search {
     margin-top: 20px;
     input {
       border-top-left-radius: $border-radius-base;
@@ -42,58 +38,16 @@
         border-radius: 4px;
       }
     }
-  }
+  }*/
+
+
+header#header-facets {
+  background-color: #fff;
+  padding: 10px 0;
+  border-bottom: 1px solid $gray-lighter;
+  box-shadow: 0 2px 2px $gray-light;
 }
 
 
 
-/*******************************************************************************************/
-/* navbar */
-/*******************************************************************************************/
 
-#header-navbar{ 
-  .navbar {
-    ul.primary-nav {
-      li {
-        height: 70px; 
-        max-width: 140px;
-        text-align: center;
-        a {
-          height: inherit;
-        }
-      }
-    }
-  }
-}
-
-
-/*******************************************************************************************/
-/* don't think any of this is being used...  */
-/*******************************************************************************************/
-
-/*.navbar-nav li */
-
-/*
-.navbar-form {
-  padding:0;
-}
-.navbar-form .input-group {
-  vertical-align: top;
-}
-.navbar-form .input-group-addon {
-  padding: 4px 12px 3px;
-}
-*/
-
-
-/* secondary navigation in header/banner 
-.secondary-navbar {
-  vertical-align: bottom;
-}
-.secondary-navbar ul {
-  list-style: none outside none;
-}
-.secondary-navbar ul li {
-  display:inline-block;
-}
-*/

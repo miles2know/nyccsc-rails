@@ -1,19 +1,20 @@
 
   <!-- default map / should default to NYS -->
-  <div id="map-container" style="width:100%;height:600px;">
+  <div id="map-container" style="width:100%;height:500px;">
     <ul class="nav nav-tabs overlay-tabs"></ul>
-    <div id="map" class="mapResults">
-      <div id="map-search">
+    <div id="map" class="leaflet-container leaflet-retina leaflet-fade-anim" data-map="index" data-map-bbox="null" data-catalog-path="/catalog">
+      <!-- <div id="map-search">
         <form>
           <input type="checkbox" name="map-search" id="map-search" value="on" checked> 
           <label for="map-search">Search When I Move Map</label>
         </form>
-      </div>
+      </div> -->
     </div>
   </div>
 
   <!-- for mapping application -->
   <%= javascript_include_tag 'map/mapDataOverlays' %>
-  <%= javascript_include_tag 'map/mapResults' %>
+  <%= javascript_include_tag 'map/map' %>
+  <%#= javascript_include_tag 'map/mapResults' %>
   
   

@@ -1,16 +1,28 @@
 
 // Colors
-$green:         #acb74e;
-$green-lighter: lighten($green, 40%);
-$green-light:   lighten($green, 20%);
-$green-dark:    darken($green, 10%);
-$green-darker:  darken($green, 20%);
+$gray-dark:       #414c54; 
+$gray:            lighten($gray-dark, 50%);
+$gray-light:      lighten($gray-dark, 60%);
+$gray-lighter:    lighten($gray-dark, 68%);
 
-$blue:          #007d99;
-$blue-lighter:  lighten($blue, 20%);
-$blue-light:    lighten($blue, 10%);
-$blue-dark:     darken($blue, 5%);
-$blue-darker:   darken($blue, 10%);
+
+$blue:            #538fcc;
+$blue-lighter:    lighten($blue, 20%);
+$blue-light:      lighten($blue, 10%);
+$blue-dark:       darken($blue, 5%);
+$blue-darker:     darken($blue, 10%);
+
+$orange:          #f6892e;
+$orange-lighter:  lighten($orange, 20%);
+$orange-light:    lighten($orange, 10%);
+$orange-dark:     darken($orange, 5%);
+$orange-darker:   darken($orange, 10%);
+
+$green:           #9bb361;
+$green-lighter:   lighten($green, 40%);
+$green-light:     lighten($green, 20%);
+$green-dark:      darken($green, 10%);
+$green-darker:    darken($green, 20%);
 
 // Secondary Colors
 $brand-secondary:       $blue;
@@ -20,22 +32,16 @@ $btn-secondary-border:  darken($btn-secondary-bg, 5%);
 
 
 // More Bootstrap 
-$body-bg:         #f5f5f5;
 $headings-color:  #007d99;
-$brand-primary:   $green;
+$brand-primary:   $orange;
 
-$navbar-border-radius: 0px;
+$navbar-margin-bottom: 0;
+$navbar-default-bg: #fff;
+$navbar-default-border: #fff;
+$navbar-default-link-color: $blue;
 
-$navbar-margin-bottom: 0px;
-$navbar-default-bg: $blue;
-$navbar-default-border: $blue;
-$navbar-default-link-color: #e2e2e2;
-
-$navbar-default-link-hover-bg: lighten($blue, 5%);
-$navbar-default-link-hover-color: #fff;
-
-$navbar-default-link-active-bg: lighten($blue, 5%);
-$navbar-default-link-active-color: #fff;
+$navbar-default-link-hover-color: $orange-dark;
+$navbar-default-link-active-color: $orange-dark;
 
 $panel-default-heading-bg: #fff;
 $well-bg: #fff;

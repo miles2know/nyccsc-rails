@@ -1,6 +1,7 @@
 <% # container for a single doc -%>
 <% # Adding the doc Id here -%>
 <% # This is for the search results or index view of each document -%>
-<div class="document <%= render_document_class document %>" itemscope itemtype="<%= document.itemtype %>" docid="<%=document.id%>" docCounter="<%=document_counter%>">
+<!-- added data-layer-id, data-geom, data-bbox for map/search integration -->
+<div class="document <%= render_document_class document %>" itemscope itemtype="<%= document.itemtype %>" docid="<%=document.id%>" data-layer-id="<%=document.id%>" data-geom="ENVELOPE(-74.255895, -73.700005, 40.915774, 40.495929)" data-bbox="-74.255895 40.495929 -73.700005 40.915774" docCounter="<%=document_counter%>">
   <%= render_document_partials document, blacklight_config.view_config(document_index_view_type).partials, :document_counter => document_counter %>
 </div>
