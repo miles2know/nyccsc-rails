@@ -91,9 +91,9 @@ var vivoDataRequests = {
 				html += vivoDataRequests.generateAccessURLDisplay(binding["accessURL"]["value"], accessURLLabel);
 			}
 			//We only want to show the abstract once, not multiple times
-			if((i == len - 1) && ("abstract" in binding) && ("value" in binding["abstract"])) {
-				html += vivoDataRequests.generateAbstractDisplay(binding["abstract"]["value"]);
-			}
+			// if((i == len - 1) && ("abstract" in binding) && ("value" in binding["abstract"])) {
+			// 	html += vivoDataRequests.generateAbstractDisplay(binding["abstract"]["value"]);
+			// }
 		}
 		return html;
 		

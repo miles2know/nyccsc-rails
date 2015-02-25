@@ -4,7 +4,7 @@ var stickyElement = function(el,top){
   try {
     $(el).sticky({
         topSpacing: top, // Space between element and top of the viewport
-        zIndex: 100, // z-index
+        zIndex: 300, // z-index
         stopper: "footer" // Id, class, or number value
     });
     return true;

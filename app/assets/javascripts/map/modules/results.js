@@ -2,8 +2,8 @@
 $(document).ready(function() {
 
   //first setup sticky elements - search params and map
-  stickyElement('#map-container', 100);
-  stickyElement('#appliedParams', 100);
+  stickyElement('#map-container', 73);
+  stickyElement('#appliedParams', 73);
   stickyElement('#header-facets');
 
   //history code that follows requires native.history.js 
@@ -66,8 +66,10 @@ $(document).ready(function() {
   function updatePage(url) {  
     $('#documents').fadeTo('fast',0.2);
     $.get(url).done(function(data) {
+
       $('#documents').fadeTo('fast',1.0);
       var resp = $.parseHTML(data);
+      //vivoDataRequests.onLoad();
       $doc = $(resp);
       $('#documents').replaceWith($doc.find('#documents'));
       $('#sidebar').replaceWith($doc.find('#sidebar'));
@@ -78,7 +80,7 @@ $(document).ready(function() {
       } else {
         $('#map').after($doc.find('#map').next());
       }
-      //vivoDataRequests.onLoad();
+      
     });
   }
 
