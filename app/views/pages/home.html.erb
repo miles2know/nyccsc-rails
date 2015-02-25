@@ -1,181 +1,158 @@
 
-
-
-<div id="main-container" class="container">
-
-<div class="row vertical-offset-md">
-</div>
-
-<div class="row vertical-offset-md">
-
-  <div class="col-sm-4">
-    <%= image_tag "nyccsc/tiles/tile-maps.png", class:"img-responsive" %>
-    <p>&nbsp;</p>
-    <p><strong>Maps</strong> lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tincidunt fermentum lacus vitae varius. Aliquam erat volutpat. Maecenas non lacinia mi. Maecenas volutpat risus in neque pharetra euismod. Sed non turpis dignissim, sodales nunc efficitur.</p>
-    <p class="pull-right"><a href="/catalog?f[classgroup_pivot_facet][]=GIS&f[classgroup_pivot_facet][]=GIS&f[type_pivot_facet][]=GIS+Layer"> Go to maps <i class="fa fa-angle-double-right"></i></a></p>
-  </div>
-
-  <div class="col-sm-4">
-    <%= image_tag "nyccsc/tiles/tile-data-products.png", class:"img-responsive" %>
-    <p>&nbsp;</p>
-    <p><strong>Data Products</strong> lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tincidunt fermentum lacus vitae varius. Aliquam erat volutpat. Maecenas non lacinia mi. Maecenas volutpat risus in neque pharetra euismod. Sed non turpis dignissim.</p><p class="pull-right"><a href="#">Go to data products <i class="fa fa-angle-double-right"></i></a></p>
-  </div>
-
-  <div class="col-sm-4">
-    <%= image_tag "nyccsc/tiles/tile-documents.png", class:"img-responsive" %>
-    <p>&nbsp;</p>
-    <p><strong>Reports, Articles, Webpages, and Documents</strong> lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tincidunt fermentum lacus vitae varius. Aliquam erat volutpat. Maecenas non lacinia mi. Maecenas volutpat risus in neque pharetra euismod. </p><p class="pull-right"><a href="#">Go to documents <i class="fa fa-angle-double-right"></i></a></p>
-  </div>
-
-</div>
-
-<div class="row vertical-offset-sm">&nbsp;</div>
-
-<div class="row bg-blue-darker padded rounded-top"> 
-  <div class="col-sm-12">
-    <p class="pull-right"><a href="#"> More Impacts & Risks <i class="fa fa-angle-double-right"></i></a></p>
-    <h3 class="no-margin">Impacts & Risks</h3>
-  </div>
-</div>
-
-<div class="row vertical-offset-md bg-blue-dark padded rounded-bottom"> 
-  
-  <div class="col-sm-3">
-    <%= image_tag "nyccsc/impacts/flooding-sandy-street.jpg", class:"img-responsive" %>
-    <p>&nbsp;</p>
-    <p><strong>Coastal flooding</strong> due to sea level risk and storm surge will increasingly put lives and property at risk. Health, water quality, energy, infrastructure, and coastal ecosystems are all affected.</p>
-    <p class="pull-right"><a href="/catalog?utf8=✓&search_field=all_fields&q=coastal+flooding"> Go to resources <i class="fa fa-angle-double-right"></i></a>
-  </div>
-
-  <div class="col-sm-3">
-    <%= image_tag "nyccsc/impacts/heatwave-nyc.jpg", class:"img-responsive" %>
-    <p>&nbsp;</p>
-    <p><strong>Heat waves</strong> will become more frequent and intense, increasing heat-related illness and death and posing new challenges to the energy system, air quality, and agriculture.</p>
-    <p class="pull-right"><a href="/catalog?utf8=✓&search_field=all_fields&q=heat+waves"> Go to resources <i class="fa fa-angle-double-right"></i></a>
-  </div>
-
-  <div class="col-sm-3">
-    <%= image_tag "nyccsc/impacts/heavy-rain.jpg", class:"img-responsive" %>
-    <p>&nbsp;</p>
-    <p><strong>Heavy downpours</strong> are increasing and are projected to increase further. These can lead to flooding and related impacts on water quality, infrastructure, and agriculture.</p>
-    <p class="pull-right"><a href="/catalog?utf8=✓&search_field=all_fields&q=heavy+downpours"> Go to resources <i class="fa fa-angle-double-right"></i></a>
-  </div>
-
-  <div class="col-sm-3">
-    <%= image_tag "nyccsc/impacts/extreme-buffalo-shoveling.jpg", class:"img-responsive" %>
-    <p>&nbsp;</p>
-    <p><strong>Extreme weather</strong> can have a big impact in a short time.  Climate models predict significant changes in the frequency and intensity of some extreme weather events over the coming decades.</p>
-    <p class="pull-right"><a href="/catalog?utf8=✓&search_field=all_fields&q=extreme+weather"> Go to resources <i class="fa fa-angle-double-right"></i></a>
-  </div>
-
-</div><!-- end row -->
-
-
-
-<div class="row vertical-offset-md sectors">  
-
-  <%= render 'pages/shared/sectors' %>
-
-</div>
-
-<div class="row vertical-offset-md bg-blue padded rounded"> 
-
-  <div class="col-sm-6">
-
-    <h3>Response Strategies</h3>
-      <p>Our choices can make us more or less vulnerable to climate change. Two primary strategies include mitigation and adaptation, and there are a variety of interactions between these measures. For example, improving insulation and using reflective roofing materials keeps buildings cooler in summer (adaptation) as well as reducing energy use and the related emissions (mitigation). Both adaptation and mitigation are necessary elements of an effective response strategy.</p>
-  
-  </div>
-
-  <div class="col-sm-6">
-      
-    <div class="tile-response bg-blue-dark padded">
-        <p><strong>Mitigation</strong> is action taken to reduce the severity of climate change.  Early mitigation will make it easier to adapt to climate change later on.</p>
-        <p class="pull-right"><a href="/catalog?f[strategy_facet][]=Mitigation">Go to resources <i class="fa fa-angle-double-right"></i></a></p> 
-        <br class="clearfix">
+<!-- <div class="row vertical-offset-md">
+  <div class="jumbotron">
+    <div class="container">
+      <div class="col-sm-6">
+        <h6>Start your search using the New York Climate Change Science Clearinghouse</h6>
+        <%= render_search_bar %>
+      </div>
+      <div class="col-sm-3">
+        <h5>Sectors</h5>
+        <ul class="">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <h5>Climate Changes</h5>
+        <ul class="">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
     </div>
-      
-    <div class="tile-response bg-blue-dark padded">
-      <p><strong>Adaptation</strong> refers to actions taken to prepare for climate change, helping to reduce adverse impacts or take advantage of beneficial ones.</p>
-      <p class="pull-right"><a href="/catalog?f[strategy_facet][]=Adaptation">Go to resources <i class="fa fa-angle-double-right"></i></a></p>
-      <br class="clearfix">
+  </div>
+</div> -->
+
+<section class="bg-gray-light">
+
+  <div class="row">
+
+    <div class="container">
+
+      <div class="col-sm-4">
+        <%= image_tag "nyccsc/tiles/tile-maps.png", class:"img-responsive" %>
+        <p>&nbsp;</p>
+        <p><strong>Maps</strong> lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tincidunt fermentum lacus vitae varius. Aliquam erat volutpat. Maecenas non lacinia mi. Maecenas volutpat risus in neque pharetra euismod. Sed non turpis dignissim, sodales nunc efficitur.</p>
+        <p class="pull-right"><a href="/catalog?f[classgroup_pivot_facet][]=GIS&f[classgroup_pivot_facet][]=GIS&f[type_pivot_facet][]=GIS+Layer"> Go to maps <i class="fa fa-angle-double-right"></i></a></p>
+      </div>
+
+      <div class="col-sm-4">
+        <%= image_tag "nyccsc/tiles/tile-data-products.png", class:"img-responsive" %>
+        <p>&nbsp;</p>
+        <p><strong>Data Products</strong> lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tincidunt fermentum lacus vitae varius. Aliquam erat volutpat. Maecenas non lacinia mi. Maecenas volutpat risus in neque pharetra euismod. Sed non turpis dignissim.</p><p class="pull-right"><a href="#">Go to data products <i class="fa fa-angle-double-right"></i></a></p>
+      </div>
+
+      <div class="col-sm-4">
+        <%= image_tag "nyccsc/tiles/tile-documents.png", class:"img-responsive" %>
+        <p>&nbsp;</p>
+        <p><strong>Reports, Articles, Webpages, and Documents</strong> lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tincidunt fermentum lacus vitae varius. Aliquam erat volutpat. Maecenas non lacinia mi. Maecenas volutpat risus in neque pharetra euismod. </p><p class="pull-right"><a href="#">Go to documents <i class="fa fa-angle-double-right"></i></a></p>
+      </div>
+
     </div>
+
+  </div>
+
+</section>
+
+
+<section class="bg-white">
+  <div class="container">
+
+    <div class="row"> 
+      <div class="col-sm-12">
+        <h3>Impacts & Risks <small> <a href="#">More <i class="fa fa-angle-double-right"></i></a></small></h3>
+      </div>
+    </div>
+
+    <div class="row"> 
       
-  </div><!-- end col-sm-6 -->
+      <div class="col-sm-3">
+        <%= image_tag "nyccsc/impacts/flooding-sandy-street.jpg", class:"img-responsive" %>
+        <p>&nbsp;</p>
+        <p><strong>Coastal flooding</strong> due to sea level risk and storm surge will increasingly put lives and property at risk. Health, water quality, energy, infrastructure, and coastal ecosystems are all affected.</p>
+        <p class="pull-right"><a href="/catalog?utf8=✓&search_field=all_fields&q=coastal+flooding"> Go to resources <i class="fa fa-angle-double-right"></i></a></p>
+      </div>
 
-</div><!-- end row -->
+      <div class="col-sm-3">
+        <%= image_tag "nyccsc/impacts/heatwave-nyc.jpg", class:"img-responsive" %>
+        <p>&nbsp;</p>
+        <p><strong>Heat waves</strong> will become more frequent and intense, increasing heat-related illness and death and posing new challenges to the energy system, air quality, and agriculture.</p>
+        <p class="pull-right"><a href="/catalog?utf8=✓&search_field=all_fields&q=heat+waves"> Go to resources <i class="fa fa-angle-double-right"></i></a></p>
+      </div>
 
-<div class="row vertical-offset-md bg-gray-light padded rounded">
+      <div class="col-sm-3">
+        <%= image_tag "nyccsc/impacts/heavy-rain.jpg", class:"img-responsive" %>
+        <p>&nbsp;</p>
+        <p><strong>Heavy downpours</strong> are increasing and are projected to increase further. These can lead to flooding and related impacts on water quality, infrastructure, and agriculture.</p>
+        <p class="pull-right"><a href="/catalog?utf8=✓&search_field=all_fields&q=heavy+downpours"> Go to resources <i class="fa fa-angle-double-right"></i></a></p>
+      </div>
 
-  <div class="col-sm-4">
-  Across New York State, temperatures are increasing; along the coastline, the sea level is rising.  These changes are projected to accelerate because of increased concentrations of carbon dioxide and other greenhouse gases (GHGs) in the atmosphere. Throughout the Northeast, heavy rain events have become more frequent, and cold events have become more rare. These and other climate changes are projected to lead to increasing impacts across New York State’s economy and natural systems. Not all of these changes will necessarily be gradual; when certain tipping points are crossed, impacts can increase dramatically. Impacts from climate change are already affecting every part of New York State—water, energy, agriculture, ecosystems, and other social and economic systems—and all its 20 million inhabitants.
+      <div class="col-sm-3">
+        <%= image_tag "nyccsc/impacts/extreme-buffalo-shoveling.jpg", class:"img-responsive" %>
+        <p>&nbsp;</p>
+        <p><strong>Extreme weather</strong> can have a big impact in a short time.  Climate models predict significant changes in the frequency and intensity of some extreme weather events over the coming decades.</p>
+        <p class="pull-right"><a href="/catalog?utf8=✓&search_field=all_fields&q=extreme+weather"> Go to resources <i class="fa fa-angle-double-right"></i></a></p>
+      </div>
+
+    </div><!-- end row -->
   </div>
+</section>
 
-  <div class="col-sm-8">
-  <!-- Photo/Story Carousel
-      ================================================== -->
-      <div id="photoCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-          <li data-target="#photoCarousel" data-slide-to="0" class="active"></li>
-          <li data-target="#photoCarousel" data-slide-to="1"></li>
-          <li data-target="#photoCarousel" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-          <div class="item active">
-            <%= image_tag "nyccsc/carousel/cabin-snow.jpg" %>
-            <div class="container">
-              <div class="carousel-caption bottom">
-                <p class="text-left">Snowpack is projected to decline sharply due to future warming. Communities whose economies depend on skiing and other winter sports as well as people that enjoy these activies will be negatively affected by higher temperatures and reduced snowpack.</p>
-                <p class="text-right"><a class="btn btn-md btn-primary" href="#" role="button">Learn more</a></p>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <%= image_tag "nyccsc/carousel/grapes.jpg" %>
-            <div class="container">
-              <div class="carousel-caption bottom">
-                <p class="text-left">New York’s grape harvest ranked third in the nation in 2007, with the crop valued at nearly 50 million dollars. Increasing temperatures at the beginning of winter reduce cold hardiness and can raise the probability of midwinter damage. In the long term, a longer growing season may bring opportunities to introduce a wider ranger of higher-value, less cold tolerant red grape varieties. </p>
-                <p class="text-right"><a class="btn btn-md btn-primary" href="#" role="button">Learn more</a></p>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <%= image_tag "nyccsc/carousel/statue-of-liberty.jpg" %>
-            <div class="container">
-              <div class="carousel-caption top">
-                <p class="text-left">Warming ocean waters raise sea level and have the potential to strengthen the most powerful storms. New York’s highly developed and populated coastlines are vulnerable to severe coastal storms, such as hurricanes, and flooding.</p>
-                <p class="text-right"><a class="btn btn-md btn-primary" href="#" role="button">Learn more</a></p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <a class="left carousel-control" href="#photoCarousel" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-        <a class="right carousel-control" href="#photoCarousel" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-      </div><!-- /.carousel -->
+
+<section class="bg-gray-lighter">
+  <div class="container">
+    <div class="row">  
+      <%= render 'pages/shared/sectors' %>
+    </div>
   </div>
-
-  
-
-</div>
+</section>
 
 
-<div class="row vertical-offset-md">
+<section class="bg-white">
+  <div class="container">
+    <div class="row"> 
 
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <div class="btn-group pull-right">
-          <a class="btn btn-primary" href="#newsCarousel" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-          <a class="btn btn-primary" href="#newsCarousel" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-        </div><!-- end btn-group -->
-        <h3>News &amp; Events</h3>
-      </div><!-- end panel-heading -->
-      <div class="panel-body">
-        <div id="newsCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+      <div class="col-sm-6">
+        <h3>Response Strategies <small><a href="#">More <i class="fa fa-angle-double-right"></i></a></small></h3>
+          <p>Our choices can make us more or less vulnerable to climate change. Two primary strategies include mitigation and adaptation, and there are a variety of interactions between these measures. For example, improving insulation and using reflective roofing materials keeps buildings cooler in summer (adaptation) as well as reducing energy use and the related emissions (mitigation). Both adaptation and mitigation are necessary elements of an effective response strategy.</p>
+      </div>
+
+      <div class="col-sm-6">    
+        <div class="tile-response bg-blue-dark padded">
+            <p><strong>Mitigation</strong> is action taken to reduce the severity of climate change.  Early mitigation will make it easier to adapt to climate change later on.</p>
+            <p class="pull-right"><a href="/catalog?f[strategy_facet][]=Mitigation">Go to resources <i class="fa fa-angle-double-right"></i></a></p> 
+            <br class="clearfix">
+        </div>       
+        <div class="tile-response bg-blue-dark padded">
+          <p><strong>Adaptation</strong> refers to actions taken to prepare for climate change, helping to reduce adverse impacts or take advantage of beneficial ones.</p>
+          <p class="pull-right"><a href="/catalog?f[strategy_facet][]=Adaptation">Go to resources <i class="fa fa-angle-double-right"></i></a></p>
+          <br class="clearfix">
+        </div>     
+      </div><!-- end col-sm-6 -->
+
+    </div><!-- end row -->
+  </div>
+</section>
+
+<section class="bg-gray-light">
+  <div class="container">
+    <div class="row">
+      <div class="btn-group pull-right">
+        <a class="btn btn-primary" href="#newsCarousel" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+        <a class="btn btn-primary" href="#newsCarousel" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+      </div><!-- end btn-group -->
+      <h3>Events</h3>
+    </div>
+
+    <div class="row">
+
+      <div id="newsCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
       
         <div class="carousel-inner">
           <div class="item active">
-            <div class="container">
+            <div class="row">
+
                 <div class="col-md-3">
                     <time datetime="" class="icon">
                       <em>2015</em>
@@ -221,14 +198,9 @@
             </div>
           </div>
           <div class="item">
-            <div class="container">
-                <div class="col-md-3">
+            <div class="row">
 
-                    <!--<div class="circle-info">
-                      <span class="xl">29</span>
-                      <span class="lg">Jan 2014</span>
-                      <span class="md">6 pm</span>
-                    </div>-->
+                <div class="col-md-3">
                     <time datetime="" class="icon">
                       <em>2014</em>
                       <strong>JUL</strong>
@@ -268,15 +240,72 @@
                     <p><strong>Placeholder</strong> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla congue orci eu elit accumsan eleifend. Maecenas sed eleifend leo. Suspendisse euismod est sit amet ultricies scelerisque.</p>
                     <p class="clearfix"></p>
                 </div>
-            </div>
-          </div>
+            </div><!-- end container -->
+          </div><!-- end item -->
         </div><!-- end carousel-inner -->
       </div><!-- end #newsCarousel --> 
-    </div><!-- end panel-body -->
-  </div><!-- end panel -->
-</div><!-- end row -->
+    </div><!-- end row -->
 
-</div><!-- end container -->
+  </div><!-- end container -->
+</section>
+
+<section class="bg-white">
+  <div class="container">
+    <div class="row">
+
+      <!-- <div class="col-sm-4">
+      <h3 class="no-top-margin">How is NYS affected?</h3>
+      Across New York State, temperatures are increasing; along the coastline, the sea level is rising.  These changes are projected to accelerate because of increased concentrations of carbon dioxide and other greenhouse gases (GHGs) in the atmosphere. Throughout the Northeast, heavy rain events have become more frequent, and cold events have become more rare. These and other climate changes are projected to lead to increasing impacts across New York State’s economy and natural systems. Not all of these changes will necessarily be gradual; when certain tipping points are crossed, impacts can increase dramatically. Impacts from climate change are already affecting every part of New York State—water, energy, agriculture, ecosystems, and other social and economic systems—and all its 20 million inhabitants.
+      </div> -->
+
+      <div class="col-sm-12">
+          <!-- Photo/Story Carousel
+          ================================================== -->
+          <div id="photoCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+              <li data-target="#photoCarousel" data-slide-to="0" class="active"></li>
+              <li data-target="#photoCarousel" data-slide-to="1"></li>
+              <li data-target="#photoCarousel" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+              <div class="item active">
+                <%= image_tag "nyccsc/carousel/cabin-snow.jpg" %>
+                <div class="container">
+                  <div class="carousel-caption bottom">
+                    <p class="text-left">Snowpack is projected to decline sharply due to future warming. Communities whose economies depend on skiing and other winter sports as well as people that enjoy these activies will be negatively affected by higher temperatures and reduced snowpack.</p>
+                    <p class="text-right"><a class="btn btn-md btn-primary" href="#" role="button">Learn more</a></p>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <%= image_tag "nyccsc/carousel/grapes.jpg" %>
+                <div class="container">
+                  <div class="carousel-caption bottom">
+                    <p class="text-left">New York’s grape harvest ranked third in the nation in 2007, with the crop valued at nearly 50 million dollars. Increasing temperatures at the beginning of winter reduce cold hardiness and can raise the probability of midwinter damage. In the long term, a longer growing season may bring opportunities to introduce a wider ranger of higher-value, less cold tolerant red grape varieties. </p>
+                    <p class="text-right"><a class="btn btn-md btn-primary" href="#" role="button">Learn more</a></p>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <%= image_tag "nyccsc/carousel/statue-of-liberty.jpg" %>
+                <div class="container">
+                  <div class="carousel-caption top">
+                    <p class="text-left">Warming ocean waters raise sea level and have the potential to strengthen the most powerful storms. New York’s highly developed and populated coastlines are vulnerable to severe coastal storms, such as hurricanes, and flooding.</p>
+                    <p class="text-right"><a class="btn btn-md btn-primary" href="#" role="button">Learn more</a></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <a class="left carousel-control" href="#photoCarousel" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+            <a class="right carousel-control" href="#photoCarousel" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+          </div><!-- /.carousel -->
+      </div>
+    </div>
+  </div>
+</section>
+
+
 
 
 

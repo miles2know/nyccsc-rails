@@ -1,4 +1,10 @@
 
+<section class="page-title">
+  <div class="container">
+    <h1>Maps, Data &amp; Resources</h1>
+  </div>
+</section>
+
 <header id="header-facets">
   <div class="container">
 
@@ -10,7 +16,7 @@
   </div>
 </header>
 
-<div id="main-container" class="container full-width-container">
+<div class="container-fluid">
 
     <% if search_session['map'] == 'hide' %>
       <div id="content" class="col-sm-12">
@@ -69,6 +75,20 @@
 
 <script type="text/javascript">
 
+// $('dl').readmore({
+// speed: 100,
+// collapsedHeight: 140,
+// heightMargin: 16,
+// moreLink: '<a href="#">Read More</a>',
+// lessLink: '<a href="#">Close</a>',
+// embedCSS: true,
+// blockCSS: 'display: block; width: 100%;',
+// startOpen: false,
+ 
+// // callbacks
+// beforeToggle: function(){},
+// afterToggle: function(){}
+// });
 
   $('#map-toggle').on('click',function(e) {
 

@@ -2,32 +2,16 @@
 /*******************************************************************************************/
 /* branding and search */
 /*******************************************************************************************/
-#header-navbar{ 
-  background-color: $brand-primary;
-  border:0;
-  /*branding @ top left*/
-  .branding {
-    a.navbar-brand {
-      height: 128px;
-      width: 165px;
-      margin-right: 0;
-    }
-    h3 {
-      color: #fff;
-    }
+.header-branding{ 
+  background-color: #fff;
+  padding:10px 0;
+}
+.header-navbar {
+  margin-top: 20px;
+  .navbar-collapse {
+    padding: 0;
   }
-  .navbar {
-    ul.primary-nav {
-      li {
-        height: 70px; 
-        max-width: 140px;
-        text-align: center;
-        a {
-          height: inherit;
-        }
-      }
-    }
-  }
+}
   /*#header-search {
     margin-top: 20px;
     input {
@@ -55,7 +39,7 @@
       }
     }
   }*/
-}
+
 
 header#header-facets {
   background-color: #fff;
@@ -65,13 +49,5 @@ header#header-facets {
 }
 
 
-
-/*******************************************************************************************/
-/* navbar */
-/*******************************************************************************************/
-
-#header-navbar{ 
-  
-}
 
 
