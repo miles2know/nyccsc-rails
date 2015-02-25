@@ -30,7 +30,8 @@ Rails.application.routes.draw do
 
   get 'highlights/feature'
   get 'highlights/gis'
-  
+  get 'strategy'
+
   get 'proxy/data'
 
   post "/catalog/set_map_preference", :to => 'catalog#set_map_preference', :as => :map
