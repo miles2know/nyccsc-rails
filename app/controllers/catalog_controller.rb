@@ -57,7 +57,6 @@ class CatalogController < ApplicationController
     config.add_facet_field 'most_specific_type_label_facet', :label => 'Most Specific Type', :show => false
     config.add_facet_field 'type_pivot_facet', :label => 'Formats',  :show => true
 
-
     
     
     # solr fields that will be treated as facets by the blacklight application
@@ -93,6 +92,8 @@ class CatalogController < ApplicationController
     config.add_index_field 'most_specific_type_label_facet', :label => 'Types',  :helper_method => :render_index_type
     config.add_index_field 'sector_facet', :label => 'Sectors', :link_to_search => true
     config.add_index_field 'author_facet', :label => 'Authors', :link_to_search => true
+    config.add_index_field 'date_tdt', :label => 'Date', :link_to_search => false, :date => { :format => :short }
+    config.add_index_field 'abstract_display', :label => 'Abstract', :link_to_search => false
     #config.add_index_field 'sector_facet', helper_method: :render_format_value ## with icon 
     ## We can decide to add more if we want or keep it simple
     #config.add_index_field 'climate_changes_facet', :label => 'Climate Changes',  :limit => 9
@@ -111,6 +112,8 @@ class CatalogController < ApplicationController
     config.add_show_field 'most_specific_type_label_facet', :label => 'Types', :link_to_search => true
     config.add_show_field 'sector_facet', :label => 'Sectors', :link_to_search => true
     config.add_show_field 'author_facet', :label => 'Authors', :link_to_search => true
+    #config.add_show_field 'date_tdt', :label => 'Date', :link_to_search => false
+    #config.add_show_field 'abstract_display', :label => 'Abstract', :link_to_search => false
     #VIVO brings out the authors and links to them directly so we will just use that instead
     #config.add_show_field 'author_display', :label => 'Author', :link_to_search => true
     config.add_show_field 'climate_changes_facet', :label => 'Climate Changes', :link_to_search => true
@@ -203,10 +206,15 @@ class CatalogController < ApplicationController
     # label in pulldown is followed by the name of the SOLR field to sort by and
     # whether the sort is ascending or descending (it must be asc or desc
     # except in the relevancy case).
-    #config.add_sort_field 'score desc, pub_date_sort desc, title_sort asc', :label => 'relevance'
+    config.add_sort_field 'score desc, date_tdt desc, nameLowercaseSingleValued asc', :label => 'relevance'
     #config.add_sort_field 'pubDate_sort desc, title_sort asc', :label => 'year'
     #config.add_sort_field 'author_sort asc, title_sort asc', :label => 'author'
     #config.add_sort_field 'name_display_sort asc, type_sort asc', :label => 'title'
+    config.add_sort_field 'nameLowercaseSingleValued asc', :label => 'title A-Z'
+    config.add_sort_field 'nameLowercaseSingleValued desc', :label => 'title Z-A'
+    config.add_sort_field 'date_tdt desc', :label => 'date descending'
+    config.add_sort_field 'date_tdt asc', :label => 'date ascending'
+    
     #config.add_sort_field 'type_sort asc, name_display_sort', :label => 'type'
 
     # If there are more than this many search results, no spelling ("did you
