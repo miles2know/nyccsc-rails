@@ -1,0 +1,316 @@
+<% content_for :title do %>
+  Impacts &amp; Risks| NY Climate Change Science Clearinghouse
+<% end %>
+
+<section class="page-title">
+  <div class="container">
+    <h1>Impacts &amp; Risks</h1>
+  </div>
+</section>
+
+<main>
+  <div class="container">
+    <div class="row">
+
+      <div class="col-sm-3" id="leftCol">
+        <ul class="nav nav-stacked" id="sidebar">
+          <li><a href="#coastal">Coastal Flooding</a></li>
+          <li><a href="#heat">Heat Waves</a></li>
+          <li><a href="#heavy">Heavy Downpours</a></li>
+          <li><a href="#summer">Summer Drought</a></li>
+          <li><a href="#extreme">Extreme Weather</a></li>
+          <li><a href="#snowpack">Snowpack Decline</a></li>
+        </ul>
+      </div>
+
+      <div class="col-sm-9">
+
+        <article>
+
+        <div class="row">
+
+          <div class="col-sm-12">
+            <h3 id="coastal">Coastal Flooding</h3>
+          </div>
+
+          <div class="col-sm-7">
+              
+            <p>Coastal flooding due to sea level risk and storm surge will increasingly put lives and property at risk. Health, water quality, energy, infrastructure, and coastal ecosystems are all affected.</p>
+
+            <div class="row">
+
+              <div class="col-sm-6">
+                <h4>Data Product</h4>
+                <ul class="with-icons">
+                  <li> <a href="#"><span class="glyphicon glyphicon-stats"></span> Go to data visualization </a></li>
+                  <li> <a href="#"><span class="glyphicon glyphicon-download-alt"></span> Download data </a></li>
+                </ul>
+              </div>
+
+              <div class="col-sm-6">
+                <h4>Highlighted Resources</h4>
+                <%= render_highlights(@data, 'coastal') %>
+
+                <p><a href="#">All resources <i class="fa fa-angle-double-right"></i></a></p>
+              </div><!-- end col-sm-6 -->
+
+            </div><!-- end row -->
+
+          </div>
+
+          <div class="col-sm-5">
+            <%= image_tag "nyccsc/impacts/sea-level-rise-viewer.png", class:"img-responsive img-border" %>
+            <p class="small">The chart shows... </p>
+          </div>
+         
+        </div>
+
+        </article>
+
+        <article> 
+
+          <div class="row">
+
+              <div class="col-sm-12">
+                <h3 id="heat">Heat Waves</h3>
+              </div>
+
+              <div class="col-sm-7">
+
+                <p>Heat waves will become more frequent and intense, increasing heat-related illness and death and posing new challenges to the energy system, air quality, and agriculture.</p>
+
+                <div class="row">
+
+                  <div class="col-sm-6">
+                      <h4>Data Product</h4>
+                      <ul class="with-icons">
+                        <li><a href="#"><span class="glyphicon glyphicon-stats"></span> Go to data visualization </a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-download-alt"></span> Download data </a></li>
+                      </ul>
+                  </div>
+
+                  <div class="col-sm-6">
+                    
+                      <h4>Highlighted Resources</h4>
+                      <%= render_highlights(@data, 'heat') %>
+
+                      <p><a href="#">All resources <i class="fa fa-angle-double-right"></i></a></p>
+                    
+                  </div>
+
+                </div>
+
+              </div><!-- end col-sm-7 -->
+
+              <div class="col-sm-5">
+                  <%= image_tag "nyccsc/impacts/heatwaves.png", class:"img-responsive img-border" %>
+                  <p class="small">The chart shows... </p>
+              </div>
+
+          </div>
+
+        </article>
+
+        <article>
+
+          <div class="row">
+
+              <div class="col-sm-12">
+                <h3 id="heavy">Heavy Downpours</h3>
+              </div>
+
+              <div class="col-sm-7">
+
+                <p>Heavy downpours are increasing and are projected to increase further. These can lead to flooding and related impacts on water quality, infrastructure, and agriculture.</p>
+
+                <div class="row">
+
+                  <div class="col-sm-6">
+                    
+                      <h4>Data Product</h4>
+                      <ul class="with-icons">
+                        <li><a href="#"><span class="glyphicon glyphicon-stats"></span> Go to data visualization </a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-download-alt"></span> Download data </a></li>
+                      </ul>
+                    
+                  </div>
+
+                  <div class="col-sm-6">
+                    
+                      <h4>Highlighted Resources</h4>
+                      <%= render_highlights(@data, 'downpours') %>
+                      <p><a href="#">All resources <i class="fa fa-angle-double-right"></i></a></p>
+                    
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="col-sm-5"> 
+                  <%= image_tag "nyccsc/impacts/heavydownpours.png", class:"img-responsive img-border" %>
+                  <p class="small">The chart shows... </p>
+              </div>
+
+          </div>
+
+        </article>
+
+
+        <article>
+
+          <div class="row">
+
+              <div class="col-sm-12">
+                <h3 id="summer">Summer Drought</h3>
+              </div>
+
+              <div class="col-sm-7">
+
+                <p>Summer drought is projected to increase, affecting water supply, agriculture, ecosystems, and energy production.</p>
+
+                <div class="row">
+
+                  <div class="col-sm-6">
+                    
+                      <h4>Data Product</h4>
+                      <ul class="with-icons">
+                        <li><a href="#"><span class="glyphicon glyphicon-stats"></span> Go to data visualization </a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-download-alt"></span> Download data </a></li>
+                      </ul>
+                    
+                  </div>
+
+                  <div class="col-sm-6">
+                    
+                      <h4>Highlighted Resources</h4>
+                      <%= render_highlights(@data, 'drought') %>
+                      <p><a href="#">All resources <i class="fa fa-angle-double-right"></i></a></p>
+                    
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="col-sm-5">
+                  <%= image_tag "nyccsc/impacts/drought.png", class:"img-responsive img-border" %>
+                  <p class="small">The chart shows... </p>
+              </div>
+
+          </div>
+
+        </article>
+
+        <article> 
+
+          <div class="row">
+
+              <div class="col-sm-12">
+                <h3 id="extreme">Extreme Weather</h3>
+              </div>
+
+              <div class="col-sm-7">
+
+                <p>Extreme weather can have a big impact in a short time.  Climate models predict significant changes in the frequency and intensity of some extreme weather events over the coming decades.  New Yorkers can expect more and longer-lasting heat waves and fewer extreme cold events as well as more heavy rainfalls and short-duration droughts.</p>
+
+                <div class="row">
+
+                  <div class="col-sm-6">
+                    
+                      <h4>Data Product</h4>
+                      <ul class="with-icons">
+                        <li><a href="#"><span class="glyphicon glyphicon-stats"></span> Go to data visualization </a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-download-alt"></span> Download data </a></li>
+                      </ul>
+                    
+                  </div>
+
+                  <div class="col-sm-6">
+                    
+                      <h4>Highlighted Resources</h4>
+                      <%= render_highlights(@data, 'extreme') %>
+                      <p><a href="#">All resources <i class="fa fa-angle-double-right"></i></a></p>
+                    
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="col-sm-5">
+                  <%= image_tag "nyccsc/impacts/extreme-weather.png", class:"img-responsive img-border" %>
+                  <p class="small">Photo credit: </p>
+              </div>
+          </div>
+
+        </article>
+              
+        <article>
+
+          <div class="row">
+         
+              <div class="col-sm-12">
+                <h3 id="snowpack">Snowpack Decline</h3>
+              </div>
+
+              <div class="col-sm-7">
+
+                <p>The accumulation of winter snow is projected to decline sharply by the end of this century.  This decline has implications for New York’s water supply and for tourism.  Skiing and snowmobiling contribute close to $2 billion to New York State’s economy each year, and the success of these recreational industries depends directly on a healthy snowpack.  </p>
+
+                <div class="row">
+
+                  <div class="col-sm-6">
+                    
+                      <h4>Data Product</h4>
+                      <ul class="with-icons">
+                        <li><a href="#"><span class="glyphicon glyphicon-stats"></span> Go to data visualization </a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-download-alt"></span> Download data </a></li>
+                      </ul>
+                    
+                  </div>
+
+                  <div class="col-sm-6">
+                    
+                      <h4>Highlighted Resources</h4>
+                      <%= render_highlights(@data, 'snowpack') %>
+                      <p><a href="#">All resources <i class="fa fa-angle-double-right"></i></a></p>
+                    
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="col-sm-5">
+                  <img class="img-responsive" src="http://fpoimg.com/600x600?text=Placeholder Image" alt="Generic placeholder image">
+                  <p class="small">The chart shows... </p>
+              </div>
+          </div>
+           
+        </article>
+        
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+
+/* activate sidebar */
+$('#sidebar').affix({
+  offset: {
+    top: 260
+  }
+});
+
+/* activate scrollspy menu */
+var $body   = $(document.body);
+var navHeight = $('.navbar').outerHeight(true) + $('section.page-title').outerHeight(true) + 10;
+
+$body.scrollspy({
+  target: '#leftCol',
+  offset: navHeight
+});
+
+</script>
+
+    
+

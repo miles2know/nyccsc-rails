@@ -18,19 +18,17 @@ Rails.application.routes.draw do
   blacklight_for:catalog, :constraints => {:id => /|.*/}
 
   get 'pages/understand'
-  get 'pages/risks'
-  get 'pages/strategies'
-  get 'pages/news'
-  get 'pages/panels'
   get 'pages/dataopt1'
   get 'pages/dataopt2'
   get 'pages/dataopt3'
   get 'pages/map'
   get 'pages/mapUber'
 
-  get 'highlights/feature'
-  get 'highlights/gis'
+  get 'highlights/events'
+  get 'highlights/strategies'
+  get 'highlights/impacts'
   
+
   get 'proxy/data'
 
   post "/catalog/set_map_preference", :to => 'catalog#set_map_preference', :as => :map
