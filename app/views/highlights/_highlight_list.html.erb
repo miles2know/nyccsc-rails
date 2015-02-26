@@ -1,0 +1,7 @@
+
+<!-- not used, decided to use highlights_helper instead -->
+<% @data['results']['bindings'].each do |item| %>
+  <% if item['collectionURI']['value'] == '' %>
+  <li><%= item['resourceLabel']['value'].html_safe %></li>
+  <% end %>
+<% end %>

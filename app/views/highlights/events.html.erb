@@ -1,0 +1,34 @@
+<section class="page-title">
+  <div class="container">
+    <h1>Events</h1>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+
+    <div class="row">
+      <div class="col-sm-12">
+
+        <% @data['results']['bindings'].each do |item| %>
+          <h3><%= item['label']['value'].html_safe %></h3>
+
+          <% if item.has_key?('location') %>
+            <p><%= item['location']['value'].html_safe %></p>
+          <% end %>
+
+          <% if item.has_key?('datetime') %>
+            <p><%= item['datetime']['value'].html_safe %></p>
+          <% end %>
+
+          <% if item.has_key?('description') %>
+            <p><%= item['description']['value'].html_safe %></p>
+          <% end %>
+        
+        <% end %>
+
+      </div>
+    </div>
+
+  </div>
+</section>
