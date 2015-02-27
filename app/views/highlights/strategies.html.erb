@@ -11,16 +11,38 @@
 <div class="container">
 
   <div class="row">
-    <div class="col-sm-6">
+
+    <div class="col-sm-9">
+      <article>
+        
+            <h3>Steps in Building Climate Resilience </h3>
+            <p>Reducing the level of physical, social, or economic impact of climate variability and change through knowledge of  climate risk information, vulnerabilities, and adaptation options.</p>
+        
+            <h5>1. Identify the Problem</h5>
+            <%= render_highlights(@data, 'step1') %>
+
+            <h5>2. Determine Vulnerabilities</h5>
+            <%= render_highlights(@data, 'step2') %>
+
+            <h5>3. Investigate Options</h5>
+            <%= render_highlights(@data, 'step3') %>
+
+            <h5>4. Evaluate Risks and Costs</h5>
+            <%= render_highlights(@data, 'step4') %>
+
+            <h5>5. Take Action</h5>
+            <%= render_highlights(@data, 'step5') %>
+          
+      </article>
+    </div>
+
+    <div class="col-sm-3">
       
       <article>
       <%= image_tag "nyccsc/strategies/stock-photo-28378566-bridge-that-gap.jpg", class:"img-responsive img-border" %>
       <h3>Adaptation</h3>
         <%= render_highlights(@data, 'adaptation') %>
       </article>
-
-    </div>
-    <div class="col-sm-6">
 
       <article>
       <%= image_tag "nyccsc/strategies/stock-photo-4533632-two-wind-turbines-at-twilight-in-autumn.jpg", class:"img-responsive img-border" %>   
@@ -29,37 +51,10 @@
       </article>
 
     </div>
+
   </div>
 
-  <article>
-    <div class="row">
-      <div class="col-sm-6">
-        <h3>Steps in Building Climate Resilience </h3>
-      </div>
-      <div class="col-sm-6">
-        <p class="pull-right">Reducing the level of physical, social, or economic impact of climate variability and change through knowledge of  climate risk information, vulnerabilities, and adaptation options. </p>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-sm-12">
-        <h5>1. Identify the Problem</h5>
-        <%= render_highlights(@data, 'step1') %>
-
-        <h5>2. Determine Vulnerabilities</h5>
-        <%= render_highlights(@data, 'step2') %>
-
-        <h5>3. Investigate Options</h5>
-        <%= render_highlights(@data, 'step3') %>
-
-        <h5>4. Evaluate Risks and Costs</h5>
-        <%= render_highlights(@data, 'step4') %>
-
-        <h5>5. Take Action</h5>
-        <%= render_highlights(@data, 'step5') %>
-      </div>
-    </div>
-  </article>
+  
 
 </div>
 

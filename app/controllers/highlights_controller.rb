@@ -51,15 +51,20 @@ class HighlightsController < ApplicationController
           "PREFIX xsd:      <http://www.w3.org/2001/XMLSchema#> " + 
           "PREFIX owl:      <http://www.w3.org/2002/07/owl#> " + 
           "PREFIX ccsc:      <http://nyclimateclearinghouse.org/ontology/> " + 
-          " SELECT ?resourceURI ?label ?location ?datetime ?description" +
-          " WHERE { " + 
-          "?resourceURI rdfs:label ?label . " +
-          "<http://nyclimateclearinghouse.org/individual/n14708> <http://nyclimateclearinghouse.org/ontology/includesHighlightedResource> ?resourceURI . " +
-          "OPTIONAL {?resourceURI <http://purl.obolibrary.org/obo/RO_0001025> ?locationURI . ?locationURI rdfs:label ?location . } " +
-          "OPTIONAL {?resourceURI <http://vivoweb.org/ontology/core#dateTimeInterval> ?datetimeURI . ?datetimeURI rdfs:label ?datetime . } " +
-          "OPTIONAL {?resourceURI <http://vivoweb.org/ontology/core#description> ?descriptionURI . ?descriptionURI rdfs:label ?description . } " +
+          " SELECT ?resourceURI ?label ?location ?datetimeURI ?start ?end ?description" +
+          " WHERE {" + 
+            " ?resourceURI rdfs:label ?label ." +
+            " <http://nyclimateclearinghouse.org/individual/n14708> <http://nyclimateclearinghouse.org/ontology/includesHighlightedResource> ?resourceURI ." +
+            " OPTIONAL {?resourceURI <http://purl.obolibrary.org/obo/RO_0001025> ?locationURI . ?locationURI rdfs:label ?location . }" +
+            " OPTIONAL {?resourceURI <http://vivoweb.org/ontology/core#dateTimeInterval> ?datetimeURI . }" + 
+            " OPTIONAL {?datetimeURI <http://vivoweb.org/ontology/core#start> ?startURI . " +
+                   " ?startURI <http://vivoweb.org/ontology/core#dateTime> ?start . }" +
+            " OPTIONAL {?datetimeURI <http://vivoweb.org/ontology/core#end> ?endURI . " +
+                   " ?startURI <http://vivoweb.org/ontology/core#dateTime> ?end . }" +
+            " OPTIONAL {?resourceURI <http://vivoweb.org/ontology/core#description> ?description . } " +
           " }"
-    
+
+    Rails.logger.debug("HIGHLIGHTS QUERY:::::::::::::::::::::::::" + @query)
     @encoded_query = URI::encode(@query)
     @base_sparql_url = Rails.application.config.vivo_app_url + '/ajax/sparqlQuery'
     url = URI.parse(@base_sparql_url + "?query=" + @encoded_query)

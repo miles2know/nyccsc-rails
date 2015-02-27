@@ -17,8 +17,12 @@
             <p><%= item['location']['value'].html_safe %></p>
           <% end %>
 
-          <% if item.has_key?('datetime') %>
-            <p><%= item['datetime']['value'].html_safe %></p>
+          <% if item.has_key?('start') %>
+            <p><%= item['start']['value'].html_safe %></p>
+          <% end %>
+
+          <% if item.has_key?('end') %>
+            <p><%= item['end']['value'].html_safe %></p>
           <% end %>
 
           <% if item.has_key?('description') %>
