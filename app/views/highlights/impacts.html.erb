@@ -295,15 +295,18 @@
 <script>
 
 /* activate sidebar */
-$('#sidebar').affix({
-  offset: {
-    top: 260
-  }
-});
 
 /* activate scrollspy menu */
 var $body   = $(document.body);
 var navHeight = $('.navbar').outerHeight(true) + $('section.page-title').outerHeight(true) + 10;
+
+$('#sidebar').affix({
+  offset: {
+    top: 310
+  }
+});
+
+
 
 $body.scrollspy({
   target: '#leftCol',

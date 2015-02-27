@@ -64,15 +64,20 @@ a:hover {
 /*******************************************************************************************/
 
 .padded { padding: 20px; }
+
 .rounded { border-radius: $border-radius-base; }
-.rounded-top {border-top-left-radius: $border-radius-base; border-top-right-radius: $border-radius-base; }
-.rounded-bottom {border-bottom-left-radius: $border-radius-base; border-bottom-right-radius: $border-radius-base; }
-
-.full-width-container {width:100%; min-height:600px;margin:20px auto;}
-.full-width-container:after {clear:both;}
-
-.vertical-offset-md {margin-bottom:40px;}
-.vertical-offset-sm {margin-bottom:20px;}
+.rounded-top {
+  border-top-left-radius: $border-radius-base; 
+  border-top-right-radius: $border-radius-base; 
+}
+.rounded-bottom {
+  border-bottom-left-radius: $border-radius-base; 
+  border-bottom-right-radius: $border-radius-base; 
+}
+.rounded-logo-variety {
+  border-top-right-radius: 10px; 
+  border-bottom-left-radius: 20px; 
+}
 
 .no-margin {margin:0;}
 .no-top-margin {margin-top:0;}
@@ -90,6 +95,7 @@ section {padding: 40px 0;}
 section.page-title {
   background-color: $blue-dark;
   padding: 20px 0;
+  margin-bottom: 20px;
   h1 {
     color: #fff;
   }
@@ -109,7 +115,7 @@ article {
 @media (min-width: 768px) {
   #sidebar.affix-top {
     position: static;
-    margin-top:40px;
+    margin-top:20px;
     width:228px;
   }
   
