@@ -75,7 +75,7 @@ end
 <% if @special_type.nil? or @special_type.empty? -%>
   <%# nothing extra to show -%>
 <% elsif @special_type == "data_product" -%>
-  <%= render 'data_product' %>
+  <%= render 'doc_extension' %>
 <% elsif @special_type == "gis_layer" -%>
   <%= render :partial => 'shared/map_document' %>
   <%#= render 'map_document' %>
