@@ -11,7 +11,7 @@ $(document).ready(function() {
 		if(page_special_type == "gis_layer" && typeof(gisLayers) != "undefined") {
 			gisLayers.onLoad();
 		} else if(page_special_type == "data_product" && typeof(dataProductResults) != "undefined") {
-			dataProductResults.onLoad();
+			// dataProductResults.onLoad();
 		}
 	}
 });
