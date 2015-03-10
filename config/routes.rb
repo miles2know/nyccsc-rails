@@ -17,16 +17,14 @@ Rails.application.routes.draw do
   #allow any characters for id (since SOLR IDs are URIs)
   blacklight_for:catalog, :constraints => {:id => /|.*/}
 
-  get 'pages/understand'
   get 'pages/dataopt1'
   get 'pages/dataopt2'
   get 'pages/dataopt3'
-  get 'pages/map'
-  get 'pages/mapUber'
 
   get 'highlights/events'
   get 'highlights/strategies'
   get 'highlights/impacts'
+  get 'highlights/understand'
   
 
   get 'proxy/data'

@@ -6,11 +6,14 @@ $(document).ready(function() {
   stickyElement('#appliedParams', 73);
   stickyElement('#header-facets');
 
+
+
   //history code that follows requires native.history.js 
   var historySupported = !!(window.history && window.history.pushState);
   if (historySupported) {
 
     History.Adapter.bind(window, 'statechange', function() {
+      console.log('statechange');
       var state = History.getState();
       updatePage(state.url);
     });
@@ -43,17 +46,35 @@ $(document).ready(function() {
       });
     }
 
+    //how to integrate facet search -- no page refresh
+    // $('a.facet_select').on('click', function(e) {
+    //   console.log($(this).attr('id'));
+    //   e.preventDefault();
+    //   History.pushState(null, document.title, window.location.href);
+    // });
+
     // instantiate new map
     geoblacklight = new Map(this, { bbox: [[35.478565,-83.056641], [48.443778,-70.070801]] });
     // set hover listeners on map
     $('#content')
       .on('mouseenter', '#documents [data-layer-id]', function() {
-        var bounds = L.bboxToBounds($(this).data('bbox'));
-        geoblacklight.addBoundsOverlay(bounds);
+        
+        url = "/proxy/data?q=data&querytype=documents&vivo_uri='" + $(this).data('layer-id').replace("vitroIndividual:","") + "'&geojson=true";
+         $.getJSON(url).done(function(data) {
+            geoblacklight.addGeojsonOverlay(data);
+         });
+        
       })
+
+    // .on('mouseenter', '#documents [data-layer-id]', function() {
+    //   var bounds = L.bboxToBounds($(this).data('bbox'));
+    //   geoblacklight.addBoundsOverlay(bounds);
+    // })
+
       .on('mouseleave', '#documents [data-layer-id]', function() {
-        geoblacklight.removeBoundsOverlay();
+        geoblacklight.removeGeojsonOverlay();
       });
+
 
     // add geosearch control to map
     geoblacklight.map.addControl(L.control.geosearch(opts));
