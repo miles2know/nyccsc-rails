@@ -17,7 +17,9 @@ class ProxyController < ApplicationController
     @vivo_linked_data = params["linkeddata"]
     @vivo_sparql_query = params["sparqlquery"]
     @base_solr_url = Blacklight.solr_config[:url] + '/select/?wt=json&q='
-    @base_forestservices = 'http://frontierspatial.com/nyccsc/data/'
+    @base_frontier = 'http://frontierspatial.com/nyccsc/data/'
+    @base_frontier_alt = 'http://frontierspatial.com/JanuarySprint/mapper/v1/'
+
     @base_url = request.env['HTTP_HOST']
     @base_current_url = 'http://' + @base_url + '/proxy/data'
     @data_format = params["format"]
@@ -27,7 +29,11 @@ class ProxyController < ApplicationController
     if (@external)
       result = get_external_data()
     elsif (@querytype) 
-      result = get_geojson_data()
+      if @querytype == 'documents'
+        result = get_geojson_data_for_document()
+      elsif
+        result = get_geojson_data()
+      end
     elsif(@vivo_linked_data)
       result= get_vivo_linkeddata()
       ## Deal with sparql queries
@@ -42,7 +48,7 @@ class ProxyController < ApplicationController
 
   # For forestecoservices/frontierspatial data from their urls
   # This will need to change once we have this data on our own servers
-  def get_geojson_data
+  def get_geojson_data ()
     current_url = request.original_url
 
     Rails.logger.debug("base url is #{@base_current_url} and Querytype parameter does exist and is #{@querytype} and current url is #{current_url}")
@@ -50,7 +56,25 @@ class ProxyController < ApplicationController
     # The url will be passed in as follows: base_current_url?query_type=pagename&other relevant params
     sliced = current_url.slice!(@base_current_url)
     Rails.logger.debug("sliced #{sliced} and current #{current_url}")
-    new_url = @base_forestservices + @querytype + ".php" + current_url
+    new_url = @base_frontier + @querytype + ".php" + current_url
+    Rails.logger.debug("new url is " + new_url)
+    url = URI.parse(new_url)
+    resp = Net::HTTP.get_response(url)
+    data = resp.body
+    result = JSON.parse(data)
+    return result
+
+  end
+
+  def get_geojson_data_for_document ()
+    current_url = request.original_url
+    
+    Rails.logger.debug("::::::::::::::::::::::get_geojson_data_for_document::::::::::::::::::::::::base url is #{@base_current_url} and Querytype parameter does exist and is #{@querytype} and current url is #{current_url}")
+    #Get the current url and get everything after the base url
+    # The url will be passed in as follows: base_current_url?query_type=pagename&other relevant params
+    sliced = current_url.slice!(@base_current_url)
+    Rails.logger.debug("sliced #{sliced} and current #{current_url}")
+    new_url = @base_frontier_alt + @querytype + ".php" + current_url
     Rails.logger.debug("new url is " + new_url)
     url = URI.parse(new_url)
     resp = Net::HTTP.get_response(url)

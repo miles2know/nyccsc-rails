@@ -1,0 +1,27 @@
+<% content_for :title do %>
+  Understand Climate Change | NY Climate Change Science Clearinghouse
+<% end %>
+
+<section class="page-title">
+  <div class="container">
+    <h1><span class="text-uppercase">Understand</span> Climate Change</h1>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="row">
+
+      <div class="col-sm-6">
+        <%= image_tag "nyccsc/understand-infographic.png", class:"img-responsive img-border" %>
+      </div>
+
+      <div class="col-sm-6">
+        <%= render_abstract(@data, 'understand') %>
+        <%= render_highlights(@data, 'understand') %>
+      </div>
+
+    </div>
+
+  </div>
+</section>
