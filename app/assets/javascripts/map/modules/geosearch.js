@@ -97,6 +97,7 @@
           bounds = L.boundsToBbox(this._map.getBounds());
 
       params.push('bbox=' + encodeURIComponent(bounds.join(',')));
+      console.log(this.options.baseUrl + '?' + params.join('&'));
       //params.push('bbox=' + bounds.join(','));
       return this.options.baseUrl + '?' + params.join('&');
     },

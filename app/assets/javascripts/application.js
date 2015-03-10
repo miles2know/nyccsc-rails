@@ -16,10 +16,6 @@
 //Commenting out turbolinks 
 // require turbolinks
 
-// Required by Panels (jquery.layout.js) - NOT used right now
-// require jquery-ui-v1.9.2.js  
-// require jquery.layout-v1.3.0.js
-
 // Required for bootstrap features - carousel, affix, tabs, etc. 
 //= require bootstrap
 
@@ -30,8 +26,8 @@
 //= require leaflet
 //= require typeahead 
 //= require leaflet.markercluster 
-//= require d3
 //= require leaflet.makimarkers
+//= require d3
 
 // Map & Chart related vendor JSs
 //= require L.groupedlayercontrol
@@ -40,7 +36,7 @@
 //= require topojson.js
 //= require d3.legend
 //= require colorbrewer
-//= require jquery.jsticky
+
 
 // Required by Blacklight
 //= require blacklight/blacklight
@@ -48,10 +44,16 @@
 // Required by GeoBlacklight
 //= require bootstrap/tooltip
 
-// Required to dynamically truncate text
+// Required to dynamically truncate text -- not sure yet which one to use, if either??
+//= require readmore.min
 //= require jQuery.succinct.min.js
 
+// Required other interaction 
+//= require jquery.jsticky  
+//= require sticky  
+
 // NOT used right now
-// mapping loaded by page - see /config/initializers/assets.rb and /views/catalog/_map.html.erb
 // require_tree ./map
+// mapping loaded by page instead - see /config/initializers/assets.rb and /views/catalog/_map.html.erb
+
 

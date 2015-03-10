@@ -8,6 +8,7 @@ var Map = L.Class.extend({
 
   basemap: OpenStreetMap_DE,
   overlay: L.layerGroup(),
+  overlayGeojson: L.geoJson(),
 
   initialize: function(el, options) {
     
@@ -51,6 +52,28 @@ var Map = L.Class.extend({
   removeBoundsOverlay: function() {
     this.overlay.clearLayers();
   },
+
+  /**
+  * Add a polygon overlay to map.
+  * @param {L.Geojson} 
+  */
+  addGeojsonOverlay: function(geojson) {
+    this.overlayGeojson = L.geoJson(geojson, {
+      onEachFeature: function (feature, layer) {
+        layer.bindPopup(feature.properties.name);
+      }
+    });
+    this.overlayGeojson.addTo(this.map);
+  },
+
+  /**
+  * Remove polygon overlay from map.
+  */
+  removeGeojsonOverlay: function() {
+    this.map.removeLayer(this.overlayGeojson);
+    //this.overlayGeojson.clearLayers();
+  },
+
   
   //add my location control to map
   addShareMyLocation: function() {

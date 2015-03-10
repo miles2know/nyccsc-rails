@@ -18,9 +18,6 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <a class="panel-title" data-toggle="collapse" data-target="#map-context-layers">Regional Context Layers</a>
-
-            <!-- <input type='checkbox' name='contextLayers' id='all' onChange=toggleRadioLayer('contextLayers','all')>&nbsp;
-            <a class="panel-title" data-toggle="collapse" data-target="#map-context-layers">Regional Context Layers</a> -->
           
           </div>
           <div id="map-context-layers" class="panel-collapse collapse in">
@@ -94,7 +91,7 @@
 
 <%= javascript_include_tag 'map/mapDataOverlays' %>
 <%= javascript_include_tag 'map/mapAddLayer' %>
-<%= javascript_include_tag 'map/mapSearchAlt' %>
+<%#= javascript_include_tag 'map/mapSearchAlt' %>
 
 <!-- bring it all together now -->
 <%= javascript_include_tag 'getGISLayerInfo' %>

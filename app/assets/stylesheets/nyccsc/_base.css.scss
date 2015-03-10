@@ -112,7 +112,7 @@ article {
 /* sidebar navigation */
 /*******************************************************************************************/
 
-@media (min-width: 768px) {
+@media (min-width: $screen-sm-min) {
   #sidebar.affix-top {
     position: static;
     margin-top:20px;

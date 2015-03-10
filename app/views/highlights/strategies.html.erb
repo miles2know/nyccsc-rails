@@ -41,12 +41,14 @@
       <article>
       <%= image_tag "nyccsc/strategies/stock-photo-28378566-bridge-that-gap.jpg", class:"img-responsive img-border" %>
       <h3>Adaptation</h3>
+        <%= render_abstract(@data, 'adaptation') %>
         <%= render_highlights(@data, 'adaptation') %>
       </article>
 
       <article>
       <%= image_tag "nyccsc/strategies/stock-photo-4533632-two-wind-turbines-at-twilight-in-autumn.jpg", class:"img-responsive img-border" %>   
       <h3>Mitigation </h3>     
+        <%= render_abstract(@data, 'mitigation') %>
         <%= render_highlights(@data, 'mitigation') %>
       </article>
 
