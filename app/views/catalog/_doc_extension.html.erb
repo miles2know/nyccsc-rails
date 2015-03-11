@@ -1,8 +1,17 @@
 
 
-<h2>Data Product</h2>
-
-
 <div id="document-extension"></div>
 <script src="/assets/common.bundle.js"></script>
 <script src="/assets/loader.js"></script>
+
+<script type="text/javascript">
+var uri = document.baseURI.split('/');
+var docId = uri[uri.length-1];
+
+if (extensionDefs[docId]) {
+  extensionDefs["n12089"](function(ext) {
+    var extState = ext(document.getElementById("document-extension"),{});
+    console.log(extState());
+  });
+};
+</script>
