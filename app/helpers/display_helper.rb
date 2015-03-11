@@ -321,6 +321,7 @@ module DisplayHelper
   end
 
   def isDataProduct(document)
+    return isDocumentOfType(document, "http://nyclimateclearinghouse.org/ontology/DataProduct")
     return isDocumentOfType(document, "http://nyclimateclearinghouse.org/ontology/DataRetrievalService")
 
   end
