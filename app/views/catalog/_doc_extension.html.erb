@@ -9,7 +9,7 @@ var uri = document.baseURI.split('/');
 var docId = uri[uri.length-1];
 
 if (extensionDefs[docId]) {
-  extensionDefs["n12089"](function(ext) {
+  extensionDefs[docId](function(ext) {
     var extState = ext(document.getElementById("document-extension"),{});
     console.log(extState());
   });
