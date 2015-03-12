@@ -3,3 +3,4 @@
 ## This is an example showing how it would be done
 
 #Rails.application.config.vivo_app_url = "http://localhost:8080/vivo"
+#Rails.application.config.vivo_sparqlapi = "sparqlapiURL"

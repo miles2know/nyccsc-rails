@@ -1,9 +1,0 @@
----
-label: News & Events
-layout: blacklight-template---no-sidebars
-parent: index
-target_page: 
-categories:
-- Primary Page
-is_published: true
-position: 3
