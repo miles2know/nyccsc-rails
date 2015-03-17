@@ -79,3 +79,6 @@ gem 'httparty'
 gem 'tzinfo-data', platforms: [:mingw, :mswin]
 gem "devise"
 gem "devise-guests", "~> 0.3"
+
+#sparql client
+gem 'sparql-client', :git =>'https://github.com/ruby-rdf/sparql-client.git'

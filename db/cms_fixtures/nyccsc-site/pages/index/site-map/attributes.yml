@@ -1,9 +1,0 @@
----
-label: Site Map
-layout: blacklight-template
-parent: index
-target_page: 
-categories:
-- Secondary Page
-is_published: true
-position: 6
