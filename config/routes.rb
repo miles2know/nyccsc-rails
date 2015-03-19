@@ -17,6 +17,14 @@ Rails.application.routes.draw do
   #allow any characters for id (since SOLR IDs are URIs)
   blacklight_for:catalog, :constraints => {:id => /|.*/}
 
+  ###Testing out possible integration####
+  get 'pages/map/customtools/maintool'
+  get 'pages/mapmaintool'
+
+  ####Testing out possible integration####
+    
+    
+    
   get 'pages/dataopt1'
   get 'pages/dataopt2'
   get 'pages/dataopt3'
@@ -31,6 +39,7 @@ Rails.application.routes.draw do
 
   post "/catalog/set_map_preference", :to => 'catalog#set_map_preference', :as => :map
   
+
 
   #Get an error when we try to get constraints below with regular search
   #blacklight_for :catalog, :constraints => { :id => ALLOW_SOLR_DOCIDS, :format => false }

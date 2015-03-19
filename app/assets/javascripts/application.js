@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 
+
 //Commenting out turbolinks 
 // require turbolinks
 

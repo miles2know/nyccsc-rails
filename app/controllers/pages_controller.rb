@@ -12,5 +12,10 @@ class PagesController < ApplicationController
   def dataopt3
     #placeholder
   end
+  
+  ###Testing static page integration###
+  
+  def mapmaintool
+  end
 
 end

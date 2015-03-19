@@ -38,7 +38,8 @@ class CatalogController < ApplicationController
 
     # solr field configuration for document/show views
     config.show.title_field = 'name_display'
-    config.show.display_type_field = 'type'
+    ##Test out different type field
+    config.show.display_type_field = 'most_specific_type_label_facet'
 
 
 

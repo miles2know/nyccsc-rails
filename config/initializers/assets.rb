@@ -27,5 +27,11 @@ Rails.application.config.assets.precompile += %w( dataProductResults.js )
 Rails.application.config.assets.precompile += %w( initContentHandlers.js )
 Rails.application.config.assets.precompile += %w( getGISLayerInfo.js )
 
+##Making the map stuff availabe
+Rails.application.config.assets.precompile += %w( jquery.ui.all.js )
+Rails.application.config.assets.precompile += %w( map/*_mapbundle.js )
 
+##Css
+Rails.application.config.assets.precompile += %w( jquery.ui.all.css )
+Rails.application.config.assets.precompile += %w( map/app.css )
 

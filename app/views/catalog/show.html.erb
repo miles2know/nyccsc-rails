@@ -1,3 +1,5 @@
+<% if !isGISLayerTool(@document) %>
+
 
 <div id="main-container" class="container">
 
@@ -31,16 +33,19 @@
     <% end %>
 
   </div>
-
+  
+	<% if !isGISLayerTool(@document) %>
   <div id="sidebar" class="col-md-3">
-     <%= render_document_sidebar_partial %>
+     <%= render_document_sidebar_partial  %>
   </div>
+  <% end %>
 
 </div>
 
 <% # for ajax sparql query requests %>
 <script type="text/javascript">
 var sparqlQueryURI = "<%=@document["URI"]%>";
+var documentURI = "<%=@document["URI"]%>";
 
 <%
 ## Pass special type to the javascript so we can do type specific queries if need be
@@ -49,7 +54,9 @@ if !@special_type.nil? and !@special_type.empty?
 	
 	var page_special_type = "<%=@special_type%>";
 	//Any data we may need for a special page, e.g. GIS or data product 
-	var special_page_data = {};
+	var special_page_data = {
+		
+	};
 	
 	<%
 end
@@ -71,3 +78,12 @@ end
 %>
 
 <%= javascript_include_tag 'initContentHandlers' %>
+
+<% else %>
+<div id="main-container" class="container">
+
+<%= render :partial => "map/mapcollection" %>
+</div>
+<%
+end
+%>
