@@ -321,12 +321,11 @@ module DisplayHelper
   end
   
 def isGISLayerTool(document)
-   return isDocumentOfType(document, "http://nyclimateclearinghouse.org/individual/gisLayerTool")
+   return isDocumentOfType(document, "http://nyclimateclearinghouse.org/ontology/gisLayerTool")
  end
 
   def isDataProduct(document)
     return isDocumentOfType(document, "http://nyclimateclearinghouse.org/ontology/DataProduct")
-    return isDocumentOfType(document, "http://nyclimateclearinghouse.org/ontology/DataRetrievalService")
 
   end
 

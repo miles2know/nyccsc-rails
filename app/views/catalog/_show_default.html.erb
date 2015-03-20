@@ -5,17 +5,6 @@
 <%#We get this information not from the Solr index but from the VIVO information-%>
 
 <%
-## Determine what type this is to handle maps and/or GIS layers
-is_GIS_layer = isGISLayer(document)
-# May need to tweak this based on what else is a data retrieval service
-is_data_product = isDataProduct(document)
-if is_data_product
-	@special_type = "data_product"
-elsif is_GIS_layer
-	@special_type = "gis_layer"
-end
-
-
 # Get all the VIVO properties
 all_properties = retrieve_individual_profile_properties_for_show(document)
 display_hash = display_all_properties(all_properties)
@@ -72,12 +61,4 @@ end
 </div>
 <hr>
 
-<% if @special_type.nil? or @special_type.empty? -%>
-  <%# nothing extra to show -%>
-<% elsif @special_type == "data_product" -%>
-  <%= render 'doc_extension' %>
-<% elsif @special_type == "gis_layer" -%>
-  <%= render :partial => 'shared/map_document' %>
-  <%#= render 'map_document' %>
-<% end -%>
 

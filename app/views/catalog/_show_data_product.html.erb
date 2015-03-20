@@ -1,0 +1,9 @@
+<%# Partial to display data product information -%>
+<%# Render default partial here, but this can always be changed as needed - renders details about item -%>
+<%# Sending along all the local variables available at this level to the default view-%>
+<%= render :partial => 'show_default', :locals=>local_assigns %>
+
+<div id="document-extension"></div>
+
+<%= javascript_include_tag 'data/common.bundle.js' %>
+<%= javascript_include_tag 'data/loader.js' %>
