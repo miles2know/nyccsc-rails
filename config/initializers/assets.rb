@@ -28,7 +28,10 @@ Rails.application.config.assets.precompile += %w( initContentHandlers.js )
 Rails.application.config.assets.precompile += %w( getGISLayerInfo.js )
 
 ##Making jquery ui available
+##This will be different for Rails 4, to do: UPDATE
 Rails.application.config.assets.precompile += %w( jquery.ui.all.js )
+Rails.application.config.assets.precompile += %w( jquery.ui.slider.js )
+Rails.application.config.assets.precompile += %w( jquery.ui.selectmenu.js )
 
 ##Making the map stuff available
 Rails.application.config.assets.precompile += %w( map/*_mapbundle.js )
@@ -40,4 +43,5 @@ Rails.application.config.assets.precompile += %w( data/loader.js )
 ##Css
 Rails.application.config.assets.precompile += %w( jquery.ui.all.css )
 Rails.application.config.assets.precompile += %w( map/app.css )
+Rails.application.config.assets.precompile += %w( map/map.css )
 
